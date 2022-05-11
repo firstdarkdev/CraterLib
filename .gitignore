@@ -1,29 +1,24 @@
-### IntelliJ IDEA ###
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
+# eclipse
+bin
+*.launch
 .settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+.metadata
+.classpath
+.project
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
 
-### VS Code ###
-.vscode/
+# gradle
+build
+.gradle
 
-### Mac OS ###
-.DS_Store
+# other
+eclipse
+run
+
+artifacts

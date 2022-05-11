@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package me.hypherionmc.craterlib;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -71,3 +71,20 @@ publishing {
         }
     }
 }
+
+task delDevJar {
+    doLast {
+        def tree = fileTree('build/libs')
+        tree.include '**/*-dev.jar'
+        tree.each { it.delete() }
+    }
+}
+build.finalizedBy delDevJar
+
+task copyAllArtifacts(type: Copy) {
+    from "$buildDir/libs"
+    into "$rootDir/artifacts"
+    include("*.jar")
+}
+
+build.finalizedBy(copyAllArtifacts);

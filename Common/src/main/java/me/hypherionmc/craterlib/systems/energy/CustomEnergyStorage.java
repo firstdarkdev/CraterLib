@@ -1,4 +1,4 @@
-package me.hypherionmc.craterlib.systems;
+package me.hypherionmc.craterlib.systems.energy;
 
 import net.minecraft.nbt.CompoundTag;
 

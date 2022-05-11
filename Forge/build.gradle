@@ -115,3 +115,11 @@ publishing {
         }
     }
 }
+
+task copyAllArtifacts(type: Copy) {
+    from "$buildDir/libs"
+    into "$rootDir/artifacts"
+    include("*.jar")
+}
+
+build.finalizedBy(copyAllArtifacts);

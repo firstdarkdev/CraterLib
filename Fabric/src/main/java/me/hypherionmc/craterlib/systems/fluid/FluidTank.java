@@ -1,29 +1,28 @@
-package me.hypherionmc.hyperlighting.api.fluid;
+package me.hypherionmc.craterlib.systems.fluid;
 
-import me.hypherionmc.hyperlighting.utils.ModUtils;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StoragePreconditions;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleViewIterator;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.CompoundTag;
 
 import java.util.Iterator;
 import java.util.function.Predicate;
 
-public class FluidStorageTank implements Storage<FluidVariant>, StorageView<FluidVariant> {
+public class FluidTank implements Storage<FluidVariant>, StorageView<FluidVariant> {
 
     private final long capacity;
     private final Predicate<FluidVariant> validFluid;
     private long level = 0;
     private FluidVariant fluid = FluidVariant.blank();
 
-    public FluidStorageTank(long capacity) {
+    public FluidTank(long capacity) {
         this(capacity, e -> true);
     }
 
-    public FluidStorageTank(long capacity, Predicate<FluidVariant> validFluid) {
+    public FluidTank(long capacity, Predicate<FluidVariant> validFluid) {
         this.capacity = capacity;
         this.validFluid = validFluid;
     }
@@ -87,14 +86,14 @@ public class FluidStorageTank implements Storage<FluidVariant>, StorageView<Flui
         return SingleViewIterator.create(this, transaction);
     }
 
-    public NbtCompound writeNbt(NbtCompound compound) {
-        ModUtils.putFluid(compound, "fluid", getResource());
+    public CompoundTag writeNbt(CompoundTag compound) {
+        FluidUtils.putFluid(compound, "fluid", getResource());
         compound.putLong("amt", level);
         return compound;
     }
 
-    public void readNbt(NbtCompound nbtCompound) {
-        fluid = ModUtils.getFluidCompatible(nbtCompound, "fluid");
+    public void readNbt(CompoundTag nbtCompound) {
+        fluid = FluidUtils.getFluidCompatible(nbtCompound, "fluid");
         level = nbtCompound.getLong("amt");
     }
 }

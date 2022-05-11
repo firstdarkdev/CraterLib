@@ -1,7 +1,7 @@
-package com.example.examplemod.platform;
+package me.hypherionmc.craterlib.platform;
 
-import com.example.examplemod.Constants;
-import com.example.examplemod.platform.services.IPlatformHelper;
+import me.hypherionmc.craterlib.Constants;
+import me.hypherionmc.craterlib.platform.services.IPlatformHelper;
 
 import java.util.ServiceLoader;
 

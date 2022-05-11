@@ -1,26 +1,26 @@
-package me.hypherionmc.hyperlighting.utils;
+package me.hypherionmc.craterlib.util;
 
-import net.minecraft.text.BaseText;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public class LangUtils {
 
-    public static BaseText getTooltipTitle(String key) {
-        return new LiteralText(Formatting.YELLOW + new TranslatableText(key).getString());
+    public static Component getTooltipTitle(String key) {
+        return new TextComponent(ChatFormatting.YELLOW + new TranslatableComponent(key).getString());
     }
 
     public static String resolveTranslation(String key) {
-        return new TranslatableText(key).getString();
+        return new TranslatableComponent(key).getString();
     }
 
-    public static BaseText getTranslation(String key) {
-        return new TranslatableText(key);
+    public static Component getTranslation(String key) {
+        return new TranslatableComponent(key);
     }
 
-    public static BaseText makeComponent(String text) {
-        return new LiteralText(text);
+    public static Component makeComponent(String text) {
+        return new TranslatableComponent(text);
     }
 
 }

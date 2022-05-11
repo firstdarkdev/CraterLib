@@ -1,4 +1,4 @@
-package me.hypherionmc.craterlib.api;
+package me.hypherionmc.craterlib.api.blockentities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

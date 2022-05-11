@@ -1,2 +1,9 @@
-package me.hypherionmc.craterlib.api.rendering;public interface CustomRenderType {
+package me.hypherionmc.craterlib.api.rendering;
+
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+
+public interface CustomRenderType {
+
+    RenderLayer getCustomRenderType();
+
 }
