@@ -84,4 +84,9 @@ subprojects {
     clean {
         delete "$rootDir/artifacts"
     }
+
+    preCleanJenkins {
+        delete "$rootDir/artifacts"
+        from "$buildDir/libs"
+    }
 }
