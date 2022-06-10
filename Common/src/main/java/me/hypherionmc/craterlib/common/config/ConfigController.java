@@ -1,0 +1,42 @@
+package me.hypherionmc.craterlib.common.config;
+
+import me.hypherionmc.craterlib.Constants;
+import me.hypherionmc.nightconfig.core.file.FileWatcher;
+
+import java.io.Serializable;
+import java.util.HashMap;
+
+/**
+ * Controls Config File Reloads and Events
+ */
+public class ConfigController implements Serializable {
+
+    /**
+     * Cache of registered configs
+     */
+    private static final HashMap<Object, FileWatcher> monitoredConfigs = new HashMap<>();
+
+    /**
+     * INTERNAL METHOD - Register and watch the config
+     *
+     * @param config - The config class to register and watch
+     */
+    static void register_config(ModuleConfig config) {
+        if (monitoredConfigs.containsKey(config)) {
+            Constants.LOG.error("Failed to register " + config.getConfigPath().getName() + ". Config already registered");
+        } else {
+            FileWatcher configWatcher = new FileWatcher();
+            try {
+                configWatcher.setWatch(config.getConfigPath(), () -> {
+                    Constants.LOG.info("Sending Reload Event for: " + config.getConfigPath().getName());
+                    config.configReloaded();
+                });
+            } catch (Exception e) {
+                Constants.LOG.error("Failed to register " + config.getConfigPath().getName() + " for auto reloading. " + e.getMessage());
+            }
+            monitoredConfigs.put(config, configWatcher);
+            Constants.LOG.info("Registered " + config.getConfigPath().getName() + " successfully!");
+        }
+    }
+
+}

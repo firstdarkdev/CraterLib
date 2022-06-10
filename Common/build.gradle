@@ -2,11 +2,13 @@ plugins {
     id 'java'
     id 'org.spongepowered.gradle.vanilla' version '0.2.1-SNAPSHOT'
     id 'maven-publish'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 archivesBaseName = "${mod_name}-common-${minecraft_version}"
 
 minecraft {
+    accessWideners(project.file("src/main/resources/craterlib.aw"))
     version(minecraft_version)
     runs {
         if (project.hasProperty('common_runs_enabled') ? project.findProperty('common_runs_enabled').toBoolean() : true) {
@@ -22,7 +24,7 @@ minecraft {
 }
 
 dependencies {
-     compileOnly group:'org.spongepowered', name:'mixin', version:'0.8.5'
+    compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
 }
 
 processResources {
@@ -32,6 +34,20 @@ processResources {
         expand buildProps
     }
 }
+
+shadowJar {
+    dependencies {
+        include(dependency('me.hypherionmc.night-config:toml:3.6.5_custom'))
+        include(dependency('me.hypherionmc.night-config:core:3.6.5_custom'))
+
+        //relocate 'me.hypherionmc.nightconfig', 'shadow.hypherionmc.nightconfig'
+    }
+    classifier ''
+}
+
+build.dependsOn shadowJar
+reg.configureJarTask(shadowJar)
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -39,12 +55,26 @@ publishing {
             artifactId project.archivesBaseName
             version project.version
             from components.java
+            pom.withXml {
+                Node pomNode = asNode()
+                pomNode.dependencies.'*'.findAll() {
+                    it.artifactId.text() == 'regutils-joined-fabric' ||
+                            it.artifactId.text() == 'core' ||
+                            it.artifactId.text() == 'toml'
+                }.each() {
+                    it.parent().remove(it)
+                }
+            }
         }
     }
 
     repositories {
         maven {
-            url "file://" + System.getenv("local_maven")
+            url "https://maven.firstdarkdev.xyz/" + (project.isSnapshot ? "snapshots" : "releases")
+            credentials {
+                username System.getenv("MAVEN_USER")
+                password System.getenv("MAVEN_PASS")
+            }
         }
     }
 }

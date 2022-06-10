@@ -11,10 +11,13 @@ dependencies {
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    include 'me.hypherionmc.night-config:toml:3.6.5_custom'
+    include 'me.hypherionmc.night-config:core:3.6.5_custom'
     implementation project(":Common")
 }
 
 loom {
+    accessWidenerPath = project(":Common").file("src/main/resources/craterlib.aw")
     runs {
         client {
             client()
@@ -62,12 +65,26 @@ publishing {
             artifactId project.archivesBaseName
             version project.version
             from components.java
+            pom.withXml {
+                Node pomNode = asNode()
+                pomNode.dependencies.'*'.findAll() {
+                    it.artifactId.text() == 'regutils-joined-fabric' ||
+                            it.artifactId.text() == 'core' ||
+                            it.artifactId.text() == 'toml'
+                }.each() {
+                    it.parent().remove(it)
+                }
+            }
         }
     }
 
     repositories {
         maven {
-            url "file://" + System.getenv("local_maven")
+            url "https://maven.firstdarkdev.xyz/" + (project.isSnapshot ? "snapshots" : "releases")
+            credentials {
+                username System.getenv("MAVEN_USER")
+                password System.getenv("MAVEN_PASS")
+            }
         }
     }
 }

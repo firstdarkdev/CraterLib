@@ -4,6 +4,9 @@ import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 
+/**
+ * A custom slider widget used for Time. Mostly used by the Hyper Lighting Smoke Machine
+ */
 public class TimeSliderWidget extends AbstractSliderButton {
 
     private final double maxValue;

@@ -6,6 +6,9 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 
+/**
+ * A custom water bucket that supports Dye Colors
+ */
 public class DyableWaterBucket extends BucketItem implements ItemDyable {
 
     private final DyeColor color;
@@ -17,6 +20,12 @@ public class DyableWaterBucket extends BucketItem implements ItemDyable {
         this.isGlowing = isGlowing;
     }
 
+    /**
+     * Normally this is used for enchanted items, in this case, it's used to check if the fluid is a glowing fluid
+     *
+     * @param stack
+     * @return
+     */
     @Override
     public boolean isFoil(ItemStack stack) {
         return this.isGlowing;

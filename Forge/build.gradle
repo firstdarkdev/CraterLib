@@ -9,6 +9,9 @@ buildscript {
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
+}
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
@@ -97,7 +100,22 @@ processResources {
     }
 }
 
+shadowJar {
+    dependencies {
+        include(dependency('me.hypherionmc.night-config:toml:3.6.5_custom'))
+        include(dependency('me.hypherionmc.night-config:core:3.6.5_custom'))
 
+        //relocate 'me.hypherionmc.nightconfig', 'shadow.hypherionmc.nightconfig'
+    }
+    classifier ''
+}
+
+reobf {
+    shadowJar {}
+}
+
+build.dependsOn reobfShadowJar
+reg.configureJarTask(shadowJar)
 jar.finalizedBy('reobfJar')
 
 publishing {
@@ -106,12 +124,26 @@ publishing {
             groupId project.group
             artifactId project.archivesBaseName
             version project.version
-            artifact jar
+            artifact shadowJar
+            pom.withXml {
+                Node pomNode = asNode()
+                pomNode.dependencies.'*'.findAll() {
+                    it.artifactId.text() == 'regutils-joined-fabric' ||
+                            it.artifactId.text() == 'core' ||
+                            it.artifactId.text() == 'toml'
+                }.each() {
+                    it.parent().remove(it)
+                }
+            }
         }
     }
     repositories {
         maven {
-            url "file://" + System.getenv("local_maven")
+            url "https://maven.firstdarkdev.xyz/" + (project.isSnapshot ? "snapshots" : "releases")
+            credentials {
+                username System.getenv("MAVEN_USER")
+                password System.getenv("MAVEN_PASS")
+            }
         }
     }
 }
@@ -122,4 +154,4 @@ task copyAllArtifacts(type: Copy) {
     include("*.jar")
 }
 
-build.finalizedBy(copyAllArtifacts);
+build.finalizedBy(copyAllArtifacts)

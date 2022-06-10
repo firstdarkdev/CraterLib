@@ -1,42 +1,39 @@
 {
-    "schemaVersion": 1,
-    "id": "craterlib",
-    "version": "${version}",
-
-    "name": "CraterLib",
-    "description": "A library mod used by HypherionSA's Mods",
-    "authors": [
-      "Me!"
+  "schemaVersion": 1,
+  "id": "craterlib",
+  "version": "${version}",
+  "name": "CraterLib",
+  "description": "A library mod used by HypherionSA's Mods",
+  "authors": [
+    "Me!"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "MIT",
+  "icon": "assets/modid/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "me.hypherionmc.craterlib.CraterLibInitializer"
     ],
-    "contact": {
-      "homepage": "https://fabricmc.net/",
-      "sources": "https://github.com/FabricMC/fabric-example-mod"
-    },
-
-    "license": "MIT",
-    "icon": "assets/modid/icon.png",
-
-    "environment": "*",
-    "entrypoints": {
-      "main": [
-        "me.hypherionmc.craterlib.CraterLibInitializer"
-      ],
-      "client": [
-        "me.hypherionmc.craterlib.client.CraterLibClientInitializer"
-      ]
-    },
-    "mixins": [
-      "craterlib.mixins.json",
-      "craterlib.fabric.mixins.json"
-    ],
-
-    "depends": {
-      "fabricloader": ">=0.12",
-      "fabric": "*",
-      "minecraft": "1.18.x",
-      "java": ">=17"
-    },
-    "suggests": {
-      "another-mod": "*"
-    }
+    "client": [
+      "me.hypherionmc.craterlib.client.CraterLibClientInitializer"
+    ]
+  },
+  "mixins": [
+    "craterlib.mixins.json",
+    "craterlib.fabric.mixins.json"
+  ],
+  "accessWidener": "craterlib.aw",
+  "depends": {
+    "fabricloader": ">=0.12",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
   }
+}

@@ -1,31 +1,31 @@
-modLoader="javafml"
-loaderVersion="[40,)"
-license="MIT"
+modLoader = "javafml"
+loaderVersion = "[40,)"
+license = "MIT"
 #issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
 
 [[mods]]
-modId="craterlib"
-version="${file.jarVersion}"
-displayName="CraterLib"
+modId = "craterlib"
+version = "${file.jarVersion}"
+displayName = "CraterLib"
 #updateJSONURL="https://change.me.example.invalid/updates.json"
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
-logoFile="multiloader.png"
+logoFile = "multiloader.png"
 #credits="Thanks for this example mod goes to Java"
-authors="HypherionSA, Misha"
-description='''
+authors = "HypherionSA, Misha"
+description = '''
 A library mod used by HypherionSA's Mods
 '''
 
 [[dependencies.craterlib]]
-    modId="forge"
-    mandatory=true
-    versionRange="[40,)"
-    ordering="NONE"
-    side="BOTH"
+modId = "forge"
+mandatory = true
+versionRange = "[40,)"
+ordering = "NONE"
+side = "BOTH"
 
 [[dependencies.craterlib]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.18.2,1.19)"
-    ordering="NONE"
-    side="BOTH"
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18.2,1.19)"
+ordering = "NONE"
+side = "BOTH"

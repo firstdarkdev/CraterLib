@@ -17,6 +17,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 import java.util.List;
 
+/**
+ * Custom Water Bottle item that supports Dye and can be used as Dye
+ */
 public class DyableWaterBottle extends DyeItem implements ItemDyable {
 
     private final DyeColor color;
@@ -28,16 +31,35 @@ public class DyableWaterBottle extends DyeItem implements ItemDyable {
         this.isGlowing = isGlowing;
     }
 
+    /**
+     * Normally this is used for enchanted items, in this case, it's used to check if the fluid is a glowing fluid
+     *
+     * @param stack
+     * @return
+     */
     @Override
     public boolean isFoil(ItemStack stack) {
         return this.isGlowing;
     }
 
+    /**
+     * Return the color of the item for the Color Handler
+     *
+     * @return
+     */
     @Override
     public DyeColor getColor() {
         return this.color;
     }
 
+    /**
+     * This is basically the same as the vanilla method for water bottles
+     *
+     * @param stack
+     * @param level
+     * @param user
+     * @return
+     */
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity user) {
         Player playerEntity;

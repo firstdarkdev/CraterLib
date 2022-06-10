@@ -25,7 +25,8 @@ public class OptifineUtils {
             Class ofConfigClass = Class.forName("net.optifine.Config");
             Method rrField = ofConfigClass.getMethod("isRenderRegions");
             return (boolean) rrField.invoke(null);
-        } catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+        } catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException |
+                 IllegalAccessException e) {
             // Optifine is probably not present. Ignore the error
             return false;
         } catch (Exception e) {

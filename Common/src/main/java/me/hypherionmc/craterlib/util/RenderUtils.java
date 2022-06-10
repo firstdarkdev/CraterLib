@@ -39,12 +39,15 @@ public class RenderUtils {
         public static int alpha(int pPackedColor) {
             return pPackedColor >>> 24;
         }
+
         public static int red(int pPackedColor) {
             return pPackedColor >> 16 & 255;
         }
+
         public static int green(int pPackedColor) {
             return pPackedColor >> 8 & 255;
         }
+
         public static int blue(int pPackedColor) {
             return pPackedColor & 255;
         }
