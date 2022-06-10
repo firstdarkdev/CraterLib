@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'com.matyrobbrt.mc.registrationutils' version '0.2.6'
+    id 'com.matyrobbrt.mc.registrationutils' version '1.19-1.0.0'
 }
 
 registrationUtils {
@@ -15,7 +15,7 @@ registrationUtils {
 subprojects {
 
     ext {
-        isSnapshot: false
+        isSnapshot = false
     }
 
     def version_base = "${project.version_major}.${project.version_minor}"

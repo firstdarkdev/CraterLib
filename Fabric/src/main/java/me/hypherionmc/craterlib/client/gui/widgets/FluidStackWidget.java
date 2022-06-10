@@ -14,7 +14,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -31,7 +31,7 @@ public class FluidStackWidget extends AbstractWidget {
     private final String toolTipTitle;
 
     public FluidStackWidget(Screen displayOn, Supplier<FluidTank> getFluid, int pX, int pY, int pWidth, int pHeight, String tooltipTitle) {
-        super(pX, pY, pWidth, pHeight, TextComponent.EMPTY);
+        super(pX, pY, pWidth, pHeight, Component.empty());
         this.displayOn = displayOn;
         this.getFluid = getFluid;
         this.toolTipTitle = tooltipTitle;
@@ -85,7 +85,7 @@ public class FluidStackWidget extends AbstractWidget {
     @Override
     public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY) {
         if (this.visible && this.isFocused() && isHoveredOrFocused()) {
-            displayOn.renderTooltip(poseStack, Arrays.asList(LangUtils.getTooltipTitle(toolTipTitle), new TextComponent((int) (((float) this.getFluid.get().getAmount() / this.getFluid.get().getCapacity()) * 100) + "%")), Optional.empty(), mouseX, mouseY);
+            displayOn.renderTooltip(poseStack, Arrays.asList(LangUtils.getTooltipTitle(toolTipTitle), Component.literal((int) (((float) this.getFluid.get().getAmount() / this.getFluid.get().getCapacity()) * 100) + "%")), Optional.empty(), mouseX, mouseY);
         }
     }
 

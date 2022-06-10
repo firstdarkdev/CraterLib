@@ -3,7 +3,6 @@ package me.hypherionmc.craterlib.util;
 import com.mojang.math.Vector4f;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 
 public class RenderUtils {
 
@@ -20,7 +19,7 @@ public class RenderUtils {
         amount = amount / 81;
         capacity = capacity / 81;
         String text = "" + (int) (((float) amount / capacity) * 100);
-        return amount > 0 ? new TextComponent(ChatFormatting.AQUA + text + "%") : new TextComponent(text + "%");
+        return amount > 0 ? Component.literal(ChatFormatting.AQUA + text + "%") : Component.literal(text + "%");
     }
 
     public static Component getTimeDisplayString(double value) {
@@ -29,9 +28,9 @@ public class RenderUtils {
         if (seconds >= 60) {
             String appendString = (minutes == 1) ? "Minute" : "Minutes";
             String doSeconds = ((seconds - (minutes * 60)) > 0) ? ", " + (seconds - (minutes * 60)) + " Seconds" : "";
-            return new TextComponent(minutes + " " + appendString + doSeconds);
+            return Component.literal(minutes + " " + appendString + doSeconds);
         } else {
-            return new TextComponent(seconds + " Seconds");
+            return Component.literal(seconds + " Seconds");
         }
     }
 

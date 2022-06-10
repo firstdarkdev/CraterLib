@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StoragePreconditions;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
-import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleViewIterator;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.nbt.CompoundTag;
 
@@ -62,6 +61,12 @@ public class FluidTank implements Storage<FluidVariant>, StorageView<FluidVarian
     }
 
     @Override
+    public Iterator<StorageView<FluidVariant>> iterator() {
+        // TODO: FIX THIS!
+        return null;
+    }
+
+    @Override
     public boolean isResourceBlank() {
         return fluid.isBlank();
     }
@@ -79,11 +84,6 @@ public class FluidTank implements Storage<FluidVariant>, StorageView<FluidVarian
     @Override
     public long getCapacity() {
         return capacity;
-    }
-
-    @Override
-    public Iterator<StorageView<FluidVariant>> iterator(TransactionContext transaction) {
-        return SingleViewIterator.create(this, transaction);
     }
 
     public CompoundTag writeNbt(CompoundTag compound) {

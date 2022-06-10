@@ -2,7 +2,6 @@ package me.hypherionmc.craterlib.client.gui.widgets;
 
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 
 /**
  * A custom slider widget used for Time. Mostly used by the Hyper Lighting Smoke Machine
@@ -35,9 +34,9 @@ public class TimeSliderWidget extends AbstractSliderButton {
         if (this.value * this.maxValue >= 1200) {
             String appendString = (minutes == 1) ? "Minute" : "Minutes";
             String doSeconds = ((seconds - (minutes * 60)) > 0) ? ", " + (seconds - (minutes * 60)) + " Seconds" : "";
-            return new TextComponent(minutes + " " + appendString + doSeconds);
+            return Component.literal(minutes + " " + appendString + doSeconds);
         } else {
-            return new TextComponent(seconds + " Seconds");
+            return Component.literal(seconds + " Seconds");
         }
     }
 

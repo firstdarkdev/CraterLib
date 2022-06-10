@@ -94,7 +94,7 @@ public class DyableWaterBottle extends DyeItem implements ItemDyable {
                 playerEntity.getInventory().add(new ItemStack(Items.GLASS_BOTTLE));
             }
         }
-        level.gameEvent(user, GameEvent.DRINKING_FINISH, user.getOnPos());
+        level.gameEvent(user, GameEvent.DRINK, user.getOnPos());
         return stack;
     }
 
