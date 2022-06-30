@@ -12,6 +12,7 @@ A library mod used by HypherionSA's mods. Mostly used by Hyper Lighting 2.
 * Built in FluidTank and Energy systems for Forge/Fabric (Forge versions are just wrappers).
 * Built in Optifine-Compat utilities
 * Various utilities for Blockstates, LANG, Math and Rendering
+* Cross Mod-Loader Events
 * TODO: Built in Cross Mod-Loader Network system
 * TODO: Various GUI widgets and Utilities
 * TODO: Cross Mod-Loader Dynamic Lighting

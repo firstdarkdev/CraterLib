@@ -50,7 +50,7 @@ public class ModuleConfig {
      * @param config - The config class to use
      */
     public void registerAndSetup(ModuleConfig config) {
-        if (!configPath.exists() || configPath.length() < 10) {
+        if (!configPath.exists() || configPath.length() < 2) {
             saveConfig(config);
         } else {
             migrateConfig(config);
@@ -67,7 +67,7 @@ public class ModuleConfig {
         ObjectConverter converter = new ObjectConverter();
         CommentedFileConfig config = CommentedFileConfig.builder(configPath).build();
 
-        /* Save the config and fire the reload event */
+        /* Save the config and fire the reload events */
         converter.toConfig(conf, config);
         config.save();
     }
@@ -90,7 +90,7 @@ public class ModuleConfig {
     }
 
     /**
-     * INTERNAL METHOD - Upgrades the config files in the event the config structure changes
+     * INTERNAL METHOD - Upgrades the config files in the events the config structure changes
      *
      * @param conf - The config class to load
      */

@@ -6,6 +6,8 @@
   "mixins": [
   ],
   "client": [
+    "colors.BlockColorsMixin",
+    "colors.ItemColorsMixin"
   ],
   "server": [
   ],
