@@ -32,7 +32,7 @@ public class DyableWaterBucket extends BucketItem implements ItemDyable {
     }
 
     @Override
-    public DyeColor getColor() {
+    public DyeColor getColor(ItemStack stack) {
         return this.color;
     }
 

@@ -48,7 +48,7 @@ public class DyableWaterBottle extends DyeItem implements ItemDyable {
      * @return
      */
     @Override
-    public DyeColor getColor() {
+    public DyeColor getColor(ItemStack stack) {
         return this.color;
     }
 

@@ -28,7 +28,7 @@ public class ItemColorHandler implements ItemColor {
      */
     private int getColorFromStack(ItemStack stack) {
         if (stack.getItem() instanceof ItemDyable itemDyable) {
-            return itemDyable.getColor().getMaterialColor().col;
+            return itemDyable.getColor(stack).getMaterialColor().col;
         }
         return 0;
     }
