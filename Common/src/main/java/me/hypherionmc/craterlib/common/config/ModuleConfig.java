@@ -16,6 +16,8 @@ public class ModuleConfig {
     private final transient File configPath;
     private final transient String networkID;
 
+    private final transient String configName;
+
     /**
      * Set up the config
      *
@@ -34,14 +36,12 @@ public class ModuleConfig {
         File configDir = new File("config" + (subFolder.isEmpty() ? "" : File.separator + subFolder));
         configPath = new File(configDir + File.separator + configName + ".toml");
         networkID = modId + ":conf_" + configName.replace("-", "_");
+        this.configName = configName;
 
         /* Check if the required directories exists, otherwise we create them */
         if (!configDir.exists()) {
             configDir.mkdirs();
         }
-
-        /* Register the Config for Watching and events */
-        ConfigController.register_config(this);
     }
 
     /**
@@ -55,6 +55,9 @@ public class ModuleConfig {
         } else {
             migrateConfig(config);
         }
+        /* Register the Config for Watching and events */
+        ConfigController.register_config(this);
+        this.configReloaded();
     }
 
     /**
@@ -144,4 +147,11 @@ public class ModuleConfig {
 
     }
 
+    /**
+     * Get the name of the Config File
+     * @return
+     */
+    public String getConfigName() {
+        return configName;
+    }
 }

@@ -15,7 +15,7 @@ import java.util.function.Supplier;
  * @author HypherionSA
  * @date 16/06/2022
  */
-class ForgeClientHelper implements LibClientHelper {
+public class ForgeClientHelper implements LibClientHelper {
 
     @Override
     public CreativeModeTab tabBuilder(String modid, String tabid, Supplier<ItemStack> icon, String backgroundSuf) {
