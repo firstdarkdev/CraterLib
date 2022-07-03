@@ -1,5 +1,9 @@
 # CraterLib
 
+![badge-snapshot](https://maven.firstdarkdev.xyz/api/badge/latest/snapshots/me/hypherionmc/craterlib/CraterLib-common-1.19?color=40c14a&name=CraterLib-Snapshot)
+
+***
+
 A library mod used by HypherionSA's mods. Mostly used by Hyper Lighting 2.
 
 ***
@@ -24,4 +28,6 @@ A library mod used by HypherionSA's mods. Mostly used by Hyper Lighting 2.
 
 ## Setup Instructions
 
-*Coming Soon*
+** Wiki Coming Soon **
+
+
