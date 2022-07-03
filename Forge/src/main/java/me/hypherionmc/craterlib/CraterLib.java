@@ -2,7 +2,7 @@ package me.hypherionmc.craterlib;
 
 import net.minecraftforge.fml.common.Mod;
 
-@Mod(Constants.MOD_ID)
+@Mod(CraterConstants.MOD_ID)
 public class CraterLib {
 
     public CraterLib() {

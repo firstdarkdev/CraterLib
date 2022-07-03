@@ -16,6 +16,9 @@
   "icon": "assets/modid/icon.png",
   "environment": "*",
   "entrypoints": {
+    "preLaunch": [
+      "me.hypherionmc.craterlib.CraterLibInitializer"
+    ],
     "main": [
       "me.hypherionmc.craterlib.CraterLibInitializer"
     ],

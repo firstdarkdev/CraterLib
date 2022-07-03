@@ -1,6 +1,7 @@
 package me.hypherionmc.craterlib.client.rendering;
 
 import me.hypherionmc.craterlib.api.rendering.ItemDyable;
+import me.hypherionmc.craterlib.util.RenderUtils;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.world.item.ItemStack;
 
@@ -28,7 +29,7 @@ public class ItemColorHandler implements ItemColor {
      */
     private int getColorFromStack(ItemStack stack) {
         if (stack.getItem() instanceof ItemDyable itemDyable) {
-            return itemDyable.getColor(stack).getMaterialColor().col;
+            return RenderUtils.renderColorFromDye(itemDyable.getColor(stack));
         }
         return 0;
     }

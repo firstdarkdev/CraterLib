@@ -2,18 +2,16 @@ package me.hypherionmc.craterlib.common.item;
 
 import me.hypherionmc.craterlib.api.rendering.DyableBlock;
 import me.hypherionmc.craterlib.api.rendering.ItemDyable;
+import me.hypherionmc.craterlib.platform.Services;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.StringUtil;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -25,6 +23,7 @@ public class BlockItemDyable extends BlockItem implements ItemDyable {
 
     public BlockItemDyable(Block block, Properties properties) {
         super(block, properties);
+        Services.CLIENT_HELPER.registerItemProperty(this, "color");
     }
 
     /**
@@ -47,7 +46,7 @@ public class BlockItemDyable extends BlockItem implements ItemDyable {
         );
     }
 
-    private DyeColor getColorFromNBT(ItemStack stack) {
+    public DyeColor getColorFromNBT(ItemStack stack) {
         CompoundTag tag = stack.getOrCreateTag();
         if (tag.contains("color")) {
             return DyeColor.byName(tag.getString("color"), DyeColor.BLACK);
@@ -71,4 +70,5 @@ public class BlockItemDyable extends BlockItem implements ItemDyable {
         }
         return state != null && this.canPlace(ctx, state) ? state : null;
     }
+
 }

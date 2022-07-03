@@ -7,6 +7,7 @@ import net.minecraft.client.color.item.ItemColors;
 /**
  * @author HypherionSA
  * @date 17/06/2022
+ * A wrapped event to allow Block and Item Color Registration
  */
 public class ColorRegistrationEvent {
 

@@ -3,6 +3,7 @@ package me.hypherionmc.craterlib.util;
 import com.mojang.math.Vector4f;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.DyeColor;
 
 public class RenderUtils {
 
@@ -50,5 +51,9 @@ public class RenderUtils {
         public static int blue(int pPackedColor) {
             return pPackedColor & 255;
         }
+    }
+
+    public static int renderColorFromDye(DyeColor color) {
+        return color.getMaterialColor().col | 0xFF000000;
     }
 }

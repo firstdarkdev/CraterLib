@@ -1,14 +1,13 @@
 package me.hypherionmc.craterlib.platform;
 
-import me.hypherionmc.craterlib.Constants;
-import me.hypherionmc.craterlib.platform.services.IPlatformHelper;
+import me.hypherionmc.craterlib.CraterConstants;
 import me.hypherionmc.craterlib.platform.services.LibClientHelper;
 
 import java.util.ServiceLoader;
 
 public class Services {
 
-    public static final IPlatformHelper PLATFORM = load(IPlatformHelper.class);
+    //public static final IPlatformHelper PLATFORM = load(IPlatformHelper.class);
 
     public static final LibClientHelper CLIENT_HELPER = load(LibClientHelper.class);
 
@@ -17,7 +16,7 @@ public class Services {
         final T loadedService = ServiceLoader.load(clazz)
                 .findFirst()
                 .orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
-        Constants.LOG.debug("Loaded {} for service {}", loadedService, clazz);
+        CraterConstants.LOG.debug("Loaded {} for service {}", loadedService, clazz);
         return loadedService;
     }
 }

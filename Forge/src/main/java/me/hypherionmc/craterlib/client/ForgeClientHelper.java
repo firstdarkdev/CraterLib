@@ -1,8 +1,13 @@
 package me.hypherionmc.craterlib.client;
 
+import me.hypherionmc.craterlib.common.item.BlockItemDyable;
 import me.hypherionmc.craterlib.platform.services.LibClientHelper;
+import me.hypherionmc.craterlib.util.ColorPropertyFunction;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import java.util.function.Supplier;
 
@@ -31,4 +36,10 @@ class ForgeClientHelper implements LibClientHelper {
         return tab;
     }
 
+    @Override
+    public void registerItemProperty(BlockItemDyable item, String property) {
+        if (FMLEnvironment.dist.isClient()) {
+            ItemProperties.register(item, new ResourceLocation(property), new ColorPropertyFunction(item));
+        }
+    }
 }

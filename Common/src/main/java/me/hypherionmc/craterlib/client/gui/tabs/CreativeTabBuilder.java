@@ -3,13 +3,13 @@ package me.hypherionmc.craterlib.client.gui.tabs;
 import me.hypherionmc.craterlib.platform.Services;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 import java.util.function.Supplier;
 
 /**
  * @author HypherionSA
  * @date 16/06/2022
+ * Provides a wrapper around Forge/Fabric to create a new Creative Tab
  */
 public class CreativeTabBuilder {
 

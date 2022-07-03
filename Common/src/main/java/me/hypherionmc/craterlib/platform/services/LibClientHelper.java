@@ -1,5 +1,6 @@
 package me.hypherionmc.craterlib.platform.services;
 
+import me.hypherionmc.craterlib.common.item.BlockItemDyable;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
@@ -12,5 +13,7 @@ import java.util.function.Supplier;
 public interface LibClientHelper {
 
     public CreativeModeTab tabBuilder(String modid, String tabid, Supplier<ItemStack> icon, String backgroundSuf);
+
+    public void registerItemProperty(BlockItemDyable item, String property);
 
 }
