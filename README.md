@@ -1,6 +1,6 @@
 # CraterLib
 
-![badge-snapshot](https://maven.firstdarkdev.xyz/api/badge/latest/snapshots/me/hypherionmc/craterlib/CraterLib-common-1.19?color=40c14a&name=CraterLib-Snapshot)
+![badge-snapshot](https://maven.firstdarkdev.xyz/api/badge/latest/snapshots/me/hypherionmc/craterlib/CraterLib-common-1.19.1?color=40c14a&name=CraterLib-Snapshot)
 
 ***
 
