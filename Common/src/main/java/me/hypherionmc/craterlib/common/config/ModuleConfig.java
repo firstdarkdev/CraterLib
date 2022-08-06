@@ -18,6 +18,8 @@ public class ModuleConfig {
 
     private final transient String configName;
 
+    private final transient String modId;
+
     /**
      * Set up the config
      *
@@ -36,6 +38,7 @@ public class ModuleConfig {
         File configDir = new File("config" + (subFolder.isEmpty() ? "" : File.separator + subFolder));
         configPath = new File(configDir + File.separator + configName + ".toml");
         networkID = modId + ":conf_" + configName.replace("-", "_");
+        this.modId = modId;
         this.configName = configName;
 
         /* Check if the required directories exists, otherwise we create them */
@@ -153,5 +156,13 @@ public class ModuleConfig {
      */
     public String getConfigName() {
         return configName;
+    }
+
+    /**
+     * Get the MODID of the Module the config is registered to
+     * @return
+     */
+    public String getModId() {
+        return modId;
     }
 }

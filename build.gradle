@@ -62,6 +62,10 @@ subprojects {
             name = 'Hypherion Maven'
             url = 'https://maven.firstdarkdev.xyz/releases/'
         }
+        maven {
+            name = "TerraformersMC Maven"
+            url = "https://maven.terraformersmc.com/releases"
+        }
     }
 
     dependencies {

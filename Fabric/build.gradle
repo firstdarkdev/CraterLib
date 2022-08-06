@@ -14,6 +14,10 @@ dependencies {
     include 'me.hypherionmc.night-config:toml:3.6.5_custom'
     include 'me.hypherionmc.night-config:core:3.6.5_custom'
     implementation project(":Common")
+
+    modApi("com.terraformersmc:modmenu:${mod_menu_version}") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
 }
 
 loom {

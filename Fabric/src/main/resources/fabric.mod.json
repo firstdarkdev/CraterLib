@@ -24,6 +24,9 @@
     ],
     "client": [
       "me.hypherionmc.craterlib.client.CraterLibClientInitializer"
+    ],
+    "modmenu": [
+      "me.hypherionmc.craterlib.CraterLibModMenuIntegration"
     ]
   },
   "mixins": [

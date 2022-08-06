@@ -39,4 +39,7 @@ public class ConfigController implements Serializable {
         }
     }
 
+    public static HashMap<Object, FileWatcher> getMonitoredConfigs() {
+        return monitoredConfigs;
+    }
 }
