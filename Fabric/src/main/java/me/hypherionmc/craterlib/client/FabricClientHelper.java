@@ -1,16 +1,23 @@
 package me.hypherionmc.craterlib.client;
 
+import me.hypherionmc.craterlib.api.rendering.CustomRenderType;
 import me.hypherionmc.craterlib.common.item.BlockItemDyable;
 import me.hypherionmc.craterlib.platform.services.LibClientHelper;
+import me.hypherionmc.craterlib.systems.reg.RegistryObject;
 import me.hypherionmc.craterlib.util.ColorPropertyFunction;
 import net.fabricmc.api.EnvType;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
 
+import java.util.Collection;
 import java.util.function.Supplier;
 
 /**
@@ -40,5 +47,24 @@ public class FabricClientHelper implements LibClientHelper {
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             FabricModelPredicateProviderRegistry.register(item, new ResourceLocation(property), new ColorPropertyFunction(item));
         }
+    }
+
+    @Override
+    public void registerCustomRenderTypes(Collection<RegistryObject<Block>> blocks, Collection<RegistryObject<Item>> items) {
+        blocks.forEach(blk -> {
+            if (blk.get() instanceof CustomRenderType type) {
+                BlockRenderLayerMap.INSTANCE.putBlock(blk.get(), type.getCustomRenderType());
+            }
+        });
+
+        items.forEach(itm -> {
+            if (itm.get() instanceof BlockItemDyable dyable && dyable.getBlock() instanceof CustomRenderType customRenderType) {
+                BlockRenderLayerMap.INSTANCE.putItem(itm.get(), customRenderType.getCustomRenderType());
+            }
+
+            if (itm.get() instanceof CustomRenderType customRenderType) {
+                BlockRenderLayerMap.INSTANCE.putItem(itm.get(), customRenderType.getCustomRenderType());
+            }
+        });
     }
 }

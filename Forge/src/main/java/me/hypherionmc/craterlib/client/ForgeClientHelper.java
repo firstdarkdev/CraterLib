@@ -1,14 +1,20 @@
 package me.hypherionmc.craterlib.client;
 
+import me.hypherionmc.craterlib.api.rendering.CustomRenderType;
 import me.hypherionmc.craterlib.common.item.BlockItemDyable;
 import me.hypherionmc.craterlib.platform.services.LibClientHelper;
+import me.hypherionmc.craterlib.systems.reg.RegistryObject;
 import me.hypherionmc.craterlib.util.ColorPropertyFunction;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
+import java.util.Collection;
 import java.util.function.Supplier;
 
 /**
@@ -41,5 +47,14 @@ public class ForgeClientHelper implements LibClientHelper {
         if (FMLEnvironment.dist.isClient()) {
             ItemProperties.register(item, new ResourceLocation(property), new ColorPropertyFunction(item));
         }
+    }
+
+    @Override
+    public void registerCustomRenderTypes(Collection<RegistryObject<Block>> blocks, Collection<RegistryObject<Item>> items) {
+        blocks.forEach(blk -> {
+            if (blk.get() instanceof CustomRenderType type) {
+                ItemBlockRenderTypes.setRenderLayer(blk.get(), type.getCustomRenderType());
+            }
+        });
     }
 }
