@@ -5,6 +5,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
 
+import java.awt.*;
+
 public class RenderUtils {
 
     public static Vector4f colorIntToRGBA(int color) {
@@ -55,5 +57,10 @@ public class RenderUtils {
 
     public static int renderColorFromDye(DyeColor color) {
         return color.getMaterialColor().col | 0xFF000000;
+    }
+
+    public static int alphaColorFromDye(DyeColor color, float alpha) {
+        float[] colors = color.getTextureDiffuseColors();
+        return new Color(colors[0], colors[1], colors[2], alpha).getRGB();
     }
 }
