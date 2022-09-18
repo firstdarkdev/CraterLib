@@ -108,4 +108,4 @@ task copyAllArtifacts(type: Copy) {
     include("*.jar")
 }
 
-build.finalizedBy(copyAllArtifacts);
+build.finalizedBy(copyAllArtifacts)
