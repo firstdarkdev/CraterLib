@@ -1,6 +1,6 @@
 package me.hypherionmc.craterlib.client.gui.tabs;
 
-import me.hypherionmc.craterlib.platform.Services;
+import me.hypherionmc.craterlib.platform.Platform;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
@@ -40,7 +40,7 @@ public class CreativeTabBuilder {
         }
 
         public CreativeModeTab build() {
-            return Services.CLIENT_HELPER.tabBuilder(this.modid, this.tabid, this.tabIcon, this.backgroundPrefix);
+            return Platform.CLIENT_HELPER.tabBuilder(this.modid, this.tabid, this.tabIcon, this.backgroundPrefix);
         }
 
     }

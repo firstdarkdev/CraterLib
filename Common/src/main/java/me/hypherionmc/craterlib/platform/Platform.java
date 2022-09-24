@@ -1,16 +1,19 @@
 package me.hypherionmc.craterlib.platform;
 
 import me.hypherionmc.craterlib.CraterConstants;
-import me.hypherionmc.craterlib.platform.services.IPlatformHelper;
+import me.hypherionmc.craterlib.platform.services.ILoaderHelper;
 import me.hypherionmc.craterlib.platform.services.LibClientHelper;
+import me.hypherionmc.craterlib.platform.services.LibCommonHelper;
 
 import java.util.ServiceLoader;
 
-public class Services {
+public class Platform {
 
-    public static final IPlatformHelper PLATFORM = load(IPlatformHelper.class);
+    public static final ILoaderHelper LOADER = load(ILoaderHelper.class);
 
     public static final LibClientHelper CLIENT_HELPER = load(LibClientHelper.class);
+
+    public static final LibCommonHelper COMMON_HELPER = load(LibCommonHelper.class);
 
     public static <T> T load(Class<T> clazz) {
 
