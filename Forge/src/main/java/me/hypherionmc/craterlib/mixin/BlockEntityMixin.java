@@ -3,13 +3,16 @@ package me.hypherionmc.craterlib.mixin;
 import me.hypherionmc.craterlib.api.blockentities.caps.ForgeCapability;
 import me.hypherionmc.craterlib.api.blockentities.caps.IForgeCapProvider;
 import me.hypherionmc.craterlib.common.blockentity.CraterBlockEntity;
+import me.hypherionmc.craterlib.systems.SimpleInventory;
 import me.hypherionmc.craterlib.systems.energy.CustomEnergyStorage;
 import me.hypherionmc.craterlib.systems.energy.ForgeEnergyWrapper;
+import me.hypherionmc.craterlib.systems.inventory.ForgeInventoryWrapper;
 import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,6 +34,13 @@ public class BlockEntityMixin implements ICapabilityProvider {
             Optional<CustomEnergyStorage> forgeCap = capProvider.getForgeCapability(ForgeCapability.ENERGY, side);
             if (forgeCap.isPresent()) {
                 return LazyOptional.of(() -> new ForgeEnergyWrapper(forgeCap.get())).cast();
+            }
+        }
+
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+            Optional<SimpleInventory> inventory = capProvider.getForgeCapability(ForgeCapability.ITEM, side);
+            if (inventory.isPresent()) {
+                return LazyOptional.of(() -> new SidedInvWrapper(new ForgeInventoryWrapper(inventory.get()), side)).cast();
             }
         }
 

@@ -19,7 +19,7 @@ A library mod used by HypherionSA's mods. Mostly used by Hyper Lighting 2.
 * Cross Mod-Loader Events
 * Cross Mod-Loader Config Screens (Based on [Cloth Config Lite](https://github.com/shedaniel/cloth-config-lite))
 * Automatic ModMenu and Forge Config screen registration
-* TODO: Built in Cross Mod-Loader Network system
+* Built in Cross Mod-Loader Network system
 * TODO: Various GUI widgets and Utilities
 * TODO: Cross Mod-Loader Dynamic Lighting
 * TODO: Texture Utils
