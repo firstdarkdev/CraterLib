@@ -4,6 +4,7 @@
   "package": "me.hypherionmc.craterlib.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BlockEntityMixin"
   ],
   "client": [
     "ConfigScreenHandlerMixin"
