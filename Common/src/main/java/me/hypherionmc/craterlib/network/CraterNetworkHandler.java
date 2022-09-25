@@ -1,5 +1,6 @@
 package me.hypherionmc.craterlib.network;
 
+import me.hypherionmc.craterlib.platform.ClientPlatform;
 import me.hypherionmc.craterlib.platform.Platform;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,7 +20,7 @@ public interface CraterNetworkHandler {
     Packet<?> toClientBound(CraterPacket<?> packet);
 
     default void sendToServer(CraterPacket<?> packet) {
-        Platform.COMMON_HELPER.getClientConnection().send(this.toServerBound(packet));
+        ClientPlatform.CLIENT_HELPER.getClientConnection().send(this.toServerBound(packet));
     }
 
     default void sendTo(CraterPacket<?> packet, ServerPlayer player) {

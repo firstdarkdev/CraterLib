@@ -4,7 +4,6 @@ import me.hypherionmc.craterlib.platform.services.Environment;
 import me.hypherionmc.craterlib.platform.services.ILoaderHelper;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -16,6 +15,8 @@ import java.io.File;
  * @date 07/08/2022
  */
 public class ForgeLoaderHelper implements ILoaderHelper {
+
+    public ForgeLoaderHelper() {}
 
     @Override
     public boolean isFabric() {

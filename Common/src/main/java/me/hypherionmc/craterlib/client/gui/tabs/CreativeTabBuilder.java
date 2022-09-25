@@ -40,7 +40,7 @@ public class CreativeTabBuilder {
         }
 
         public CreativeModeTab build() {
-            return Platform.CLIENT_HELPER.tabBuilder(this.modid, this.tabid, this.tabIcon, this.backgroundPrefix);
+            return Platform.COMMON_HELPER.tabBuilder(this.modid, this.tabid, this.tabIcon, this.backgroundPrefix);
         }
 
     }

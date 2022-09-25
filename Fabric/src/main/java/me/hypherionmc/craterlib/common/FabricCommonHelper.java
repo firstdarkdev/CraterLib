@@ -4,14 +4,11 @@ import me.hypherionmc.craterlib.network.CraterNetworkHandler;
 import me.hypherionmc.craterlib.network.CraterPacket;
 import me.hypherionmc.craterlib.network.FabricNetworkHandler;
 import me.hypherionmc.craterlib.platform.services.LibCommonHelper;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.network.Connection;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -23,12 +20,14 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * @author HypherionSA
@@ -44,36 +43,8 @@ public class FabricCommonHelper implements LibCommonHelper {
     }
 
     @Override
-    public Minecraft getClientInstance() {
-        return Minecraft.getInstance();
-    }
-
-    @Override
-    public Player getClientPlayer() {
-        return Minecraft.getInstance().player;
-    }
-
-    @Override
-    public Level getClientLevel() {
-        return Minecraft.getInstance().level;
-    }
-
-    @Override
-    public Connection getClientConnection() {
-        return Minecraft.getInstance().getConnection().getConnection();
-    }
-
-    @Override
     public MinecraftServer getMCServer() {
         return server;
-    }
-
-    @Override
-    public void registerClientReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory) {
-        ClientPlayNetworking.registerGlobalReceiver(channelName, (Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) -> {
-            CraterPacket<?> packet = factory.apply(buf);
-            client.execute(() -> packet.handle(client.player, client));
-        });
     }
 
     @Override
@@ -110,5 +81,21 @@ public class FabricCommonHelper implements LibCommonHelper {
     @Override
     public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
         return new ExtendedScreenHandlerType<>(constructor::apply);
+    }
+
+    @Override
+    public CreativeModeTab tabBuilder(String modid, String tabid, Supplier<ItemStack> icon, String backgroundSuf) {
+        FabricItemGroupBuilder tab = FabricItemGroupBuilder.create(new ResourceLocation(modid, tabid));
+
+        if (icon != null) {
+            tab.icon(icon);
+        }
+
+        CreativeModeTab tab1 = tab.build();
+
+        if (backgroundSuf != null && !backgroundSuf.isEmpty()) {
+            tab1.setBackgroundSuffix(backgroundSuf);
+        }
+        return tab1;
     }
 }

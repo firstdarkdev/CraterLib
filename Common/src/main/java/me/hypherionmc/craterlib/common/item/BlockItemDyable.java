@@ -2,7 +2,9 @@ package me.hypherionmc.craterlib.common.item;
 
 import me.hypherionmc.craterlib.api.rendering.DyableBlock;
 import me.hypherionmc.craterlib.api.rendering.ItemDyable;
+import me.hypherionmc.craterlib.platform.ClientPlatform;
 import me.hypherionmc.craterlib.platform.Platform;
+import me.hypherionmc.craterlib.platform.services.Environment;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
@@ -23,7 +25,10 @@ public class BlockItemDyable extends BlockItem implements ItemDyable {
 
     public BlockItemDyable(Block block, Properties properties) {
         super(block, properties);
-        Platform.CLIENT_HELPER.registerItemProperty(this, "color");
+
+        if (Platform.LOADER.getEnvironment() == Environment.CLIENT) {
+            ClientPlatform.CLIENT_HELPER.registerItemProperty(this, "color");
+        }
     }
 
     /**

@@ -4,27 +4,25 @@ import me.hypherionmc.craterlib.network.CraterNetworkHandler;
 import me.hypherionmc.craterlib.network.CraterPacket;
 import me.hypherionmc.craterlib.network.ForgeNetworkHandler;
 import me.hypherionmc.craterlib.platform.services.LibCommonHelper;
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.Connection;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * @author HypherionSA
@@ -32,40 +30,16 @@ import java.util.function.Function;
  */
 public class ForgeCommonHelper implements LibCommonHelper {
 
+    public ForgeCommonHelper() {}
+
     @Override
     public CraterNetworkHandler createPacketHandler(String modid) {
         return ForgeNetworkHandler.of(modid, true, true);
     }
 
     @Override
-    public Minecraft getClientInstance() {
-        return Minecraft.getInstance();
-    }
-
-    @Override
-    public Player getClientPlayer() {
-        return Minecraft.getInstance().player;
-    }
-
-    @Override
-    public Level getClientLevel() {
-        return Minecraft.getInstance().level;
-    }
-
-    @Override
-    public Connection getClientConnection() {
-        Objects.requireNonNull(Minecraft.getInstance().getConnection(), "Cannot send packets when not in game!");
-        return Minecraft.getInstance().getConnection().getConnection();
-    }
-
-    @Override
     public MinecraftServer getMCServer() {
         return ServerLifecycleHooks.getCurrentServer();
-    }
-
-    @Override
-    public void registerClientReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory) {
-        // UNUSED
     }
 
     @Override
@@ -85,5 +59,24 @@ public class ForgeCommonHelper implements LibCommonHelper {
     @Override
     public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
         return IForgeMenuType.create(constructor::apply);
+    }
+
+    @Override
+    public CreativeModeTab tabBuilder(String modid, String tabid, Supplier<ItemStack> icon, String backgroundSuf) {
+        CreativeModeTab tab = new CreativeModeTab(modid + "." + tabid) {
+            @Override
+            public ItemStack makeIcon() {
+                if (icon != null) {
+                    return icon.get();
+                } else {
+                    return ItemStack.EMPTY;
+                }
+            }
+        };
+
+        if (backgroundSuf != null && !backgroundSuf.isEmpty()) {
+            tab.setBackgroundSuffix(backgroundSuf);
+        }
+        return tab;
     }
 }

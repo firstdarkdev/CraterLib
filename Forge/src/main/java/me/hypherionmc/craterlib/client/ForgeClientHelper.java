@@ -2,20 +2,25 @@ package me.hypherionmc.craterlib.client;
 
 import me.hypherionmc.craterlib.api.rendering.CustomRenderType;
 import me.hypherionmc.craterlib.common.item.BlockItemDyable;
+import me.hypherionmc.craterlib.network.CraterPacket;
 import me.hypherionmc.craterlib.platform.services.LibClientHelper;
 import me.hypherionmc.craterlib.systems.reg.RegistryObject;
 import me.hypherionmc.craterlib.util.ColorPropertyFunction;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.network.Connection;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import java.util.Collection;
-import java.util.function.Supplier;
+import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * @author HypherionSA
@@ -23,24 +28,7 @@ import java.util.function.Supplier;
  */
 public class ForgeClientHelper implements LibClientHelper {
 
-    @Override
-    public CreativeModeTab tabBuilder(String modid, String tabid, Supplier<ItemStack> icon, String backgroundSuf) {
-        CreativeModeTab tab = new CreativeModeTab(modid + "." + tabid) {
-            @Override
-            public ItemStack makeIcon() {
-                if (icon != null) {
-                    return icon.get();
-                } else {
-                    return ItemStack.EMPTY;
-                }
-            }
-        };
-
-        if (backgroundSuf != null && !backgroundSuf.isEmpty()) {
-            tab.setBackgroundSuffix(backgroundSuf);
-        }
-        return tab;
-    }
+    public ForgeClientHelper() {}
 
     @Override
     public void registerItemProperty(BlockItemDyable item, String property) {
@@ -56,5 +44,31 @@ public class ForgeClientHelper implements LibClientHelper {
                 ItemBlockRenderTypes.setRenderLayer(blk.get(), type.getCustomRenderType());
             }
         });
+    }
+
+    @Override
+    public Minecraft getClientInstance() {
+        return Minecraft.getInstance();
+    }
+
+    @Override
+    public Player getClientPlayer() {
+        return Minecraft.getInstance().player;
+    }
+
+    @Override
+    public Level getClientLevel() {
+        return Minecraft.getInstance().level;
+    }
+
+    @Override
+    public Connection getClientConnection() {
+        Objects.requireNonNull(Minecraft.getInstance().getConnection(), "Cannot send packets when not in game!");
+        return Minecraft.getInstance().getConnection().getConnection();
+    }
+
+    @Override
+    public void registerClientReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory) {
+        // UNUSED
     }
 }

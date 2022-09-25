@@ -2,45 +2,34 @@ package me.hypherionmc.craterlib.client;
 
 import me.hypherionmc.craterlib.api.rendering.CustomRenderType;
 import me.hypherionmc.craterlib.common.item.BlockItemDyable;
+import me.hypherionmc.craterlib.network.CraterPacket;
 import me.hypherionmc.craterlib.platform.services.LibClientHelper;
 import me.hypherionmc.craterlib.systems.reg.RegistryObject;
 import me.hypherionmc.craterlib.util.ColorPropertyFunction;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.network.Connection;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.material.Fluid;
 
 import java.util.Collection;
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 /**
  * @author HypherionSA
  * @date 16/06/2022
  */
 public class FabricClientHelper implements LibClientHelper {
-
-    @Override
-    public CreativeModeTab tabBuilder(String modid, String tabid, Supplier<ItemStack> icon, String backgroundSuf) {
-        FabricItemGroupBuilder tab = FabricItemGroupBuilder.create(new ResourceLocation(modid, tabid));
-
-        if (icon != null) {
-            tab.icon(icon);
-        }
-
-        CreativeModeTab tab1 = tab.build();
-
-        if (backgroundSuf != null && !backgroundSuf.isEmpty()) {
-            tab1.setBackgroundSuffix(backgroundSuf);
-        }
-        return tab1;
-    }
 
     @Override
     public void registerItemProperty(BlockItemDyable item, String property) {
@@ -65,6 +54,34 @@ public class FabricClientHelper implements LibClientHelper {
             if (itm.get() instanceof CustomRenderType customRenderType) {
                 BlockRenderLayerMap.INSTANCE.putItem(itm.get(), customRenderType.getCustomRenderType());
             }
+        });
+    }
+
+    @Override
+    public Minecraft getClientInstance() {
+        return Minecraft.getInstance();
+    }
+
+    @Override
+    public Player getClientPlayer() {
+        return Minecraft.getInstance().player;
+    }
+
+    @Override
+    public Level getClientLevel() {
+        return Minecraft.getInstance().level;
+    }
+
+    @Override
+    public Connection getClientConnection() {
+        return Minecraft.getInstance().getConnection().getConnection();
+    }
+
+    @Override
+    public void registerClientReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory) {
+        ClientPlayNetworking.registerGlobalReceiver(channelName, (Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) -> {
+            CraterPacket<?> packet = factory.apply(buf);
+            client.execute(() -> packet.handle(client.player, client));
         });
     }
 }

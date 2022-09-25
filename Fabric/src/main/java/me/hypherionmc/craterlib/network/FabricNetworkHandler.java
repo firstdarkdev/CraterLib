@@ -1,6 +1,7 @@
 package me.hypherionmc.craterlib.network;
 
 import com.google.common.collect.Maps;
+import me.hypherionmc.craterlib.platform.ClientPlatform;
 import me.hypherionmc.craterlib.platform.Platform;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -40,7 +41,7 @@ public class FabricNetworkHandler implements CraterNetworkHandler {
         final Function<FriendlyByteBuf, CraterPacket<?>> decoder = buf -> Util.make(supplier.get(), message -> message.read(buf));
 
         switch (packetDirection) {
-            case TO_CLIENT -> Platform.COMMON_HELPER.registerClientReceiver(channelName, decoder);
+            case TO_CLIENT -> ClientPlatform.CLIENT_HELPER.registerClientReceiver(channelName, decoder);
             case TO_SERVER -> Platform.COMMON_HELPER.registerServerReceiver(channelName, decoder);
         }
     }

@@ -1,7 +1,7 @@
 package me.hypherionmc.craterlib.network;
 
 import com.google.common.collect.Maps;
-import me.hypherionmc.craterlib.platform.Platform;
+import me.hypherionmc.craterlib.platform.ClientPlatform;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
@@ -64,7 +64,7 @@ public class ForgeNetworkHandler implements CraterNetworkHandler {
             context.enqueueWork(() -> {
                 Player player;
                 if (packetDirection == PacketDirection.TO_CLIENT) {
-                    player = Platform.COMMON_HELPER.getClientPlayer();
+                    player = ClientPlatform.CLIENT_HELPER.getClientPlayer();
                 } else {
                     player = context.getSender();
                 }
