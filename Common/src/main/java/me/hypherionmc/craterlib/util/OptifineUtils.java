@@ -11,9 +11,11 @@ public class OptifineUtils {
         try {
             Class ofConfigClass = Class.forName("net.optifine.Config");
             hasOptifine = true;
+            return;
         } catch (ClassNotFoundException e) {
             // Optifine is probably not present. Ignore the error
             hasOptifine = false;
+            return;
         } catch (Exception e) {
             e.printStackTrace();
         }
