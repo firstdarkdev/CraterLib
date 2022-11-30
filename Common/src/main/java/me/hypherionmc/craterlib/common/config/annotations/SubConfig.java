@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 /**
  * @author HypherionSA
  * @date 03/07/2022
+ * Used to determine if a Config section should be rendered as a separate screen
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

@@ -15,6 +15,7 @@ import java.util.Optional;
 /**
  * @author HypherionSA
  * @date 24/09/2022
+ * A Wrapped Block Entity to incorporate CraterLib's universal capability provider
  */
 public class CraterBlockEntity extends BlockEntity implements IForgeCapProvider {
 

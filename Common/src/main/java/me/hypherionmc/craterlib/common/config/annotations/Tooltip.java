@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 /**
  * @author HypherionSA
  * @date 03/07/2022
+ * Provides tooltips to the config GUI
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

@@ -12,10 +12,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * @author HypherionSA
  * @date 17/06/2022
+ * Mixin to accommodate Item Color Registration across multiple Modloaders
  */
 @Mixin(ItemColors.class)
 public class ItemColorsMixin {
 
+    /**
+     * Inject into Vanilla code to fire off our event
+     * @param cir
+     */
     @Inject(method = "createDefault", at = @At("RETURN"))
     private static void injectItemColors(BlockColors $$0, CallbackInfoReturnable<ItemColors> cir) {
         CraterEventBus.post(new ColorRegistrationEvent.ITEMS(cir.getReturnValue()));

@@ -9,7 +9,7 @@ import java.util.HashMap;
 /**
  * Controls Config File Reloads and Events
  */
-public class ConfigController implements Serializable {
+public final class ConfigController implements Serializable {
 
     /**
      * Cache of registered configs
