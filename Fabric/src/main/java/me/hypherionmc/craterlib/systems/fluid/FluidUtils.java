@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.resources.ResourceLocation;
@@ -28,7 +29,7 @@ public class FluidUtils {
             return FluidVariant.blank();
 
         if (tag.get(key) instanceof StringTag) {
-            return FluidVariant.of(Registry.FLUID.get(new ResourceLocation(tag.getString(key))));
+            return FluidVariant.of(BuiltInRegistries.FLUID.get(new ResourceLocation(tag.getString(key))));
         } else {
             CompoundTag compound = tag.getCompound(key);
             if (compound.contains("fk")) {
@@ -41,7 +42,7 @@ public class FluidUtils {
 
     private static Fluid readLbaTag(CompoundTag tag) {
         if (tag.contains("ObjName") && tag.getString("Registry").equals("f")) {
-            return Registry.FLUID.get(new ResourceLocation(tag.getString("ObjName")));
+            return BuiltInRegistries.FLUID.get(new ResourceLocation(tag.getString("ObjName")));
         } else {
             return Fluids.EMPTY;
         }

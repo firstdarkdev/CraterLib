@@ -31,6 +31,11 @@ public class InternalConfigButton extends AbstractButton {
     }
 
     @Override
+    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
+        narrationElementOutput.add(NarratedElementType.USAGE, getMessage());
+    }
+
+    @Override
     public void onPress() {
         if (cancel) {
             screen.onClose();
@@ -39,9 +44,5 @@ public class InternalConfigButton extends AbstractButton {
         }
     }
 
-    @Override
-    public void updateNarration(NarrationElementOutput narrationElementOutput) {
-        narrationElementOutput.add(NarratedElementType.USAGE, getMessage());
-    }
 
 }

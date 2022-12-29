@@ -20,6 +20,8 @@ import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -29,6 +31,8 @@ import java.util.function.Supplier;
  * @date 24/09/2022
  */
 public class ForgeCommonHelper implements LibCommonHelper {
+
+    public static Map<ResourceLocation, CreativeModeTab> TABS = new HashMap<>();
 
     public ForgeCommonHelper() {}
 
@@ -59,24 +63,5 @@ public class ForgeCommonHelper implements LibCommonHelper {
     @Override
     public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
         return IForgeMenuType.create(constructor::apply);
-    }
-
-    @Override
-    public CreativeModeTab tabBuilder(String modid, String tabid, Supplier<ItemStack> icon, String backgroundSuf) {
-        CreativeModeTab tab = new CreativeModeTab(modid + "." + tabid) {
-            @Override
-            public ItemStack makeIcon() {
-                if (icon != null) {
-                    return icon.get();
-                } else {
-                    return ItemStack.EMPTY;
-                }
-            }
-        };
-
-        if (backgroundSuf != null && !backgroundSuf.isEmpty()) {
-            tab.setBackgroundSuffix(backgroundSuf);
-        }
-        return tab;
     }
 }

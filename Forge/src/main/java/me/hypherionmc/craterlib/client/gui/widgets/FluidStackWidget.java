@@ -42,9 +42,6 @@ public class FluidStackWidget extends AbstractWidget {
     }
 
     @Override
-    public void updateNarration(NarrationElementOutput pNarrationElementOutput) {}
-
-    @Override
     public void renderButton(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTicks) {
         Minecraft minecraft = Minecraft.getInstance();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -74,15 +71,15 @@ public class FluidStackWidget extends AbstractWidget {
                     float filledVolume = stored / capacity;
                     int renderableHeight = (int)(filledVolume * height);
 
-                    int atlasWidth = (int)(sprite.getWidth() / (sprite.getU1() - sprite.getU0()));
-                    int atlasHeight = (int)(sprite.getHeight() / (sprite.getV1() - sprite.getV0()));
+                    int atlasWidth = (int)(sprite.getY() / (sprite.getU1() - sprite.getU0()));
+                    int atlasHeight = (int)(sprite.getY() / (sprite.getV1() - sprite.getV0()));
 
                     pPoseStack.pushPose();
                     pPoseStack.translate(0, height-16, 0);
                     for (int i = 0; i < Math.ceil(renderableHeight / 16f); i++) {
                         int drawingHeight = Math.min(16, renderableHeight - 16*i);
                         int notDrawingHeight = 16 - drawingHeight;
-                        blit(pPoseStack, x, y + notDrawingHeight, displayOn.getBlitOffset(), sprite.getU0()*atlasWidth, sprite.getV0()*atlasHeight + notDrawingHeight, this.width, drawingHeight, atlasWidth, atlasHeight);
+                        blit(pPoseStack, getX(), getY() + notDrawingHeight, displayOn.getBlitOffset(), sprite.getU0()*atlasWidth, sprite.getV0()*atlasHeight + notDrawingHeight, this.width, drawingHeight, atlasWidth, atlasHeight);
                         pPoseStack.translate(0,-16, 0);
                     }
 
@@ -90,13 +87,20 @@ public class FluidStackWidget extends AbstractWidget {
                     pPoseStack.popPose();
                 }
             }
-            renderToolTip(pPoseStack, pMouseX, pMouseY);
+            //renderToolTip(pPoseStack, pMouseX, pMouseY);
         }
     }
+
     @Override
+    protected void updateWidgetNarration(NarrationElementOutput p_259858_) {
+
+    }
+
+    // TODO Fix Tooltips
+    /*@Override
     public void renderToolTip(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         if (isActive() && isHovered) {
             displayOn.renderTooltip(pPoseStack, Arrays.asList(LangUtils.getTooltipTitle(toolTipTitle).getVisualOrderText(), Component.literal((int) (((float)this.getFluid.get().getFluidAmount() / this.getFluid.get().getCapacity()) * 100) + "%").getVisualOrderText()), pMouseX, pMouseY);
         }
-    }
+    }*/
 }

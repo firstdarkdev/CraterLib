@@ -19,7 +19,8 @@ public class SubConfigWidget<T> extends AbstractConfigWidget<T, Button> {
         this.config = config;
         this.subConfig = subConfig;
         this.screen = screen;
-        this.widget = addChild(new Button(0, 0, 200, buttonHeight, Component.translatable("t.clc.opensubconfig"), this::openSubConfig));
+
+        this.widget = addChild(Button.builder(Component.translatable("t.clc.opensubconfig"), this::openSubConfig).size(200, buttonHeight).build());
     }
 
     @Override

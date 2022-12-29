@@ -9,6 +9,7 @@ import me.hypherionmc.craterlib.util.ColorPropertyFunction;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.fabricmc.loader.api.FabricLoader;
@@ -18,6 +19,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -83,5 +85,9 @@ public class FabricClientHelper implements LibClientHelper {
             CraterPacket<?> packet = factory.apply(buf);
             client.execute(() -> packet.handle(client.player, client));
         });
+    }
+
+    public static void registerCreativeItems(CreativeModeTab tab, FabricItemGroupEntries entries) {
+
     }
 }

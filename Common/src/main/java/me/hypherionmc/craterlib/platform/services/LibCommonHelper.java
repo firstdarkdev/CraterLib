@@ -36,5 +36,4 @@ public interface LibCommonHelper {
     /* FABRIC ONLY */
     public void registerServerReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory);
 
-    public CreativeModeTab tabBuilder(String modid, String tabid, Supplier<ItemStack> icon, String backgroundSuf);
 }

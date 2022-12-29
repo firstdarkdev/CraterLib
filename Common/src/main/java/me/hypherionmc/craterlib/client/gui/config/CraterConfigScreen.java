@@ -2,7 +2,6 @@ package me.hypherionmc.craterlib.client.gui.config;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Matrix4f;
 import me.hypherionmc.craterlib.CraterConstants;
 import me.hypherionmc.craterlib.client.gui.config.widgets.*;
 import me.hypherionmc.craterlib.common.config.ModuleConfig;
@@ -17,6 +16,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import org.joml.Matrix4f;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Field;

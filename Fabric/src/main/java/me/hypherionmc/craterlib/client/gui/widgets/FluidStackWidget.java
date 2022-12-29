@@ -63,33 +63,35 @@ public class FluidStackWidget extends AbstractWidget {
                 float filledVolume = stored / capacity;
                 int renderableHeight = (int) (filledVolume * height);
 
-                int atlasWidth = (int) (still.getWidth() / (still.getU1() - still.getU0()));
-                int atlasHeight = (int) (still.getHeight() / (still.getV1() - still.getV0()));
+                int atlasWidth = (int) (still.getX() / (still.getU1() - still.getU0()));
+                int atlasHeight = (int) (still.getY() / (still.getV1() - still.getV0()));
 
                 matrices.pushPose();
                 matrices.translate(0, height - 16, 0);
                 for (int i = 0; i < Math.ceil(renderableHeight / 16f); i++) {
                     int drawingHeight = Math.min(16, renderableHeight - 16 * i);
                     int notDrawingHeight = 16 - drawingHeight;
-                    blit(matrices, x, y + notDrawingHeight, displayOn.getBlitOffset(), still.getU0() * atlasWidth, still.getV0() * atlasHeight + notDrawingHeight, this.width, drawingHeight, atlasWidth, atlasHeight);
+                    blit(matrices, getX(), getY() + notDrawingHeight, displayOn.getBlitOffset(), still.getU0() * atlasWidth, still.getV0() * atlasHeight + notDrawingHeight, this.width, drawingHeight, atlasWidth, atlasHeight);
                     matrices.translate(0, -16, 0);
                 }
 
                 RenderSystem.setShaderColor(1, 1, 1, 1);
                 matrices.popPose();
             }
-            renderToolTip(matrices, mouseX, mouseY);
+            //renderToolTip(matrices, mouseX, mouseY);
         }
     }
 
-    @Override
+    // TODO Fix Tooltips
+    /*@Override
     public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY) {
         if (this.visible && this.isFocused() && isHoveredOrFocused()) {
             displayOn.renderTooltip(poseStack, Arrays.asList(LangUtils.getTooltipTitle(toolTipTitle), Component.literal((int) (((float) this.getFluid.get().getAmount() / this.getFluid.get().getCapacity()) * 100) + "%")), Optional.empty(), mouseX, mouseY);
         }
-    }
+    }*/
 
     @Override
-    public void updateNarration(NarrationElementOutput narrationElementOutput) {
+    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
+
     }
 }

@@ -1,9 +1,9 @@
 package me.hypherionmc.craterlib.util;
 
-import com.mojang.math.Vector4f;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.DyeColor;
+import org.joml.Vector4f;
 
 import java.awt.*;
 
