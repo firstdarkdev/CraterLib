@@ -2,9 +2,15 @@ plugins {
     id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'maven-publish'
     id 'idea'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 archivesBaseName = "${mod_name}-fabric-${minecraft_version}"
+
+configurations {
+    shade
+    implementation.extendsFrom shade
+}
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
@@ -13,8 +19,8 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation project(":Common")
 
-    include "me.hypherionmc.moon-config:core:${moon_config}"
-    include "me.hypherionmc.moon-config:toml:${moon_config}"
+    shade "me.hypherionmc.moon-config:core:${moon_config}"
+    shade "me.hypherionmc.moon-config:toml:${moon_config}"
 
     modApi("com.terraformersmc:modmenu:${mod_menu_version}") {
         exclude(group: "net.fabricmc.fabric-api")
@@ -63,6 +69,21 @@ jar {
     }
 }
 
+shadowJar {
+    from sourceSets.main.output
+
+    configurations = [project.configurations.shade]
+    dependencies {
+        relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
+    }
+}
+
+remapJar {
+    dependsOn(shadowJar)
+    shouldRunAfter(shadowJar)
+    input.set shadowJar.archiveFile.get()
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -98,6 +119,7 @@ task delDevJar {
     doLast {
         def tree = fileTree('build/libs')
         tree.include '**/*-dev.jar'
+        tree.include '**/*-all.jar'
         tree.each { it.delete() }
     }
 }
