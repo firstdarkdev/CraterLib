@@ -5,6 +5,7 @@ import me.hypherionmc.craterlib.systems.internal.CreativeTabRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import org.apache.commons.lang3.tuple.Pair;
@@ -33,5 +34,9 @@ public class CraterLibInitializer implements ModInitializer {
 
             tab.setTab(finalTab);
         });
+
+        ItemGroupEvents.MODIFY_ENTRIES_ALL.register((group, entries) -> CreativeTabRegistry.getTabItems().stream()
+                .filter(p -> p.getLeft().get() == group)
+                .forEach(itemPair -> entries.accept(itemPair.getRight().get())));
     }
 }
