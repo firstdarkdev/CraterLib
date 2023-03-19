@@ -3,7 +3,6 @@ package me.hypherionmc.craterlib.client.gui.widgets;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.hypherionmc.craterlib.systems.fluid.FluidTank;
-import me.hypherionmc.craterlib.util.LangUtils;
 import me.hypherionmc.craterlib.util.RenderUtils;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
@@ -15,9 +14,8 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -38,8 +36,7 @@ public class FluidStackWidget extends AbstractWidget {
     }
 
     @Override
-    public void renderButton(PoseStack matrices, int mouseX, int mouseY, float delta) {
-        Minecraft minecraft = Minecraft.getInstance();
+    public void renderWidget(@NotNull PoseStack matrices, int mouseX, int mouseY, float delta) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
@@ -71,7 +68,8 @@ public class FluidStackWidget extends AbstractWidget {
                 for (int i = 0; i < Math.ceil(renderableHeight / 16f); i++) {
                     int drawingHeight = Math.min(16, renderableHeight - 16 * i);
                     int notDrawingHeight = 16 - drawingHeight;
-                    blit(matrices, getX(), getY() + notDrawingHeight, displayOn.getBlitOffset(), still.getU0() * atlasWidth, still.getV0() * atlasHeight + notDrawingHeight, this.width, drawingHeight, atlasWidth, atlasHeight);
+                    // TODO Double Check this
+                    blit(matrices, getX(), getY() + notDrawingHeight, 0, still.getU0() * atlasWidth, still.getV0() * atlasHeight + notDrawingHeight, this.width, drawingHeight, atlasWidth, atlasHeight);
                     matrices.translate(0, -16, 0);
                 }
 

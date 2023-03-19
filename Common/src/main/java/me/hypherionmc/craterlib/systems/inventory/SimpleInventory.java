@@ -1,4 +1,4 @@
-package me.hypherionmc.craterlib.systems;
+package me.hypherionmc.craterlib.systems.inventory;
 
 import com.google.common.base.Preconditions;
 import net.minecraft.core.NonNullList;

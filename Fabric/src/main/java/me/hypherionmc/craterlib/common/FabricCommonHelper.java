@@ -1,5 +1,7 @@
 package me.hypherionmc.craterlib.common;
 
+import me.hypherionmc.craterlib.api.blockentities.caps.CapabilityHandler;
+import me.hypherionmc.craterlib.api.blockentities.caps.ICraterCapProvider;
 import me.hypherionmc.craterlib.network.CraterNetworkHandler;
 import me.hypherionmc.craterlib.network.CraterPacket;
 import me.hypherionmc.craterlib.network.FabricNetworkHandler;
@@ -8,6 +10,7 @@ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -19,9 +22,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -79,4 +84,11 @@ public class FabricCommonHelper implements LibCommonHelper {
         return new ExtendedScreenHandlerType<>(constructor::apply);
     }
 
+    @Override
+    public <T> Optional<T> getCapabilityHandler(BlockEntity entity, Direction side, CapabilityHandler capability) {
+        if (entity instanceof ICraterCapProvider capProvider) {
+            return capProvider.getCapability(capability, side);
+        }
+        return Optional.empty();
+    }
 }

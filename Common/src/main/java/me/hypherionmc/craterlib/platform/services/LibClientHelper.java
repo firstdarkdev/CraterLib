@@ -4,6 +4,7 @@ import me.hypherionmc.craterlib.common.item.BlockItemDyable;
 import me.hypherionmc.craterlib.network.CraterPacket;
 import me.hypherionmc.craterlib.systems.reg.RegistryObject;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.network.Connection;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -11,6 +12,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import java.util.Collection;
 import java.util.function.Function;
@@ -37,5 +40,7 @@ public interface LibClientHelper {
     public Connection getClientConnection();
 
     public void registerClientReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory);
+
+    public void registerBlockEntityRenderer(BlockEntityType<? extends BlockEntity> blockEntityType, BlockEntityRendererProvider blockEntityRendererFactory);
 
 }

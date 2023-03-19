@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 /***
  * Loosely based on the Forge Energy System
  */
-public class CustomEnergyStorage {
+public class CustomEnergyStorage implements ICraterEnergyStorage {
 
     protected int powerLevel;
     protected int powerCapacity;
@@ -31,11 +31,13 @@ public class CustomEnergyStorage {
         this.powerCapacity = capacity;
     }
 
+    @Override
     public CompoundTag writeNBT(CompoundTag compoundTag) {
         compoundTag.putInt("powerLevel", this.powerLevel);
         return compoundTag;
     }
 
+    @Override
     public void readNBT(CompoundTag compoundTag) {
         if (compoundTag.contains("powerLevel")) {
             this.powerLevel = compoundTag.getInt("powerLevel");
@@ -49,6 +51,7 @@ public class CustomEnergyStorage {
         return energyReceived;
     }
 
+    @Override
     public int receiveEnergy(int toReceive, boolean test) {
         if (this.maxInput < 1) {
             return 0;
@@ -63,6 +66,7 @@ public class CustomEnergyStorage {
         return energyExtracted;
     }
 
+    @Override
     public int extractEnergy(int toExtract, boolean test) {
         if (this.maxOutput < 1) {
             return 0;
@@ -73,18 +77,22 @@ public class CustomEnergyStorage {
         return energyExtracted;
     }
 
+    @Override
     public int getPowerLevel() {
         return powerLevel;
     }
 
+    @Override
     public int getMaxInput() {
         return maxInput;
     }
 
+    @Override
     public int getMaxOutput() {
         return maxOutput;
     }
 
+    @Override
     public int getPowerCapacity() {
         return powerCapacity;
     }

@@ -1,7 +1,6 @@
 package me.hypherionmc.craterlib.systems.inventory;
 
 import com.google.common.base.Suppliers;
-import me.hypherionmc.craterlib.systems.SimpleInventory;
 import net.minecraft.core.Direction;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Player;

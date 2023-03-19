@@ -8,16 +8,20 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Supplier;
 
+/**
+ * @author HypherionSA
+ * Extention to allow mods to add their own creative tabs, without relying on loader events
+ */
 public class CraterCreativeModeTab implements Supplier<CreativeModeTab> {
 
     private final ResourceLocation resourceLocation;
-    private final ItemStack icon;
+    private final Supplier<ItemStack> icon;
     private final String backgroundSuffix;
     private CreativeModeTab tab;
 
     protected CraterCreativeModeTab(Builder builder) {
         this.resourceLocation = builder.location;
-        this.icon = builder.stack == null ? ItemStack.EMPTY : builder.stack;
+        this.icon = builder.stack;
         this.backgroundSuffix = builder.backgroundSuffix == null ? "" : builder.backgroundSuffix;
 
         CreativeTabRegistry.registerTab(this);
@@ -27,7 +31,7 @@ public class CraterCreativeModeTab implements Supplier<CreativeModeTab> {
         return this.resourceLocation;
     }
 
-    public ItemStack getIcon() {
+    public Supplier<ItemStack> getIcon() {
         return icon;
     }
 
@@ -41,14 +45,14 @@ public class CraterCreativeModeTab implements Supplier<CreativeModeTab> {
 
     public static class Builder {
         private final ResourceLocation location;
-        private ItemStack stack;
+        private Supplier<ItemStack> stack;
         private String backgroundSuffix;
 
         public Builder(ResourceLocation location) {
             this.location = location;
         }
 
-        public Builder setIcon(ItemStack icon) {
+        public Builder setIcon(Supplier<ItemStack> icon) {
             stack = icon;
             return this;
         }

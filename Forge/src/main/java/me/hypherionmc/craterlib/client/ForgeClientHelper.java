@@ -8,6 +8,8 @@ import me.hypherionmc.craterlib.systems.reg.RegistryObject;
 import me.hypherionmc.craterlib.util.ColorPropertyFunction;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.network.Connection;
 import net.minecraft.network.FriendlyByteBuf;
@@ -16,6 +18,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import java.util.Collection;
@@ -70,5 +74,10 @@ public class ForgeClientHelper implements LibClientHelper {
     @Override
     public void registerClientReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory) {
         // UNUSED
+    }
+
+    @Override
+    public void registerBlockEntityRenderer(BlockEntityType<? extends BlockEntity> blockEntityType, BlockEntityRendererProvider blockEntityRendererFactory) {
+        BlockEntityRenderers.register(blockEntityType, blockEntityRendererFactory);
     }
 }

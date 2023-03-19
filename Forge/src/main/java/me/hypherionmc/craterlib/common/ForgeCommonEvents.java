@@ -2,6 +2,7 @@ package me.hypherionmc.craterlib.common;
 
 import me.hypherionmc.craterlib.CraterConstants;
 import me.hypherionmc.craterlib.systems.internal.CreativeTabRegistry;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -11,11 +12,18 @@ import net.minecraftforge.fml.common.Mod;
 public class ForgeCommonEvents {
 
     @SubscribeEvent
-    public static void buildContents(CreativeModeTabEvent.Register event) {
+    public static void registerTabs(CreativeModeTabEvent.Register event) {
         CraterConstants.LOG.info("Registering Creative Tabs");
+
         CreativeTabRegistry.getTABS().forEach(tab -> {
             CreativeModeTab creativeModeTab = event.registerCreativeModeTab(tab.getResourceLocation(), builder -> {
-               builder.icon(tab::getIcon);
+                builder.title(
+                        Component.translatable("itemGroup." +
+                                tab.getResourceLocation().toString().replace(":", ".")
+                        )
+                );
+
+                builder.icon(tab.getIcon());
 
                if (!tab.getBackgroundSuffix().isEmpty()) {
                    builder.backgroundSuffix(tab.getBackgroundSuffix());
@@ -23,6 +31,15 @@ public class ForgeCommonEvents {
             });
             tab.setTab(creativeModeTab);
         });
+    }
+
+    @SubscribeEvent
+    public static void registerTabs(CreativeModeTabEvent.BuildContents event) {
+        CreativeModeTab tab = event.getTab();
+
+        CreativeTabRegistry.getTabItems().stream()
+                .filter(p -> p.getLeft().get() == tab)
+                .forEach(itemPair -> event.accept(itemPair.getRight()));
     }
 
 }

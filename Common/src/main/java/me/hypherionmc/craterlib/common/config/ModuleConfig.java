@@ -1,9 +1,9 @@
 package me.hypherionmc.craterlib.common.config;
 
-import me.hypherionmc.nightconfig.core.CommentedConfig;
-import me.hypherionmc.nightconfig.core.Config;
-import me.hypherionmc.nightconfig.core.conversion.ObjectConverter;
-import me.hypherionmc.nightconfig.core.file.CommentedFileConfig;
+import me.hypherionmc.moonconfig.core.CommentedConfig;
+import me.hypherionmc.moonconfig.core.Config;
+import me.hypherionmc.moonconfig.core.conversion.ObjectConverter;
+import me.hypherionmc.moonconfig.core.file.CommentedFileConfig;
 
 import java.io.File;
 

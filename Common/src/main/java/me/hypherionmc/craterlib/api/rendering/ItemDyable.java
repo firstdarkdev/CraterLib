@@ -4,14 +4,13 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 
 /**
+ * @author HypherionSA
  * Helper Interface for Dyable Items
  */
 public interface ItemDyable {
 
     /**
      * Get the DyeColor of the Item
-     *
-     * @return
      */
     public DyeColor getColor(ItemStack stack);
 

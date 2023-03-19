@@ -1,7 +1,9 @@
 package me.hypherionmc.craterlib.platform.services;
 
+import me.hypherionmc.craterlib.api.blockentities.caps.CapabilityHandler;
 import me.hypherionmc.craterlib.network.CraterNetworkHandler;
 import me.hypherionmc.craterlib.network.CraterPacket;
+import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -10,14 +12,13 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.apache.commons.lang3.function.TriFunction;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * @author HypherionSA
@@ -36,4 +37,5 @@ public interface LibCommonHelper {
     /* FABRIC ONLY */
     public void registerServerReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory);
 
+    public <T> Optional<T> getCapabilityHandler(BlockEntity entity, Direction side, CapabilityHandler capability);
 }

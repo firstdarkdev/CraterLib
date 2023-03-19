@@ -7,7 +7,6 @@ package me.hypherionmc.craterlib.client.gui.widgets;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.hypherionmc.craterlib.util.LangUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -22,8 +21,8 @@ import net.minecraft.util.FastColor;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.function.Supplier;
 
 /** Copied from https://github.com/SleepyTrousers/EnderIO-Rewrite/blob/dev/1.18.x/enderio-machines/src/main/java/com/enderio/machines/client/FluidStackWidget.java*/
@@ -42,7 +41,7 @@ public class FluidStackWidget extends AbstractWidget {
     }
 
     @Override
-    public void renderButton(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTicks) {
+    public void renderWidget(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTicks) {
         Minecraft minecraft = Minecraft.getInstance();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.defaultBlendFunc();
@@ -79,7 +78,8 @@ public class FluidStackWidget extends AbstractWidget {
                     for (int i = 0; i < Math.ceil(renderableHeight / 16f); i++) {
                         int drawingHeight = Math.min(16, renderableHeight - 16*i);
                         int notDrawingHeight = 16 - drawingHeight;
-                        blit(pPoseStack, getX(), getY() + notDrawingHeight, displayOn.getBlitOffset(), sprite.getU0()*atlasWidth, sprite.getV0()*atlasHeight + notDrawingHeight, this.width, drawingHeight, atlasWidth, atlasHeight);
+                        // TODO Double Check this
+                        blit(pPoseStack, getX(), getY() + notDrawingHeight, 0, sprite.getU0()*atlasWidth, sprite.getV0()*atlasHeight + notDrawingHeight, this.width, drawingHeight, atlasWidth, atlasHeight);
                         pPoseStack.translate(0,-16, 0);
                     }
 

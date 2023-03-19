@@ -13,13 +13,13 @@ public class WrappedEditBox extends EditBox {
     }
 
     @Override
-    public void setFocus(boolean bl) {
+    public void setFocused(boolean bl) {
         for (GuiEventListener child : Minecraft.getInstance().screen.children()) {
             if (child instanceof TextConfigOption<?> option) {
                 WrappedEditBox box = option.widget;
                 box.setFocused(box == this);
             }
         }
-        super.setFocus(bl);
+        super.setFocused(bl);
     }
 }

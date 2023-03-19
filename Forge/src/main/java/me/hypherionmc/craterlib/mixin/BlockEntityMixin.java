@@ -1,12 +1,15 @@
 package me.hypherionmc.craterlib.mixin;
 
-import me.hypherionmc.craterlib.api.blockentities.caps.ForgeCapability;
-import me.hypherionmc.craterlib.api.blockentities.caps.IForgeCapProvider;
+import me.hypherionmc.craterlib.api.blockentities.caps.CapabilityHandler;
+import me.hypherionmc.craterlib.api.blockentities.caps.ICraterCapProvider;
 import me.hypherionmc.craterlib.common.blockentity.CraterBlockEntity;
-import me.hypherionmc.craterlib.systems.SimpleInventory;
 import me.hypherionmc.craterlib.systems.energy.CustomEnergyStorage;
 import me.hypherionmc.craterlib.systems.energy.ForgeEnergyWrapper;
+import me.hypherionmc.craterlib.systems.fluid.CraterFluidTank;
+import me.hypherionmc.craterlib.systems.fluid.ForgeWrappedFluidTank;
+import me.hypherionmc.craterlib.systems.fluid.ICraterFluidHandler;
 import me.hypherionmc.craterlib.systems.inventory.ForgeInventoryWrapper;
+import me.hypherionmc.craterlib.systems.inventory.SimpleInventory;
 import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -28,19 +31,26 @@ public class BlockEntityMixin implements ICapabilityProvider {
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        IForgeCapProvider capProvider = (IForgeCapProvider) this;
+        ICraterCapProvider capProvider = (ICraterCapProvider) this;
 
         if (cap == ForgeCapabilities.ENERGY) {
-            Optional<CustomEnergyStorage> forgeCap = capProvider.getForgeCapability(ForgeCapability.ENERGY, side);
+            Optional<CustomEnergyStorage> forgeCap = capProvider.getCapability(CapabilityHandler.ENERGY, side);
             if (forgeCap.isPresent()) {
                 return LazyOptional.of(() -> new ForgeEnergyWrapper(forgeCap.get())).cast();
             }
         }
 
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            Optional<SimpleInventory> inventory = capProvider.getForgeCapability(ForgeCapability.ITEM, side);
+            Optional<SimpleInventory> inventory = capProvider.getCapability(CapabilityHandler.ITEM, side);
             if (inventory.isPresent()) {
                 return LazyOptional.of(() -> new SidedInvWrapper(new ForgeInventoryWrapper(inventory.get()), side)).cast();
+            }
+        }
+
+        if (cap == ForgeCapabilities.FLUID_HANDLER) {
+            Optional<ICraterFluidHandler> fluidTank = capProvider.getCapability(CapabilityHandler.FLUID, side);
+            if (fluidTank.isPresent()) {
+                return LazyOptional.of(() -> (ForgeWrappedFluidTank)fluidTank.get()).cast();
             }
         }
 

@@ -1,7 +1,7 @@
 package me.hypherionmc.craterlib.common.config;
 
 import me.hypherionmc.craterlib.CraterConstants;
-import me.hypherionmc.nightconfig.core.file.FileWatcher;
+import me.hypherionmc.moonconfig.core.file.FileWatcher;
 
 import java.io.Serializable;
 import java.util.HashMap;

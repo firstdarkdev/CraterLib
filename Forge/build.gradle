@@ -102,8 +102,8 @@ processResources {
 
 shadowJar {
     dependencies {
-        include(dependency('me.hypherionmc.night-config:toml:3.6.5_custom'))
-        include(dependency('me.hypherionmc.night-config:core:3.6.5_custom'))
+        include(dependency("me.hypherionmc.moon-config:core:${moon_config}"))
+        include(dependency("me.hypherionmc.moon-config:toml:${moon_config}"))
 
         //relocate 'me.hypherionmc.nightconfig', 'shadow.hypherionmc.nightconfig'
     }

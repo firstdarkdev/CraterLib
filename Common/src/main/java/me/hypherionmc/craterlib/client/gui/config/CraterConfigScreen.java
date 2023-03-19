@@ -7,7 +7,7 @@ import me.hypherionmc.craterlib.client.gui.config.widgets.*;
 import me.hypherionmc.craterlib.common.config.ModuleConfig;
 import me.hypherionmc.craterlib.common.config.annotations.SubConfig;
 import me.hypherionmc.craterlib.common.config.annotations.Tooltip;
-import me.hypherionmc.nightconfig.core.conversion.SpecComment;
+import me.hypherionmc.moonconfig.core.conversion.SpecComment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.ConfirmScreen;
@@ -212,7 +212,7 @@ public class CraterConfigScreen extends Screen {
             int scrollbarPositionMinX = scrollbarPositionMaxX - 6;
 
             int maxY = this.height - BOTTOM;
-            RenderSystem.disableTexture();
+            //RenderSystem.disableTexture();
             Tesselator tesselator = Tesselator.getInstance();
             BufferBuilder buffer = tesselator.getBuilder();
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
@@ -233,7 +233,7 @@ public class CraterConfigScreen extends Screen {
             buffer.vertex(scrollbarPositionMinX, minY, 0.0D).color(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1).endVertex();
             tesselator.end();
             RenderSystem.disableBlend();
-            RenderSystem.enableTexture();
+            //RenderSystem.enableTexture();
         }
     }
 
@@ -242,7 +242,7 @@ public class CraterConfigScreen extends Screen {
         BufferBuilder buffer = tesselator.getBuilder();
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(770, 771, 0, 1);
-        RenderSystem.disableTexture();
+        //RenderSystem.disableTexture();
         RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         Matrix4f matrix = matrices.last().pose();
         buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
@@ -255,7 +255,7 @@ public class CraterConfigScreen extends Screen {
         buffer.vertex(matrix, width, height - BOTTOM - 4, 0.0F).uv(1, 0).color(0, 0, 0, 0).endVertex();
         buffer.vertex(matrix, 0, height - BOTTOM - 4, 0.0F).uv(0, 0).color(0, 0, 0, 0).endVertex();
         tesselator.end();
-        RenderSystem.enableTexture();
+        //RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
 

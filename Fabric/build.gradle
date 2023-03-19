@@ -11,9 +11,10 @@ dependencies {
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    include 'me.hypherionmc.night-config:toml:3.6.5_custom'
-    include 'me.hypherionmc.night-config:core:3.6.5_custom'
     implementation project(":Common")
+
+    include "me.hypherionmc.moon-config:core:${moon_config}"
+    include "me.hypherionmc.moon-config:toml:${moon_config}"
 
     modApi("com.terraformersmc:modmenu:${mod_menu_version}") {
         exclude(group: "net.fabricmc.fabric-api")
