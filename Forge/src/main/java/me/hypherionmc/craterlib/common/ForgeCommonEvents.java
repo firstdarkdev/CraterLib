@@ -38,7 +38,7 @@ public class ForgeCommonEvents {
         CreativeModeTab tab = event.getTab();
 
         CreativeTabRegistry.getTabItems().stream()
-                .filter(p -> p.getLeft().get() == tab)
+                .filter(p -> p.getLeft().get() == tab && p.getRight() != null)
                 .forEach(itemPair -> event.accept(itemPair.getRight()));
     }
 

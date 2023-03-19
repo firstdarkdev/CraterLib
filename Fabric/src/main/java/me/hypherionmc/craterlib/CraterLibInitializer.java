@@ -23,20 +23,15 @@ public class CraterLibInitializer implements ModInitializer {
                     .title(Component.translatable("itemGroup." +
                             tab.getResourceLocation().toString().replace(":", ".")
                     ))
-                    .displayItems((featureFlagSet, output) -> {
-                        CreativeTabRegistry
-                                .getTabItems()
-                                .stream().filter(t -> t.getLeft() == tab)
-                                .map(Pair::getRight).forEach(itm -> output.accept(itm.get()));
-                    })
                     .icon(tab.getIcon())
                     .build();
 
             tab.setTab(finalTab);
-        });
 
-        ItemGroupEvents.MODIFY_ENTRIES_ALL.register((group, entries) -> CreativeTabRegistry.getTabItems().stream()
-                .filter(p -> p.getLeft().get() == group)
-                .forEach(itemPair -> entries.accept(itemPair.getRight().get())));
+            ItemGroupEvents.modifyEntriesEvent(finalTab).register(entries -> CreativeTabRegistry
+                    .getTabItems()
+                    .stream().filter(t -> t.getLeft().get() == finalTab && t.getRight() != null)
+                    .map(Pair::getRight).forEach(itm -> entries.accept(itm.get())));
+        });
     }
 }

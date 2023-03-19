@@ -16,7 +16,9 @@ public class CreativeTabRegistry {
     private static final List<Pair<CraterCreativeModeTab, Supplier<? extends ItemLike>>> TAB_ITEMS = new ArrayList<>();
 
     public static void setCreativeTab(CraterCreativeModeTab tab, Supplier<? extends ItemLike> item) {
-        TAB_ITEMS.add(Pair.of(tab, item));
+        if (item != null) {
+            TAB_ITEMS.add(Pair.of(tab, item));
+        }
     }
 
     public static void registerTab(CraterCreativeModeTab tab) {
