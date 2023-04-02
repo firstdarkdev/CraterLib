@@ -40,7 +40,7 @@ shadowJar {
         include(dependency("me.hypherionmc.moon-config:core:${moon_config}"))
         include(dependency("me.hypherionmc.moon-config:toml:${moon_config}"))
 
-        //relocate 'me.hypherionmc.nightconfig', 'shadow.hypherionmc.nightconfig'
+        relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
     }
     classifier ''
 }

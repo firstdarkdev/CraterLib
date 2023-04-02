@@ -108,8 +108,11 @@ public class ModuleConfig {
 
         /* Upgrade the config */
         new ObjectConverter().toConfig(conf, newConfig);
-        updateConfigValues(config, newConfig, CommentedConfig.copy(newConfig), "");
+        updateConfigValues(config, newConfig, newConfig, "");
         newConfig.save();
+
+        config.close();
+        newConfig.close();
     }
 
     private void updateConfigValues(CommentedConfig oldConfig, CommentedConfig newConfig, CommentedConfig outputConfig, String subKey) {
