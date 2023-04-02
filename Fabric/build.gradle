@@ -84,6 +84,8 @@ remapJar {
     input.set shadowJar.archiveFile.get()
 }
 
+reg.configureJarTask(shadowJar)
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
