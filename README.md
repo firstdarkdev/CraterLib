@@ -4,7 +4,7 @@
 
 ***
 
-A library mod used by HypherionSA's mods. Mostly used by Hyper Lighting 2.
+A library mod used by HypherionSA and First Dark Development mods to make porting and multiple modloader support easier
 
 ***
 
@@ -16,13 +16,13 @@ A library mod used by HypherionSA's mods. Mostly used by Hyper Lighting 2.
 * Built in FluidTank and Energy systems for Forge/Fabric (Forge versions are just wrappers).
 * Built in Optifine-Compat utilities
 * Various utilities for Blockstates, LANG, Math and Rendering
-* Cross Mod-Loader Events
+* Cross Mod-Loader Events - Based on [Acara](https://github.com/Keksuccino/acara)
 * Cross Mod-Loader Config Screens (Based on [Cloth Config Lite](https://github.com/shedaniel/cloth-config-lite))
 * Automatic ModMenu and Forge Config screen registration
 * Built in Cross Mod-Loader Network system
-* TODO: Various GUI widgets and Utilities
-* TODO: Cross Mod-Loader Dynamic Lighting
-* TODO: Texture Utils
+* WIP: Various GUI widgets and Utilities
+* ~~TODO: Cross Mod-Loader Dynamic Lighting~~
+* WIP: Texture Utils
 * TODO: Sync Config From Server to Client
 
 ***

@@ -4,7 +4,7 @@ plugins {
 }
 
 registrationUtils {
-    group 'me.hypherionmc.craterlib.systems.reg'
+    group 'com.hypherionmc.craterlib.core.systems.reg'
     projects {
         Common { type 'common'; project ':Common' }
         Fabric { type 'fabric'; project ':Fabric' }

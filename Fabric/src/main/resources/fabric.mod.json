@@ -17,13 +17,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "me.hypherionmc.craterlib.CraterLibInitializer"
+      "com.hypherionmc.craterlib.CraterLibInitializer"
     ],
     "client": [
-      "me.hypherionmc.craterlib.client.CraterLibClientInitializer"
+      "com.hypherionmc.craterlib.client.CraterLibClientInitializer"
     ],
     "modmenu": [
-      "me.hypherionmc.craterlib.CraterLibModMenuIntegration"
+      "com.hypherionmc.craterlib.CraterLibModMenuIntegration"
     ]
   },
   "mixins": [
