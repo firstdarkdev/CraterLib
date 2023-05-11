@@ -2,7 +2,7 @@ package com.hypherionmc.craterlib.core.platform.services;
 
 import com.hypherionmc.craterlib.common.item.BlockItemDyable;
 import com.hypherionmc.craterlib.core.network.CraterPacket;
-import me.hypherionmc.craterlib.systems.reg.RegistryObject;
+import com.hypherionmc.craterlib.core.systems.reg.RegistryObject;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.network.Connection;

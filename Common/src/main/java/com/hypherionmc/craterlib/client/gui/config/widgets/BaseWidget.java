@@ -1,9 +1,9 @@
 package com.hypherionmc.craterlib.client.gui.config.widgets;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -39,7 +39,7 @@ public class BaseWidget<T> extends Option<T> {
     }
 
     @Override
-    public void render(Minecraft minecraft, Font font, int x, int y, int width, int height, PoseStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(Minecraft minecraft, Font font, int x, int y, int width, int height, GuiGraphics matrices, int mouseX, int mouseY, float delta) {
         MutableComponent text = Component.literal(this.text.getString());
         boolean edited = isEdited() || hasErrors;
         if (edited) {
@@ -50,7 +50,7 @@ public class BaseWidget<T> extends Option<T> {
         } else {
             text.withStyle(ChatFormatting.GRAY);
         }
-        font.draw(matrices, text, x, y + 8, 0xFFFFFF);
+        matrices.drawString(font, text, x, y, 0xFFFFFF);
         resetButton.setX(x + width - 46);
         resetButton.setY(y + 1);
         resetButton.active = isNotDefault();
@@ -58,5 +58,4 @@ public class BaseWidget<T> extends Option<T> {
             resetButton.render(matrices, mouseX, mouseY, delta);
         }
     }
-
 }

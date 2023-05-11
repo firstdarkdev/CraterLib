@@ -3,9 +3,9 @@ package com.hypherionmc.craterlib.client.gui.widgets;
 import com.hypherionmc.craterlib.systems.fluid.FluidTank;
 import com.hypherionmc.craterlib.util.RenderUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
@@ -35,7 +35,7 @@ public class FluidStackWidget extends AbstractWidget {
     }
 
     @Override
-    public void renderWidget(@NotNull PoseStack matrices, int mouseX, int mouseY, float delta) {
+    public void renderWidget(@NotNull GuiGraphics matrices, int mouseX, int mouseY, float delta) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
@@ -62,18 +62,18 @@ public class FluidStackWidget extends AbstractWidget {
                 int atlasWidth = (int) (still.getX() / (still.getU1() - still.getU0()));
                 int atlasHeight = (int) (still.getY() / (still.getV1() - still.getV0()));
 
-                matrices.pushPose();
-                matrices.translate(0, height - 16, 0);
+                matrices.pose().pushPose();
+                matrices.pose().translate(0, height - 16, 0);
                 for (int i = 0; i < Math.ceil(renderableHeight / 16f); i++) {
                     int drawingHeight = Math.min(16, renderableHeight - 16 * i);
                     int notDrawingHeight = 16 - drawingHeight;
                     // TODO Double Check this
-                    blit(matrices, getX(), getY() + notDrawingHeight, 0, still.getU0() * atlasWidth, still.getV0() * atlasHeight + notDrawingHeight, this.width, drawingHeight, atlasWidth, atlasHeight);
-                    matrices.translate(0, -16, 0);
+                    matrices.blit(TextureAtlas.LOCATION_BLOCKS, getX(), getY() + notDrawingHeight, 0, still.getU0() * atlasWidth, still.getV0() * atlasHeight + notDrawingHeight, this.width, drawingHeight, atlasWidth, atlasHeight);
+                    matrices.pose().translate(0, -16, 0);
                 }
 
                 RenderSystem.setShaderColor(1, 1, 1, 1);
-                matrices.popPose();
+                matrices.pose().popPose();
             }
             //renderToolTip(matrices, mouseX, mouseY);
         }

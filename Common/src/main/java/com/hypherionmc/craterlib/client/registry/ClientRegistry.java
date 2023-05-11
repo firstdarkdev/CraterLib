@@ -4,7 +4,7 @@ import com.hypherionmc.craterlib.api.rendering.DyableBlock;
 import com.hypherionmc.craterlib.api.rendering.ItemDyable;
 import com.hypherionmc.craterlib.client.rendering.ItemColorHandler;
 import com.hypherionmc.craterlib.core.platform.ClientPlatform;
-import me.hypherionmc.craterlib.systems.reg.RegistrationProvider;
+import com.hypherionmc.craterlib.core.systems.reg.RegistrationProvider;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;

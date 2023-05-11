@@ -19,7 +19,7 @@ public class MinecraftMixin {
     @Inject(method = "<init>", at = @At("RETURN"))
     private void injectCraterLateInit(GameConfig gameConfig, CallbackInfo ci) {
         CreativeTabRegistry.getTabs().forEach(tab -> {
-            CreativeModeTab finalTab = FabricItemGroup.builder(tab.getResourceLocation())
+            CreativeModeTab finalTab = FabricItemGroup.builder()
                     .title(Component.translatable("itemGroup." +
                             tab.getResourceLocation().toString().replace(":", ".")
                     ))
@@ -28,7 +28,7 @@ public class MinecraftMixin {
 
             tab.setTab(finalTab);
 
-            ItemGroupEvents.modifyEntriesEvent(finalTab).register(entries -> CreativeTabRegistry
+            ItemGroupEvents.modifyEntriesEvent(tab.getResourceKey()).register(entries -> CreativeTabRegistry
                     .getTabItems()
                     .stream().filter(t -> t.getLeft().get() == finalTab && t.getRight() != null)
                     .map(Pair::getRight).forEach(itm -> entries.accept(itm.get())));

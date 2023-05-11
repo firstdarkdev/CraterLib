@@ -14,7 +14,7 @@ import net.minecraft.world.level.material.Fluids;
 public class FluidUtils {
 
     public static int fluidColorFromDye(DyeColor color) {
-        return color.getMaterialColor().col | 0xFF000000;
+        return color.getMapColor().col | 0xFF000000;
     }
 
     public static void putFluid(CompoundTag compound, String key, Fluid fluidVariant) {

@@ -9,13 +9,15 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import me.hypherionmc.moonconfig.core.conversion.SpecComment;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 import javax.annotation.Nullable;
@@ -172,25 +174,25 @@ public class CraterConfigScreen extends Screen {
     }
 
     @Override
-    public void render(PoseStack matrices, int mouseX, int mouseY, float delta) {
-        overlayBackground(matrices, TOP, height - BOTTOM, 32);
+    public void render(@NotNull GuiGraphics matrices, int mouseX, int mouseY, float delta) {
+        overlayBackground(matrices.pose(), TOP, height - BOTTOM, 32);
 
         renderScrollBar();
 
-        matrices.pushPose();
-        matrices.translate(0, 0, 500.0);
-        overlayBackground(matrices, 0, TOP, 64);
-        overlayBackground(matrices, height - BOTTOM, height, 64);
-        renderShadow(matrices);
-        drawCenteredString(matrices, font, getTitle(), width / 2, 9, 0xFFFFFF);
+        matrices.pose().pushPose();
+        matrices.pose().translate(0, 0, 500.0);
+        overlayBackground(matrices.pose(), 0, TOP, 64);
+        overlayBackground(matrices.pose(), height - BOTTOM, height, 64);
+        renderShadow(matrices.pose());
+        matrices.drawCenteredString(font, getTitle(), width / 2, 9, 0xFFFFFF);
         super.render(matrices, mouseX, mouseY, delta);
-        matrices.popPose();
+        matrices.pose().popPose();
 
         int y = (int) (TOP + 4 - Math.round(scrollerAmount));
         for (Option<?> option : options) {
             int height1 = option.height();
             option.render(minecraft, font, 40, y, width - 80, height1, matrices, mouseX, mouseY, delta);
-            renderConfigTooltip(matrices, mouseX, mouseY, 40, y, font.width(option.text), height1, option.text.getString(), option.getLangKeys().toArray(new String[0]));
+            renderConfigTooltip(matrices, font, mouseX, mouseY, 40, y, font.width(option.text), height1, option.text.getString(), option.getLangKeys().toArray(new String[0]));
             y += height1;
         }
     }
@@ -261,9 +263,10 @@ public class CraterConfigScreen extends Screen {
     }
 
     protected void overlayBackground(Matrix4f matrix, int minX, int minY, int maxX, int maxY, int red, int green, int blue, int startAlpha, int endAlpha) {
+
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder buffer = tesselator.getBuilder();
-        RenderSystem.setShaderTexture(0, GuiComponent.BACKGROUND_LOCATION);
+        RenderSystem.setShaderTexture(0, Screen.BACKGROUND_LOCATION);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
@@ -373,7 +376,7 @@ public class CraterConfigScreen extends Screen {
         }
     }
 
-    private void renderConfigTooltip(PoseStack stack, int mouseX, int mouseY, int startX, int startY, int sizeX, int sizeY, String title, String... description) {
+    private void renderConfigTooltip(GuiGraphics stack, Font font, int mouseX, int mouseY, int startX, int startY, int sizeX, int sizeY, String title, String... description) {
         if (mouseX > startX && mouseX < startX + sizeX) {
             if (mouseY > startY && mouseY < startY + sizeY) {
                 List<Component> list = new ArrayList<>();
@@ -381,7 +384,7 @@ public class CraterConfigScreen extends Screen {
                 for (String desc : description) {
                     list.add(Component.translatable(desc));
                 }
-                renderComponentTooltip(stack, list, mouseX, mouseY);
+                stack.renderComponentTooltip(font, list, mouseX, mouseY);
             }
         }
     }

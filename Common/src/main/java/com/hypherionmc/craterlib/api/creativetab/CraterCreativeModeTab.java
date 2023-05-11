@@ -1,6 +1,8 @@
 package com.hypherionmc.craterlib.api.creativetab;
 
 import com.hypherionmc.craterlib.core.systems.internal.CreativeTabRegistry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -14,11 +16,13 @@ public class CraterCreativeModeTab implements Supplier<CreativeModeTab> {
     private final Supplier<ItemStack> icon;
     private final String backgroundSuffix;
     private CreativeModeTab tab;
+    private final ResourceKey<CreativeModeTab> resourceKey;
 
     protected CraterCreativeModeTab(Builder builder) {
         this.resourceLocation = builder.location;
         this.icon = builder.stack;
         this.backgroundSuffix = builder.backgroundSuffix == null ? "" : builder.backgroundSuffix;
+        this.resourceKey = ResourceKey.create(Registries.CREATIVE_MODE_TAB, this.resourceLocation);
 
         CreativeTabRegistry.registerTab(this);
     }
@@ -37,6 +41,10 @@ public class CraterCreativeModeTab implements Supplier<CreativeModeTab> {
 
     public void setTab(CreativeModeTab tab) {
         this.tab = tab;
+    }
+
+    public ResourceKey<CreativeModeTab> getResourceKey() {
+        return resourceKey;
     }
 
     public static class Builder {

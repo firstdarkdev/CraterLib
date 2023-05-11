@@ -8,7 +8,7 @@ registrationUtils {
     projects {
         Common { type 'common'; project ':Common' }
         Fabric { type 'fabric'; project ':Fabric' }
-        Forge { type 'forge'; project ':Forge' }
+        //Forge { type 'forge'; project ':Forge' }
     }
 }
 

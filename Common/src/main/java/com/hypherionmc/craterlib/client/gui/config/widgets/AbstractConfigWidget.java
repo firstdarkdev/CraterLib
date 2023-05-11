@@ -1,8 +1,8 @@
 package com.hypherionmc.craterlib.client.gui.config.widgets;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.EditBox;
 
@@ -16,7 +16,7 @@ public class AbstractConfigWidget<T, W extends AbstractWidget> extends BaseWidge
     public W widget;
 
     @Override
-    public void render(Minecraft minecraft, Font font, int x, int y, int width, int height, PoseStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(Minecraft minecraft, Font font, int x, int y, int width, int height, GuiGraphics matrices, int mouseX, int mouseY, float delta) {
         super.render(minecraft, font, x, y, width, height, matrices, mouseX, mouseY, delta);
         int i = (widget instanceof EditBox ? 1 : 0);
         widget.setX(x + width - 200 - resetButtonOffset + i);

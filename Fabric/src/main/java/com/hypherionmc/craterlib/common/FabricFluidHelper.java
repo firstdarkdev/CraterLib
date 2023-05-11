@@ -46,7 +46,7 @@ public class FabricFluidHelper implements LibFluidHelper {
             if (fluidVariant.isBlank())
                 return false;
             if (fluidHandler.insert(new FluidHolder(fluidVariant.getFluid(), 1000), ICraterFluidHandler.FluidAction.EXECUTE) > 0) {
-                player.level.playSound(null, player.getOnPos(), SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0f, 1.0f);
+                player.level().playSound(null, player.getOnPos(), SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 1.0f, 1.0f);
                 return true;
             }
         }
