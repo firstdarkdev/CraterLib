@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'com.matyrobbrt.mc.registrationutils' version '1.19.3-2.0.1'
+    id 'maven-publish'
 }
 
 registrationUtils {
@@ -12,12 +13,14 @@ registrationUtils {
     }
 }
 
-subprojects {
-    ext {
-        isSnapshot = false
-    }
+ext {
+    isSnapshot = false
+}
 
-    def version_base = "${project.version_major}.${project.version_minor}"
+def version_base = "${project.version_major}.${project.version_minor}"
+version = "${version_base}.${project.version_patch}"
+
+subprojects {
     version = "${version_base}.${project.version_patch}"
 
     group = project.group
@@ -86,5 +89,67 @@ subprojects {
 
     clean {
         delete "$rootDir/artifacts"
+    }
+}
+
+// Standalone or Module JARS
+task rpcJar(type: Jar) {
+    dependsOn(compileJava)
+    includeEmptyDirs = false
+    archivesBaseName = "${mod_name}-common-${minecraft_version}"
+    version = project.version;
+    classifier = "rpc"
+
+    from project(":Common").sourceSets.main.output
+    include("**\\rpcsdk\\**\\*",
+            "**\\**\\*.dylib",
+            "**\\**\\*.dll",
+            "**\\**\\*.so"
+    )
+}
+
+task configJar(type: Jar) {
+    dependsOn(compileJava)
+    includeEmptyDirs = false
+    archivesBaseName = "${mod_name}-common-${minecraft_version}"
+    version = project.version;
+    classifier = "config"
+
+    from project(":Common").sourceSets.main.output
+    include("**\\core\\config\\**\\*", "**\\**\\CraterConstants.*")
+}
+
+task eventsJar(type: Jar) {
+    dependsOn(compileJava)
+    includeEmptyDirs = false
+    archivesBaseName = "${mod_name}-common-${minecraft_version}"
+    version = project.version;
+    classifier = "events"
+
+    from project(":Common").sourceSets.main.output
+    include("**\\core\\event\\**\\*", "**\\**\\CraterConstants.*")
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId "${mod_name}-common-${minecraft_version}"
+            version project.version
+
+            artifact rpcJar
+            artifact eventsJar
+            artifact configJar
+        }
+    }
+
+    repositories {
+        maven {
+            url "https://maven.firstdarkdev.xyz/" + (project.isSnapshot ? "snapshots" : "releases")
+            credentials {
+                username System.getenv("MAVEN_USER")
+                password System.getenv("MAVEN_PASS")
+            }
+        }
     }
 }
