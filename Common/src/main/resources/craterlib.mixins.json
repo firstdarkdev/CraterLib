@@ -12,11 +12,11 @@
   ],
   "server": [
     "events.CommandMixin",
-    "events.PlayerAdvancementsMixin",
     "events.LivingEntityMixin",
+    "events.PlayerAdvancementsMixin",
     "events.PlayerListMixin",
-    "events.ServerPlayerMixin",
-    "events.ServerGamePacketListenerImplMixin"
+    "events.ServerGamePacketListenerImplMixin",
+    "events.ServerPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

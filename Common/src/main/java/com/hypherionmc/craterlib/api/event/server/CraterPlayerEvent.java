@@ -1,11 +1,7 @@
 package com.hypherionmc.craterlib.api.event.server;
 
 import com.hypherionmc.craterlib.core.event.CraterEvent;
-import com.mojang.authlib.GameProfile;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-
-import java.net.SocketAddress;
 
 public class CraterPlayerEvent extends CraterEvent {
 

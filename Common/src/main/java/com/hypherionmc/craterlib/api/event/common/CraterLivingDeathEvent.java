@@ -1,7 +1,6 @@
 package com.hypherionmc.craterlib.api.event.common;
 
 import com.hypherionmc.craterlib.core.event.CraterEvent;
-import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 
