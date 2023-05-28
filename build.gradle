@@ -13,23 +13,21 @@ registrationUtils {
     }
 }
 
+ext {
+    release = project.properties['release'] ?: false
+}
+
 def version_base = "${project.version_major}.${project.version_minor}"
-version = "${version_base}.${project.version_patch}"
+def final_ver = "${version_base}.${project.version_patch}"
+
+// Jenkins
+if (System.getenv('BUILD_NUMBER') != null && project.release == false) {
+    final_ver = version_base + "." + System.getenv('BUILD_NUMBER') + "d"
+}
 
 subprojects {
-    ext {
-        isSnapshot = false
-    }
-
-    version = "${version_base}.${project.version_patch}"
-
+    version = "${final_ver}"
     group = project.group
-
-    // Jenkins
-    if (System.getenv('BUILD_NUMBER') != null) {
-        project.isSnapshot = true
-        version = version_base + "." + System.getenv('BUILD_NUMBER') + "d"
-    }
 
     apply plugin: 'java'
 
@@ -145,7 +143,7 @@ publishing {
 
     repositories {
         maven {
-            url "https://maven.firstdarkdev.xyz/" + (project.isSnapshot ? "snapshots" : "releases")
+            url "https://maven.firstdarkdev.xyz/" + (project.release ? "snapshots" : "releases")
             credentials {
                 username System.getenv("MAVEN_USER")
                 password System.getenv("MAVEN_PASS")
