@@ -7,9 +7,16 @@
   ],
   "client": [
     "colors.BlockColorsMixin",
-    "colors.ItemColorsMixin"
+    "colors.ItemColorsMixin",
+    "events.PlayerMixin"
   ],
   "server": [
+    "events.CommandMixin",
+    "events.PlayerAdvancementsMixin",
+    "events.LivingEntityMixin",
+    "events.PlayerListMixin",
+    "events.ServerPlayerMixin",
+    "events.ServerGamePacketListenerImplMixin"
   ],
   "injectors": {
     "defaultRequire": 1

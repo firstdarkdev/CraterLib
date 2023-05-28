@@ -2,6 +2,7 @@ package com.hypherionmc.craterlib.core.config;
 
 import com.hypherionmc.craterlib.CraterConstants;
 import me.hypherionmc.moonconfig.core.file.FileWatcher;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -22,7 +23,8 @@ public final class ConfigController implements Serializable {
      *
      * @param config - The config class to register and watch
      */
-    static void register_config(ModuleConfig config) {
+    @ApiStatus.Internal
+    public static void register_config(ModuleConfig config) {
         if (monitoredConfigs.containsKey(config)) {
             CraterConstants.LOG.error("Failed to register " + config.getConfigPath().getName() + ". Config already registered");
         } else {
