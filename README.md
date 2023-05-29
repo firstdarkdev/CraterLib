@@ -1,6 +1,6 @@
 # CraterLib
 
-![badge-snapshot](https://maven.firstdarkdev.xyz/api/badge/latest/snapshots/me/hypherionmc/craterlib/CraterLib-common-1.19.4?color=40c14a&name=CraterLib-Snapshot)
+![badge-snapshot](https://maven.firstdarkdev.xyz/api/badge/latest/snapshots/me/hypherionmc/craterlib/CraterLib-common-1.20-pre6?color=40c14a&name=CraterLib-Snapshot)
 
 ***
 
@@ -21,7 +21,6 @@ A library mod used by HypherionSA and First Dark Development mods to make portin
 * Automatic ModMenu and Forge Config screen registration
 * Built in Cross Mod-Loader Network system
 * WIP: Various GUI widgets and Utilities
-* ~~TODO: Cross Mod-Loader Dynamic Lighting~~
 * WIP: Texture Utils
 * TODO: Sync Config From Server to Client
 
