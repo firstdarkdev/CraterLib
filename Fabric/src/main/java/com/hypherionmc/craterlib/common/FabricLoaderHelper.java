@@ -61,4 +61,9 @@ public class FabricLoaderHelper implements ILoaderHelper {
     public boolean isDevEnv() {
         return FabricLoader.getInstance().isDevelopmentEnvironment();
     }
+
+    @Override
+    public int getModCount() {
+        return FabricLoader.getInstance().getAllMods().size();
+    }
 }

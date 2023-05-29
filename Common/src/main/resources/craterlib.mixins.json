@@ -8,7 +8,11 @@
   "client": [
     "colors.BlockColorsMixin",
     "colors.ItemColorsMixin",
-    "events.PlayerMixin"
+    "events.PlayerMixin",
+    "events.client.ClientLevelMixin",
+    "events.client.MinecraftMixin",
+    "events.client.RealmsMainScreenMixin",
+    "events.client.TutorialMixin"
   ],
   "server": [
     "events.CommandMixin",

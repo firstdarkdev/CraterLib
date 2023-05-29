@@ -16,4 +16,5 @@ public interface ILoaderHelper {
     Environment getEnvironment();
     boolean isModLoaded(String modid);
     boolean isDevEnv();
+    int getModCount();
 }
