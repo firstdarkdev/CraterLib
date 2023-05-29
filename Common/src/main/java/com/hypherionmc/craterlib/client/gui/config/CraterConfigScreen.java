@@ -3,6 +3,7 @@ package com.hypherionmc.craterlib.client.gui.config;
 import com.hypherionmc.craterlib.CraterConstants;
 import com.hypherionmc.craterlib.client.gui.config.widgets.*;
 import com.hypherionmc.craterlib.core.config.ModuleConfig;
+import com.hypherionmc.craterlib.core.config.annotations.HideFromScreen;
 import com.hypherionmc.craterlib.core.config.annotations.SubConfig;
 import com.hypherionmc.craterlib.core.config.annotations.Tooltip;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -82,6 +83,8 @@ public class CraterConfigScreen extends Screen {
                     if (!field.isAccessible()) {
                         field.setAccessible(true);
                     }
+                    if (field.isAnnotationPresent(HideFromScreen.class))
+                        return;
                     Object val = field.get(object);
 
                     /* Lang Stuff */

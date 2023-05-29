@@ -31,8 +31,10 @@ public final class ConfigController implements Serializable {
             FileWatcher configWatcher = new FileWatcher();
             try {
                 configWatcher.setWatch(config.getConfigPath(), () -> {
-                    CraterConstants.LOG.info("Sending Reload Event for: " + config.getConfigPath().getName());
-                    config.configReloaded();
+                    if (!config.isSaveCalled()) {
+                        CraterConstants.LOG.info("Sending Reload Event for: " + config.getConfigPath().getName());
+                        config.configReloaded();
+                    }
                 });
             } catch (Exception e) {
                 CraterConstants.LOG.error("Failed to register " + config.getConfigPath().getName() + " for auto reloading. " + e.getMessage());

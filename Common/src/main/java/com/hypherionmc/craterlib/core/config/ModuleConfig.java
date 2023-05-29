@@ -22,6 +22,8 @@ public class ModuleConfig {
 
     private final transient String modId;
 
+    private transient boolean isSaveCalled = false;
+
     /**
      * Set up the config
      *
@@ -71,6 +73,7 @@ public class ModuleConfig {
      * @param conf - The config class to serialize and save
      */
     public void saveConfig(ModuleConfig conf) {
+        this.isSaveCalled = true;
         /* Set up the Serializer and Config Object */
         ObjectConverter converter = new ObjectConverter();
         CommentedFileConfig config = CommentedFileConfig.builder(configPath).build();
@@ -78,6 +81,8 @@ public class ModuleConfig {
         /* Save the config and fire the reload events */
         converter.toConfig(conf, config);
         config.save();
+        configReloaded();
+        this.isSaveCalled = false;
     }
 
     /**
@@ -169,5 +174,9 @@ public class ModuleConfig {
      */
     public String getModId() {
         return modId;
+    }
+
+    public boolean isSaveCalled() {
+        return isSaveCalled;
     }
 }
