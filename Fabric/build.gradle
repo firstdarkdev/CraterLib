@@ -22,7 +22,7 @@ dependencies {
     shade "me.hypherionmc.moon-config:core:${moon_config}"
     shade "me.hypherionmc.moon-config:toml:${moon_config}"
 
-    modApi("com.terraformersmc:modmenu:${mod_menu_version}") {
+    modCompileOnlyApi("com.terraformersmc:modmenu:${mod_menu_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
 }
@@ -98,7 +98,7 @@ publishing {
                 pomNode.dependencies.'*'.findAll() {
                     it.artifactId.text() == 'regutils-joined-fabric' ||
                             it.artifactId.text() == 'core' ||
-                            it.artifactId.text() == 'toml'
+                            it.artifactId.text() == 'toml' || it.artifactId.text() == "modmenu"
                 }.each() {
                     it.parent().remove(it)
                 }

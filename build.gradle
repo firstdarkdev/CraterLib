@@ -25,6 +25,8 @@ if (System.getenv('BUILD_NUMBER') != null && project.release == false) {
     final_ver = version_base + "." + System.getenv('BUILD_NUMBER') + "d"
 }
 
+version = "${final_ver}"
+
 subprojects {
     version = "${final_ver}"
     group = project.group
@@ -95,7 +97,7 @@ task rpcJar(type: Jar) {
     dependsOn(compileJava)
     includeEmptyDirs = false
     archivesBaseName = "${mod_name}-common-${minecraft_version}"
-    version = project.version;
+    version = final_ver;
     classifier = "rpc"
 
     from project(":Common").sourceSets.main.output
@@ -110,7 +112,7 @@ task configJar(type: Jar) {
     dependsOn(compileJava)
     includeEmptyDirs = false
     archivesBaseName = "${mod_name}-common-${minecraft_version}"
-    version = project.version;
+    version = final_ver;
     classifier = "config"
 
     from project(":Common").sourceSets.main.output
@@ -121,7 +123,7 @@ task eventsJar(type: Jar) {
     dependsOn(compileJava)
     includeEmptyDirs = false
     archivesBaseName = "${mod_name}-common-${minecraft_version}"
-    version = project.version;
+    version = final_ver;
     classifier = "events"
 
     from project(":Common").sourceSets.main.output
