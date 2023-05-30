@@ -48,14 +48,6 @@ public class FabricCommonHelper implements LibCommonHelper {
     }
 
     @Override
-    public void registerServerReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory) {
-        ServerPlayNetworking.registerGlobalReceiver(channelName, (MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) -> {
-            CraterPacket<?> packet = factory.apply(buf);
-            server.execute(() -> packet.handle(player, server));
-        });
-    }
-
-    @Override
     public void openMenu(ServerPlayer player, MenuProvider menu, Consumer<FriendlyByteBuf> initialData) {
         ExtendedScreenHandlerFactory factory = new ExtendedScreenHandlerFactory() {
             @Override

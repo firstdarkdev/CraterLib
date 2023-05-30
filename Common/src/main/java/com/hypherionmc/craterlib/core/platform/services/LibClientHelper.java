@@ -39,8 +39,6 @@ public interface LibClientHelper {
 
     Connection getClientConnection();
 
-    void registerClientReceiver(@NotNull ResourceLocation channelName, @NotNull Function<FriendlyByteBuf, @NotNull CraterPacket<?>> factory);
-
     void registerBlockEntityRenderer(@NotNull BlockEntityType<? extends BlockEntity> blockEntityType, @NotNull BlockEntityRendererProvider blockEntityRendererFactory);
 
 }

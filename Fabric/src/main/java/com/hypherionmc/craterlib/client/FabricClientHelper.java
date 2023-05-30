@@ -82,14 +82,6 @@ public class FabricClientHelper implements LibClientHelper {
         return Minecraft.getInstance().getConnection().getConnection();
     }
 
-    @Override
-    public void registerClientReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory) {
-        ClientPlayNetworking.registerGlobalReceiver(channelName, (Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) -> {
-            CraterPacket<?> packet = factory.apply(buf);
-            client.execute(() -> packet.handle(client.player, client));
-        });
-    }
-
     public static void registerCreativeItems(CreativeModeTab tab, FabricItemGroupEntries entries) {
 
     }

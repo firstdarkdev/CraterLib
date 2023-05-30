@@ -18,7 +18,7 @@ public class CommandMixin {
             at = @At(value = "INVOKE",
                     target = "Lcom/mojang/brigadier/CommandDispatcher;execute(Lcom/mojang/brigadier/ParseResults;)I",
                     shift = At.Shift.BEFORE
-            ), cancellable = true, remap = false
+            ), cancellable = true
     )
     private void injectCommandEvent(ParseResults<CommandSourceStack> stackParseResults, String command, CallbackInfoReturnable<Integer> cir) {
         CraterCommandEvent commandEvent = new CraterCommandEvent(stackParseResults, command);

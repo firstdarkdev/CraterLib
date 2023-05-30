@@ -9,6 +9,7 @@ import com.hypherionmc.craterlib.core.platform.Platform;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.Util;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
@@ -44,8 +45,8 @@ public class FabricNetworkHandler implements CraterNetworkHandler {
         final Function<FriendlyByteBuf, CraterPacket<?>> decoder = buf -> Util.make(supplier.get(), message -> message.read(buf));
 
         switch (packetDirection) {
-            case TO_CLIENT -> ClientPlatform.CLIENT_HELPER.registerClientReceiver(channelName, decoder);
-            case TO_SERVER -> Platform.COMMON_HELPER.registerServerReceiver(channelName, decoder);
+            case TO_CLIENT -> FabricNetworkHelper.getForDist(FabricLoader.getInstance().getEnvironmentType()).registerClientReceiver(channelName, decoder);
+            case TO_SERVER -> FabricNetworkHelper.getForDist(FabricLoader.getInstance().getEnvironmentType()).registerServerReceiver(channelName, decoder);
         }
     }
 
