@@ -2,23 +2,18 @@ package com.hypherionmc.craterlib.client;
 
 import com.hypherionmc.craterlib.api.rendering.CustomRenderType;
 import com.hypherionmc.craterlib.common.item.BlockItemDyable;
-import com.hypherionmc.craterlib.core.network.CraterPacket;
 import com.hypherionmc.craterlib.core.platform.services.LibClientHelper;
 import com.hypherionmc.craterlib.core.systems.reg.RegistryObject;
 import com.hypherionmc.craterlib.util.ColorPropertyFunction;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.network.Connection;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
@@ -29,7 +24,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import java.util.Collection;
-import java.util.function.Function;
 
 /**
  * @author HypherionSA

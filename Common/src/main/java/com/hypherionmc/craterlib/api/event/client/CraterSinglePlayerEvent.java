@@ -1,7 +1,6 @@
 package com.hypherionmc.craterlib.api.event.client;
 
 import com.hypherionmc.craterlib.core.event.CraterEvent;
-import com.mojang.realmsclient.dto.RealmsServer;
 import net.minecraft.world.entity.player.Player;
 
 public class CraterSinglePlayerEvent extends CraterEvent {

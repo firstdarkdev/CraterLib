@@ -3,20 +3,15 @@ package com.hypherionmc.craterlib.common;
 import com.hypherionmc.craterlib.api.blockentity.caps.CraterCapabilityHandler;
 import com.hypherionmc.craterlib.api.blockentity.caps.ICraterCapProvider;
 import com.hypherionmc.craterlib.core.network.CraterNetworkHandler;
-import com.hypherionmc.craterlib.core.network.CraterPacket;
 import com.hypherionmc.craterlib.core.platform.services.LibCommonHelper;
 import com.hypherionmc.craterlib.network.FabricNetworkHandler;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -28,7 +23,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * @author HypherionSA

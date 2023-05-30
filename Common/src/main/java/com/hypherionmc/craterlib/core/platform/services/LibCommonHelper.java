@@ -2,10 +2,8 @@ package com.hypherionmc.craterlib.core.platform.services;
 
 import com.hypherionmc.craterlib.api.blockentity.caps.CraterCapabilityHandler;
 import com.hypherionmc.craterlib.core.network.CraterNetworkHandler;
-import com.hypherionmc.craterlib.core.network.CraterPacket;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
@@ -18,7 +16,6 @@ import org.apache.commons.lang3.function.TriFunction;
 import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * @author HypherionSA
