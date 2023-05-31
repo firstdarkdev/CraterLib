@@ -4,8 +4,6 @@ import com.google.common.collect.Maps;
 import com.hypherionmc.craterlib.core.network.CraterNetworkHandler;
 import com.hypherionmc.craterlib.core.network.CraterPacket;
 import com.hypherionmc.craterlib.core.network.PacketDirection;
-import com.hypherionmc.craterlib.core.platform.ClientPlatform;
-import com.hypherionmc.craterlib.core.platform.Platform;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
