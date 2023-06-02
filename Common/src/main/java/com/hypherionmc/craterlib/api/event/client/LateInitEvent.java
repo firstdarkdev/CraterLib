@@ -4,12 +4,12 @@ import com.hypherionmc.craterlib.core.event.CraterEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 
-public class EarlyInitEvent extends CraterEvent {
+public class LateInitEvent extends CraterEvent {
 
     private final Minecraft minecraft;
     private final Options options;
 
-    public EarlyInitEvent(Minecraft minecraft, Options options) {
+    public LateInitEvent(Minecraft minecraft, Options options) {
         this.minecraft = minecraft;
         this.options = options;
     }

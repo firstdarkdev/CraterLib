@@ -1,7 +1,6 @@
 package com.hypherionmc.craterlib.common.blockentity;
 
 import com.hypherionmc.craterlib.api.blockentity.caps.CraterCapabilityHandler;
-import com.hypherionmc.craterlib.core.platform.Platform;
 import com.hypherionmc.craterlib.core.systems.fluid.CraterFluidTank;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

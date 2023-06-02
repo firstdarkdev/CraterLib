@@ -1,4 +1,6 @@
-package com.hypherionmc.craterlib.core.platform.services;
+package com.hypherionmc.craterlib.core.platform;
+
+import com.hypherionmc.craterlib.util.ServiceUtil;
 
 import java.io.File;
 
@@ -6,7 +8,9 @@ import java.io.File;
  * @author HypherionSA
  * Helper class to provide information about the ModLoader
  */
-public interface ILoaderHelper {
+public interface ModloaderEnvironment {
+
+    public final ModloaderEnvironment INSTANCE = ServiceUtil.load(ModloaderEnvironment.class);
 
     boolean isFabric();
     String getGameVersion();

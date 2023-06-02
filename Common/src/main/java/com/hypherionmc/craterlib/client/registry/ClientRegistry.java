@@ -54,7 +54,7 @@ public class ClientRegistry {
      * @param blockEntityRendererFactory The renderer factory
      */
     public static void registerBlockEntityRenderer(@NotNull BlockEntityType<? extends BlockEntity> blockEntityType, @NotNull BlockEntityRendererProvider blockEntityRendererFactory) {
-        ClientPlatform.CLIENT_HELPER.registerBlockEntityRenderer(blockEntityType, blockEntityRendererFactory);
+        ClientPlatform.INSTANCE.registerBlockEntityRenderer(blockEntityType, blockEntityRendererFactory);
     }
 
 }

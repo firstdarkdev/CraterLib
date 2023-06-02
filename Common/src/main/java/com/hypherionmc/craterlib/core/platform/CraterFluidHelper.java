@@ -1,8 +1,9 @@
-package com.hypherionmc.craterlib.core.platform.services;
+package com.hypherionmc.craterlib.core.platform;
 
 import com.hypherionmc.craterlib.core.systems.fluid.CraterFluidTank;
 import com.hypherionmc.craterlib.core.systems.fluid.FluidHolder;
 import com.hypherionmc.craterlib.core.systems.fluid.ICraterFluidHandler;
+import com.hypherionmc.craterlib.util.ServiceUtil;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,7 +17,9 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author HypherionSA
  */
-public interface LibFluidHelper {
+public interface CraterFluidHelper {
+
+    public CraterFluidHelper INSTANCE = ServiceUtil.load(CraterFluidHelper.class);
 
     CraterFluidTank createFluidTank(int capacity);
 

@@ -3,7 +3,7 @@ package com.hypherionmc.craterlib.common;
 import com.hypherionmc.craterlib.api.blockentity.caps.CraterCapabilityHandler;
 import com.hypherionmc.craterlib.api.blockentity.caps.ICraterCapProvider;
 import com.hypherionmc.craterlib.core.network.CraterNetworkHandler;
-import com.hypherionmc.craterlib.core.platform.services.LibCommonHelper;
+import com.hypherionmc.craterlib.core.platform.CommonPlatform;
 import com.hypherionmc.craterlib.network.FabricNetworkHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
@@ -19,6 +19,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.apache.commons.lang3.function.TriFunction;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -27,12 +28,12 @@ import java.util.function.Consumer;
 /**
  * @author HypherionSA
  */
-public class FabricCommonHelper implements LibCommonHelper {
+public class FabricCommonPlatform implements CommonPlatform {
 
     public static MinecraftServer server;
 
     @Override
-    public CraterNetworkHandler createPacketHandler(String modid) {
+    public CraterNetworkHandler createPacketHandler(String modid, boolean requireClient, boolean requireServer) {
         return FabricNetworkHandler.of(modid);
     }
 
@@ -50,13 +51,13 @@ public class FabricCommonHelper implements LibCommonHelper {
             }
 
             @Override
-            public Component getDisplayName() {
+            public @NotNull Component getDisplayName() {
                 return menu.getDisplayName();
             }
 
             @Nullable
             @Override
-            public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+            public AbstractContainerMenu createMenu(int i, @NotNull Inventory inventory, @NotNull Player player) {
                 return menu.createMenu(i, inventory, player);
             }
         };

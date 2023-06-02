@@ -1,7 +1,7 @@
 package com.hypherionmc.craterlib.common;
 
-import com.hypherionmc.craterlib.core.platform.services.Environment;
-import com.hypherionmc.craterlib.core.platform.services.ILoaderHelper;
+import com.hypherionmc.craterlib.core.platform.Environment;
+import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
@@ -12,7 +12,7 @@ import java.io.File;
  * @author HypherionSA
  * @date 07/08/2022
  */
-public class FabricLoaderHelper implements ILoaderHelper {
+public class FabricLoaderHelper implements ModloaderEnvironment {
 
     @Override
     public boolean isFabric() {

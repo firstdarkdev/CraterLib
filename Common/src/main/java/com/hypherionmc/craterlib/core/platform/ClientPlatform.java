@@ -1,23 +1,39 @@
 package com.hypherionmc.craterlib.core.platform;
 
-import com.hypherionmc.craterlib.CraterConstants;
-import com.hypherionmc.craterlib.core.platform.services.LibClientHelper;
+import com.hypherionmc.craterlib.common.item.BlockItemDyable;
+import com.hypherionmc.craterlib.core.systems.reg.RegistryObject;
+import com.hypherionmc.craterlib.util.ServiceUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.network.Connection;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ServiceLoader;
+import java.util.Collection;
 
 /**
  * @author HypherionSA
  */
-public class ClientPlatform {
+public interface ClientPlatform {
 
-    public static final LibClientHelper CLIENT_HELPER = load(LibClientHelper.class);
+    public final ClientPlatform INSTANCE = ServiceUtil.load(ClientPlatform.class);
 
-    public static <T> T load(Class<T> clazz) {
+    void registerItemProperty(@NotNull BlockItemDyable item, @NotNull String property);
 
-        final T loadedService = ServiceLoader.load(clazz)
-                .findFirst()
-                .orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
-        CraterConstants.LOG.debug("Loaded {} for service {}", loadedService, clazz);
-        return loadedService;
-    }
+    void registerCustomRenderTypes(@NotNull Collection<RegistryObject<Block>> blocks);
+
+    Minecraft getClientInstance();
+
+    Player getClientPlayer();
+
+    Level getClientLevel();
+
+    Connection getClientConnection();
+
+    void registerBlockEntityRenderer(@NotNull BlockEntityType<? extends BlockEntity> blockEntityType, @NotNull BlockEntityRendererProvider blockEntityRendererFactory);
+
 }

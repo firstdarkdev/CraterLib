@@ -62,11 +62,11 @@ public final class CraterEventBus {
                 for (Method m : c.getMethods()) {
                     if (isClass && Modifier.isStatic(m.getModifiers())) {
                         EventMethod em = EventMethod.tryCreateFrom(new AnalyzedMethod(m, c));
-                        if (em != null) l.add(em);
+                        if ((em != null) && this.hasEventAnnotation(em)) l.add(em);
                     }
                     if (!isClass && !Modifier.isStatic(m.getModifiers())) {
                         EventMethod em = EventMethod.tryCreateFrom(new AnalyzedMethod(m, objectOrClass));
-                        if (em != null) l.add(em);
+                        if ((em != null) && this.hasEventAnnotation(em)) l.add(em);
                     }
                 }
             }
@@ -74,6 +74,13 @@ public final class CraterEventBus {
             e.printStackTrace();
         }
         return l;
+    }
+
+    private boolean hasEventAnnotation(EventMethod m) {
+        for (Annotation a : m.annotations) {
+            if (a instanceof CraterEventListener) return true;
+        }
+        return false;
     }
 
     public void registerListener(Consumer<CraterEvent> listener, Class<? extends CraterEvent> eventType) {

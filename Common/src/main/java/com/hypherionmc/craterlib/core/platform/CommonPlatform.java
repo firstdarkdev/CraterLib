@@ -1,7 +1,8 @@
-package com.hypherionmc.craterlib.core.platform.services;
+package com.hypherionmc.craterlib.core.platform;
 
 import com.hypherionmc.craterlib.api.blockentity.caps.CraterCapabilityHandler;
 import com.hypherionmc.craterlib.core.network.CraterNetworkHandler;
+import com.hypherionmc.craterlib.util.ServiceUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
@@ -20,11 +21,21 @@ import java.util.function.Consumer;
 /**
  * @author HypherionSA
  */
-public interface LibCommonHelper {
+public interface CommonPlatform {
 
-    CraterNetworkHandler createPacketHandler(String modid);
+    public CommonPlatform INSTANCE = ServiceUtil.load(CommonPlatform.class);
+
+    default CraterNetworkHandler createPacketHandler(String modid) {
+        return this.createPacketHandler(modid, true, true);
+    }
+
+    CraterNetworkHandler createPacketHandler(String modid, boolean requiredClient, boolean requiredServer);
 
     MinecraftServer getMCServer();
+
+    default void openMenu(ServerPlayer player, MenuProvider menuProvider) {
+        this.openMenu(player, menuProvider, null);
+    }
 
     void openMenu(ServerPlayer player, MenuProvider menu, @Nullable Consumer<FriendlyByteBuf> initialData);
 

@@ -10,6 +10,10 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Supplier;
 
+/**
+ * @author HypherionSA
+ * Helper class to create custom creative tabs from modules
+ */
 public class CraterCreativeModeTab implements Supplier<CreativeModeTab> {
 
     private final ResourceLocation resourceLocation;
@@ -69,7 +73,6 @@ public class CraterCreativeModeTab implements Supplier<CreativeModeTab> {
         public CraterCreativeModeTab build() {
             return new CraterCreativeModeTab(this);
         }
-
     }
 
     @Override

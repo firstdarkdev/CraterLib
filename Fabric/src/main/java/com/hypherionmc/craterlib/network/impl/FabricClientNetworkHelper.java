@@ -8,13 +8,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
 public class FabricClientNetworkHelper implements FabricNetworkHelper {
 
     @Override
-    public void registerClientReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory) {
+    public void registerClientReceiver(@NotNull ResourceLocation channelName, @NotNull Function<FriendlyByteBuf, CraterPacket<?>> factory) {
         ClientPlayNetworking.registerGlobalReceiver(channelName, (Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) -> {
             CraterPacket<?> packet = factory.apply(buf);
             client.execute(() -> packet.handle(client.player, client));

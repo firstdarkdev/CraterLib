@@ -1,6 +1,6 @@
 package com.hypherionmc.craterlib.mixin.events.client;
 
-import com.hypherionmc.craterlib.api.event.client.EarlyInitEvent;
+import com.hypherionmc.craterlib.api.event.client.LateInitEvent;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
@@ -15,7 +15,7 @@ public class TutorialMixin {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void injectEarlyInitEvent(Minecraft minecraft, Options options, CallbackInfo ci) {
-        EarlyInitEvent event = new EarlyInitEvent(minecraft, options);
+        LateInitEvent event = new LateInitEvent(minecraft, options);
         CraterEventBus.INSTANCE.postEvent(event);
     }
 

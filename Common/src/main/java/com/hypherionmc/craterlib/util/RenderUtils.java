@@ -25,7 +25,7 @@ public class RenderUtils {
     public static Component getFluidAmount(long amount, long capacity) {
         amount = amount / 81;
         capacity = capacity / 81;
-        String text = "" + (int) (((float) amount / capacity) * 100);
+        String text = String.valueOf((int) (((float) amount / capacity) * 100));
         return amount > 0 ? Component.literal(ChatFormatting.AQUA + text + "%") : Component.literal(text + "%");
     }
 
