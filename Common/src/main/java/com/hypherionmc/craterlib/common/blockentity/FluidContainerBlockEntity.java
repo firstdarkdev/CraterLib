@@ -1,6 +1,7 @@
 package com.hypherionmc.craterlib.common.blockentity;
 
 import com.hypherionmc.craterlib.api.blockentity.caps.CraterCapabilityHandler;
+import com.hypherionmc.craterlib.core.platform.CraterFluidHelper;
 import com.hypherionmc.craterlib.core.systems.fluid.CraterFluidTank;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,12 +23,12 @@ public class FluidContainerBlockEntity extends CraterBlockEntity {
 
     public FluidContainerBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state, int capacity) {
         super(blockEntityType, pos, state);
-        fluidTank = Platform.FLUID_HELPER.createFluidTank(capacity);
+        fluidTank = CraterFluidHelper.INSTANCE.createFluidTank(capacity);
     }
 
     public FluidContainerBlockEntity(BlockEntityType<?> blockEntityType, BlockPos pos, BlockState state, int capacity, Fluid... validFluids) {
         super(blockEntityType, pos, state);
-        fluidTank = Platform.FLUID_HELPER.createFluidTank(capacity, validFluids);
+        fluidTank = CraterFluidHelper.INSTANCE.createFluidTank(capacity, validFluids);
         fluidTank.setChangeListener(this::sendUpdates);
     }
 
