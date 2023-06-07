@@ -32,9 +32,9 @@
   ],
   "accessWidener": "craterlib.aw",
   "depends": {
-    "fabricloader": ">=0.14.19",
-    "fabric": "*",
-    "minecraft": "*",
+    "fabricloader": ">=0.14.21",
+    "fabric-api": "*",
+    "minecraft": ">=1.20",
     "java": ">=17"
   }
 }
