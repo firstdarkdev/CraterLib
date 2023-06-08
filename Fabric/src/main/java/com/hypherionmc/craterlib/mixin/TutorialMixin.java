@@ -1,4 +1,4 @@
-package com.hypherionmc.craterlib.mixin.events.client;
+package com.hypherionmc.craterlib.mixin;
 
 import com.hypherionmc.craterlib.api.event.client.LateInitEvent;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
