@@ -114,6 +114,8 @@ shadowJar {
     dependencies {
         relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
     }
+
+    classifier = ''
 }
 
 reobf {
