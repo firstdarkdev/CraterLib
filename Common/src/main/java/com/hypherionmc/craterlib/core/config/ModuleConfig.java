@@ -107,7 +107,7 @@ public class ModuleConfig {
      *
      * @param conf - The config class to load
      */
-    private void migrateConfig(ModuleConfig conf) {
+    public void migrateConfig(ModuleConfig conf) {
         /* Set up the Serializer and Config Objects */
         CommentedFileConfig config = CommentedFileConfig.builder(configPath).build();
         CommentedFileConfig newConfig = CommentedFileConfig.builder(configPath).build();
@@ -122,7 +122,7 @@ public class ModuleConfig {
         newConfig.close();
     }
 
-    private void updateConfigValues(CommentedConfig oldConfig, CommentedConfig newConfig, CommentedConfig outputConfig, String subKey) {
+    public void updateConfigValues(CommentedConfig oldConfig, CommentedConfig newConfig, CommentedConfig outputConfig, String subKey) {
         /* Loop over the config keys and check what has changed */
         newConfig.valueMap().forEach((key, value) -> {
             String finalKey = subKey + (subKey.isEmpty() ? "" : ".") + key;
