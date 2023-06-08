@@ -66,7 +66,7 @@ public class ForgeNetworkHandler implements CraterNetworkHandler {
             context.enqueueWork(() -> {
                 Player player;
                 if (packetDirection == PacketDirection.TO_CLIENT) {
-                    player = ClientPlatform.CLIENT_HELPER.getClientPlayer();
+                    player = ClientPlatform.INSTANCE.getClientPlayer();
                 } else {
                     player = context.getSender();
                 }

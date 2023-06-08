@@ -11,6 +11,7 @@ buildscript {
 }
 plugins {
     id 'com.github.johnrengelman.shadow' version '7.0.0'
+    id "me.hypherionmc.modutils.modpublisher" version "1.0.16"
 }
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle'
@@ -82,10 +83,18 @@ minecraft {
 
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
+configurations {
+    shade
+    implementation.extendsFrom shade
+}
+
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compileOnly project(":Common")
     annotationProcessor 'org.spongepowered:mixin:0.8.4-SNAPSHOT:processor'
+
+    shade "me.hypherionmc.moon-config:core:${moon_config}"
+    shade "me.hypherionmc.moon-config:toml:${moon_config}"
 }
 
 tasks.withType(JavaCompile) {
@@ -101,13 +110,10 @@ processResources {
 }
 
 shadowJar {
+    configurations = [project.configurations.shade]
     dependencies {
-        include(dependency("me.hypherionmc.moon-config:core:${moon_config}"))
-        include(dependency("me.hypherionmc.moon-config:toml:${moon_config}"))
-
         relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
     }
-    classifier ''
 }
 
 reobf {
@@ -155,3 +161,26 @@ task copyAllArtifacts(type: Copy) {
 }
 
 build.finalizedBy(copyAllArtifacts)
+
+publisher {
+    apiKeys {
+        modrinth = System.getenv("MODRINTH_TOKEN")
+        curseforge = System.getenv("CURSE_TOKEN")
+    }
+
+    curseID = curse_id
+    modrinthID = modrinth_id
+    versionType = "release"
+    changelog = rootProject.file("changelog.md")
+    version = "${minecraft_version}-${project.version}"
+    displayName = "[FORGE 1.20] CraterLib - ${project.version}"
+    gameVersions = ["1.20"]
+    loaders = ["forge"]
+    artifact = jar
+
+    curseDepends {
+        required = ["craterlib"]
+    }
+}
+
+publishMod.dependsOn(build)

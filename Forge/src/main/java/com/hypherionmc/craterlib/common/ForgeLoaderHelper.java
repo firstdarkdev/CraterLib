@@ -1,7 +1,7 @@
 package com.hypherionmc.craterlib.common;
 
-import com.hypherionmc.craterlib.core.platform.services.Environment;
-import com.hypherionmc.craterlib.core.platform.services.ILoaderHelper;
+import com.hypherionmc.craterlib.core.platform.Environment;
+import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.ModList;
@@ -13,7 +13,7 @@ import java.io.File;
 /**
  * @author HypherionSA
  */
-public class ForgeLoaderHelper implements ILoaderHelper {
+public class ForgeLoaderHelper implements ModloaderEnvironment {
 
     public ForgeLoaderHelper() {}
 
@@ -63,5 +63,10 @@ public class ForgeLoaderHelper implements ILoaderHelper {
     @Override
     public boolean isDevEnv() {
         return !FMLLoader.isProduction();
+    }
+
+    @Override
+    public int getModCount() {
+        return ModList.get().size();
     }
 }

@@ -1,6 +1,6 @@
 package com.hypherionmc.craterlib.common;
 
-import com.hypherionmc.craterlib.core.platform.services.LibFluidHelper;
+import com.hypherionmc.craterlib.core.platform.CraterFluidHelper;
 import com.hypherionmc.craterlib.core.systems.fluid.CraterFluidTank;
 import com.hypherionmc.craterlib.core.systems.fluid.FluidHolder;
 import com.hypherionmc.craterlib.core.systems.fluid.ICraterFluidHandler;
@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 
-public class ForgeFluidHelper implements LibFluidHelper {
+public class ForgeFluidHelper implements CraterFluidHelper {
 
     @Override
     public CraterFluidTank createFluidTank(int capacity) {

@@ -1,8 +1,8 @@
 package com.hypherionmc.craterlib.client.gui.widgets;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
@@ -36,7 +36,7 @@ public class FluidStackWidget extends AbstractWidget {
     }
 
     @Override
-    public void renderWidget(@NotNull PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTicks) {
+    public void renderWidget(@NotNull GuiGraphics pPoseStack, int pMouseX, int pMouseY, float pPartialTicks) {
         Minecraft minecraft = Minecraft.getInstance();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.defaultBlendFunc();
@@ -68,18 +68,18 @@ public class FluidStackWidget extends AbstractWidget {
                     int atlasWidth = (int)(sprite.getY() / (sprite.getU1() - sprite.getU0()));
                     int atlasHeight = (int)(sprite.getY() / (sprite.getV1() - sprite.getV0()));
 
-                    pPoseStack.pushPose();
-                    pPoseStack.translate(0, height-16, 0);
+                    pPoseStack.pose().pushPose();
+                    pPoseStack.pose().translate(0, height-16, 0);
                     for (int i = 0; i < Math.ceil(renderableHeight / 16f); i++) {
                         int drawingHeight = Math.min(16, renderableHeight - 16*i);
                         int notDrawingHeight = 16 - drawingHeight;
                         // TODO Double Check this
-                        blit(pPoseStack, getX(), getY() + notDrawingHeight, 0, sprite.getU0()*atlasWidth, sprite.getV0()*atlasHeight + notDrawingHeight, this.width, drawingHeight, atlasWidth, atlasHeight);
-                        pPoseStack.translate(0,-16, 0);
+                        pPoseStack.blit(TextureAtlas.LOCATION_BLOCKS, getX(), getY() + notDrawingHeight, 0, sprite.getU0()*atlasWidth, sprite.getV0()*atlasHeight + notDrawingHeight, this.width, drawingHeight, atlasWidth, atlasHeight);
+                        pPoseStack.pose().translate(0,-16, 0);
                     }
 
                     RenderSystem.setShaderColor(1, 1, 1, 1);
-                    pPoseStack.popPose();
+                    pPoseStack.pose().popPose();
                 }
             }
             //renderToolTip(pPoseStack, pMouseX, pMouseY);

@@ -3,8 +3,7 @@ package com.hypherionmc.craterlib.common;
 import com.hypherionmc.craterlib.api.blockentity.caps.CraterCapabilityHandler;
 import com.hypherionmc.craterlib.api.blockentity.caps.ICraterCapProvider;
 import com.hypherionmc.craterlib.core.network.CraterNetworkHandler;
-import com.hypherionmc.craterlib.core.network.CraterPacket;
-import com.hypherionmc.craterlib.core.platform.services.LibCommonHelper;
+import com.hypherionmc.craterlib.core.platform.CommonPlatform;
 import com.hypherionmc.craterlib.core.systems.fluid.ICraterFluidHandler;
 import com.hypherionmc.craterlib.network.ForgeNetworkHandler;
 import com.hypherionmc.craterlib.systems.energy.ForgeEnergyReader;
@@ -32,30 +31,24 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * @author HypherionSA
  */
-public class ForgeCommonHelper implements LibCommonHelper {
+public class ForgeCommonHelper implements CommonPlatform {
 
     public static Map<ResourceLocation, CreativeModeTab> TABS = new HashMap<>();
 
     public ForgeCommonHelper() {}
 
     @Override
-    public CraterNetworkHandler createPacketHandler(String modid) {
-        return ForgeNetworkHandler.of(modid, true, true);
+    public CraterNetworkHandler createPacketHandler(String modid, boolean requiredClient, boolean requiredServer) {
+        return ForgeNetworkHandler.of(modid, requiredClient, requiredServer);
     }
 
     @Override
     public MinecraftServer getMCServer() {
         return ServerLifecycleHooks.getCurrentServer();
-    }
-
-    @Override
-    public void registerServerReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory) {
-        // UNUSED
     }
 
     @Override
