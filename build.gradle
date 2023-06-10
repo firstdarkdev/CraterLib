@@ -96,7 +96,7 @@ subprojects {
 task rpcJar(type: Jar) {
     dependsOn(compileJava)
     includeEmptyDirs = false
-    archivesBaseName = "${mod_name}-common-${minecraft_version}"
+    archivesBaseName = "${mod_name}-modules"
     version = final_ver;
     classifier = "rpc"
 
@@ -111,7 +111,7 @@ task rpcJar(type: Jar) {
 task configJar(type: Jar) {
     dependsOn(compileJava)
     includeEmptyDirs = false
-    archivesBaseName = "${mod_name}-common-${minecraft_version}"
+    archivesBaseName = "${mod_name}-modules"
     version = final_ver;
     classifier = "config"
 
@@ -122,7 +122,7 @@ task configJar(type: Jar) {
 task eventsJar(type: Jar) {
     dependsOn(compileJava)
     includeEmptyDirs = false
-    archivesBaseName = "${mod_name}-common-${minecraft_version}"
+    archivesBaseName = "${mod_name}-modules"
     version = final_ver;
     classifier = "events"
 
@@ -134,7 +134,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId project.group
-            artifactId "${mod_name}-common-${minecraft_version}"
+            artifactId "${mod_name}-modules"
             version project.version
 
             artifact rpcJar
