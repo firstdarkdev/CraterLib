@@ -3,7 +3,6 @@ package com.hypherionmc.craterlib;
 import com.hypherionmc.craterlib.api.event.server.CraterRegisterCommandEvent;
 import com.hypherionmc.craterlib.api.event.server.CraterServerLifecycleEvent;
 import com.hypherionmc.craterlib.common.FabricCommonPlatform;
-import com.hypherionmc.craterlib.core.event.CraterEvent;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;

@@ -1,20 +1,20 @@
 modLoader = "javafml"
 loaderVersion = "[46,)"
 license = "MIT"
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
+issueTrackerURL="https://github.com/firstdarkdev/craterLib/issues"
 
 [[mods]]
 modId = "craterlib"
 version = "${file.jarVersion}"
 displayName = "CraterLib"
-#updateJSONURL="https://change.me.example.invalid/updates.json"
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
-logoFile = "multiloader.png"
+displayURL="https://modrinth.com/mod/craterlib"
+logoFile = "craterlib_logo.png"
 #credits="Thanks for this example mod goes to Java"
-authors = "HypherionSA, Misha"
+authors = "HypherionSA, Zenith"
 description = '''
-A library mod used by HypherionSA's Mods
+A library mod used by First Dark Development and HypherionSA Mods
 '''
+displayTest = "MATCH_VERSION"
 
 [[dependencies.craterlib]]
 modId = "forge"
