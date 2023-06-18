@@ -28,6 +28,16 @@ A library mod used by HypherionSA and First Dark Development mods to make portin
 
 ## Setup Instructions
 
-** Wiki Coming Soon **
+There's a **wiki coming soon**, but for now, here's some basic instructions for building the project:
 
-
+1. `git clone` the project to a safe spot.
+2. Install Java's JDK 17. Make sure you have the development version explicitly:
+    * Fedora: `sudo dnf install java-17-openjdk-devel`
+    * Ubuntu: `sudo apt install openjdk-17-jdk`
+    * macOS: `brew install openjdk@17`
+3. Set it accordingly:
+    * Windows/macOS: Set the `JAVA_HOME` environment variable or use system settings
+    * Linux: `sudo update-alternatives --config java`
+4. Navigate to the CraterLib folder, then run a `gradlew` file depending on your operating system:
+    * Windows: `.\gradlew.bat build`
+    * macOS/Linux/BSD: `chmod +x gradlew` and `./gradlew`
