@@ -42,7 +42,7 @@ public final class CraterEventBus {
               try {
                   m.method.invoke(m.parentObject, event);
               } catch (Exception e) {
-                  throw new RuntimeException();
+                  throw new RuntimeException(e);
               }
             };
 
