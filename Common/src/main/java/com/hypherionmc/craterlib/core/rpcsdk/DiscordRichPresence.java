@@ -104,6 +104,10 @@ public class DiscordRichPresence extends Structure {
         );
     }
 
+    public DiscordRichPresence() {
+        setStringEncoding("UTF-8");
+    }
+
     public static class Builder {
         private final DiscordRichPresence rpc;
 
