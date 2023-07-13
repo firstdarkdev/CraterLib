@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
-public class FabricClientNetworkHelper implements FabricNetworkHelper {
+public class FabricClientNetworkHelper extends FabricServerNetworkHelper {
 
     @Override
     public void registerClientReceiver(@NotNull ResourceLocation channelName, @NotNull Function<FriendlyByteBuf, CraterPacket<?>> factory) {
@@ -20,10 +20,5 @@ public class FabricClientNetworkHelper implements FabricNetworkHelper {
             CraterPacket<?> packet = factory.apply(buf);
             client.execute(() -> packet.handle(client.player, client));
         });
-    }
-
-    @Override
-    public void registerServerReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory) {
-
     }
 }
