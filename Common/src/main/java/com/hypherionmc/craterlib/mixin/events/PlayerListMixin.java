@@ -1,6 +1,7 @@
 package com.hypherionmc.craterlib.mixin.events;
 
 import com.hypherionmc.craterlib.api.event.server.CraterPlayerEvent;
+import com.hypherionmc.craterlib.api.event.server.MessageBroadcastEvent;
 import com.hypherionmc.craterlib.api.event.server.PlayerPreLoginEvent;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.mojang.authlib.GameProfile;
@@ -15,9 +16,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.net.SocketAddress;
+import java.util.function.Function;
 
 @Mixin(PlayerList.class)
 public class PlayerListMixin {
+
+    @Inject(method = "broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Ljava/util/function/Function;Z)V", at = @At("HEAD"))
+    private void injectBroadcastEvent(Component component, Function<ServerPlayer, Component> function, boolean bl, CallbackInfo ci) {
+        MessageBroadcastEvent event = new MessageBroadcastEvent(component, function, bl);
+        CraterEventBus.INSTANCE.postEvent(event);
+    }
 
     @Inject(method = "placeNewPlayer", at = @At("TAIL"))
     private void injectPlayerLoginEvent(Connection connection, ServerPlayer serverPlayer, CallbackInfo ci) {
