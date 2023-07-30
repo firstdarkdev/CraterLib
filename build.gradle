@@ -101,11 +101,6 @@ task rpcJar(type: Jar) {
     classifier = "rpc"
 
     from project(":Common").sourceSets.main.output
-    include("**\\rpcsdk\\**\\*",
-            "**\\**\\*.dylib",
-            "**\\**\\*.dll",
-            "**\\**\\*.so"
-    )
 }
 
 task configJar(type: Jar) {

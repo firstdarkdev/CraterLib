@@ -22,6 +22,7 @@ dependencies {
 
     shade "me.hypherionmc.moon-config:core:${moon_config}"
     shade "me.hypherionmc.moon-config:toml:${moon_config}"
+    shade "com.hypherionmc:rpcsdk:1.0"
 
     modCompileOnlyApi("com.terraformersmc:modmenu:${mod_menu_version}") {
         exclude(group: "net.fabricmc.fabric-api")
