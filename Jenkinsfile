@@ -23,9 +23,14 @@ pipeline {
                 sh "./gradlew clean"
             }
         }
-        stage("Publish") {
+        stage("Publish to Modrinth/Curseforge") {
             steps {
                 sh "./gradlew publishMod -Prelease=true"
+            }
+        }
+        stage("Publish to Maven") {
+            steps {
+                sh "./gradlew publish -Prelease=true"
             }
         }
     }
