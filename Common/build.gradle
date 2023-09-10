@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.quiltmc.loom' version '0.12.+'
+    id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'maven-publish'
     id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
@@ -8,6 +8,7 @@ plugins {
 archivesBaseName = "${mod_name}-common-${minecraft_version}"
 
 loom {
+    shareCaches()
     accessWidenerPath = project.file("src/main/resources/craterlib.aw")
     remapArchives = false
     mixin {

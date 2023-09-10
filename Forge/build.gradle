@@ -1,7 +1,6 @@
 buildscript {
     repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        maven { url = 'https://mcentral.firstdark.dev/releases' }
         mavenCentral()
     }
     dependencies {
@@ -11,7 +10,7 @@ buildscript {
 }
 plugins {
     id 'com.github.johnrengelman.shadow' version '7.0.0'
-    id "me.hypherionmc.modutils.modpublisher" version "1.0.16"
+    id "me.hypherionmc.modutils.modpublisher" version "1.0.+"
 }
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle'

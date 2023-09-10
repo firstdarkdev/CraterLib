@@ -57,16 +57,12 @@ subprojects {
     repositories {
         mavenCentral()
         maven {
-            name = 'Sponge / Mixin'
-            url = 'https://repo.spongepowered.org/repository/maven-public/'
+            name = 'First Dark Maven'
+            url = 'https://maven.firstdark.dev/releases/'
         }
         maven {
-            name = 'Hypherion Maven'
-            url = 'https://maven.firstdarkdev.xyz/releases/'
-        }
-        maven {
-            name = "TerraformersMC Maven"
-            url = "https://maven.terraformersmc.com/releases"
+            name = 'First Dark Mirror'
+            url = 'https://mcentral.firstdark.dev/releases/'
         }
     }
 

@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
     id 'idea'
     id 'com.github.johnrengelman.shadow' version '7.0.0'
-    id "me.hypherionmc.modutils.modpublisher" version "1.0.13"
+    id "me.hypherionmc.modutils.modpublisher" version "1.0.+"
 }
 
 archivesBaseName = "${mod_name}-fabric-${minecraft_version}"
@@ -30,6 +30,7 @@ dependencies {
 }
 
 loom {
+    shareCaches()
     accessWidenerPath = project(":Common").file("src/main/resources/craterlib.aw")
     runs {
         client {
