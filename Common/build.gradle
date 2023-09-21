@@ -38,7 +38,7 @@ shadowJar {
 
         relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
     }
-    classifier ''
+    setArchiveClassifier('')
 }
 
 build.dependsOn shadowJar

@@ -9,7 +9,7 @@ registrationUtils {
     projects {
         Common { type 'common'; project ':Common' }
         Fabric { type 'fabric'; project ':Fabric' }
-        Forge { type 'forge'; project ':Forge' }
+        //Forge { type 'forge'; project ':Forge' }
     }
 }
 
@@ -94,7 +94,7 @@ task rpcJar(type: Jar) {
     includeEmptyDirs = false
     archivesBaseName = "${mod_name}-modules"
     version = final_ver;
-    classifier = "rpc"
+    setArchiveClassifier("rpc")
 
     from project(":Common").sourceSets.main.output
 }
@@ -104,7 +104,7 @@ task configJar(type: Jar) {
     includeEmptyDirs = false
     archivesBaseName = "${mod_name}-modules"
     version = final_ver;
-    classifier = "config"
+    setArchiveClassifier("config")
 
     from project(":Common").sourceSets.main.output
     include("**\\core\\config\\**\\*", "**\\**\\CraterConstants.*")
@@ -115,7 +115,7 @@ task eventsJar(type: Jar) {
     includeEmptyDirs = false
     archivesBaseName = "${mod_name}-modules"
     version = final_ver;
-    classifier = "events"
+    setArchiveClassifier("events")
 
     from project(":Common").sourceSets.main.output
     include("**\\core\\event\\**\\*", "**\\**\\CraterConstants.*")

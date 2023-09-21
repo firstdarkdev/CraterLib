@@ -335,12 +335,12 @@ public class CraterConfigScreen extends Screen {
     }
 
     @Override
-    public boolean mouseScrolled(double d, double e, double f) {
+    public boolean mouseScrolled(double d, double e, double f, double g) {
         if (e >= TOP && e <= height - BOTTOM) {
             scrollerAmount = Mth.clamp(scrollerAmount - f * 16.0D, 0, scrollHeight());
             return true;
         }
-        return super.mouseScrolled(d, e, f);
+        return super.mouseScrolled(d, e, f, g);
     }
 
     @Override
