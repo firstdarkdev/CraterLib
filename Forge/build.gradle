@@ -1,22 +1,10 @@
-buildscript {
-    repositories {
-        maven { url = 'https://mcentral.firstdark.dev/releases' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-    }
-}
-plugins {
-    id 'com.github.johnrengelman.shadow' version '7.0.0'
-    id "me.hypherionmc.modutils.modpublisher" version "1.0.+"
-}
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'maven-publish'
+apply plugin: 'me.hypherionmc.modutils.modpublisher'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 archivesBaseName = "${mod_name}-forge-${minecraft_version}"
 
@@ -31,8 +19,6 @@ minecraft {
     mappings channel: 'official', version: minecraft_version
 
     if (project.hasProperty('forge_ats_enabled') && project.findProperty('forge_ats_enabled').toBoolean()) {
-        // This location is hardcoded in Forge and can not be changed.
-        // https://github.com/MinecraftForge/MinecraftForge/blob/be1698bb1554f9c8fa2f58e32b9ab70bc4385e60/fmlloader/src/main/java/net/minecraftforge/fml/loading/moddiscovery/ModFile.java#L123
         accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
         project.logger.debug('Forge Access Transformers are enabled for this project.')
     }
@@ -109,23 +95,28 @@ processResources {
     }
 }
 
+/**
+ * Shadowjar Config
+ */
 shadowJar {
     configurations = [project.configurations.shade]
     dependencies {
         relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
     }
-
-    classifier = ''
+    setArchiveClassifier('')
 }
+
+assemble.dependsOn(shadowJar)
 
 reobf {
     shadowJar {}
 }
 
-build.dependsOn reobfShadowJar
-reg.configureJarTask(shadowJar)
-jar.finalizedBy('reobfJar')
+//reg.configureJarTask(shadowJar)
 
+/**
+ * Publishing Config
+ */
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -156,14 +147,6 @@ publishing {
     }
 }
 
-task copyAllArtifacts(type: Copy) {
-    from "$buildDir/libs"
-    into "$rootDir/artifacts"
-    include("*.jar")
-}
-
-build.finalizedBy(copyAllArtifacts)
-
 publisher {
     apiKeys {
         modrinth = System.getenv("MODRINTH_TOKEN")
@@ -182,3 +165,4 @@ publisher {
 }
 
 publishMod.dependsOn(build)
+jar.finalizedBy('reobfJar')

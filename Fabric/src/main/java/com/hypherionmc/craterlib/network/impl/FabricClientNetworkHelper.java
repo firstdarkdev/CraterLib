@@ -1,7 +1,6 @@
 package com.hypherionmc.craterlib.network.impl;
 
 import com.hypherionmc.craterlib.core.network.CraterPacket;
-import com.hypherionmc.craterlib.network.FabricNetworkHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.Minecraft;

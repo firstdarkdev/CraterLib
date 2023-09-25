@@ -1,12 +1,9 @@
 package com.hypherionmc.craterlib.client;
 
-import com.hypherionmc.craterlib.api.rendering.CustomRenderType;
 import com.hypherionmc.craterlib.common.item.BlockItemDyable;
 import com.hypherionmc.craterlib.core.platform.ClientPlatform;
-import com.hypherionmc.craterlib.core.systems.reg.RegistryObject;
 import com.hypherionmc.craterlib.util.ColorPropertyFunction;
 import net.fabricmc.api.EnvType;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -16,12 +13,9 @@ import net.minecraft.network.Connection;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Collection;
 
 /**
  * @author HypherionSA
@@ -35,14 +29,14 @@ public class FabricClientPlatform implements ClientPlatform {
         }
     }
 
-    @Override
+    /*@Override
     public void registerCustomRenderTypes(Collection<RegistryObject<Block>> blocks) {
         blocks.forEach(blk -> {
             if (blk.get() instanceof CustomRenderType type) {
                 BlockRenderLayerMap.INSTANCE.putBlock(blk.get(), type.getCustomRenderType());
             }
         });
-    }
+    }*/
 
     @Override
     public Minecraft getClientInstance() {

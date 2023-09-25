@@ -3,7 +3,6 @@ package com.hypherionmc.craterlib.mixin.events.client;
 import com.hypherionmc.craterlib.api.event.client.CraterSinglePlayerEvent;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;

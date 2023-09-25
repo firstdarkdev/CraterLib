@@ -1,17 +1,21 @@
 plugins {
     id 'java'
-    id 'com.matyrobbrt.mc.registrationutils' version '1.20-1.1.0'
+    //id 'com.matyrobbrt.mc.registrationutils' version '1.20.1-1.0.0'
     id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)' apply false
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT' apply false
+    id 'com.github.johnrengelman.shadow' version '7.0.0' apply false
+    id "me.hypherionmc.modutils.modpublisher" version "1.0.+" apply false
 }
 
-registrationUtils {
+/*registrationUtils {
     group 'com.hypherionmc.craterlib.core.systems.reg'
     projects {
         Common { type 'common'; project ':Common' }
         Fabric { type 'fabric'; project ':Fabric' }
-        //Forge { type 'forge'; project ':Forge' }
+        Forge { type 'forge'; project ':Forge' }
     }
-}
+}*/
 
 ext {
     release = project.properties['release'] ?: false
@@ -38,6 +42,8 @@ subprojects {
     //java.withJavadocJar()
 
     jar {
+        archiveClassifier = 'slim'
+
         manifest {
             attributes([
                     'Specification-Title'     : mod_name,
@@ -85,6 +91,28 @@ subprojects {
 
     clean {
         delete "$rootDir/artifacts"
+    }
+
+    if (project.name !== 'Common') {
+        task delDevJar {
+            doLast {
+                def tree = fileTree('build/libs')
+                tree.include '**/*-dev.jar'
+                tree.include '**/*-dev-shadow.jar'
+                tree.include '**/*-all.jar'
+                tree.include '**/*-slim.jar'
+                tree.each { it.delete() }
+            }
+        }
+        build.finalizedBy delDevJar
+
+        task copyAllArtifacts(type: Copy) {
+            from "$buildDir/libs"
+            into "$rootDir/artifacts"
+            include("*.jar")
+        }
+
+        build.finalizedBy(copyAllArtifacts)
     }
 }
 

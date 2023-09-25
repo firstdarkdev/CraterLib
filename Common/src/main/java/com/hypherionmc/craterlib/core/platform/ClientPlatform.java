@@ -1,19 +1,15 @@
 package com.hypherionmc.craterlib.core.platform;
 
 import com.hypherionmc.craterlib.common.item.BlockItemDyable;
-import com.hypherionmc.craterlib.core.systems.reg.RegistryObject;
 import com.hypherionmc.craterlib.util.ServiceUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.network.Connection;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Collection;
 
 /**
  * @author HypherionSA
@@ -24,7 +20,7 @@ public interface ClientPlatform {
 
     void registerItemProperty(@NotNull BlockItemDyable item, @NotNull String property);
 
-    void registerCustomRenderTypes(@NotNull Collection<RegistryObject<Block>> blocks);
+    //void registerCustomRenderTypes(@NotNull Collection<RegistryObject<Block>> blocks);
 
     Minecraft getClientInstance();
 

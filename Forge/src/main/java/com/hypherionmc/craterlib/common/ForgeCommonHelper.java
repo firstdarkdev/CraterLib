@@ -21,7 +21,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
@@ -54,9 +53,9 @@ public class ForgeCommonHelper implements CommonPlatform {
     @Override
     public void openMenu(ServerPlayer player, MenuProvider menu, @Nullable Consumer<FriendlyByteBuf> initialData) {
         if (initialData != null) {
-            NetworkHooks.openScreen(player, menu, initialData);
+            player.openMenu(menu, initialData);
         } else {
-            NetworkHooks.openScreen(player, menu, player.getOnPos());
+            player.openMenu(menu, player.getOnPos());
         }
     }
 
