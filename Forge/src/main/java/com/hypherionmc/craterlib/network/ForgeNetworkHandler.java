@@ -115,12 +115,17 @@ public class ForgeNetworkHandler implements CraterNetworkHandler {
     }
 
     private static SimpleChannel buildSimpleChannel(String modId, boolean clientAcceptsVanillaOrMissing, boolean serverAcceptsVanillaOrMissing) {
-        return ChannelBuilder
-                .named(new ResourceLocation(modId, "crater_network"))
-                .networkProtocolVersion(1)
-                .clientAcceptedVersions(clientAcceptsVanillaOrMissing ? Channel.VersionTest.ACCEPT_MISSING : Channel.VersionTest.exact(1))
-                .serverAcceptedVersions(serverAcceptsVanillaOrMissing ? Channel.VersionTest.ACCEPT_MISSING : Channel.VersionTest.exact(1))
-                .simpleChannel();
+        ChannelBuilder builder = ChannelBuilder.named(new ResourceLocation(modId, "crater_network"));
+
+        if (clientAcceptsVanillaOrMissing) {
+            builder = builder.optionalClient();
+        }
+
+        if (serverAcceptsVanillaOrMissing) {
+            builder = builder.optionalServer();
+        }
+
+        return builder.simpleChannel();
     }
 
     private LogicalSide getSideFromDirection(PacketDirection direction) {
