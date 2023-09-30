@@ -1,9 +1,12 @@
+plugins {
+    id "me.hypherionmc.modutils.modpublisher" version "1.0.+"
+}
+
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'maven-publish'
-apply plugin: 'me.hypherionmc.modutils.modpublisher'
 apply plugin: 'com.github.johnrengelman.shadow'
 
 archivesBaseName = "${mod_name}-forge-${minecraft_version}"
@@ -161,8 +164,10 @@ publisher {
     displayName = "[FORGE 1.20.2] CraterLib - ${project.version}"
     gameVersions = ["1.20.2"]
     loaders = ["forge"]
-    artifact = jar
+    artifact = shadowJar
 }
 
-publishMod.dependsOn(build)
+publishCurseforge.dependsOn(reobfShadowJar)
+publishModrinth.dependsOn(reobfShadowJar)
+
 jar.finalizedBy('reobfJar')
