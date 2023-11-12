@@ -1,124 +1,63 @@
-plugins {
-    id "me.hypherionmc.modutils.modpublisher" version "1.0.+"
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
-    id 'com.github.johnrengelman.shadow' version '7.0.0'
-}
-
-apply plugin: 'java'
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'org.spongepowered.mixin'
-apply plugin: 'maven-publish'
-apply plugin: 'com.github.johnrengelman.shadow'
-
-archivesBaseName = "${mod_name}-forge-${minecraft_version}"
-
-mixin {
-    add sourceSets.main, "${mod_id}.refmap.json"
-
-    config "${mod_id}.mixins.json"
-    config "${mod_id}.forge.mixins.json"
-}
-
-minecraft {
-    mappings channel: 'official', version: minecraft_version
-
-    if (project.hasProperty('forge_ats_enabled') && project.findProperty('forge_ats_enabled').toBoolean()) {
-        accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-        project.logger.debug('Forge Access Transformers are enabled for this project.')
-    }
-
-    runs {
-        client {
-            workingDirectory project.file('run')
-            ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'Client'
-            args "-mixin.config=${mod_id}.mixins.json", "-mixin.config=${mod_id}.forge.mixins.json"
-            mods {
-                modClientRun {
-                    source sourceSets.main
-                    source project(":Common").sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file('run')
-            ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'Server'
-            args "-mixin.config=${mod_id}.mixins.json", "-mixin.config=${mod_id}.forge.mixins.json"
-            mods {
-                modServerRun {
-                    source sourceSets.main
-                    source project(":Common").sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory project.file('run')
-            ideaModule "${rootProject.name}.${project.name}.main"
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-            taskName 'Data'
-            args "-mixin.config=${mod_id}.mixins.json", "-mixin.config=${mod_id}.forge.mixins.json"
-            mods {
-                modDataRun {
-                    source sourceSets.main
-                    source project(":Common").sourceSets.main
-                }
-            }
-        }
-    }
-}
-
-sourceSets.main.resources.srcDir 'src/generated/resources'
-
-configurations {
-    shade
-    implementation.extendsFrom shade
-}
+// Adjust the output jar name here
+archivesBaseName = "${mod_name.replace(" ", "")}-Forge-${minecraft_version}"
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    compileOnly project(":Common")
-    annotationProcessor 'org.spongepowered:mixin:0.8.4-SNAPSHOT:processor'
-
     shade "me.hypherionmc.moon-config:core:${moon_config}"
     shade "me.hypherionmc.moon-config:toml:${moon_config}"
     shade "com.hypherionmc:rpcsdk:1.0"
+
+    // Do not edit or remove
+    implementation project(":Common")
 }
 
-tasks.withType(JavaCompile) {
-    source(project(":Common").sourceSets.main.allSource)
+shadowJar {
+    from sourceSets.main.output
+    configurations = [project.configurations.shade]
+
+    dependencies {
+        relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
+    }
+
+    setArchiveClassifier('dev-shadow')
+}
+
+/**
+ * ===============================================================================
+ * =       DO NOT EDIT BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING        =
+ * ===============================================================================
+ */
+
+unimined.minecraft {
+    minecraftForge {
+        loader forge_version
+        mixinConfig("${mod_id}.mixins.json", "${mod_id}.forge.mixins.json")
+    }
+}
+
+remapJar {
+    inputFile.set shadowJar.archiveFile
+    dependsOn shadowJar
+    archiveClassifier.set null
+}
+
+jar {
+    archiveClassifier.set "dev"
 }
 
 processResources {
     from project(":Common").sourceSets.main.resources
+    def buildProps = project.properties.clone()
 
-    filesMatching('*.mixins.json') {
-        expand "refmap_target": "${mod_id}."
+    filesMatching("META-INF/mods.toml") {
+        expand buildProps
     }
 }
 
-/**
- * Shadowjar Config
- */
-shadowJar {
-    configurations = [project.configurations.shade]
-    dependencies {
-        relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
-    }
-    setArchiveClassifier('')
+compileTestJava.enabled = false
+
+tasks.withType(JavaCompile).configureEach {
+    source(project(":Common").sourceSets.main.allSource)
 }
-
-assemble.dependsOn(shadowJar)
-
-reobf {
-    shadowJar {}
-}
-
-//reg.configureJarTask(shadowJar)
 
 /**
  * Publishing Config
@@ -129,7 +68,12 @@ publishing {
             groupId project.group
             artifactId project.archivesBaseName
             version project.version
-            artifact shadowJar
+            from components.java
+
+            artifact(remapJar) {
+                builtBy remapJar
+            }
+
             pom.withXml {
                 Node pomNode = asNode()
                 pomNode.dependencies.'*'.findAll() {
@@ -142,6 +86,7 @@ publishing {
             }
         }
     }
+
     repositories {
         maven {
             url "https://maven.firstdark.dev/" + (project.release ? "releases" : "snapshots")
@@ -162,15 +107,13 @@ publisher {
     curseID = curse_id
     modrinthID = modrinth_id
     versionType = "release"
-    changelog = rootProject.file("changelog-forge.md")
+    changelog = rootProject.file("changelog-fabric.md")
     version = "${minecraft_version}-${project.version}"
     displayName = "[FORGE 1.20.2] CraterLib - ${project.version}"
     gameVersions = ["1.20.2"]
     loaders = ["forge"]
-    artifact = shadowJar
+    artifact = remapJar
 }
 
-publishCurseforge.dependsOn(reobfShadowJar)
-publishModrinth.dependsOn(reobfShadowJar)
-
-jar.finalizedBy('reobfJar')
+publishCurseforge.dependsOn(remapJar)
+publishModrinth.dependsOn(remapJar)

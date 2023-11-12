@@ -1,9 +1,13 @@
 plugins {
     id 'java'
-    //id 'com.matyrobbrt.mc.registrationutils' version '1.20.1-1.0.0'
+    id 'com.github.johnrengelman.shadow' version '8.0.0' apply false
+    id "xyz.wagyourtail.unimined" version "1.1.0-SNAPSHOT" apply false
+    id "me.hypherionmc.modutils.modpublisher" version "1.0.+"
     id 'maven-publish'
+    //id 'com.matyrobbrt.mc.registrationutils' version '1.20.1-1.0.0'
 }
 
+// TODO Reg Utils
 /*registrationUtils {
     group 'com.hypherionmc.craterlib.core.systems.reg'
     projects {
@@ -14,32 +18,58 @@ plugins {
 }*/
 
 ext {
-    release = project.properties['release'] ?: false
+    release=project.properties['release'] ?: false
 }
 
-def version_base = "${project.version_major}.${project.version_minor}"
-def final_ver = "${version_base}.${project.version_patch}"
+var base_version = "${version_major}.${version_minor}"
+var final_version = "${base_version}.${version_patch}"
 
-// Jenkins
-if (System.getenv('BUILD_NUMBER') != null && project.release == false) {
-    final_ver = version_base + "." + System.getenv('BUILD_NUMBER') + "d"
+// CI Support
+if (!release && System.getenv('BUILD_NUMBER') != null) {
+    final_version = "${base_version}.${System.getenv('BUILD_NUMBER')}d"
 }
 
-version = "${final_ver}"
+group = project_group
+version = "${final_version}"
 
 subprojects {
-    version = "${final_ver}"
-    group = project.group
+    apply plugin: "xyz.wagyourtail.unimined"
+    apply plugin: "java"
+    apply plugin: 'maven-publish'
+    apply plugin: 'com.github.johnrengelman.shadow'
+    apply plugin: 'me.hypherionmc.modutils.modpublisher'
 
-    apply plugin: 'java'
+    group = rootProject.group
+    version = rootProject.version
 
-    java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-    //java.withSourcesJar()
-    //java.withJavadocJar()
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'First Dark Maven'
+            url = 'https://maven.firstdark.dev/releases/'
+        }
+        maven {
+            name = 'First Dark Mirror'
+            url = 'https://mcentral.firstdark.dev/releases/'
+        }
+    }
+
+    configurations {
+        shade
+        modCompileOnly
+        implementation.extendsFrom shade
+        compileOnly.extendsFrom modCompileOnly
+    }
+
+    dependencies {
+        implementation "me.hypherionmc.moon-config:core:${moon_config}"
+        implementation "me.hypherionmc.moon-config:toml:${moon_config}"
+    }
 
     jar {
-        archiveClassifier = 'slim'
-
         manifest {
             attributes([
                     'Specification-Title'     : mod_name,
@@ -56,21 +86,19 @@ subprojects {
         }
     }
 
-    repositories {
-        mavenCentral()
-        maven {
-            name = 'First Dark Maven'
-            url = 'https://maven.firstdark.dev/releases/'
-        }
-        maven {
-            name = 'First Dark Mirror'
-            url = 'https://mcentral.firstdark.dev/releases/'
-        }
-    }
+/**
+ * ===============================================================================
+ * =       DO NOT EDIT BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING        =
+ * ===============================================================================
+ */
 
-    dependencies {
-        implementation "me.hypherionmc.moon-config:core:${moon_config}"
-        implementation "me.hypherionmc.moon-config:toml:${moon_config}"
+    unimined.minecraft(sourceSets.main, true) {
+        version minecraft_version
+
+        mappings {
+            mojmap()
+            devNamespace "mojmap"
+        }
     }
 
     tasks.withType(JavaCompile).configureEach {
@@ -78,9 +106,6 @@ subprojects {
         it.options.release = 17
     }
 
-    // Disables Gradle's custom module metadata from being published to maven. The
-    // metadata includes mapped dependencies which are not reasonably consumable by
-    // other mod developers.
     tasks.withType(GenerateModuleMetadata) {
         enabled = false
     }
@@ -90,11 +115,11 @@ subprojects {
     }
 
     if (project.name !== 'Common') {
-        task delDevJar {
+        tasks.register('delDevJar') {
             doLast {
                 def tree = fileTree('build/libs')
-                tree.include '**/*-dev.jar'
                 tree.include '**/*-dev-shadow.jar'
+                tree.include '**/*-dev.jar'
                 tree.include '**/*-all.jar'
                 tree.include '**/*-slim.jar'
                 tree.each { it.delete() }
@@ -102,7 +127,7 @@ subprojects {
         }
         build.finalizedBy delDevJar
 
-        task copyAllArtifacts(type: Copy) {
+        tasks.register('copyAllArtifacts', Copy) {
             from "$buildDir/libs"
             into "$rootDir/artifacts"
             include("*.jar")
@@ -113,32 +138,32 @@ subprojects {
 }
 
 // Standalone or Module JARS
-task rpcJar(type: Jar) {
+tasks.register('rpcJar', Jar) {
     dependsOn(compileJava)
     includeEmptyDirs = false
-    archivesBaseName = "${mod_name}-modules"
-    version = final_ver;
+    archivesBaseName = "${mod_name}-modules-${minecraft_version}"
+    version = final_version
     setArchiveClassifier("rpc")
 
     from project(":Common").sourceSets.main.output
 }
 
-task configJar(type: Jar) {
+tasks.register('configJar', Jar) {
     dependsOn(compileJava)
     includeEmptyDirs = false
-    archivesBaseName = "${mod_name}-modules"
-    version = final_ver;
+    archivesBaseName = "${mod_name}-modules-${minecraft_version}"
+    version = final_version
     setArchiveClassifier("config")
 
     from project(":Common").sourceSets.main.output
     include("**\\core\\config\\**\\*", "**\\**\\CraterConstants.*")
 }
 
-task eventsJar(type: Jar) {
+tasks.register('eventsJar', Jar) {
     dependsOn(compileJava)
     includeEmptyDirs = false
-    archivesBaseName = "${mod_name}-modules"
-    version = final_ver;
+    archivesBaseName = "${mod_name}-modules-${minecraft_version}"
+    version = final_version
     setArchiveClassifier("events")
 
     from project(":Common").sourceSets.main.output
@@ -149,7 +174,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId project.group
-            artifactId "${mod_name}-modules"
+            artifactId "${mod_name}-modules-${minecraft_version}"
             version project.version
 
             artifact rpcJar

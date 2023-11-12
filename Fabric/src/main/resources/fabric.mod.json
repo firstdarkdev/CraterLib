@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "id": "craterlib",
+  "id": "${mod_id}",
   "version": "${version}",
-  "name": "CraterLib",
+  "name": "${mod_name}",
   "description": "A library mod used by First Dark Development and HypherionSA Mods",
   "authors": [
-    "HypherionSA",
+    "${mod_author}",
     "Misha"
   ],
   "contact": {
@@ -27,10 +27,10 @@
     ]
   },
   "mixins": [
-    "craterlib.mixins.json",
-    "craterlib.fabric.mixins.json"
+    "${mod_id}.mixins.json",
+    "${mod_id}.fabric.mixins.json"
   ],
-  "accessWidener": "craterlib.aw",
+  "accessWidener": "${mod_id}.aw",
   "depends": {
     "fabricloader": ">=0.14.21",
     "fabric-api": "*",
