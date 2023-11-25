@@ -179,7 +179,6 @@ public class CraterConfigScreen extends Screen {
     @Override
     public void render(@NotNull GuiGraphics matrices, int mouseX, int mouseY, float delta) {
         overlayBackground(matrices.pose(), TOP, height - BOTTOM, 32);
-
         renderScrollBar();
 
         matrices.pose().pushPose();
@@ -188,8 +187,9 @@ public class CraterConfigScreen extends Screen {
         overlayBackground(matrices.pose(), height - BOTTOM, height, 64);
         renderShadow(matrices.pose());
         matrices.drawCenteredString(font, getTitle(), width / 2, 9, 0xFFFFFF);
-        super.render(matrices, mouseX, mouseY, delta);
         matrices.pose().popPose();
+
+        super.render(matrices, mouseX, mouseY, delta);
 
         int y = (int) (TOP + 4 - Math.round(scrollerAmount));
         for (Option<?> option : options) {
@@ -266,12 +266,11 @@ public class CraterConfigScreen extends Screen {
     }
 
     protected void overlayBackground(Matrix4f matrix, int minX, int minY, int maxX, int maxY, int red, int green, int blue, int startAlpha, int endAlpha) {
-
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder buffer = tesselator.getBuilder();
+        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         RenderSystem.setShaderTexture(0, Screen.BACKGROUND_LOCATION);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
         buffer.vertex(matrix, minX, maxY, 0.0F).uv(minX / 32.0F, maxY / 32.0F).color(red, green, blue, endAlpha).endVertex();
         buffer.vertex(matrix, maxX, maxY, 0.0F).uv(maxX / 32.0F, maxY / 32.0F).color(red, green, blue, endAlpha).endVertex();
