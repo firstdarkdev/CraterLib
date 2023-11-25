@@ -36,7 +36,7 @@ public class FabricNetworkHandler implements CraterNetworkHandler {
     }
 
     @Override
-    public <T extends CraterPacket<T>> void registerPacket(Class<? extends T> clazz, Supplier<T> supplier, PacketDirection packetDirection) {
+    public <T extends CraterPacket<T>> void registerPacket(Class<T> clazz, Supplier<T> supplier, PacketDirection packetDirection) {
         ResourceLocation channelName = this.nextId();
         this.packets.put(clazz, new PacketData(clazz, channelName, packetDirection));
 
