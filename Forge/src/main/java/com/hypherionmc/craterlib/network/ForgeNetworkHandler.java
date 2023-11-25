@@ -13,7 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.LogicalSidedProvider;
 import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.Channel;
 import net.minecraftforge.network.ChannelBuilder;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.SimpleChannel;
