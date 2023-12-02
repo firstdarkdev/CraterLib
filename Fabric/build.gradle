@@ -113,7 +113,7 @@ publisher {
     curseID = curse_id
     modrinthID = modrinth_id
     versionType = "release"
-    changelog = rootProject.file("changelog-fabric.md")
+    changelog = "https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-fabric.md"
     version = "${minecraft_version}-${project.version}"
     displayName = "[FABRIC/QUILT 1.20.2] CraterLib - ${project.version}"
     gameVersions = ["1.20.2"]
@@ -128,6 +128,3 @@ publisher {
         required = ["fabric-api"]
     }
 }
-
-publishCurseforge.dependsOn(remapJar)
-publishModrinth.dependsOn(remapJar)

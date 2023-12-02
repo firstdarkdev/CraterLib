@@ -98,7 +98,7 @@ publishing {
     }
 }
 
-publisher {
+/*publisher {
     apiKeys {
         modrinth = System.getenv("MODRINTH_TOKEN")
         curseforge = System.getenv("CURSE_TOKEN")
@@ -116,4 +116,4 @@ publisher {
 }
 
 publishCurseforge.dependsOn(remapJar)
-publishModrinth.dependsOn(remapJar)
+publishModrinth.dependsOn(remapJar)*/

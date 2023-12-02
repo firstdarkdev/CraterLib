@@ -2,20 +2,9 @@ plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '8.0.0' apply false
     id "xyz.wagyourtail.unimined" version "1.1.0-SNAPSHOT" apply false
-    id "me.hypherionmc.modutils.modpublisher" version "1.0.+"
+    id "me.hypherionmc.modutils.modpublisher" version "1.0.23+"
     id 'maven-publish'
-    //id 'com.matyrobbrt.mc.registrationutils' version '1.20.1-1.0.0'
 }
-
-// TODO Reg Utils
-/*registrationUtils {
-    group 'com.hypherionmc.craterlib.core.systems.reg'
-    projects {
-        Common { type 'common'; project ':Common' }
-        Fabric { type 'fabric'; project ':Fabric' }
-        Forge { type 'forge'; project ':Forge' }
-    }
-}*/
 
 ext {
     release=project.properties['release'] ?: false
