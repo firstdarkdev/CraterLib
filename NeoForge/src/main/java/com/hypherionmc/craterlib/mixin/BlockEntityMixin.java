@@ -1,33 +1,16 @@
 package com.hypherionmc.craterlib.mixin;
 
-import com.hypherionmc.craterlib.api.blockentity.caps.CraterCapabilityHandler;
-import com.hypherionmc.craterlib.api.blockentity.caps.ICraterCapProvider;
 import com.hypherionmc.craterlib.common.blockentity.CraterBlockEntity;
-import com.hypherionmc.craterlib.core.systems.energy.CustomEnergyStorage;
-import com.hypherionmc.craterlib.core.systems.fluid.ICraterFluidHandler;
-import com.hypherionmc.craterlib.core.systems.inventory.SimpleInventory;
-import com.hypherionmc.craterlib.systems.energy.NeoForgeEnergyWrapper;
-import com.hypherionmc.craterlib.systems.fluid.NeoForgeWrappedFluidTank;
-import com.hypherionmc.craterlib.systems.inventory.NeoForgeInventoryWrapper;
-import net.minecraft.core.Direction;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
-import net.neoforged.neoforge.common.util.LazyOptional;
-import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-
-import java.util.Optional;
 
 /**
  * @author HypherionSA
  */
+// TODO Fix This
 @Mixin(CraterBlockEntity.class)
-public class BlockEntityMixin implements ICapabilityProvider {
+public class BlockEntityMixin /*implements ICapabilityProvider*/ {
 
-    @Override
+    /*@Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         ICraterCapProvider capProvider = (ICraterCapProvider) this;
 
@@ -53,5 +36,5 @@ public class BlockEntityMixin implements ICapabilityProvider {
         }
 
         return LazyOptional.empty();
-    }
+    }*/
 }

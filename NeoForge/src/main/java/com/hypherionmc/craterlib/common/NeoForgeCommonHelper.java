@@ -1,13 +1,9 @@
 package com.hypherionmc.craterlib.common;
 
 import com.hypherionmc.craterlib.api.blockentity.caps.CraterCapabilityHandler;
-import com.hypherionmc.craterlib.api.blockentity.caps.ICraterCapProvider;
 import com.hypherionmc.craterlib.core.network.CraterNetworkHandler;
 import com.hypherionmc.craterlib.core.platform.CommonPlatform;
-import com.hypherionmc.craterlib.core.systems.fluid.ICraterFluidHandler;
 import com.hypherionmc.craterlib.network.NeoForgeNetworkHandler;
-import com.hypherionmc.craterlib.systems.energy.NeoForgeEnergyReader;
-import com.hypherionmc.craterlib.systems.fluid.NeoForgeFluidReader;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +15,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import org.apache.commons.lang3.function.TriFunction;
@@ -28,7 +23,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 /**
@@ -67,7 +61,8 @@ public class NeoForgeCommonHelper implements CommonPlatform {
 
     @Override
     public <T> Optional<T> getCapabilityHandler(BlockEntity entity, Direction side, CraterCapabilityHandler capability) {
-        if (capability == CraterCapabilityHandler.ENERGY) {
+        // TODO Fix This
+        /*if (capability == CraterCapabilityHandler.ENERGY) {
             AtomicReference<NeoForgeEnergyReader> energyReference = new AtomicReference<>();
             entity.getCapability(Capabilities.ENERGY, side).ifPresent(storage -> energyReference.set(new NeoForgeEnergyReader(storage)));
 
@@ -83,7 +78,7 @@ public class NeoForgeCommonHelper implements CommonPlatform {
 
         if (entity instanceof ICraterCapProvider capProvider) {
             return capProvider.getCapability(capability, side);
-        }
+        }*/
 
         return Optional.empty();
     }

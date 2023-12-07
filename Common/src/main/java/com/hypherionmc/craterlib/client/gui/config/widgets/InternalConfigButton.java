@@ -23,7 +23,7 @@ public class InternalConfigButton extends AbstractButton {
     }
 
     @Override
-    public void render(@NotNull GuiGraphics poseStack, int i, int j, float f) {
+    protected void renderWidget(GuiGraphics arg, int i, int j, float f) {
         if (cancel) {
             setMessage(Component.translatable(screen.isEdited() ? "t.clc.cancel_discard" : "gui.cancel"));
         } else {
@@ -31,7 +31,7 @@ public class InternalConfigButton extends AbstractButton {
             active = screen.isEdited() && !hasErrors;
             setMessage(Component.translatable(hasErrors ? "t.clc.error" : "t.clc.save"));
         }
-        super.render(poseStack, i, j, f);
+        super.renderWidget(arg, i, j, f);
     }
 
     @Override

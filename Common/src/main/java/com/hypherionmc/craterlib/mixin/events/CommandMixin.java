@@ -9,6 +9,7 @@ import net.minecraft.commands.Commands;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Commands.class)
@@ -16,21 +17,21 @@ public class CommandMixin {
 
     @Inject(method = "performCommand",
             at = @At(value = "INVOKE",
-                    target = "Lcom/mojang/brigadier/CommandDispatcher;execute(Lcom/mojang/brigadier/ParseResults;)I",
+                    target = "Lnet/minecraft/commands/Commands;finishParsing(Lcom/mojang/brigadier/ParseResults;Ljava/lang/String;Lnet/minecraft/commands/CommandSourceStack;)Lcom/mojang/brigadier/context/ContextChain;",
                     shift = At.Shift.BEFORE
             ), cancellable = true
     )
-    private void injectCommandEvent(ParseResults<CommandSourceStack> stackParseResults, String command, CallbackInfoReturnable<Integer> cir) {
+    private void injectCommandEvent(ParseResults<CommandSourceStack> stackParseResults, String command, CallbackInfo ci) {
         CraterCommandEvent commandEvent = new CraterCommandEvent(stackParseResults, command);
         CraterEventBus.INSTANCE.postEvent(commandEvent);
         if (commandEvent.wasCancelled()) {
-            cir.setReturnValue(1);
+            ci.cancel();
             return;
         }
 
         if (commandEvent.getException() != null) {
             Throwables.throwIfUnchecked(commandEvent.getException());
-            cir.setReturnValue(1);
+            ci.cancel();
         }
     }
 
