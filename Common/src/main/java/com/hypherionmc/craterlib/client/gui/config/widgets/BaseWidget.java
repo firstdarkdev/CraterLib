@@ -16,7 +16,7 @@ import net.minecraft.network.chat.TextColor;
 public class BaseWidget<T> extends Option<T> {
 
     public static final int resetButtonOffset = 48;
-    private final Button resetButton = addChild(Button.builder(Component.literal("Reset"), this::onResetPressed).size(46, 20).build());
+    private final Button resetButton = addChild(new Button(0, 0, 46, 20, Component.literal("Reset"), this::onResetPressed));
     private boolean hideReset = false;
 
     private boolean isSubConfig = false;
@@ -51,8 +51,8 @@ public class BaseWidget<T> extends Option<T> {
             text.withStyle(ChatFormatting.GRAY);
         }
         font.draw(matrices, text, x, y, 0xFFFFFF);
-        resetButton.setX(x + width - 46);
-        resetButton.setY(y + 1);
+        resetButton.x = (x + width - 46);
+        resetButton.y = (y + 1);
         resetButton.active = isNotDefault();
         if (!hideReset) {
             resetButton.render(matrices, mouseX, mouseY, delta);

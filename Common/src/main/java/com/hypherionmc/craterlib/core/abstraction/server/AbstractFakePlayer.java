@@ -9,7 +9,6 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public class AbstractFakePlayer extends CommandSourceStack {
 

@@ -18,7 +18,7 @@ public class ToggleButton<T> extends AbstractConfigWidget<T, Button> {
     public ToggleButton(List<T> options, Function<T, Component> toComponent) {
         this.options = options;
         this.toComponent = toComponent;
-        this.widget = addChild(Button.builder(Component.empty(), this::switchNext).size(buttonWidth, buttonHeight).build());
+        this.widget = addChild(new Button(0, 0, buttonWidth, buttonHeight, Component.empty(), this::switchNext));
     }
 
     @Override

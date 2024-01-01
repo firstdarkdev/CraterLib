@@ -8,6 +8,7 @@ import com.hypherionmc.craterlib.core.config.annotations.SubConfig;
 import com.hypherionmc.craterlib.core.config.annotations.Tooltip;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.Matrix4f;
 import me.hypherionmc.moonconfig.core.conversion.SpecComment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
@@ -19,7 +20,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Matrix4f;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

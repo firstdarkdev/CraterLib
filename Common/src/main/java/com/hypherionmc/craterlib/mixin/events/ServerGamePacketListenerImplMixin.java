@@ -19,7 +19,7 @@ public class ServerGamePacketListenerImplMixin {
 
     @Inject(method = "broadcastChatMessage", at = @At("HEAD"), cancellable = true)
     private void injectChatEvent(PlayerChatMessage chatMessage, CallbackInfo ci) {
-        CraterServerChatEvent event = new CraterServerChatEvent(this.player, chatMessage.decoratedContent().getString(), chatMessage.decoratedContent());
+        CraterServerChatEvent event = new CraterServerChatEvent(this.player, chatMessage.serverContent().getString(), chatMessage.serverContent());
         CraterEventBus.INSTANCE.postEvent(event);
         if (event.wasCancelled())
             ci.cancel();
