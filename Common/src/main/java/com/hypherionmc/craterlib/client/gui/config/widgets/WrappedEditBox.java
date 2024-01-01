@@ -21,7 +21,7 @@ public class WrappedEditBox extends EditBox {
         for (GuiEventListener child : Minecraft.getInstance().screen.children()) {
             if (child instanceof TextConfigOption<?> option) {
                 WrappedEditBox box = option.widget;
-                super.setFocused(box == this);
+                box.setFocused(box == this);
             }
         }
         super.setFocused(bl);

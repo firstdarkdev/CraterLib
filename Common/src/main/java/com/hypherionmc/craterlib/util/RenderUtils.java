@@ -42,7 +42,7 @@ public class RenderUtils {
     }
 
     public static int renderColorFromDye(DyeColor color) {
-        return color.getMapColor().col | 0xFF000000;
+        return color.getMaterialColor().col | 0xFF000000;
     }
 
     public static int alphaColorFromDye(DyeColor color, float alpha) {

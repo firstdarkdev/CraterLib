@@ -11,7 +11,6 @@ import com.mojang.blaze3d.vertex.*;
 import me.hypherionmc.moonconfig.core.conversion.SpecComment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -177,19 +176,19 @@ public class CraterConfigScreen extends Screen {
     }
 
     @Override
-    public void render(@NotNull GuiGraphics matrices, int mouseX, int mouseY, float delta) {
-        overlayBackground(matrices.pose(), TOP, height - BOTTOM, 32);
+    public void render(@NotNull PoseStack matrices, int mouseX, int mouseY, float delta) {
+        overlayBackground(matrices, TOP, height - BOTTOM, 32);
 
         renderScrollBar();
 
-        matrices.pose().pushPose();
-        matrices.pose().translate(0, 0, 500.0);
-        overlayBackground(matrices.pose(), 0, TOP, 64);
-        overlayBackground(matrices.pose(), height - BOTTOM, height, 64);
-        renderShadow(matrices.pose());
-        matrices.drawCenteredString(font, getTitle(), width / 2, 9, 0xFFFFFF);
+        matrices.pushPose();
+        matrices.translate(0, 0, 500.0);
+        overlayBackground(matrices, 0, TOP, 64);
+        overlayBackground(matrices, height - BOTTOM, height, 64);
+        renderShadow(matrices);
+        drawCenteredString(matrices, font, getTitle(), width / 2, 9, 0xFFFFFF);
         super.render(matrices, mouseX, mouseY, delta);
-        matrices.pose().popPose();
+        matrices.popPose();
 
         int y = (int) (TOP + 4 - Math.round(scrollerAmount));
         for (Option<?> option : options) {
@@ -379,7 +378,7 @@ public class CraterConfigScreen extends Screen {
         }
     }
 
-    private void renderConfigTooltip(GuiGraphics stack, Font font, int mouseX, int mouseY, int startX, int startY, int sizeX, int sizeY, String title, String... description) {
+    private void renderConfigTooltip(PoseStack stack, Font font, int mouseX, int mouseY, int startX, int startY, int sizeX, int sizeY, String title, String... description) {
         if (mouseX > startX && mouseX < startX + sizeX) {
             if (mouseY > startY && mouseY < startY + sizeY) {
                 List<Component> list = new ArrayList<>();
@@ -387,7 +386,7 @@ public class CraterConfigScreen extends Screen {
                 for (String desc : description) {
                     list.add(Component.translatable(desc));
                 }
-                stack.renderComponentTooltip(font, list, mouseX, mouseY);
+                renderComponentTooltip(stack, list, mouseX, mouseY);
             }
         }
     }

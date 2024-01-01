@@ -25,13 +25,13 @@ public class AbstractFakePlayer extends CommandSourceStack {
     }
 
     @Override
-    public void sendSuccess(Supplier<Component> component, boolean bl) {
-        this.onSuccess(component.get(), bl);
+    public void sendSuccess(Component component, boolean bl) {
+        this.onSuccess(component, bl);
     }
 
     @Override
     public void sendFailure(Component component) {
-        sendSuccess(() -> component, false);
+        sendSuccess(component, false);
     }
 
     public UUID getUuid() {

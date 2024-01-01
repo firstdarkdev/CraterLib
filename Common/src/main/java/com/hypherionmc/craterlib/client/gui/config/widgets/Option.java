@@ -1,8 +1,8 @@
 package com.hypherionmc.craterlib.client.gui.config.widgets;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.events.AbstractContainerEventHandler;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
@@ -38,7 +38,7 @@ public abstract class Option<T> extends AbstractContainerEventHandler {
         this.langKeys = langKeys;
     }
 
-    public abstract void render(Minecraft minecraft, Font font, int x, int y, int width, int height, GuiGraphics matrices, int mouseX, int mouseY, float delta);
+    public abstract void render(Minecraft minecraft, Font font, int x, int y, int width, int height, PoseStack matrices, int mouseX, int mouseY, float delta);
 
     public int height() {
         return 22;
