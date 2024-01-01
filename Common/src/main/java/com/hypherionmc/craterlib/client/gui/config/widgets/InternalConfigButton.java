@@ -6,6 +6,7 @@ import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author HypherionSA
@@ -22,7 +23,7 @@ public class InternalConfigButton extends AbstractButton {
     }
 
     @Override
-    protected void renderWidget(GuiGraphics arg, int i, int j, float f) {
+    public void render(@NotNull GuiGraphics poseStack, int i, int j, float f) {
         if (cancel) {
             setMessage(Component.translatable(screen.isEdited() ? "t.clc.cancel_discard" : "gui.cancel"));
         } else {
@@ -30,7 +31,7 @@ public class InternalConfigButton extends AbstractButton {
             active = screen.isEdited() && !hasErrors;
             setMessage(Component.translatable(hasErrors ? "t.clc.error" : "t.clc.save"));
         }
-        super.renderWidget(arg, i, j, f);
+        super.render(poseStack, i, j, f);
     }
 
     @Override

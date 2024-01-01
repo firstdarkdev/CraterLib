@@ -12,4 +12,3 @@ pluginManagement {
 
 rootProject.name = 'CraterLib'
 include("Common", "Fabric", "Forge")
-include 'NeoForge'
