@@ -6,8 +6,6 @@
   "mixins": [
   ],
   "client": [
-    "colors.BlockColorsMixin",
-    "colors.ItemColorsMixin",
     "events.PlayerMixin",
     "events.client.ClientLevelMixin",
     "events.client.MinecraftMixin",

@@ -24,7 +24,6 @@ shadowJar {
 unimined.minecraft {
     fabric {
         loader fabric_loader
-        accessWidener(project.file("src/main/resources/${mod_id}.aw"))
     }
 
     defaultRemapJar = false

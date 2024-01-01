@@ -10,8 +10,9 @@ public interface DisconnectedCallback extends Callback {
 
     /**
      * Called when RPC disconnected
+     *
      * @param errorCode Error code if any
-     * @param message Details about the disconnection
+     * @param message   Details about the disconnection
      */
     void apply(int errorCode, String message);
 }

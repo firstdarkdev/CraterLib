@@ -36,7 +36,6 @@ shadowJar {
 unimined.minecraft {
     fabric {
         loader fabric_loader
-        accessWidener(project(":Common").file("src/main/resources/${mod_id}.aw"))
     }
 }
 

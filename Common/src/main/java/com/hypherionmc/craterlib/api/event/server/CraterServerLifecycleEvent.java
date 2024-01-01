@@ -5,7 +5,8 @@ import net.minecraft.server.MinecraftServer;
 
 public class CraterServerLifecycleEvent extends CraterEvent {
 
-    public CraterServerLifecycleEvent() {}
+    public CraterServerLifecycleEvent() {
+    }
 
     @Override
     public boolean canCancel() {
@@ -27,19 +28,22 @@ public class CraterServerLifecycleEvent extends CraterEvent {
 
     public static class Started extends CraterServerLifecycleEvent {
 
-        public Started() {}
+        public Started() {
+        }
 
     }
 
     public static class Stopping extends CraterServerLifecycleEvent {
 
-        public Stopping() {}
+        public Stopping() {
+        }
 
     }
 
     public static class Stopped extends CraterServerLifecycleEvent {
 
-        public Stopped() {}
+        public Stopped() {
+        }
 
     }
 }

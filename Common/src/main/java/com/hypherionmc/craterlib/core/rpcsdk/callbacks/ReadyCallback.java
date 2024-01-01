@@ -11,6 +11,7 @@ public interface ReadyCallback extends Callback {
 
     /**
      * Called when the RPC is connected and ready to be used
+     *
      * @param user The user the RPC is displayed on
      * @see DiscordUser
      */

@@ -30,10 +30,10 @@ public class DiscordUser extends Structure {
     @Override
     protected List<String> getFieldOrder() {
         return Arrays.asList(
-              "userId",
-              "username",
-              "discriminator",
-              "avatar"
+                "userId",
+                "username",
+                "discriminator",
+                "avatar"
         );
     }
 }

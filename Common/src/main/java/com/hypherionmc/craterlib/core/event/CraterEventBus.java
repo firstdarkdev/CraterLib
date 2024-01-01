@@ -12,9 +12,8 @@ import java.util.function.Consumer;
 
 public final class CraterEventBus {
 
-    private static final Logger LOGGER = CraterConstants.LOG;
-
     public static final CraterEventBus INSTANCE = new CraterEventBus();
+    private static final Logger LOGGER = CraterConstants.LOG;
     private final Map<Class<? extends CraterEvent>, List<ListenerContainer>> events = new HashMap<>();
 
     public void postEvent(CraterEvent event) {
@@ -39,11 +38,11 @@ public final class CraterEventBus {
     private void registerListenerMethods(List<EventMethod> methods) {
         for (EventMethod m : methods) {
             Consumer<CraterEvent> listener = (event) -> {
-              try {
-                  m.method.invoke(m.parentObject, event);
-              } catch (Exception e) {
-                  throw new RuntimeException(e);
-              }
+                try {
+                    m.method.invoke(m.parentObject, event);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             };
 
             ListenerContainer container = new ListenerContainer(m.eventType, listener, m.priority);
@@ -157,13 +156,6 @@ public final class CraterEventBus {
             collectMethodAnnotations(this.isStatic ? null : this.parentObject.getClass(), this.method, this.annotations);
         }
 
-        protected Class<?> tryGetParentClass() {
-            if (this.parentObject instanceof Class<?>) {
-                return (Class<?>) this.parentObject;
-            }
-            return this.parentObject.getClass();
-        }
-
         protected static void collectMethodAnnotations(Class<?> c, Method m, List<Annotation> addToList) {
             try {
                 addToList.addAll(Arrays.asList(m.getAnnotations()));
@@ -173,10 +165,19 @@ public final class CraterEventBus {
                         try {
                             Method sm = sc.getMethod(m.getName(), m.getParameterTypes());
                             collectMethodAnnotations(sc, sm, addToList);
-                        } catch (Exception ignored) {}
+                        } catch (Exception ignored) {
+                        }
                     }
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
+        }
+
+        protected Class<?> tryGetParentClass() {
+            if (this.parentObject instanceof Class<?>) {
+                return (Class<?>) this.parentObject;
+            }
+            return this.parentObject.getClass();
         }
 
     }
@@ -185,11 +186,6 @@ public final class CraterEventBus {
 
         protected final int priority;
         protected final Class<? extends CraterEvent> eventType;
-
-        protected static EventMethod tryCreateFrom(AnalyzedMethod method) {
-            EventMethod em = new EventMethod(method);
-            return (em.eventType != null) ? em : null;
-        }
 
         protected EventMethod(AnalyzedMethod method) {
 
@@ -203,6 +199,11 @@ public final class CraterEventBus {
             this.priority = this.tryGetPriority();
             this.eventType = this.tryGetEventType();
 
+        }
+
+        protected static EventMethod tryCreateFrom(AnalyzedMethod method) {
+            EventMethod em = new EventMethod(method);
+            return (em.eventType != null) ? em : null;
         }
 
         protected Class<? extends CraterEvent> tryGetEventType() {

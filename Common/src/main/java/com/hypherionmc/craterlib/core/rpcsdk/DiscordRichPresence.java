@@ -75,6 +75,10 @@ public class DiscordRichPresence extends Structure {
     // Unused
     public int instance;
 
+    public DiscordRichPresence() {
+        setStringEncoding("UTF-8");
+    }
+
     /**
      * DO NOT TOUCH THIS... EVER!
      */
@@ -102,10 +106,6 @@ public class DiscordRichPresence extends Structure {
                 "button_url_2",
                 "instance"
         );
-    }
-
-    public DiscordRichPresence() {
-        setStringEncoding("UTF-8");
     }
 
     public static class Builder {

@@ -35,6 +35,10 @@ public class FabricNetworkHandler implements CraterNetworkHandler {
         this.modid = modid;
     }
 
+    public synchronized static CraterNetworkHandler of(String modId) {
+        return NETWORK_HANDLERS.computeIfAbsent(modId, FabricNetworkHandler::new);
+    }
+
     @Override
     public <T extends CraterPacket<T>> void registerPacket(Class<T> clazz, Supplier<T> supplier, PacketDirection packetDirection) {
         ResourceLocation channelName = this.nextId();
@@ -43,8 +47,10 @@ public class FabricNetworkHandler implements CraterNetworkHandler {
         final Function<FriendlyByteBuf, CraterPacket<?>> decoder = buf -> Util.make(supplier.get(), message -> message.read(buf));
 
         switch (packetDirection) {
-            case TO_CLIENT -> FabricNetworkHelper.getForDist(FabricLoader.getInstance().getEnvironmentType()).registerClientReceiver(channelName, decoder);
-            case TO_SERVER -> FabricNetworkHelper.getForDist(FabricLoader.getInstance().getEnvironmentType()).registerServerReceiver(channelName, decoder);
+            case TO_CLIENT ->
+                    FabricNetworkHelper.getForDist(FabricLoader.getInstance().getEnvironmentType()).registerClientReceiver(channelName, decoder);
+            case TO_SERVER ->
+                    FabricNetworkHelper.getForDist(FabricLoader.getInstance().getEnvironmentType()).registerServerReceiver(channelName, decoder);
         }
     }
 
@@ -54,13 +60,15 @@ public class FabricNetworkHandler implements CraterNetworkHandler {
 
     @Override
     public Packet<?> toServerBound(CraterPacket<?> packet) {
-        if (this.packets.get(packet.getClass()).direction() != PacketDirection.TO_SERVER) throw new IllegalStateException("Attempted sending message to wrong side, expected %s, was %s".formatted(PacketDirection.TO_SERVER, PacketDirection.TO_CLIENT));
+        if (this.packets.get(packet.getClass()).direction() != PacketDirection.TO_SERVER)
+            throw new IllegalStateException("Attempted sending message to wrong side, expected %s, was %s".formatted(PacketDirection.TO_SERVER, PacketDirection.TO_CLIENT));
         return this.toPacket(ClientPlayNetworking::createC2SPacket, packet);
     }
 
     @Override
     public Packet<?> toClientBound(CraterPacket<?> packet) {
-        if (this.packets.get(packet.getClass()).direction() != PacketDirection.TO_CLIENT) throw new IllegalStateException("Attempted sending message to wrong side, expected %s, was %s".formatted(PacketDirection.TO_CLIENT, PacketDirection.TO_SERVER));
+        if (this.packets.get(packet.getClass()).direction() != PacketDirection.TO_CLIENT)
+            throw new IllegalStateException("Attempted sending message to wrong side, expected %s, was %s".formatted(PacketDirection.TO_CLIENT, PacketDirection.TO_SERVER));
         return this.toPacket(ServerPlayNetworking::createS2CPacket, packet);
     }
 
@@ -71,11 +79,8 @@ public class FabricNetworkHandler implements CraterNetworkHandler {
         return packetFactory.apply(identifier, byteBuf);
     }
 
-    public synchronized static CraterNetworkHandler of(String modId) {
-        return NETWORK_HANDLERS.computeIfAbsent(modId, FabricNetworkHandler::new);
-    }
-
-    private record PacketData(Class<? extends CraterPacket<?>> clazz, ResourceLocation identifier, PacketDirection direction) {
+    private record PacketData(Class<? extends CraterPacket<?>> clazz, ResourceLocation identifier,
+                              PacketDirection direction) {
 
     }
 }

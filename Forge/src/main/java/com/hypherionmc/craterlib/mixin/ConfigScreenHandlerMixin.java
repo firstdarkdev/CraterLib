@@ -24,6 +24,7 @@ public class ConfigScreenHandlerMixin {
 
     /**
      * Inject Auto Generated config Screens into forge
+     *
      * @param selectedMod
      * @param cir
      */

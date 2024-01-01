@@ -162,6 +162,7 @@ public class ModuleConfig {
 
     /**
      * Get the name of the Config File
+     *
      * @return
      */
     public String getConfigName() {
@@ -170,6 +171,7 @@ public class ModuleConfig {
 
     /**
      * Get the MODID of the Module the config is registered to
+     *
      * @return
      */
     public String getModId() {

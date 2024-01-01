@@ -24,8 +24,9 @@ public class RPCButton implements Serializable {
 
     /**
      * Create a new RPC Button
+     *
      * @param label The label of the button
-     * @param url The URL the button will open when clicked
+     * @param url   The URL the button will open when clicked
      * @return The constructed button
      */
     public static RPCButton create(@NotNull String label, @NotNull String url) {

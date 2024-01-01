@@ -41,6 +41,15 @@ public class RenderUtils {
         }
     }
 
+    public static int renderColorFromDye(DyeColor color) {
+        return color.getMapColor().col | 0xFF000000;
+    }
+
+    public static int alphaColorFromDye(DyeColor color, float alpha) {
+        float[] colors = color.getTextureDiffuseColors();
+        return new Color(colors[0], colors[1], colors[2], alpha).getRGB();
+    }
+
     public static class ARGB32 {
         public static int alpha(int pPackedColor) {
             return pPackedColor >>> 24;
@@ -57,14 +66,5 @@ public class RenderUtils {
         public static int blue(int pPackedColor) {
             return pPackedColor & 255;
         }
-    }
-
-    public static int renderColorFromDye(DyeColor color) {
-        return color.getMapColor().col | 0xFF000000;
-    }
-
-    public static int alphaColorFromDye(DyeColor color, float alpha) {
-        float[] colors = color.getTextureDiffuseColors();
-        return new Color(colors[0], colors[1], colors[2], alpha).getRGB();
     }
 }

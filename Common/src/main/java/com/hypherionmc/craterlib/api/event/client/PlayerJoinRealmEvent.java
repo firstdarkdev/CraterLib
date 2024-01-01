@@ -5,15 +5,15 @@ import com.mojang.realmsclient.dto.RealmsServer;
 
 public class PlayerJoinRealmEvent extends CraterEvent {
 
-        private final RealmsServer server;
+    private final RealmsServer server;
 
-        public PlayerJoinRealmEvent(RealmsServer server) {
-            this.server = server;
-        }
+    public PlayerJoinRealmEvent(RealmsServer server) {
+        this.server = server;
+    }
 
-        public RealmsServer getServer() {
-            return server;
-        }
+    public RealmsServer getServer() {
+        return server;
+    }
 
     @Override
     public boolean canCancel() {

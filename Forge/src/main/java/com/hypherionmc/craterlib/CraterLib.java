@@ -1,7 +1,6 @@
 package com.hypherionmc.craterlib;
 
 import com.hypherionmc.craterlib.api.event.client.LateInitEvent;
-import com.hypherionmc.craterlib.client.CraterClientBus;
 import com.hypherionmc.craterlib.common.ForgeServerEvents;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import net.minecraft.client.Minecraft;
@@ -16,7 +15,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class CraterLib {
 
     public CraterLib() {
-        CraterEventBus.INSTANCE.registerEventListener(CraterClientBus.class);
         MinecraftForge.EVENT_BUS.register(new ForgeServerEvents());
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
     }

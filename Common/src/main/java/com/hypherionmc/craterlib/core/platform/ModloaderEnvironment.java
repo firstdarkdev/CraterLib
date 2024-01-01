@@ -13,12 +13,20 @@ public interface ModloaderEnvironment {
     public final ModloaderEnvironment INSTANCE = ServiceUtil.load(ModloaderEnvironment.class);
 
     boolean isFabric();
+
     String getGameVersion();
+
     File getGameFolder();
+
     File getConfigFolder();
+
     File getModsFolder();
+
     Environment getEnvironment();
+
     boolean isModLoaded(String modid);
+
     boolean isDevEnv();
+
     int getModCount();
 }

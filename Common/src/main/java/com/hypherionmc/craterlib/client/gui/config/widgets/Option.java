@@ -54,7 +54,8 @@ public abstract class Option<T> extends AbstractContainerEventHandler {
         return listener;
     }
 
-    public void onAdd() {}
+    public void onAdd() {
+    }
 
     protected void reset() {
         onAdd();

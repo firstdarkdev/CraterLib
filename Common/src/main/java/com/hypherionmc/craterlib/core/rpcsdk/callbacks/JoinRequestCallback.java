@@ -11,6 +11,7 @@ public interface JoinRequestCallback extends Callback {
 
     /**
      * Called when someone clicks on the Join Game button
+     *
      * @param user The Discord User trying to join your game
      * @see DiscordUser
      */

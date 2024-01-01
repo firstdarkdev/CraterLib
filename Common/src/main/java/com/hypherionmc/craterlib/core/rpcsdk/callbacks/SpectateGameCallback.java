@@ -10,6 +10,7 @@ public interface SpectateGameCallback extends Callback {
 
     /**
      * Called when joining the game
+     *
      * @param spectateSecret Secret or Password required to let the player spectate
      */
     void apply(String spectateSecret);

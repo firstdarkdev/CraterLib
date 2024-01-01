@@ -14,7 +14,7 @@ public class ServerPlayerMixin {
 
     @Inject(method = "die", at = @At("HEAD"), cancellable = true)
     private void injectPlayerDeathEvent(DamageSource damageSource, CallbackInfo ci) {
-        CraterLivingDeathEvent event = new CraterLivingDeathEvent(((ServerPlayer)(Object) this), damageSource);
+        CraterLivingDeathEvent event = new CraterLivingDeathEvent(((ServerPlayer) (Object) this), damageSource);
         CraterEventBus.INSTANCE.postEvent(event);
         if (event.wasCancelled())
             ci.cancel();

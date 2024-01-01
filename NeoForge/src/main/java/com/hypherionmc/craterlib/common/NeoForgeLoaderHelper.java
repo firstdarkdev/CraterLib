@@ -15,7 +15,8 @@ import java.io.File;
  */
 public class NeoForgeLoaderHelper implements ModloaderEnvironment {
 
-    public NeoForgeLoaderHelper() {}
+    public NeoForgeLoaderHelper() {
+    }
 
     @Override
     public boolean isFabric() {

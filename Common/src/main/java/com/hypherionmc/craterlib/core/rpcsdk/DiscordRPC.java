@@ -15,10 +15,11 @@ public interface DiscordRPC extends Library {
 
     /**
      * Open a New RPC Connection
+     *
      * @param applicationId The ID of the Application the RPC is tied to
-     * @param handlers Optional Event Callback Handlers
-     * @param autoRegister Auto Register the running game
-     * @param steamId Steam ID of the game
+     * @param handlers      Optional Event Callback Handlers
+     * @param autoRegister  Auto Register the running game
+     * @param steamId       Steam ID of the game
      */
     void Discord_Initialize(@NotNull String applicationId, @Nullable DiscordEventHandlers handlers, boolean autoRegister, @Nullable String steamId);
 
@@ -40,6 +41,7 @@ public interface DiscordRPC extends Library {
 
     /**
      * Update the Rich Presence
+     *
      * @param struct Constructed {@link DiscordRichPresence}
      */
     void Discord_UpdatePresence(@Nullable DiscordRichPresence struct);
@@ -51,13 +53,15 @@ public interface DiscordRPC extends Library {
 
     /**
      * Respond to Join/Spectate callback
+     *
      * @param userid The Discord User ID of the user that initiated the request
-     * @param reply Reply to the request. See {@link DiscordReply}
+     * @param reply  Reply to the request. See {@link DiscordReply}
      */
     void Discord_Respond(@NotNull String userid, int reply);
 
     /**
      * Replace the already registered {@link DiscordEventHandlers}
+     *
      * @param handlers The new handlers to apply
      */
     void Discord_UpdateHandlers(@Nullable DiscordEventHandlers handlers);
@@ -65,17 +69,19 @@ public interface DiscordRPC extends Library {
     /**
      * Register the executable of the application/game
      * Only applicable when autoRegister is set to false
-     * @param applicationId The Application ID
-     * @param command The Launch command of the game
      *
-     * NB: THIS DOES NOT WORK WITH MINECRAFT
+     * @param applicationId The Application ID
+     * @param command       The Launch command of the game
+     *                      <p>
+     *                      NB: THIS DOES NOT WORK WITH MINECRAFT
      */
     void Discord_Register(String applicationId, String command);
 
     /**
      * Register the Steam executable of the application/game
+     *
      * @param applicationId The Application ID
-     * @param steamId The Steam ID of the application/game
+     * @param steamId       The Steam ID of the application/game
      */
     void Discord_RegisterSteamGame(String applicationId, String steamId);
 

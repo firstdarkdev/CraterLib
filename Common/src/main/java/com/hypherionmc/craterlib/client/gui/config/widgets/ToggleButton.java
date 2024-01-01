@@ -10,7 +10,7 @@ import java.util.function.Function;
  * Copied from Cloth Config Lite
  * <a href="https://github.com/shedaniel/cloth-config-lite/blob/1.17/src/main/java/me/shedaniel/clothconfiglite/impl/option/ToggleOption.java">...</a>
  */
-public class ToggleButton <T> extends AbstractConfigWidget<T, Button> {
+public class ToggleButton<T> extends AbstractConfigWidget<T, Button> {
 
     private final List<T> options;
     private final Function<T, Component> toComponent;

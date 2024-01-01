@@ -10,8 +10,9 @@ public interface ErroredCallback extends Callback {
 
     /**
      * Called when an RPC error occurs
+     *
      * @param errorCode Error code if any
-     * @param message Details about the error
+     * @param message   Details about the error
      */
     void apply(int errorCode, String message);
 }

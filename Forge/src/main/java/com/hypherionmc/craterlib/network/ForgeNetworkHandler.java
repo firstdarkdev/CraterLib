@@ -49,13 +49,36 @@ public class ForgeNetworkHandler implements CraterNetworkHandler {
         this.serverRequired = serverRequired;
     }
 
+    public synchronized static CraterNetworkHandler of(String modId, boolean clientRequired, boolean serverRequired) {
+        ForgeNetworkHandler handler = NETWORK_HANDLERS.computeIfAbsent(modId, modId1 -> new ForgeNetworkHandler(buildSimpleChannel(modId1, clientRequired, serverRequired), clientRequired, serverRequired));
+        if (handler.clientRequired != clientRequired)
+            throw new IllegalArgumentException("client channel settings mismatch, expected %s, but was %s".formatted(handler.clientRequired, clientRequired));
+        if (handler.serverRequired != serverRequired)
+            throw new IllegalArgumentException("server channel settings mismatch, expected %s, but was %s".formatted(handler.serverRequired, serverRequired));
+        return handler;
+    }
+
+    private static SimpleChannel buildSimpleChannel(String modId, boolean clientAcceptsVanillaOrMissing, boolean serverAcceptsVanillaOrMissing) {
+        ChannelBuilder builder = ChannelBuilder.named(new ResourceLocation(modId, "crater_network"));
+
+        if (clientAcceptsVanillaOrMissing) {
+            builder = builder.optionalClient();
+        }
+
+        if (serverAcceptsVanillaOrMissing) {
+            builder = builder.optionalServer();
+        }
+
+        return builder.simpleChannel();
+    }
+
     @Override
     public <T extends CraterPacket<T>> void registerPacket(Class<T> clazz, Supplier<T> supplier, PacketDirection packetDirection) {
         BiConsumer<T, FriendlyByteBuf> encoder = CraterPacket::write;
         Function<FriendlyByteBuf, T> decoder = buf -> {
-          T packet = supplier.get();
-          packet.read(buf);
-          return packet;
+            T packet = supplier.get();
+            packet.read(buf);
+            return packet;
         };
 
         BiConsumer<T, CustomPayloadEvent.Context> handler = (packet, sup) -> {
@@ -104,27 +127,6 @@ public class ForgeNetworkHandler implements CraterNetworkHandler {
     @Override
     public void sendToServer(CraterPacket<?> packet) {
         CraterNetworkHandler.super.sendToServer(packet);
-    }
-
-    public synchronized static CraterNetworkHandler of(String modId, boolean clientRequired, boolean serverRequired) {
-        ForgeNetworkHandler handler = NETWORK_HANDLERS.computeIfAbsent(modId, modId1 -> new ForgeNetworkHandler(buildSimpleChannel(modId1, clientRequired, serverRequired), clientRequired, serverRequired));
-        if (handler.clientRequired != clientRequired) throw new IllegalArgumentException("client channel settings mismatch, expected %s, but was %s".formatted(handler.clientRequired, clientRequired));
-        if (handler.serverRequired != serverRequired) throw new IllegalArgumentException("server channel settings mismatch, expected %s, but was %s".formatted(handler.serverRequired, serverRequired));
-        return handler;
-    }
-
-    private static SimpleChannel buildSimpleChannel(String modId, boolean clientAcceptsVanillaOrMissing, boolean serverAcceptsVanillaOrMissing) {
-        ChannelBuilder builder = ChannelBuilder.named(new ResourceLocation(modId, "crater_network"));
-
-        if (clientAcceptsVanillaOrMissing) {
-            builder = builder.optionalClient();
-        }
-
-        if (serverAcceptsVanillaOrMissing) {
-            builder = builder.optionalServer();
-        }
-
-        return builder.simpleChannel();
     }
 
     private LogicalSide getSideFromDirection(PacketDirection direction) {

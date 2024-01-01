@@ -14,7 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerGamePacketListenerImpl.class)
 public class ServerGamePacketListenerImplMixin {
 
-    @Shadow public ServerPlayer player;
+    @Shadow
+    public ServerPlayer player;
 
     @Inject(method = "broadcastChatMessage", at = @At("HEAD"), cancellable = true)
     private void injectChatEvent(PlayerChatMessage chatMessage, CallbackInfo ci) {

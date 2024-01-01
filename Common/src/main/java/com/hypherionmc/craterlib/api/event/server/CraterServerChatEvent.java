@@ -17,12 +17,12 @@ public class CraterServerChatEvent extends CraterEvent {
         this.component = component;
     }
 
-    public void setComponent(Component component) {
-        this.component = component;
-    }
-
     public Component getComponent() {
         return component;
+    }
+
+    public void setComponent(Component component) {
+        this.component = component;
     }
 
     public String getUsername() {

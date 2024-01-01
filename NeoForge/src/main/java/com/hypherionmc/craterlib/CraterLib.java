@@ -1,7 +1,6 @@
 package com.hypherionmc.craterlib;
 
 import com.hypherionmc.craterlib.api.event.client.LateInitEvent;
-import com.hypherionmc.craterlib.client.CraterClientBus;
 import com.hypherionmc.craterlib.common.NeoForgeServerEvents;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import net.minecraft.client.Minecraft;
@@ -16,7 +15,6 @@ import net.neoforged.neoforge.common.NeoForge;
 public class CraterLib {
 
     public CraterLib(IEventBus eventBus) {
-        CraterEventBus.INSTANCE.registerEventListener(CraterClientBus.class);
         NeoForge.EVENT_BUS.register(new NeoForgeServerEvents());
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
     }

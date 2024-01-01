@@ -12,6 +12,7 @@ public class ServiceUtil {
 
     /**
      * Try to load a service
+     *
      * @param clazz The service class type to load
      * @return The loaded class
      */

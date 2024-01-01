@@ -46,6 +46,24 @@ public class NeoForgeNetworkHandler implements CraterNetworkHandler {
         this.serverRequired = serverRequired;
     }
 
+    public synchronized static CraterNetworkHandler of(String modId, boolean clientRequired, boolean serverRequired) {
+        NeoForgeNetworkHandler handler = NETWORK_HANDLERS.computeIfAbsent(modId, modId1 -> new NeoForgeNetworkHandler(buildSimpleChannel(modId1, clientRequired, serverRequired), clientRequired, serverRequired));
+        if (handler.clientRequired != clientRequired)
+            throw new IllegalArgumentException("client channel settings mismatch, expected %s, but was %s".formatted(handler.clientRequired, clientRequired));
+        if (handler.serverRequired != serverRequired)
+            throw new IllegalArgumentException("server channel settings mismatch, expected %s, but was %s".formatted(handler.serverRequired, serverRequired));
+        return handler;
+    }
+
+    private static SimpleChannel buildSimpleChannel(String modId, boolean clientAcceptsVanillaOrMissing, boolean serverAcceptsVanillaOrMissing) {
+        return NetworkRegistry.ChannelBuilder
+                .named(new ResourceLocation(modId, "crater_network"))
+                .networkProtocolVersion(() -> PROTOCOL)
+                .clientAcceptedVersions(clientAcceptsVanillaOrMissing ? NetworkRegistry.acceptMissingOr(PROTOCOL) : PROTOCOL::equals)
+                .serverAcceptedVersions(serverAcceptsVanillaOrMissing ? NetworkRegistry.acceptMissingOr(PROTOCOL) : PROTOCOL::equals)
+                .simpleChannel();
+    }
+
     @Override
     public <T extends CraterPacket<T>> void registerPacket(Class<T> clazz, Supplier<T> supplier, PacketDirection packetDirection) {
         BiConsumer<T, FriendlyByteBuf> encoder = CraterPacket::write;
@@ -91,22 +109,6 @@ public class NeoForgeNetworkHandler implements CraterNetworkHandler {
     @Override
     public void sendToServer(CraterPacket<?> packet) {
         CraterNetworkHandler.super.sendToServer(packet);
-    }
-
-    public synchronized static CraterNetworkHandler of(String modId, boolean clientRequired, boolean serverRequired) {
-        NeoForgeNetworkHandler handler = NETWORK_HANDLERS.computeIfAbsent(modId, modId1 -> new NeoForgeNetworkHandler(buildSimpleChannel(modId1, clientRequired, serverRequired), clientRequired, serverRequired));
-        if (handler.clientRequired != clientRequired) throw new IllegalArgumentException("client channel settings mismatch, expected %s, but was %s".formatted(handler.clientRequired, clientRequired));
-        if (handler.serverRequired != serverRequired) throw new IllegalArgumentException("server channel settings mismatch, expected %s, but was %s".formatted(handler.serverRequired, serverRequired));
-        return handler;
-    }
-
-    private static SimpleChannel buildSimpleChannel(String modId, boolean clientAcceptsVanillaOrMissing, boolean serverAcceptsVanillaOrMissing) {
-        return NetworkRegistry.ChannelBuilder
-                .named(new ResourceLocation(modId, "crater_network"))
-                .networkProtocolVersion(() -> PROTOCOL)
-                .clientAcceptedVersions(clientAcceptsVanillaOrMissing ? NetworkRegistry.acceptMissingOr(PROTOCOL) : PROTOCOL::equals)
-                .serverAcceptedVersions(serverAcceptsVanillaOrMissing ? NetworkRegistry.acceptMissingOr(PROTOCOL) : PROTOCOL::equals)
-                .simpleChannel();
     }
 
     private LogicalSide getSideFromDirection(PacketDirection direction) {

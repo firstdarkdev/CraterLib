@@ -15,7 +15,8 @@ import java.io.File;
  */
 public class ForgeLoaderHelper implements ModloaderEnvironment {
 
-    public ForgeLoaderHelper() {}
+    public ForgeLoaderHelper() {
+    }
 
     @Override
     public boolean isFabric() {

@@ -10,7 +10,7 @@ import java.util.function.Function;
  * Copied from Cloth Config Lite
  * <a href="https://github.com/shedaniel/cloth-config-lite/blob/1.17/src/main/java/me/shedaniel/clothconfiglite/impl/option/TextFieldOption.java">...</a>
  */
-public class TextConfigOption <T> extends AbstractConfigWidget<T, WrappedEditBox> {
+public class TextConfigOption<T> extends AbstractConfigWidget<T, WrappedEditBox> {
 
     private final Function<T, String> toString;
     private final Function<String, T> fromString;
