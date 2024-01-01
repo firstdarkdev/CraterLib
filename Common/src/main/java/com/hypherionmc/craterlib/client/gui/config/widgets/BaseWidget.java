@@ -1,11 +1,11 @@
 package com.hypherionmc.craterlib.client.gui.config.widgets;
 
+import com.hypherionmc.craterlib.core.abstraction.text.AbstractComponent;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
 
@@ -16,7 +16,7 @@ import net.minecraft.network.chat.TextColor;
 public class BaseWidget<T> extends Option<T> {
 
     public static final int resetButtonOffset = 48;
-    private final Button resetButton = addChild(new Button(0, 0, 46, 20, Component.literal("Reset"), this::onResetPressed));
+    private final Button resetButton = addChild(new Button(0, 0, 46, 20, AbstractComponent.literal("Reset"), this::onResetPressed));
     private boolean hideReset = false;
 
     private boolean isSubConfig = false;
@@ -40,7 +40,7 @@ public class BaseWidget<T> extends Option<T> {
 
     @Override
     public void render(Minecraft minecraft, Font font, int x, int y, int width, int height, PoseStack matrices, int mouseX, int mouseY, float delta) {
-        MutableComponent text = Component.literal(this.text.getString());
+        MutableComponent text = AbstractComponent.literal(this.text.getString());
         boolean edited = isEdited() || hasErrors;
         if (edited) {
             text.withStyle(ChatFormatting.ITALIC);

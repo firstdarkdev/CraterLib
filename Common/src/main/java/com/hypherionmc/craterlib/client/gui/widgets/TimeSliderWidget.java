@@ -1,5 +1,6 @@
 package com.hypherionmc.craterlib.client.gui.widgets;
 
+import com.hypherionmc.craterlib.core.abstraction.text.AbstractComponent;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.Component;
 
@@ -35,9 +36,9 @@ public class TimeSliderWidget extends AbstractSliderButton {
         if (this.value * this.maxValue >= 1200) {
             String appendString = (minutes == 1) ? "Minute" : "Minutes";
             String doSeconds = ((seconds - (minutes * 60)) > 0) ? ", " + (seconds - (minutes * 60)) + " Seconds" : "";
-            return Component.literal(minutes + " " + appendString + doSeconds);
+            return AbstractComponent.literal(minutes + " " + appendString + doSeconds);
         } else {
-            return Component.literal(seconds + " Seconds");
+            return AbstractComponent.literal(seconds + " Seconds");
         }
     }
 

@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 public class ForgeClientEvents {
 
     @SubscribeEvent
-    public static void clientTick(TickEvent.LevelTickEvent event) {
+    public static void clientTick(TickEvent.WorldTickEvent event) {
         CraterClientTickEvent craterClientTickEvent = new CraterClientTickEvent(Minecraft.getInstance().level);
         CraterEventBus.INSTANCE.postEvent(craterClientTickEvent);
     }

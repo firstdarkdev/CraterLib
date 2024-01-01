@@ -1,5 +1,6 @@
 package com.hypherionmc.craterlib.util;
 
+import com.hypherionmc.craterlib.core.abstraction.text.AbstractComponent;
 import com.mojang.math.Vector4f;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -26,7 +27,7 @@ public class RenderUtils {
         amount = amount / 81;
         capacity = capacity / 81;
         String text = String.valueOf((int) (((float) amount / capacity) * 100));
-        return amount > 0 ? Component.literal(ChatFormatting.AQUA + text + "%") : Component.literal(text + "%");
+        return amount > 0 ? AbstractComponent.literal(ChatFormatting.AQUA + text + "%") : AbstractComponent.literal(text + "%");
     }
 
     public static Component getTimeDisplayString(double value) {
@@ -35,19 +36,10 @@ public class RenderUtils {
         if (seconds >= 60) {
             String appendString = (minutes == 1) ? "Minute" : "Minutes";
             String doSeconds = ((seconds - (minutes * 60)) > 0) ? ", " + (seconds - (minutes * 60)) + " Seconds" : "";
-            return Component.literal(minutes + " " + appendString + doSeconds);
+            return AbstractComponent.literal(minutes + " " + appendString + doSeconds);
         } else {
-            return Component.literal(seconds + " Seconds");
+            return AbstractComponent.literal(seconds + " Seconds");
         }
-    }
-
-    public static int renderColorFromDye(DyeColor color) {
-        return color.getMaterialColor().col | 0xFF000000;
-    }
-
-    public static int alphaColorFromDye(DyeColor color, float alpha) {
-        float[] colors = color.getTextureDiffuseColors();
-        return new Color(colors[0], colors[1], colors[2], alpha).getRGB();
     }
 
     public static class ARGB32 {
@@ -66,5 +58,14 @@ public class RenderUtils {
         public static int blue(int pPackedColor) {
             return pPackedColor & 255;
         }
+    }
+
+    public static int renderColorFromDye(DyeColor color) {
+        return color.getMaterialColor().col | 0xFF000000;
+    }
+
+    public static int alphaColorFromDye(DyeColor color, float alpha) {
+        float[] colors = color.getTextureDiffuseColors();
+        return new Color(colors[0], colors[1], colors[2], alpha).getRGB();
     }
 }

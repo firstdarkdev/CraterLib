@@ -1,6 +1,7 @@
 package com.hypherionmc.craterlib.client.gui.config.widgets;
 
 import com.hypherionmc.craterlib.client.gui.config.CraterConfigScreen;
+import com.hypherionmc.craterlib.core.abstraction.text.AbstractComponent;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarratedElementType;
@@ -25,11 +26,11 @@ public class InternalConfigButton extends AbstractButton {
     @Override
     public void render(@NotNull PoseStack poseStack, int i, int j, float f) {
         if (cancel) {
-            setMessage(Component.translatable(screen.isEdited() ? "t.clc.cancel_discard" : "gui.cancel"));
+            setMessage(AbstractComponent.translatable(screen.isEdited() ? "t.clc.cancel_discard" : "gui.cancel"));
         } else {
             boolean hasErrors = screen.hasErrors();
             active = screen.isEdited() && !hasErrors;
-            setMessage(Component.translatable(hasErrors ? "t.clc.error" : "t.clc.save"));
+            setMessage(AbstractComponent.translatable(hasErrors ? "t.clc.error" : "t.clc.save"));
         }
         super.render(poseStack, i, j, f);
     }

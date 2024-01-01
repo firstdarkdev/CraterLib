@@ -5,7 +5,7 @@ dependencies {
     shade "me.hypherionmc.moon-config:core:${moon_config}"
     shade "me.hypherionmc.moon-config:toml:${moon_config}"
     shade "com.hypherionmc:rpcsdk:1.0"
-    shade ("me.hypherionmc.sdlink:mcdiscordformatter-1.19.1:2.0.0")
+    shade ("me.hypherionmc.sdlink:mcdiscordformatter-1.18.1:2.0.0")
 
     // Do not edit or remove
     implementation project(":Common")
@@ -111,8 +111,8 @@ publisher {
     versionType = "release"
     changelog = "https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md"
     version = "${minecraft_version}-${project.version}"
-    displayName = "[FORGE 1.20.1/2] CraterLib - ${project.version}"
-    gameVersions = ["1.20", "1.20.1"]
+    displayName = "[FORGE 1.18.2] CraterLib - ${project.version}"
+    gameVersions = ["1.18.2"]
     loaders = ["forge"]
     artifact = remapJar
 }

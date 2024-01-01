@@ -1,5 +1,6 @@
 package com.hypherionmc.craterlib.util;
 
+import com.hypherionmc.craterlib.core.abstraction.text.AbstractComponent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 
@@ -10,19 +11,19 @@ import net.minecraft.network.chat.Component;
 public class LangUtils {
 
     public static Component getTooltipTitle(String key) {
-        return Component.literal(ChatFormatting.YELLOW + Component.translatable(key).getString());
+        return AbstractComponent.literal(ChatFormatting.YELLOW + AbstractComponent.translatable(key).getString());
     }
 
     public static String resolveTranslation(String key) {
-        return Component.translatable(key).getString();
+        return AbstractComponent.translatable(key).getString();
     }
 
     public static Component getTranslation(String key) {
-        return Component.translatable(key);
+        return AbstractComponent.translatable(key);
     }
 
     public static Component makeComponent(String text) {
-        return Component.translatable(text);
+        return AbstractComponent.translatable(text);
     }
 
 }

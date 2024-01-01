@@ -1,13 +1,13 @@
 package com.hypherionmc.craterlib.client.gui.config.widgets;
 
 import com.hypherionmc.craterlib.client.gui.config.CraterConfigScreen;
+import com.hypherionmc.craterlib.core.abstraction.text.AbstractComponent;
 import com.hypherionmc.craterlib.core.config.ModuleConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
 
 /**
  * @author HypherionSA
@@ -23,12 +23,12 @@ public class SubConfigWidget<T> extends AbstractConfigWidget<T, Button> {
         this.subConfig = subConfig;
         this.screen = screen;
 
-        this.widget = addChild(new Button(0, 0, 200, buttonHeight, Component.translatable("t.clc.opensubconfig"), this::openSubConfig));
+        this.widget = addChild(new Button(0, 0, 200, buttonHeight, AbstractComponent.translatable("t.clc.opensubconfig"), this::openSubConfig));
     }
 
     @Override
     public void render(Minecraft minecraft, Font font, int x, int y, int width, int height, PoseStack matrices, int mouseX, int mouseY, float delta) {
-        this.text = Component.literal(subConfig.getClass().getSimpleName().toLowerCase());
+        this.text = AbstractComponent.literal(subConfig.getClass().getSimpleName().toLowerCase());
         this.hideReset();
         super.render(minecraft, font, x, y, width, height, matrices, mouseX, mouseY, delta);
     }

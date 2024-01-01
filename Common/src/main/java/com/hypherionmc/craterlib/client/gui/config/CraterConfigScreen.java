@@ -2,6 +2,7 @@ package com.hypherionmc.craterlib.client.gui.config;
 
 import com.hypherionmc.craterlib.CraterConstants;
 import com.hypherionmc.craterlib.client.gui.config.widgets.*;
+import com.hypherionmc.craterlib.core.abstraction.text.AbstractComponent;
 import com.hypherionmc.craterlib.core.config.ModuleConfig;
 import com.hypherionmc.craterlib.core.config.annotations.HideFromScreen;
 import com.hypherionmc.craterlib.core.config.annotations.SubConfig;
@@ -48,7 +49,7 @@ public class CraterConfigScreen extends Screen {
     private boolean dragging;
 
     public CraterConfigScreen(ModuleConfig config, Screen parent, Object subConfig) {
-        super(Component.translatable("cl." + config.getClass().getSimpleName().toLowerCase() + ".title"));
+        super(AbstractComponent.translatable("cl." + config.getClass().getSimpleName().toLowerCase() + ".title"));
         this.parent = parent;
         this.config = config;
         if (subConfig != null) {
@@ -63,11 +64,11 @@ public class CraterConfigScreen extends Screen {
     }
 
     private static Component toText(Enum<?> val) {
-        return Component.translatable(val.toString());
+        return AbstractComponent.translatable(val.toString());
     }
 
     private static Component toText(Boolean bool) {
-        return Component.translatable(bool.toString());
+        return AbstractComponent.translatable(bool.toString());
     }
 
     private void setupScreenFromConfig(Object object, Class<?> clazz) {
@@ -93,7 +94,7 @@ public class CraterConfigScreen extends Screen {
                         tooltipLang = field.getAnnotation(Tooltip.class).value();
                     }
 
-                    add(Component.translatable(baseLangKey),
+                    add(AbstractComponent.translatable(baseLangKey),
                             val,
                             () -> val,
                             (ret) -> {
@@ -171,8 +172,8 @@ public class CraterConfigScreen extends Screen {
         ((List) children()).addAll(options);
 
         int buttonWidths = Math.min(200, (width - 50 - 12) / 3);
-        addRenderableWidget(new InternalConfigButton(this, width / 2 - buttonWidths - 3, height - 22, buttonWidths, 20, Component.empty(), true));
-        addRenderableWidget(new InternalConfigButton(this, width / 2 + 3, height - 22, buttonWidths, 20, Component.empty(), false));
+        addRenderableWidget(new InternalConfigButton(this, width / 2 - buttonWidths - 3, height - 22, buttonWidths, 20, AbstractComponent.empty(), true));
+        addRenderableWidget(new InternalConfigButton(this, width / 2 + 3, height - 22, buttonWidths, 20, AbstractComponent.empty(), false));
     }
 
     @Override
@@ -324,10 +325,10 @@ public class CraterConfigScreen extends Screen {
     @Override
     public void onClose() {
         if (isEdited()) {
-            minecraft.setScreen(new ConfirmScreen(this::acceptConfirm, Component.translatable("t.clc.quit_config"),
-                    Component.translatable("t.clc.quit_config_sure"),
-                    Component.translatable("t.clc.quit_discard"),
-                    Component.translatable("gui.cancel")));
+            minecraft.setScreen(new ConfirmScreen(this::acceptConfirm, AbstractComponent.translatable("t.clc.quit_config"),
+                    AbstractComponent.translatable("t.clc.quit_config_sure"),
+                    AbstractComponent.translatable("t.clc.quit_discard"),
+                    AbstractComponent.translatable("gui.cancel")));
         } else {
             minecraft.setScreen(parent);
         }
@@ -382,9 +383,9 @@ public class CraterConfigScreen extends Screen {
         if (mouseX > startX && mouseX < startX + sizeX) {
             if (mouseY > startY && mouseY < startY + sizeY) {
                 List<Component> list = new ArrayList<>();
-                list.add(Component.translatable(ChatFormatting.BOLD + "" + ChatFormatting.YELLOW + title));
+                list.add(AbstractComponent.translatable(ChatFormatting.BOLD + "" + ChatFormatting.YELLOW + title));
                 for (String desc : description) {
-                    list.add(Component.translatable(desc));
+                    list.add(AbstractComponent.translatable(desc));
                 }
                 renderComponentTooltip(stack, list, mouseX, mouseY);
             }

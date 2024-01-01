@@ -6,7 +6,7 @@ import com.hypherionmc.craterlib.core.config.ModuleConfig;
 import com.hypherionmc.craterlib.core.config.annotations.NoConfigScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.client.ConfigGuiHandler;
 import net.minecraftforge.forgespi.language.IModInfo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,7 +19,7 @@ import java.util.function.BiFunction;
 /**
  * @author HypherionSA
  */
-@Mixin(ConfigScreenHandler.class)
+@Mixin(ConfigGuiHandler.class)
 public class ConfigScreenHandlerMixin {
 
     /**
@@ -28,7 +28,7 @@ public class ConfigScreenHandlerMixin {
      * @param selectedMod
      * @param cir
      */
-    @Inject(at = @At("RETURN"), method = "getScreenFactoryFor", cancellable = true, remap = false)
+    @Inject(at = @At("RETURN"), method = "getGuiFactoryFor", cancellable = true, remap = false)
     private static void injectConfigScreen(IModInfo selectedMod, CallbackInfoReturnable<Optional<BiFunction<Minecraft, Screen, Screen>>> cir) {
         ConfigController.getMonitoredConfigs().forEach((conf, watcher) -> {
             if (!conf.getClass().isAnnotationPresent(NoConfigScreen.class)) {

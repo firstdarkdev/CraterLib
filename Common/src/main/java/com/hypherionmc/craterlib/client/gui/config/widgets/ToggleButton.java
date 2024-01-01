@@ -1,5 +1,6 @@
 package com.hypherionmc.craterlib.client.gui.config.widgets;
 
+import com.hypherionmc.craterlib.core.abstraction.text.AbstractComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 
@@ -18,7 +19,7 @@ public class ToggleButton<T> extends AbstractConfigWidget<T, Button> {
     public ToggleButton(List<T> options, Function<T, Component> toComponent) {
         this.options = options;
         this.toComponent = toComponent;
-        this.widget = addChild(new Button(0, 0, buttonWidth, buttonHeight, Component.empty(), this::switchNext));
+        this.widget = addChild(new Button(0, 0, buttonWidth, buttonHeight, AbstractComponent.empty(), this::switchNext));
     }
 
     @Override

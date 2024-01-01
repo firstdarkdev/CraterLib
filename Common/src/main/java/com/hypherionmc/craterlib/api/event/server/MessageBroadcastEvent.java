@@ -1,20 +1,20 @@
 package com.hypherionmc.craterlib.api.event.server;
 
 import com.hypherionmc.craterlib.core.event.CraterEvent;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 
-import java.util.function.Function;
+import java.util.UUID;
 
 public class MessageBroadcastEvent extends CraterEvent {
 
     private final Component component;
-    private final Function<ServerPlayer, Component> function;
-    private final boolean bl;
+    private final UUID uuid;
+    private final ChatType bl;
 
-    public MessageBroadcastEvent(Component component, Function<ServerPlayer, Component> function, boolean bl) {
+    public MessageBroadcastEvent(Component component, UUID uuid, ChatType bl) {
         this.component = component;
-        this.function = function;
+        this.uuid = uuid;
         this.bl = bl;
     }
 
@@ -22,12 +22,12 @@ public class MessageBroadcastEvent extends CraterEvent {
         return component;
     }
 
-    public boolean isBl() {
-        return bl;
+    public ChatType getChatType() {
+        return this.bl;
     }
 
-    public Function<ServerPlayer, Component> getFunction() {
-        return function;
+    public UUID getUuid() {
+        return uuid;
     }
 
     @Override
