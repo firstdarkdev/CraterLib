@@ -12,6 +12,10 @@ import java.util.function.Function;
 
 public interface FabricNetworkHelper {
 
+    /* FABRIC ONLY */
+    void registerClientReceiver(@NotNull ResourceLocation channelName, @NotNull Function<FriendlyByteBuf, @NotNull CraterPacket<?>> factory);
+    void registerServerReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory);
+
     public static FabricNetworkHelper getForDist(EnvType dist) {
         switch (dist) {
             case CLIENT -> {
@@ -23,10 +27,5 @@ public interface FabricNetworkHelper {
         }
         return null;
     }
-
-    /* FABRIC ONLY */
-    void registerClientReceiver(@NotNull ResourceLocation channelName, @NotNull Function<FriendlyByteBuf, @NotNull CraterPacket<?>> factory);
-
-    void registerServerReceiver(ResourceLocation channelName, Function<FriendlyByteBuf, CraterPacket<?>> factory);
 
 }

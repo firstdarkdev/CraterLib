@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  */
 public interface CraterNetworkHandler {
 
-    <T extends CraterPacket<T>> void registerPacket(Class<T> clazz, Supplier<T> supplier, PacketDirection packetDirection);
+    <T extends CraterPacket<T>> void registerPacket(Class<? extends T> clazz, Supplier<T> supplier, PacketDirection packetDirection);
 
     Packet<?> toServerBound(CraterPacket<?> packet);
 

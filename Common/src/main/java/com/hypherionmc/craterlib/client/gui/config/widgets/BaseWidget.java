@@ -50,7 +50,7 @@ public class BaseWidget<T> extends Option<T> {
         } else {
             text.withStyle(ChatFormatting.GRAY);
         }
-        matrices.drawString(font, text, x, y + font.lineHeight - 2, 0xFFFFFF);
+        matrices.drawString(font, text, x, y, 0xFFFFFF);
         resetButton.setX(x + width - 46);
         resetButton.setY(y + 1);
         resetButton.active = isNotDefault();

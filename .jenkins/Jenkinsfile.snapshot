@@ -13,7 +13,7 @@ pipeline {
         stage("Notify Discord") {
             steps {
                 discordSend webhookURL: env.SSS_WEBHOOK,
-                        title: "Deploy Started: ${projectName} 1.20.2 Deploy #${BUILD_NUMBER}",
+                        title: "Deploy Started: ${projectName} 1.20.1/2 Deploy #${BUILD_NUMBER}",
                         link: env.BUILD_URL,
                         result: 'SUCCESS',
                         description: "Build: [${BUILD_NUMBER}](${env.BUILD_URL})"
@@ -53,8 +53,8 @@ pipeline {
                 projectIcon: "${projectIcon}",
                 versionName: "Snapshot 1.0.${BUILD_NUMBER}",
                 version: "1.0.${BUILD_NUMBER}",
-                modLoaders: "forge|neoforge|fabric|quilt",
-                minecraftVersions: "1.20.2",
+                modLoaders: "forge|fabric|quilt",
+                minecraftVersions: "1.20|1.20.1",
                 failWebhook: env.SSS_WEBHOOK,
                 publishWebhooks: "${env.SSS_WEBHOOK}|${env.FDD_WH}"
 

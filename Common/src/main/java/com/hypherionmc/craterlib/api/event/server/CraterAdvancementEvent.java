@@ -19,15 +19,8 @@ public class CraterAdvancementEvent extends CraterEvent {
         this.player = player;
         this.advancement = advancement;
 
-        Optional<DisplayInfo> displayInfo = advancement.display();
-
-        if (displayInfo.isPresent()) {
-            this.title = displayInfo.get().getTitle();
-            this.description = displayInfo.get().getDescription();
-        } else {
-            this.title = Component.literal("Unknown");
-            this.description = Component.literal("Unknown");
-        }
+        this.title = advancement.getDisplay().getTitle();
+        this.description = advancement.getDisplay().getDescription();
     }
 
     public Advancement getAdvancement() {
