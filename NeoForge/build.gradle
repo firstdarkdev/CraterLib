@@ -5,6 +5,7 @@ dependencies {
     shade "me.hypherionmc.moon-config:core:${moon_config}"
     shade "me.hypherionmc.moon-config:toml:${moon_config}"
     shade "com.hypherionmc:rpcsdk:1.0"
+    shade ("me.hypherionmc.sdlink:mcdiscordformatter-1.20.3:2.0.0")
 
     // Do not edit or remove
     implementation project(":Common")
@@ -16,6 +17,7 @@ shadowJar {
 
     dependencies {
         relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
+        relocate 'me.hypherionmc.mcdiscordformatter', 'shadow.hypherionmc.mcdiscordformatter'
     }
 
     setArchiveClassifier('dev-shadow')

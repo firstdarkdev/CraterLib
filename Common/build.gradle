@@ -2,6 +2,7 @@ archivesBaseName = "${mod_name.replace(" ", "")}-Common-${minecraft_version}"
 
 dependencies {
     implementation "com.hypherionmc:rpcsdk:1.0"
+    implementation("me.hypherionmc.sdlink:mcdiscordformatter-1.20.3:2.0.0")
 }
 
 shadowJar {
@@ -9,8 +10,10 @@ shadowJar {
     dependencies {
         include(dependency("me.hypherionmc.moon-config:core:${moon_config}"))
         include(dependency("me.hypherionmc.moon-config:toml:${moon_config}"))
+        include(dependency("me.hypherionmc.sdlink:mcdiscordformatter-1.20.3:2.0.0"))
 
         relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
+        relocate 'me.hypherionmc.mcdiscordformatter', 'shadow.hypherionmc.mcdiscordformatter'
     }
     setArchiveClassifier("dev")
 }
