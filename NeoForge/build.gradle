@@ -111,8 +111,8 @@ publisher {
     versionType = "release"
     changelog = rootProject.file("changelog-forge.md")
     version = "${minecraft_version}-${project.version}"
-    displayName = "[NEOFORGE 1.20.3/4] CraterLib - ${project.version}"
-    gameVersions = ["1.20.3", "1.20.4"]
+    displayName = "[NEOFORGE 1.20.4] CraterLib - ${project.version}"
+    gameVersions = ["1.20.4"]
     loaders = ["neoforge"]
     artifact = remapJar
 }

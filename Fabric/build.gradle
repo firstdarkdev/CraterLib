@@ -116,8 +116,8 @@ publisher {
     versionType = "release"
     changelog = "https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-fabric.md"
     version = "${minecraft_version}-${project.version}"
-    displayName = "[FABRIC/QUILT 1.20.3/4] CraterLib - ${project.version}"
-    gameVersions = ["1.20.3", "1.20.4"]
+    displayName = "[FABRIC/QUILT 1.20.4] CraterLib - ${project.version}"
+    gameVersions = ["1.20.4"]
     loaders = ["fabric", "quilt"]
     artifact = remapJar
 

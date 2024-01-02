@@ -111,8 +111,8 @@ publisher {
     versionType = "release"
     changelog = "https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md"
     version = "${minecraft_version}-${project.version}"
-    displayName = "[FORGE 1.20.3/4] CraterLib - ${project.version}"
-    gameVersions = ["1.20.3", "1.20.4"]
+    displayName = "[FORGE 1.20.4] CraterLib - ${project.version}"
+    gameVersions = ["1.20.4"]
     loaders = ["forge"]
     artifact = remapJar
 }
