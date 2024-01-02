@@ -23,7 +23,8 @@ public class NeoForgeCommonHelper implements CommonPlatform {
 
     @Override
     public CraterNetworkHandler createPacketHandler(String modid, boolean requiredClient, boolean requiredServer) {
-        return NeoForgeNetworkHandler.of(modid, requiredClient, requiredServer);
+        return new NeoForgeNetworkHandler(modid, requiredClient, requiredServer);
+        //return NeoForgeNetworkHandler.of(modid, requiredClient, requiredServer);
     }
 
     @Override

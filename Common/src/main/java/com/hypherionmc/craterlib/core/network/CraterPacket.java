@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.Player;
 /**
  * @author HypherionSA
  */
+@Deprecated(forRemoval = true)
 public interface CraterPacket<T extends CraterPacket<T>> {
 
     void write(final FriendlyByteBuf buf);

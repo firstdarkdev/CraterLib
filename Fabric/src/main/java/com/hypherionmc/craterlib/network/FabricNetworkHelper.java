@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
+@Deprecated(forRemoval = true)
 public interface FabricNetworkHelper {
 
     public static FabricNetworkHelper getForDist(EnvType dist) {

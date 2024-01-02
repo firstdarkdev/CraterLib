@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
+@Deprecated(forRemoval = true)
 public class FabricServerNetworkHelper implements FabricNetworkHelper {
     @Override
     public void registerClientReceiver(@NotNull ResourceLocation channelName, @NotNull Function<FriendlyByteBuf, @NotNull CraterPacket<?>> factory) {
