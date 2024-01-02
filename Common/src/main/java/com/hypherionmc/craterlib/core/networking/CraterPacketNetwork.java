@@ -15,14 +15,27 @@ public class CraterPacketNetwork {
 
     private final PacketRegistry packetRegistry;
     public static CraterPacketNetwork INSTANCE;
+    private static DeferredPacketRegistrar delayedHandler;
 
     public CraterPacketNetwork(PacketRegistry registry) {
         INSTANCE = this;
         this.packetRegistry = registry;
+        getDelayedHandler().registerQueuedPackets(registry);
+    }
+
+    private static DeferredPacketRegistrar getDelayedHandler() {
+        if (delayedHandler == null) {
+            delayedHandler = new DeferredPacketRegistrar();
+        }
+        return delayedHandler;
     }
 
     public static <T> PacketRegistrar registerPacket(ResourceLocation id, Class<T> messageType, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder, Consumer<PacketContext<T>> handler) {
-        return INSTANCE.packetRegistry.registerPacket(id, messageType, encoder, decoder, handler);
+        if (INSTANCE != null) {
+            return INSTANCE.packetRegistry.registerPacket(id, messageType, encoder, decoder, handler);
+        } else {
+            return getDelayedHandler().registerPacket(id, messageType, encoder, decoder, handler);
+        }
     }
 
     public PacketRegistry getPacketRegistry() {
