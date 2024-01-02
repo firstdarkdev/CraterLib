@@ -11,11 +11,13 @@ public class MessageBroadcastEvent extends CraterEvent {
     private final Component component;
     private final UUID uuid;
     private final ChatType bl;
+    private final String threadName;
 
-    public MessageBroadcastEvent(Component component, UUID uuid, ChatType bl) {
+    public MessageBroadcastEvent(Component component, UUID uuid, ChatType bl, String threadName) {
         this.component = component;
         this.uuid = uuid;
         this.bl = bl;
+        this.threadName = threadName;
     }
 
     public Component getComponent() {
@@ -28,6 +30,10 @@ public class MessageBroadcastEvent extends CraterEvent {
 
     public UUID getUuid() {
         return uuid;
+    }
+
+    public String getThreadName() {
+        return threadName;
     }
 
     @Override
