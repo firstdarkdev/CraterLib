@@ -11,11 +11,13 @@ public class MessageBroadcastEvent extends CraterEvent {
     private final Component component;
     private final Function<ServerPlayer, Component> function;
     private final boolean bl;
+    private final String threadName;
 
-    public MessageBroadcastEvent(Component component, Function<ServerPlayer, Component> function, boolean bl) {
+    public MessageBroadcastEvent(Component component, Function<ServerPlayer, Component> function, boolean bl, String threadName) {
         this.component = component;
         this.function = function;
         this.bl = bl;
+        this.threadName = threadName;
     }
 
     public Component getComponent() {
@@ -28,6 +30,10 @@ public class MessageBroadcastEvent extends CraterEvent {
 
     public Function<ServerPlayer, Component> getFunction() {
         return function;
+    }
+
+    public String getThreadName() {
+        return threadName;
     }
 
     @Override
