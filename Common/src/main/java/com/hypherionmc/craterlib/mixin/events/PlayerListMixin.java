@@ -24,7 +24,8 @@ public class PlayerListMixin {
 
     @Inject(method = "broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Ljava/util/function/Function;Z)V", at = @At("HEAD"))
     private void injectBroadcastEvent(Component component, Function<ServerPlayer, Component> function, boolean bl, CallbackInfo ci) {
-        MessageBroadcastEvent event = new MessageBroadcastEvent(component, function, bl);
+        String thread = Thread.currentThread().getStackTrace()[3].getClassName();
+        MessageBroadcastEvent event = new MessageBroadcastEvent(component, function, bl, thread);
         CraterEventBus.INSTANCE.postEvent(event);
     }
 
