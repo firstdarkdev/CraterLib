@@ -18,10 +18,8 @@ public class PlayerAdvancementsMixin {
 
     @Inject(method = "award", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancements/AdvancementRewards;grant(Lnet/minecraft/server/level/ServerPlayer;)V", shift = At.Shift.AFTER))
     private void injectAdvancementEvent(Advancement advancement, String $$1, CallbackInfoReturnable<Boolean> cir) {
-        CraterAdvancementEvent event = new CraterAdvancementEvent(this.player, advancement);
-
         if (advancement.getDisplay() != null && advancement.getDisplay().shouldAnnounceChat()) {
-            CraterEventBus.INSTANCE.postEvent(event);
+            CraterEventBus.INSTANCE.postEvent(new CraterAdvancementEvent(this.player, advancement));
         }
     }
 }
