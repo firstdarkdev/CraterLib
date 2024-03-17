@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
+@Deprecated(forRemoval = true)
 public class FabricClientNetworkHelper extends FabricServerNetworkHelper {
 
     @Override

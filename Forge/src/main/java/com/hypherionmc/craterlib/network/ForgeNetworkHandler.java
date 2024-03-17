@@ -29,6 +29,7 @@ import java.util.function.Supplier;
  * @author HypherionSA
  * Partly inspired by and based on <a href="https://github.com/Fuzss/puzzleslib/blob/1.19/Forge/src/main/java/fuzs/puzzleslib/network/ForgeNetworkHandler.java">...</a>
  */
+@Deprecated(forRemoval = true)
 public class ForgeNetworkHandler implements CraterNetworkHandler {
 
     private static final Map<String, ForgeNetworkHandler> NETWORK_HANDLERS = Maps.newConcurrentMap();
