@@ -10,6 +10,7 @@ import java.util.function.Supplier;
 /**
  * @author HypherionSA
  */
+@Deprecated(forRemoval = true)
 public interface CraterNetworkHandler {
 
     <T extends CraterPacket<T>> void registerPacket(Class<? extends T> clazz, Supplier<T> supplier, PacketDirection packetDirection);

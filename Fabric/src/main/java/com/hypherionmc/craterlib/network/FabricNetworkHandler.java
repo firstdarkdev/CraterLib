@@ -23,6 +23,7 @@ import java.util.function.Supplier;
  * @author HypherionSA
  * @date 24/09/2022
  */
+@Deprecated(forRemoval = true)
 public class FabricNetworkHandler implements CraterNetworkHandler {
 
     private static final Map<String, FabricNetworkHandler> NETWORK_HANDLERS = Maps.newConcurrentMap();

@@ -14,7 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
 
-    @Shadow @Nullable
+    @Shadow
+    @Nullable
     public Screen screen;
 
     @Inject(method = "setScreen", at = @At(value = "TAIL"))
