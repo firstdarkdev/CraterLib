@@ -13,18 +13,23 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ServerGamePacketListenerImpl.class)
+@Mixin(value = ServerGamePacketListenerImpl.class, priority = Integer.MIN_VALUE)
 public class ServerGamePacketListenerImplMixin {
 
-    @Shadow public ServerPlayer player;
+    @Shadow
+    public ServerPlayer player;
 
-    @Inject(method = "handleChat(Lnet/minecraft/server/network/TextFilter$FilteredText;)V", at = @At("HEAD"), cancellable = true)
-    private void injectChatEvent(TextFilter.FilteredText filteredText, CallbackInfo ci) {
-        Component message = new TextComponent(filteredText.getRaw());
+    @Inject(
+            method = "handleChat(Lnet/minecraft/server/network/TextFilter$FilteredText;)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/TextFilter$FilteredText;getFiltered()Ljava/lang/String;"),
+            cancellable = true
+    )
+    private void injectChatEvent(TextFilter.FilteredText arg, CallbackInfo ci) {
+        Component message = new TextComponent(arg.getRaw());
         if (message.getString().startsWith("/"))
             return;
 
-        CraterServerChatEvent event = new CraterServerChatEvent(this.player, message.getString(), message);
+        CraterServerChatEvent event = new CraterServerChatEvent(this.player, arg.getFiltered(), message);
         CraterEventBus.INSTANCE.postEvent(event);
         if (event.wasCancelled())
             ci.cancel();
