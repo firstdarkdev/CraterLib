@@ -6,8 +6,6 @@ import com.hypherionmc.craterlib.nojang.client.multiplayer.BridgedClientLevel;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.Connection;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
 import java.util.Objects;
 

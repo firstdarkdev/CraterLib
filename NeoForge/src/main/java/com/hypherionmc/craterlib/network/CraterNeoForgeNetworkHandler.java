@@ -8,7 +8,6 @@ import com.hypherionmc.craterlib.core.networking.data.PacketSide;
 import com.hypherionmc.craterlib.nojang.network.BridgedFriendlyByteBuf;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.LogicalSide;

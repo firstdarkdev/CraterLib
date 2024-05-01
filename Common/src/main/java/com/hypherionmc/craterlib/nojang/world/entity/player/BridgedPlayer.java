@@ -4,7 +4,6 @@ import com.hypherionmc.craterlib.nojang.authlib.BridgedGameProfile;
 import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
-import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.entity.player.Player;
