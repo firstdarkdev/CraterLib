@@ -9,8 +9,11 @@ shadowJar {
     configurations = [project.configurations.shade]
 
     dependencies {
+        exclude(dependency('com.google.code.gson:.*'))
+
         relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
         relocate 'me.hypherionmc.mcdiscordformatter', 'shadow.hypherionmc.mcdiscordformatter'
+        relocate 'net.kyori', 'shadow.kyori'
     }
     setArchiveClassifier("dev")
 }
@@ -43,9 +46,7 @@ processResources {
 publishing {
     publications {
         mavenCommon(MavenPublication) {
-            groupId project.group
             artifactId project.archivesBaseName
-            version project.version
             from components.java
 
             pom.withXml {

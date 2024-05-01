@@ -6,8 +6,8 @@ import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import com.mojang.brigadier.arguments.ArgumentType;
 import lombok.Getter;
 import net.minecraft.commands.arguments.GameProfileArgument;
+import org.apache.commons.lang3.function.TriConsumer;
 import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.util.TriConsumer;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

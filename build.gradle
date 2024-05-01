@@ -3,7 +3,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
     id "xyz.wagyourtail.unimined" version "1.1.0-SNAPSHOT" apply false
     id "me.hypherionmc.modutils.modpublisher" version "1.0.23+"
-    id "com.hypherionmc.modutils.orion" version "1.0.6"
+    id "com.hypherionmc.modutils.orion" version "1.0.7"
     id 'maven-publish'
 }
 
@@ -33,6 +33,14 @@ subprojects {
 
     repositories {
         mavenCentral()
+
+        maven {
+            name = "Modrinth"
+            url = "https://api.modrinth.com/maven"
+            content {
+                includeGroup "maven.modrinth"
+            }
+        }
     }
 
     configurations {

@@ -4,9 +4,13 @@ dependencies {
     // Core
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api}"
 
+    // Compat
     modImplementation("com.terraformersmc:modmenu:${mod_menu_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
+
+    modImplementation "maven.modrinth:fabrictailor:2.1.2"
+    modImplementation "maven.modrinth:vanish:1.4.2+1.20"
 
     // Do not edit or remove
     implementation project(":Common")
@@ -17,8 +21,11 @@ shadowJar {
     configurations = [project.configurations.shade]
 
     dependencies {
+        exclude(dependency('com.google.code.gson:.*'))
+
         relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
         relocate 'me.hypherionmc.mcdiscordformatter', 'shadow.hypherionmc.mcdiscordformatter'
+        relocate 'net.kyori', 'shadow.kyori'
     }
 
     setArchiveClassifier('dev-shadow')
@@ -49,6 +56,7 @@ jar {
 processResources {
     from project(":Common").sourceSets.main.resources
     def buildProps = project.properties.clone()
+    println(project.version)
 
     filesMatching(['fabric.mod.json']) {
         expand buildProps
@@ -67,9 +75,7 @@ tasks.withType(JavaCompile).configureEach {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId project.group
             artifactId project.archivesBaseName
-            version project.version
             from components.java
 
             artifact(remapJar) {

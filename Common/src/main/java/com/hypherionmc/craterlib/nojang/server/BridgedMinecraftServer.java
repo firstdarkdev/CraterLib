@@ -1,6 +1,7 @@
 package com.hypherionmc.craterlib.nojang.server;
 
 import com.hypherionmc.craterlib.nojang.authlib.BridgedGameProfile;
+import com.hypherionmc.craterlib.nojang.commands.BridgedFakePlayer;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.RequiredArgsConstructor;
@@ -77,6 +78,10 @@ public class BridgedMinecraftServer {
 
     public void banPlayer(BridgedGameProfile profile) {
         internal.getPlayerList().getBans().add(new UserBanListEntry(profile.toMojang()));
+    }
+
+    public void executeCommand(BridgedMinecraftServer server, BridgedFakePlayer player, String command) {
+        internal.getCommands().performPrefixedCommand(player.toMojang(), command);
     }
 
     public MinecraftServer toMojang() {

@@ -2,10 +2,12 @@ package com.hypherionmc.craterlib;
 
 import com.hypherionmc.craterlib.api.events.client.LateInitEvent;
 import com.hypherionmc.craterlib.common.NeoForgeServerEvents;
+import com.hypherionmc.craterlib.compat.Vanish;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.hypherionmc.craterlib.core.networking.CraterPacketNetwork;
 import com.hypherionmc.craterlib.core.networking.PacketRegistry;
 import com.hypherionmc.craterlib.core.networking.data.PacketSide;
+import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.network.CraterNeoForgeNetworkHandler;
 import com.hypherionmc.craterlib.nojang.client.BridgedMinecraft;
 import com.hypherionmc.craterlib.nojang.client.BridgedOptions;
@@ -26,6 +28,10 @@ public class CraterLib {
         NeoForge.EVENT_BUS.register(new NeoForgeServerEvents());
         eventBus.addListener(this::commonSetup);
         handler = new CraterNeoForgeNetworkHandler(FMLLoader.getDist().isClient() ? PacketSide.CLIENT : PacketSide.SERVER);
+
+        if (ModloaderEnvironment.INSTANCE.isModLoaded("vmod")) {
+            eventBus.register(new Vanish());
+        }
     }
 
     public void commonSetup(FMLCommonSetupEvent evt) {

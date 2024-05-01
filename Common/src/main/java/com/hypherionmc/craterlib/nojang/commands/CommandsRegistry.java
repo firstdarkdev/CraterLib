@@ -47,6 +47,8 @@ public class CommandsRegistry {
                                cmd.getExecutor().accept(BridgedCommandSourceStack.of(context.getSource()));
                                return 1;
                             });
+
+            dispatcher.register(command);
         }
 
     }
@@ -74,6 +76,8 @@ public class CommandsRegistry {
 
                 return 1;
             })));
+
+            dispatcher.register(command);
         }
 
     }

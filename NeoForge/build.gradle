@@ -1,6 +1,8 @@
 archivesBaseName = "${mod_name.replace(" ", "")}-NeoForge-${minecraft_version}"
 
 dependencies {
+    // Compat
+    modImplementation("maven.modrinth:vanishmod:puxrKAMr")
 
     // Do not edit or remove
     implementation project(":Common")
@@ -11,8 +13,11 @@ shadowJar {
     configurations = [project.configurations.shade]
 
     dependencies {
+        exclude(dependency('com.google.code.gson:.*'))
+
         relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
         relocate 'me.hypherionmc.mcdiscordformatter', 'shadow.hypherionmc.mcdiscordformatter'
+        relocate 'net.kyori', 'shadow.kyori'
     }
 
     setArchiveClassifier('dev-shadow')
@@ -62,9 +67,7 @@ tasks.withType(JavaCompile).configureEach {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId project.group
             artifactId project.archivesBaseName
-            version project.version
             from components.java
 
             artifact(remapJar) {
