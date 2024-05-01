@@ -5,6 +5,8 @@ import com.hypherionmc.craterlib.core.networking.PacketRegistry;
 import com.hypherionmc.craterlib.core.networking.data.PacketContext;
 import com.hypherionmc.craterlib.core.networking.data.PacketHolder;
 import com.hypherionmc.craterlib.core.networking.data.PacketSide;
+import com.hypherionmc.craterlib.nojang.network.BridgedFriendlyByteBuf;
+import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -17,6 +19,7 @@ import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -48,9 +51,9 @@ public class CraterNeoForgeNetworkHandler extends PacketRegistry {
         if (PACKETS.get(container.messageType()) == null) {
             var packetContainer = new NeoForgePacketContainer<>(
                     container.messageType(),
-                    container.packetId(),
-                    container.encoder(),
-                    decoder(container.decoder()),
+                    container.packetId().toMojang(),
+                    mojangEncoder(container.encoder()),
+                    decoder(mojangDecoder(container.decoder())),
                     buildHandler(container.handler())
             );
 
@@ -78,11 +81,14 @@ public class CraterNeoForgeNetworkHandler extends PacketRegistry {
         }
     }
 
-    public <T> void sendToClient(T packet, ServerPlayer player) {
+    public <T> void sendToClient(T packet, BridgedPlayer player) {
         NeoForgePacketContainer<T> container = PACKETS.get(packet.getClass());
         try {
-            if (player.connection.isConnected(container.packetId())) {
-                PacketDistributor.PLAYER.with(player).send(new NeoForgePacket<>(container, packet));
+            if (player.getConnection() == null)
+                return;
+
+            if (player.getConnection().isConnected(container.packetId())) {
+                PacketDistributor.PLAYER.with(player.toMojangServerPlayer()).send(new NeoForgePacket<>(container, packet));
             }
         } catch (Throwable t) {
             CraterConstants.LOG.error("{} packet not registered on the server, this is needed.", packet.getClass(), t);
@@ -94,10 +100,18 @@ public class CraterNeoForgeNetworkHandler extends PacketRegistry {
             try {
                 PacketSide side = ctx.flow().getReceptionSide().equals(LogicalSide.SERVER) ? PacketSide.SERVER : PacketSide.CLIENT;
                 Player player = ctx.player().orElse(null);
-                handler.accept(new PacketContext<>(player, payload.packet(), side));
+                handler.accept(new PacketContext<>(BridgedPlayer.of(player), payload.packet(), side));
             } catch (Throwable t) {
                 CraterConstants.LOG.error("Error handling packet: {} -> ", payload.packet().getClass(), t);
             }
         };
+    }
+
+    private <T> Function<FriendlyByteBuf, T> mojangDecoder(Function<BridgedFriendlyByteBuf, T> handler) {
+        return byteBuf -> handler.apply(BridgedFriendlyByteBuf.of(byteBuf));
+    }
+
+    private <T> BiConsumer<T, FriendlyByteBuf> mojangEncoder(BiConsumer<T, BridgedFriendlyByteBuf> handler) {
+        return ((t, byteBuf) -> handler.accept(t, BridgedFriendlyByteBuf.of(byteBuf)));
     }
 }

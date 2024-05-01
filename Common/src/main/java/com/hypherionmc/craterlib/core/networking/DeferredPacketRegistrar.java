@@ -3,8 +3,8 @@ package com.hypherionmc.craterlib.core.networking;
 import com.hypherionmc.craterlib.core.networking.data.PacketContext;
 import com.hypherionmc.craterlib.core.networking.data.PacketHolder;
 import com.hypherionmc.craterlib.core.networking.data.PacketSide;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import com.hypherionmc.craterlib.nojang.network.BridgedFriendlyByteBuf;
+import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +25,7 @@ public class DeferredPacketRegistrar implements PacketRegistrar {
     }
 
     @Override
-    public <T> PacketRegistrar registerPacket(ResourceLocation packetIdentifier, Class<T> messageType, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder, Consumer<PacketContext<T>> handler) {
+    public <T> PacketRegistrar registerPacket(ResourceIdentifier packetIdentifier, Class<T> messageType, BiConsumer<T, BridgedFriendlyByteBuf> encoder, Function<BridgedFriendlyByteBuf, T> decoder, Consumer<PacketContext<T>> handler) {
         PacketHolder<T> container = new PacketHolder<>(packetIdentifier, messageType, encoder, decoder, handler);
         QUEUED_PACKET_MAP.put(messageType, container);
         return this;

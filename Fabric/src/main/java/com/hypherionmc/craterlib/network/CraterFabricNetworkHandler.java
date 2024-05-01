@@ -5,6 +5,9 @@ import com.hypherionmc.craterlib.core.networking.PacketRegistry;
 import com.hypherionmc.craterlib.core.networking.data.PacketContext;
 import com.hypherionmc.craterlib.core.networking.data.PacketHolder;
 import com.hypherionmc.craterlib.core.networking.data.PacketSide;
+import com.hypherionmc.craterlib.nojang.network.BridgedFriendlyByteBuf;
+import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
+import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -32,17 +35,17 @@ public class CraterFabricNetworkHandler extends PacketRegistry {
             CHANNELS.put(holder.messageType(), new Message<>(holder.packetId(), holder.encoder()));
 
             if (PacketSide.CLIENT.equals(this.side)) {
-                ClientPlayNetworking.registerGlobalReceiver(holder.packetId(), ((client, listener, buf, responseSender) -> {
+                ClientPlayNetworking.registerGlobalReceiver(holder.packetId().toMojang(), ((client, listener, buf, responseSender) -> {
                     buf.readByte();
-                    T message = holder.decoder().apply(buf);
+                    T message = holder.decoder().apply(BridgedFriendlyByteBuf.of(buf));
                     client.execute(() -> holder.handler().accept(new PacketContext<>(message, PacketSide.CLIENT)));
                 }));
             } else {
 
-                ServerPlayNetworking.registerGlobalReceiver(holder.packetId(), ((server, player, listener, buf, responseSender) -> {
+                ServerPlayNetworking.registerGlobalReceiver(holder.packetId().toMojang(), ((server, player, listener, buf, responseSender) -> {
                     buf.readByte();
-                    T message = holder.decoder().apply(buf);
-                    server.execute(() -> holder.handler().accept(new PacketContext<>(player, message, PacketSide.SERVER)));
+                    T message = holder.decoder().apply(BridgedFriendlyByteBuf.of(buf));
+                    server.execute(() -> holder.handler().accept(new PacketContext<>(BridgedPlayer.of(player), message, PacketSide.SERVER)));
                 }));
             }
 
@@ -58,24 +61,24 @@ public class CraterFabricNetworkHandler extends PacketRegistry {
     public <T> void sendToServer(T packet, boolean ignoreCheck) {
         Message<T> message = (Message<T>) CHANNELS.get(packet.getClass());
 
-        if (ClientPlayNetworking.canSend(message.id()) || ignoreCheck) {
+        if (ClientPlayNetworking.canSend(message.id().toMojang()) || ignoreCheck) {
             FriendlyByteBuf buf = PacketByteBufs.create();
             buf.writeByte(0);
-            message.encoder().accept(packet, buf);
-            ClientPlayNetworking.send(message.id(), buf);
+            message.encoder().accept(packet, BridgedFriendlyByteBuf.of(buf));
+            ClientPlayNetworking.send(message.id().toMojang(), buf);
         }
     }
 
-    public <T> void sendToClient(T packet, ServerPlayer player) {
+    public <T> void sendToClient(T packet, BridgedPlayer player) {
         Message<T> message = (Message<T>) CHANNELS.get(packet.getClass());
-        if (ServerPlayNetworking.canSend(player, message.id()))
+        if (ServerPlayNetworking.canSend(player.toMojangServerPlayer(), message.id().toMojang()))
         {
             FriendlyByteBuf buf = PacketByteBufs.create();
             buf.writeByte(0);
-            message.encoder().accept(packet, buf);
-            ServerPlayNetworking.send(player, message.id(), buf);
+            message.encoder().accept(packet, BridgedFriendlyByteBuf.of(buf));
+            ServerPlayNetworking.send(player.toMojangServerPlayer(), message.id().toMojang(), buf);
         }
     }
 
-    public record Message<T>(ResourceLocation id, BiConsumer<T, FriendlyByteBuf> encoder) { }
+    public record Message<T>(ResourceIdentifier id, BiConsumer<T, BridgedFriendlyByteBuf> encoder) { }
 }

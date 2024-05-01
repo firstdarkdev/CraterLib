@@ -25,8 +25,6 @@ public class ConfigScreenHandlerMixin {
     /**
      * Inject Auto Generated config Screens into forge
      *
-     * @param selectedMod
-     * @param cir
      */
     @Inject(at = @At("RETURN"), method = "getScreenFactoryFor", cancellable = true, remap = false)
     private static void injectConfigScreen(IModInfo selectedMod, CallbackInfoReturnable<Optional<BiFunction<Minecraft, Screen, Screen>>> cir) {

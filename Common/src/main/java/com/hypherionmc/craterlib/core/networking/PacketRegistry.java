@@ -4,8 +4,8 @@ import com.hypherionmc.craterlib.api.networking.CraterNetworkHandler;
 import com.hypherionmc.craterlib.core.networking.data.PacketContext;
 import com.hypherionmc.craterlib.core.networking.data.PacketHolder;
 import com.hypherionmc.craterlib.core.networking.data.PacketSide;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import com.hypherionmc.craterlib.nojang.network.BridgedFriendlyByteBuf;
+import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +26,7 @@ public abstract class PacketRegistry implements CraterNetworkHandler, PacketRegi
         this.side = side;
     }
 
-    public <T> PacketRegistrar registerPacket(ResourceLocation id, Class<T> messageType, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder, Consumer<PacketContext<T>> handler) {
+    public <T> PacketRegistrar registerPacket(ResourceIdentifier id, Class<T> messageType, BiConsumer<T, BridgedFriendlyByteBuf> encoder, Function<BridgedFriendlyByteBuf, T> decoder, Consumer<PacketContext<T>> handler) {
         PacketHolder<T> holder = new PacketHolder<>(id, messageType, encoder, decoder, handler);
         PACKET_MAP.put(messageType, holder);
         registerPacket(holder);

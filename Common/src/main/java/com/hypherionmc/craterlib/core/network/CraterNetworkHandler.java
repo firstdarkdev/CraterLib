@@ -28,7 +28,7 @@ public interface CraterNetworkHandler {
     }
 
     default void sendToAll(CraterPacket<?> packet) {
-        CommonPlatform.INSTANCE.getMCServer().getPlayerList().broadcastAll(this.toClientBound(packet));
+        CommonPlatform.INSTANCE.getMCServer().toMojang().getPlayerList().broadcastAll(this.toClientBound(packet));
     }
 
 }

@@ -1,8 +1,9 @@
 package com.hypherionmc.craterlib.client;
 
 import com.hypherionmc.craterlib.CraterConstants;
-import com.hypherionmc.craterlib.api.event.client.CraterClientTickEvent;
+import com.hypherionmc.craterlib.api.events.client.CraterClientTickEvent;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
+import com.hypherionmc.craterlib.nojang.client.multiplayer.BridgedClientLevel;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
@@ -14,7 +15,7 @@ public class ForgeClientEvents {
 
     @SubscribeEvent
     public static void clientTick(TickEvent.LevelTickEvent event) {
-        CraterClientTickEvent craterClientTickEvent = new CraterClientTickEvent(Minecraft.getInstance().level);
+        CraterClientTickEvent craterClientTickEvent = new CraterClientTickEvent(BridgedClientLevel.of(Minecraft.getInstance().level));
         CraterEventBus.INSTANCE.postEvent(craterClientTickEvent);
     }
 

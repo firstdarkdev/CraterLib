@@ -1,7 +1,7 @@
 package com.hypherionmc.craterlib.mixin.events;
 
 import com.google.common.base.Throwables;
-import com.hypherionmc.craterlib.api.event.server.CraterCommandEvent;
+import com.hypherionmc.craterlib.api.events.server.CraterCommandEvent;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.mojang.brigadier.ParseResults;
 import net.minecraft.commands.CommandSourceStack;
@@ -21,7 +21,7 @@ public class CommandMixin {
             ), cancellable = true
     )
     private void injectCommandEvent(ParseResults<CommandSourceStack> stackParseResults, String command, CallbackInfo ci) {
-        CraterCommandEvent commandEvent = new CraterCommandEvent(stackParseResults, command);
+        CraterCommandEvent commandEvent = CraterCommandEvent.of(stackParseResults, command);
         CraterEventBus.INSTANCE.postEvent(commandEvent);
         if (commandEvent.wasCancelled()) {
             ci.cancel();

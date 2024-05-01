@@ -93,7 +93,7 @@ public class ForgeNetworkHandler implements CraterNetworkHandler {
             sup.enqueueWork(() -> {
                 Player player;
                 if (packetDirection == PacketDirection.TO_CLIENT) {
-                    player = ClientPlatform.INSTANCE.getClientPlayer();
+                    player = ClientPlatform.INSTANCE.getClientPlayer().toMojangServerPlayer();
                 } else {
                     player = sup.getSender();
                 }

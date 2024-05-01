@@ -1,11 +1,13 @@
 package com.hypherionmc.craterlib;
 
-import com.hypherionmc.craterlib.api.event.client.LateInitEvent;
+import com.hypherionmc.craterlib.api.events.client.LateInitEvent;
 import com.hypherionmc.craterlib.common.ForgeServerEvents;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.hypherionmc.craterlib.core.networking.CraterPacketNetwork;
 import com.hypherionmc.craterlib.core.networking.data.PacketSide;
 import com.hypherionmc.craterlib.network.CraterForgeNetworkHandler;
+import com.hypherionmc.craterlib.nojang.client.BridgedMinecraft;
+import com.hypherionmc.craterlib.nojang.client.BridgedOptions;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,7 +28,7 @@ public class CraterLib {
     public void commonSetup(FMLCommonSetupEvent evt) {
         new CraterPacketNetwork(new CraterForgeNetworkHandler(FMLLoader.getDist().isClient() ? PacketSide.CLIENT : PacketSide.SERVER));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-            LateInitEvent event = new LateInitEvent(Minecraft.getInstance(), Minecraft.getInstance().options);
+            LateInitEvent event = new LateInitEvent(new BridgedMinecraft(), BridgedOptions.of(Minecraft.getInstance().options));
             CraterEventBus.INSTANCE.postEvent(event);
         });
     }

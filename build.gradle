@@ -56,6 +56,11 @@ subprojects {
     dependencies {
         implementation "me.hypherionmc.moon-config:core:${moon_config}"
         implementation "me.hypherionmc.moon-config:toml:${moon_config}"
+        shade "net.kyori:adventure-api:4.16.0"
+        shade "net.kyori:adventure-text-serializer-gson:4.16.0"
+
+        compileOnly("org.projectlombok:lombok:${lombok}")
+        annotationProcessor("org.projectlombok:lombok:${lombok}")
     }
 
     jar {

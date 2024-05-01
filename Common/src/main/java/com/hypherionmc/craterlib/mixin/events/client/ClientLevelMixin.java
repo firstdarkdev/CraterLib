@@ -1,7 +1,8 @@
 package com.hypherionmc.craterlib.mixin.events.client;
 
-import com.hypherionmc.craterlib.api.event.client.CraterSinglePlayerEvent;
+import com.hypherionmc.craterlib.api.events.client.CraterSinglePlayerEvent;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
+import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -16,7 +17,7 @@ public class ClientLevelMixin {
     @Inject(method = "addEntity", at = @At("HEAD"))
     private void injectSinglePlayerJoinEvent(Entity entity, CallbackInfo ci) {
         if (entity instanceof Player player) {
-            CraterSinglePlayerEvent.PlayerLogin playerLogin = new CraterSinglePlayerEvent.PlayerLogin(player);
+            CraterSinglePlayerEvent.PlayerLogin playerLogin = new CraterSinglePlayerEvent.PlayerLogin(BridgedPlayer.of(player));
             CraterEventBus.INSTANCE.postEvent(playerLogin);
         }
     }

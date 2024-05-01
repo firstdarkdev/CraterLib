@@ -13,10 +13,8 @@
   ],
   "server": [
     "events.CommandMixin",
-    "events.LivingEntityMixin",
     "events.PlayerAdvancementsMixin",
     "events.PlayerListMixin",
-    "events.ServerGamePacketListenerImplMixin",
     "events.ServerPlayerMixin"
   ],
   "injectors": {

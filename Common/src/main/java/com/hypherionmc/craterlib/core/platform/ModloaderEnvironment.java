@@ -1,6 +1,6 @@
 package com.hypherionmc.craterlib.core.platform;
 
-import com.hypherionmc.craterlib.util.ServiceUtil;
+import com.hypherionmc.craterlib.utils.InternalServiceUtil;
 
 import java.io.File;
 
@@ -10,7 +10,7 @@ import java.io.File;
  */
 public interface ModloaderEnvironment {
 
-    public final ModloaderEnvironment INSTANCE = ServiceUtil.load(ModloaderEnvironment.class);
+    public final ModloaderEnvironment INSTANCE = InternalServiceUtil.load(ModloaderEnvironment.class);
 
     boolean isFabric();
 

@@ -1,12 +1,15 @@
 package com.hypherionmc.craterlib.core.event;
 
+import com.hypherionmc.craterlib.core.event.annot.Cancellable;
 import com.hypherionmc.craterlib.core.event.exception.CraterEventCancellationException;
 
-public abstract class CraterEvent {
+public class CraterEvent {
 
     private boolean canceled = false;
 
-    public abstract boolean canCancel();
+    private boolean canCancel() {
+        return this.getClass().isAnnotationPresent(Cancellable.class);
+    }
 
     public void cancelEvent() {
         try {

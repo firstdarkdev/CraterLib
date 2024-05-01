@@ -1,6 +1,7 @@
 package com.hypherionmc.craterlib.core.config;
 
 import com.hypherionmc.craterlib.CraterConstants;
+import lombok.Getter;
 import me.hypherionmc.moonconfig.core.file.FileWatcher;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -16,6 +17,7 @@ public final class ConfigController implements Serializable {
     /**
      * Cache of registered configs
      */
+    @Getter
     private static final HashMap<Object, FileWatcher> monitoredConfigs = new HashMap<>();
 
     /**
@@ -44,7 +46,4 @@ public final class ConfigController implements Serializable {
         }
     }
 
-    public static HashMap<Object, FileWatcher> getMonitoredConfigs() {
-        return monitoredConfigs;
-    }
 }

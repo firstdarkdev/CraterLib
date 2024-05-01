@@ -1,23 +1,23 @@
 package com.hypherionmc.craterlib.core.platform;
 
-import com.hypherionmc.craterlib.util.ServiceUtil;
-import net.minecraft.client.Minecraft;
+import com.hypherionmc.craterlib.nojang.client.BridgedMinecraft;
+import com.hypherionmc.craterlib.nojang.client.multiplayer.BridgedClientLevel;
+import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+import com.hypherionmc.craterlib.utils.InternalServiceUtil;
 import net.minecraft.network.Connection;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
 /**
  * @author HypherionSA
  */
 public interface ClientPlatform {
 
-    public final ClientPlatform INSTANCE = ServiceUtil.load(ClientPlatform.class);
+    public final ClientPlatform INSTANCE = InternalServiceUtil.load(ClientPlatform.class);
 
-    Minecraft getClientInstance();
+    BridgedMinecraft getClientInstance();
 
-    Player getClientPlayer();
+    BridgedPlayer getClientPlayer();
 
-    Level getClientLevel();
+    BridgedClientLevel getClientLevel();
 
     Connection getClientConnection();
 }

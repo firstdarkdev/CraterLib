@@ -1,7 +1,7 @@
 package com.hypherionmc.craterlib.api.networking;
 
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
+import com.hypherionmc.craterlib.nojang.server.BridgedMinecraftServer;
+import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 
 import java.util.List;
 
@@ -14,15 +14,15 @@ public interface CraterNetworkHandler {
 
     <T> void sendToServer(T packet, boolean ignoreCheck);
 
-    <T> void sendToClient(T packet, ServerPlayer player);
+    <T> void sendToClient(T packet, BridgedPlayer player);
 
-    default <T> void sendToClients(T packet, List<ServerPlayer> players) {
-        for (ServerPlayer player : players) {
+    default <T> void sendToClients(T packet, List<BridgedPlayer> players) {
+        for (BridgedPlayer player : players) {
             sendToClient(packet, player);
         }
     }
 
-    default <T> void sendToAllClients(T packet, MinecraftServer server) {
-        sendToClients(packet, server.getPlayerList().getPlayers());
+    default <T> void sendToAllClients(T packet, BridgedMinecraftServer server) {
+        sendToClients(packet, server.getPlayers());
     }
 }
