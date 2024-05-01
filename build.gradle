@@ -1,25 +1,25 @@
 plugins {
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '8.0.0' apply false
+    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
     id "xyz.wagyourtail.unimined" version "1.1.0-SNAPSHOT" apply false
     id "me.hypherionmc.modutils.modpublisher" version "1.0.23+"
+    id "com.hypherionmc.modutils.orion" version "1.0.6"
     id 'maven-publish'
 }
 
-ext {
-    release = project.properties['release'] ?: false
-}
+orion {
+    multiProject = true
+    enableMirrorMaven = true
+    enableReleasesMaven = true
 
-var base_version = "${version_major}.${version_minor}"
-var final_version = "${base_version}.${version_patch}"
+    dopplerToken = System.getenv("DOPPLER_KEY")
 
-// CI Support
-if (!release && System.getenv('BUILD_NUMBER') != null) {
-    final_version = "${base_version}.${System.getenv('BUILD_NUMBER')}d"
+    versioning {
+        identifier("${release_type}")
+    }
 }
 
 group = project_group
-version = "${final_version}"
 
 subprojects {
     apply plugin: "xyz.wagyourtail.unimined"
@@ -28,22 +28,11 @@ subprojects {
     apply plugin: 'com.github.johnrengelman.shadow'
     apply plugin: 'me.hypherionmc.modutils.modpublisher'
 
-    group = rootProject.group
-    version = rootProject.version
-
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 
     repositories {
         mavenCentral()
-        maven {
-            name = 'First Dark Maven'
-            url = 'https://maven.firstdark.dev/releases/'
-        }
-        maven {
-            name = 'First Dark Mirror'
-            url = 'https://mcentral.firstdark.dev/releases/'
-        }
     }
 
     configurations {
@@ -54,10 +43,13 @@ subprojects {
     }
 
     dependencies {
-        implementation "me.hypherionmc.moon-config:core:${moon_config}"
-        implementation "me.hypherionmc.moon-config:toml:${moon_config}"
-        shade "net.kyori:adventure-api:4.16.0"
-        shade "net.kyori:adventure-text-serializer-gson:4.16.0"
+        // All Projects
+        shade "me.hypherionmc.moon-config:core:${moon_config}"
+        shade "me.hypherionmc.moon-config:toml:${moon_config}"
+        shade "com.hypherionmc:rpcsdk:${rpc_sdk}"
+        shade "me.hypherionmc.sdlink:mcdiscordformatter-1.20.3:${discord_formatter}"
+        shade "net.kyori:adventure-api:${adventure}"
+        shade "net.kyori:adventure-text-serializer-gson:${adventure}"
 
         compileOnly("org.projectlombok:lombok:${lombok}")
         annotationProcessor("org.projectlombok:lombok:${lombok}")
@@ -75,7 +67,7 @@ subprojects {
                     'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
                     'Timestamp'               : System.currentTimeMillis(),
                     'Built-On-Java'           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
-                    'Build-On-Minecraft'      : minecraft_version
+                    'Built-On-Minecraft'      : minecraft_version
             ])
         }
     }
@@ -85,7 +77,6 @@ subprojects {
  * =       DO NOT EDIT BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING        =
  * ===============================================================================
  */
-
     unimined.minecraft(sourceSets.main, true) {
         version minecraft_version
 
@@ -100,90 +91,9 @@ subprojects {
         it.options.release = 17
     }
 
-    tasks.withType(GenerateModuleMetadata) {
+    tasks.withType(GenerateModuleMetadata).configureEach {
         enabled = false
     }
-
-    clean {
-        delete "$rootDir/artifacts"
-    }
-
-    if (project.name !== 'Common') {
-        tasks.register('delDevJar') {
-            doLast {
-                def tree = fileTree('build/libs')
-                tree.include '**/*-dev-shadow.jar'
-                tree.include '**/*-dev.jar'
-                tree.include '**/*-all.jar'
-                tree.include '**/*-slim.jar'
-                tree.each { it.delete() }
-            }
-        }
-        build.finalizedBy delDevJar
-
-        tasks.register('copyAllArtifacts', Copy) {
-            from "$buildDir/libs"
-            into "$rootDir/artifacts"
-            include("*.jar")
-        }
-
-        build.finalizedBy(copyAllArtifacts)
-    }
 }
 
-// Standalone or Module JARS
-tasks.register('rpcJar', Jar) {
-    dependsOn(compileJava)
-    includeEmptyDirs = false
-    archivesBaseName = "${mod_name}-modules-${minecraft_version}"
-    version = final_version
-    setArchiveClassifier("rpc")
-
-    from project(":Common").sourceSets.main.output
-}
-
-tasks.register('configJar', Jar) {
-    dependsOn(compileJava)
-    includeEmptyDirs = false
-    archivesBaseName = "${mod_name}-modules-${minecraft_version}"
-    version = final_version
-    setArchiveClassifier("config")
-
-    from project(":Common").sourceSets.main.output
-    include("**\\core\\config\\**\\*", "**\\**\\CraterConstants.*")
-}
-
-tasks.register('eventsJar', Jar) {
-    dependsOn(compileJava)
-    includeEmptyDirs = false
-    archivesBaseName = "${mod_name}-modules-${minecraft_version}"
-    version = final_version
-    setArchiveClassifier("events")
-
-    from project(":Common").sourceSets.main.output
-    include("**\\core\\event\\**\\*", "**\\**\\CraterConstants.*")
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId "${mod_name}-modules-${minecraft_version}"
-            version project.version
-
-            artifact rpcJar
-            artifact eventsJar
-            artifact configJar
-        }
-    }
-
-    repositories {
-        maven {
-            url "https://maven.firstdark.dev/" + (project.release ? "releases" : "snapshots")
-            credentials {
-                username System.getenv("MAVEN_USER")
-                password System.getenv("MAVEN_PASS")
-            }
-        }
-    }
-}
+// TODO MODULE JARS

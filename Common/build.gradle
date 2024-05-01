@@ -1,17 +1,14 @@
 archivesBaseName = "${mod_name.replace(" ", "")}-Common-${minecraft_version}"
 
 dependencies {
-    implementation "com.hypherionmc:rpcsdk:1.0"
-    implementation("me.hypherionmc.sdlink:mcdiscordformatter-1.20.3:2.0.0")
+
 }
 
 shadowJar {
     from sourceSets.main.output
-    dependencies {
-        include(dependency("me.hypherionmc.moon-config:core:${moon_config}"))
-        include(dependency("me.hypherionmc.moon-config:toml:${moon_config}"))
-        include(dependency("me.hypherionmc.sdlink:mcdiscordformatter-1.20.3:2.0.0"))
+    configurations = [project.configurations.shade]
 
+    dependencies {
         relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
         relocate 'me.hypherionmc.mcdiscordformatter', 'shadow.hypherionmc.mcdiscordformatter'
     }
@@ -65,12 +62,6 @@ publishing {
     }
 
     repositories {
-        maven {
-            url "https://maven.firstdark.dev/" + (project.release ? "releases" : "snapshots")
-            credentials {
-                username System.getenv("MAVEN_USER")
-                password System.getenv("MAVEN_PASS")
-            }
-        }
+        maven rootProject.orion.getPublishingMaven()
     }
 }
