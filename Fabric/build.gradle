@@ -56,7 +56,6 @@ jar {
 processResources {
     from project(":Common").sourceSets.main.resources
     def buildProps = project.properties.clone()
-    println(project.version)
 
     filesMatching(['fabric.mod.json']) {
         expand buildProps

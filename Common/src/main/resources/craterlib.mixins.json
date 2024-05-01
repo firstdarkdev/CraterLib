@@ -6,6 +6,7 @@
   "mixins": [
   ],
   "client": [
+    "ChatInputSuggestorMixin",
     "events.PlayerMixin",
     "events.client.ClientLevelMixin",
     "events.client.MinecraftMixin",
