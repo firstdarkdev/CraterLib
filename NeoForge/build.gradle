@@ -2,7 +2,7 @@ archivesBaseName = "${mod_name.replace(" ", "")}-NeoForge-${minecraft_version}"
 
 dependencies {
     // Compat
-    modImplementation("maven.modrinth:vanishmod:puxrKAMr")
+    modImplementation("maven.modrinth:vanishmod:${vanishmod_neo}")
 
     // Do not edit or remove
     implementation project(":Common")

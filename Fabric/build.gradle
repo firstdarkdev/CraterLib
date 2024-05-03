@@ -9,8 +9,8 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
-    modImplementation "maven.modrinth:fabrictailor:2.1.2"
-    modImplementation "maven.modrinth:vanish:1.4.2+1.20"
+    modImplementation "maven.modrinth:fabrictailor:${fabrictailor}"
+    modImplementation "maven.modrinth:vanish:${vanish}"
 
     // Do not edit or remove
     implementation project(":Common")
