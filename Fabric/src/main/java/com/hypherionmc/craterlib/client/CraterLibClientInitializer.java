@@ -15,6 +15,9 @@ public class CraterLibClientInitializer implements ClientModInitializer {
     public void onInitializeClient() {
         new CraterPacketNetwork(new CraterFabricNetworkHandler(PacketSide.CLIENT));
         ClientTickEvents.START_CLIENT_TICK.register((listener) -> {
+            if (listener.level == null)
+                return;
+
             CraterClientTickEvent event = new CraterClientTickEvent(BridgedClientLevel.of(listener.level));
             CraterEventBus.INSTANCE.postEvent(event);
         });

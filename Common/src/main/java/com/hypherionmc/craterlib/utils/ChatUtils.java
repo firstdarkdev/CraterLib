@@ -1,10 +1,12 @@
 package com.hypherionmc.craterlib.utils;
 
+import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
 import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
 import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 
@@ -76,5 +78,12 @@ public class ChatUtils {
 
     public static net.kyori.adventure.text.Component makeComponent(String text) {
         return net.kyori.adventure.text.Component.translatable(text);
+    }
+
+    public static net.kyori.adventure.text.Component getBiomeName(ResourceIdentifier identifier) {
+        if (identifier == null)
+            return net.kyori.adventure.text.Component.text("Unknown");
+
+        return mojangToAdventure(Component.translatable(Util.makeDescriptionId("biome", identifier.toMojang())));
     }
 }

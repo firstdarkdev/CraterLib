@@ -15,6 +15,9 @@ public class NeoForgeClientEvents {
 
     @SubscribeEvent
     public static void clientTick(TickEvent.LevelTickEvent event) {
+        if (event.level == null)
+            return;
+
         CraterClientTickEvent craterClientTickEvent = new CraterClientTickEvent(BridgedClientLevel.of(Minecraft.getInstance().level));
         CraterEventBus.INSTANCE.postEvent(craterClientTickEvent);
     }

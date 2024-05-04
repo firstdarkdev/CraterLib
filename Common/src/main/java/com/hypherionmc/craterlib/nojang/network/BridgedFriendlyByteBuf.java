@@ -18,6 +18,15 @@ public class BridgedFriendlyByteBuf {
         return BridgedFriendlyByteBuf.of(internal);
     }
 
+    public BridgedFriendlyByteBuf writeUtf(String value) {
+        internal.writeUtf(value);
+        return BridgedFriendlyByteBuf.of(internal);
+    }
+
+    public String readUtf() {
+        return internal.readUtf();
+    }
+
     public FriendlyByteBuf toMojang() {
         return internal;
     }

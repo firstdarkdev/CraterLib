@@ -26,6 +26,10 @@ public class ResourceIdentifier {
         return internal.toString();
     }
 
+    public static ResourceIdentifier fromMojang(ResourceLocation location) {
+        return new ResourceIdentifier(location.getNamespace(), location.getPath());
+    }
+
     public ResourceLocation toMojang() {
         return internal;
     }
