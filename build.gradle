@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
     id "xyz.wagyourtail.unimined" version "1.2.4" apply false
-    id "me.hypherionmc.modutils.modpublisher" version "1.0.23+"
+    id "com.hypherionmc.modutils.modpublisher" version "2.1.+"
     id "com.hypherionmc.modutils.orion" version "1.0.10"
     id 'maven-publish'
 }
@@ -26,10 +26,10 @@ subprojects {
     apply plugin: "java"
     apply plugin: 'maven-publish'
     apply plugin: 'com.github.johnrengelman.shadow'
-    apply plugin: 'me.hypherionmc.modutils.modpublisher'
+    apply plugin: 'com.hypherionmc.modutils.modpublisher'
 
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 
     group = rootProject.group
 
