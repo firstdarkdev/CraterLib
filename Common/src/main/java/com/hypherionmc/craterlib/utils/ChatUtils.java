@@ -7,6 +7,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 
@@ -14,11 +15,11 @@ public class ChatUtils {
 
     public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
         final String serialised = GsonComponentSerializer.gson().serialize(inComponent);
-        return Component.Serializer.fromJson(serialised);
+        return Component.Serializer.fromJson(serialised, RegistryAccess.EMPTY);
     }
 
     public static net.kyori.adventure.text.Component mojangToAdventure(Component inComponent) {
-        final String serialised = Component.Serializer.toJson(inComponent);
+        final String serialised = Component.Serializer.toJson(inComponent, RegistryAccess.EMPTY);
         return GsonComponentSerializer.gson().deserialize(serialised);
     }
 

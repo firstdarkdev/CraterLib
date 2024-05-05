@@ -36,7 +36,7 @@ public class CraterForgeNetworkHandler extends PacketRegistry {
     protected <T> void registerPacket(PacketHolder<T> holder) {
         if (CHANNELS.get(holder.messageType()) == null) {
             SimpleChannel channel = ChannelBuilder
-                    .named(holder.packetId().toMojang())
+                    .named(holder.type().id())
                     .clientAcceptedVersions((a, b) -> true)
                     .serverAcceptedVersions((a, b) -> true)
                     .networkProtocolVersion(1)

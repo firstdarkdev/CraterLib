@@ -24,9 +24,9 @@ public class BridgedServerData {
     }
 
     public int getMaxPlayers() {
-        if (!internal.pinged || internal.players == null) {
+        if (internal.players == null) {
             try {
-                new ServerStatusPinger().pingServer(internal, () -> {});
+                new ServerStatusPinger().pingServer(internal, () -> {}, () -> {});
             } catch (Exception ignored) {}
         }
 

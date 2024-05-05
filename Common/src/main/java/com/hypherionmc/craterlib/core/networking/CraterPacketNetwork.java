@@ -3,6 +3,7 @@ package com.hypherionmc.craterlib.core.networking;
 import com.hypherionmc.craterlib.core.networking.data.PacketContext;
 import com.hypherionmc.craterlib.nojang.network.BridgedFriendlyByteBuf;
 import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
+import lombok.Getter;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -11,6 +12,7 @@ import java.util.function.Function;
 /**
  * Based on https://github.com/mysticdrew/common-networking/tree/1.20.4
  */
+@Getter
 public class CraterPacketNetwork {
 
     private final PacketRegistry packetRegistry;
@@ -38,7 +40,4 @@ public class CraterPacketNetwork {
         }
     }
 
-    public PacketRegistry getPacketRegistry() {
-        return packetRegistry;
-    }
 }

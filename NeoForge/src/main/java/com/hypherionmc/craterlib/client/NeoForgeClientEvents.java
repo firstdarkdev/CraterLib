@@ -7,15 +7,15 @@ import com.hypherionmc.craterlib.nojang.client.multiplayer.BridgedClientLevel;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
 
-@Mod.EventBusSubscriber(modid = CraterConstants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+@EventBusSubscriber(modid = CraterConstants.MOD_ID, value = Dist.CLIENT)
 public class NeoForgeClientEvents {
 
     @SubscribeEvent
-    public static void clientTick(TickEvent.LevelTickEvent event) {
-        if (event.level == null)
+    public static void clientTick(LevelTickEvent.Pre event) {
+        if (Minecraft.getInstance().level == null)
             return;
 
         CraterClientTickEvent craterClientTickEvent = new CraterClientTickEvent(BridgedClientLevel.of(Minecraft.getInstance().level));

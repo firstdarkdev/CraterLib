@@ -1,5 +1,7 @@
 package com.hypherionmc.craterlib.client.gui.config.widgets;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -28,15 +30,9 @@ public abstract class Option<T> extends AbstractContainerEventHandler {
     public T value;
     public boolean hasErrors;
     public List<? extends GuiEventListener> children = new ArrayList<>();
+    @Setter
+    @Getter
     private List<String> langKeys = new ArrayList<>();
-
-    public List<String> getLangKeys() {
-        return langKeys;
-    }
-
-    public void setLangKeys(List<String> langKeys) {
-        this.langKeys = langKeys;
-    }
 
     public abstract void render(Minecraft minecraft, Font font, int x, int y, int width, int height, GuiGraphics matrices, int mouseX, int mouseY, float delta);
 

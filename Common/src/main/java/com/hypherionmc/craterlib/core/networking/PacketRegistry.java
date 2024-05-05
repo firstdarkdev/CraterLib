@@ -18,7 +18,7 @@ import java.util.function.Function;
  */
 public abstract class PacketRegistry implements CraterNetworkHandler, PacketRegistrar {
 
-    final Map<Class<?>, PacketHolder<?>> PACKET_MAP = new HashMap<>();
+    protected final Map<Class<?>, PacketHolder<?>> PACKET_MAP = new HashMap<>();
 
     protected final PacketSide side;
 
