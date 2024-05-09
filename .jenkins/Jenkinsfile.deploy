@@ -18,24 +18,32 @@ pipeline {
         }
         stage("Prepare") {
             steps {
-                sh "chmod +x ./dev/gradlew"
-                sh "./dev/gradlew clean"
+                sh "chmod +x ./gradlew"
+                sh "./gradlew cleanWorkspace"
+                sh "./gradlew setupWorkspace"
             }
         }
         stage("Publish to Modrinth/Curseforge") {
             steps {
-                sh "./dev/gradlew publishMod -Prelease=true"
+                dir('dev') {
+                    sh "chmod +x ./gradlew"
+                    sh "./gradlew publishMod -Prelease=true"
+                }
             }
         }
         stage("Publish to Maven") {
             steps {
-                sh "./dev/gradlew publish -Prelease=true"
+                dir('dev') {
+                    sh "./gradlew publish -Prelease=true"
+                }
             }
         }
     }
     post {
         always {
-            sh "./dev/gradlew --stop"
+            dir('dev') {
+                sh "./gradlew --stop"
+            }
             deleteDir()
 
             discordSend webhookURL: env.FDD_WH_ADMIN,
