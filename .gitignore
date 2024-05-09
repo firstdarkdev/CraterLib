@@ -23,3 +23,5 @@ run
 
 artifacts
 src/test/**
+dev
+upstream
