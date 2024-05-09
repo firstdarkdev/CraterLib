@@ -2,7 +2,6 @@ package com.hypherionmc.craterlib;
 
 import com.hypherionmc.craterlib.api.events.client.LateInitEvent;
 import com.hypherionmc.craterlib.common.ForgeServerEvents;
-import com.hypherionmc.craterlib.compat.Vanish;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.hypherionmc.craterlib.core.networking.CraterPacketNetwork;
 import com.hypherionmc.craterlib.core.networking.data.PacketSide;
@@ -33,9 +32,5 @@ public class CraterLib {
             LateInitEvent event = new LateInitEvent(new BridgedMinecraft(), BridgedOptions.of(Minecraft.getInstance().options));
             CraterEventBus.INSTANCE.postEvent(event);
         });
-
-        if (ModloaderEnvironment.INSTANCE.isModLoaded("vmod")) {
-            MinecraftForge.EVENT_BUS.register(new Vanish());
-        }
     }
 }

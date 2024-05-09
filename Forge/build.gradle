@@ -3,7 +3,7 @@ archivesBaseName = "${mod_name.replace(" ", "")}-Forge-${minecraft_version}"
 
 dependencies {
     // Compat
-    modImplementation("maven.modrinth:vanishmod:${vanishmod}")
+    // NOT AVAILABLE ON FORGE modImplementation("maven.modrinth:vanishmod:${vanishmod}")
 
     // Do not edit or remove
     implementation project(":Common")
