@@ -3,17 +3,17 @@ def projectIcon = "https://cdn.modrinth.com/data/Nn8Wasaq/a172c634683a11a2e9ae59
 
 pipeline {
     agent {
-        label "master"
-    }
-    tools {
-        jdk "JAVA17"
+        docker {
+            image "registry.firstdark.dev/java17:latest"
+            alwaysPull true
+        }
     }
 
     stages {
         stage("Notify Discord") {
             steps {
                 discordSend webhookURL: env.SSS_WEBHOOK,
-                        title: "Deploy Started: ${projectName} Port Deploy #${BUILD_NUMBER}",
+                        title: "Deploy Started: ${projectName} 1.20.4 Deploy #${BUILD_NUMBER}",
                         link: env.BUILD_URL,
                         result: 'SUCCESS',
                         description: "Build: [${BUILD_NUMBER}](${env.BUILD_URL})"
@@ -22,21 +22,21 @@ pipeline {
 
         stage("Prepare") {
             steps {
-                sh "chmod +x ./gradlew"
-                sh "./gradlew clean"
+                sh "chmod +x ./dev/gradlew"
+                sh "./dev/gradlew clean"
             }
         }
 
         stage("Build") {
             steps {
-                sh "./gradlew build"
+                sh "./dev/gradlew build"
             }
         }
 
         stage("Publish to Maven") {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh "./gradlew publish"
+                    sh "./dev/gradlew publish"
                 }
             }
         }
@@ -44,15 +44,15 @@ pipeline {
 
     post {
         always {
-            sh "./gradlew --stop"
-            archiveArtifacts artifacts: 'artifacts/*.jar'
+            sh "./dev/gradlew --stop"
+            archiveArtifacts artifacts: 'dev/artifacts/*.jar'
 
             fddsnapshotter apiKey: env.PLATFORM_KEY,
                 projectSlug: "craterlib",
                 projectName: "${projectName}",
                 projectIcon: "${projectIcon}",
                 modLoaders: "forge|neoforge|fabric|quilt",
-                minecraftVersions: "1.20.6",
+                minecraftVersions: "1.20.4",
                 failWebhook: env.SSS_WEBHOOK,
                 publishWebhooks: "${env.SSS_WEBHOOK}|${env.FDD_WH}"
 

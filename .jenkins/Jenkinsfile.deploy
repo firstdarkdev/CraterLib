@@ -1,15 +1,16 @@
 pipeline {
     agent {
-        label "master"
+        docker {
+            image "registry.firstdark.dev/java17:latest"
+            alwaysPull true
+        }
     }
-    tools {
-        jdk "JAVA17"
-    }
+
     stages {
         stage("Notify Discord") {
             steps {
                 discordSend webhookURL: env.FDD_WH_ADMIN,
-                        title: "Deploy Started: CraterLib Port Deploy #${BUILD_NUMBER}",
+                        title: "Deploy Started: CraterLib 1.20.4 Deploy #${BUILD_NUMBER}",
                         link: env.BUILD_URL,
                         result: 'SUCCESS',
                         description: "Build: [${BUILD_NUMBER}](${env.BUILD_URL})"
@@ -17,28 +18,28 @@ pipeline {
         }
         stage("Prepare") {
             steps {
-                sh "chmod +x ./gradlew"
-                sh "./gradlew clean"
+                sh "chmod +x ./dev/gradlew"
+                sh "./dev/gradlew clean"
             }
         }
         stage("Publish to Modrinth/Curseforge") {
             steps {
-                sh "./gradlew publishMod -Prelease=true"
+                sh "./dev/gradlew publishMod -Prelease=true"
             }
         }
         stage("Publish to Maven") {
             steps {
-                sh "./gradlew publish -Prelease=true"
+                sh "./dev/gradlew publish -Prelease=true"
             }
         }
     }
     post {
         always {
-            sh "./gradlew --stop"
+            sh "./dev/gradlew --stop"
             deleteDir()
 
             discordSend webhookURL: env.FDD_WH_ADMIN,
-                    title: "CraterLib Port Deploy #${BUILD_NUMBER}",
+                    title: "CraterLib 1.20.4 Deploy #${BUILD_NUMBER}",
                     link: env.BUILD_URL,
                     result: currentBuild.currentResult,
                     description: "Build: [${BUILD_NUMBER}](${env.BUILD_URL})\nStatus: ${currentBuild.currentResult}"
