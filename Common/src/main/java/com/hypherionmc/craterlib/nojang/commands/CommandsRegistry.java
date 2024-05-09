@@ -3,6 +3,7 @@ package com.hypherionmc.craterlib.nojang.commands;
 import com.hypherionmc.craterlib.api.commands.CraterCommand;
 import com.hypherionmc.craterlib.nojang.authlib.BridgedGameProfile;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+import com.hypherionmc.craterlib.utils.TriConsumer;
 import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -11,7 +12,6 @@ import lombok.NoArgsConstructor;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.GameProfileArgument;
-import org.apache.commons.lang3.function.TriConsumer;
 
 import java.util.ArrayList;
 import java.util.Collection;
