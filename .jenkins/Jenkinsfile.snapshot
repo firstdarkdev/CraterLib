@@ -4,7 +4,7 @@ def projectIcon = "https://cdn.modrinth.com/data/Nn8Wasaq/a172c634683a11a2e9ae59
 pipeline {
     agent {
         docker {
-            image "registry.firstdark.dev/java17:latest"
+            image "registry.firstdark.dev/java21:latest"
             alwaysPull true
         }
     }
