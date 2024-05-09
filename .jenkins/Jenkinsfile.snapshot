@@ -29,14 +29,14 @@ pipeline {
 
         stage("Build") {
             steps {
-                sh "./gradlew build"
+                sh "./gradlew build -PreleaseType=port"
             }
         }
 
         stage("Publish to Maven") {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh "./gradlew publish"
+                    sh "./gradlew publish -PreleaseType=port"
                 }
             }
         }
