@@ -1,0 +1,13 @@
+--- a/NeoForge/src/main/resources/craterlib.neoforge.mixins.json
++++ b/NeoForge/src/main/resources/craterlib.neoforge.mixins.json
+@@ -5,7 +5,9 @@
+   "compatibilityLevel": "JAVA_17",
+   "mixins": [
+   ],
+-  "client": [],
++  "client": [
++    "ConfigScreenHandlerMixin"
++  ],
+   "server": [
+     "ServerGamePacketListenerImplMixin"
+   ],

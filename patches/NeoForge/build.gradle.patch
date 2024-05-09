@@ -1,0 +1,13 @@
+--- a/NeoForge/build.gradle
++++ b/NeoForge/build.gradle
+@@ -103,8 +103,8 @@
+     setVersionType("release")
+     setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md")
+     setProjectVersion("${minecraft_version}-${project.version}")
+-    setDisplayName("[NeoForge 1.20.6] CraterLib - ${project.version}")
+-    setGameVersions("1.20.6")
++    setDisplayName("[NeoForge 1.20.4] CraterLib - ${project.version}")
++    setGameVersions("1.20.4")
+     setLoaders("neoforge")
+     setArtifact(remapJar)
+     setCurseEnvironment("both")

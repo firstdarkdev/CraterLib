@@ -1,0 +1,21 @@
+--- a/NeoForge/src/main/java/com/hypherionmc/craterlib/client/NeoForgeClientEvents.java
++++ b/NeoForge/src/main/java/com/hypherionmc/craterlib/client/NeoForgeClientEvents.java
+@@ -7,14 +7,14 @@
+ import net.minecraft.client.Minecraft;
+ import net.neoforged.api.distmarker.Dist;
+ import net.neoforged.bus.api.SubscribeEvent;
+-import net.neoforged.fml.common.EventBusSubscriber;
+-import net.neoforged.neoforge.event.tick.LevelTickEvent;
++import net.neoforged.fml.common.Mod;
++import net.neoforged.neoforge.event.TickEvent;
+ 
+-@EventBusSubscriber(modid = CraterConstants.MOD_ID, value = Dist.CLIENT)
++@Mod.EventBusSubscriber(modid = CraterConstants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+ public class NeoForgeClientEvents {
+ 
+     @SubscribeEvent
+-    public static void clientTick(LevelTickEvent.Pre event) {
++    public static void clientTick(TickEvent.LevelTickEvent event) {
+         if (Minecraft.getInstance().level == null)
+             return;
+ 

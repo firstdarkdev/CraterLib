@@ -1,0 +1,14 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/client/multiplayer/BridgedServerData.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/client/multiplayer/BridgedServerData.java
+@@ -24,9 +24,9 @@
+     }
+ 
+     public int getMaxPlayers() {
+-        if (internal.players == null) {
++        if (!internal.pinged || internal.players == null) {
+             try {
+-                new ServerStatusPinger().pingServer(internal, () -> {}, () -> {});
++                new ServerStatusPinger().pingServer(internal, () -> {});
+             } catch (Exception ignored) {}
+         }
+ 

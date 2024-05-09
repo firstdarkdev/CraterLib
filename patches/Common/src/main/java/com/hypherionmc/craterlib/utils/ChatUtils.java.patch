@@ -1,0 +1,24 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
+@@ -7,7 +7,6 @@
+ import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+ import net.minecraft.ChatFormatting;
+ import net.minecraft.Util;
+-import net.minecraft.core.RegistryAccess;
+ import net.minecraft.network.chat.Component;
+ import net.minecraft.network.chat.Style;
+ 
+@@ -15,11 +14,11 @@
+ 
+     public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
+         final String serialised = GsonComponentSerializer.gson().serialize(inComponent);
+-        return Component.Serializer.fromJson(serialised, RegistryAccess.EMPTY);
++        return Component.Serializer.fromJson(serialised);
+     }
+ 
+     public static net.kyori.adventure.text.Component mojangToAdventure(Component inComponent) {
+-        final String serialised = Component.Serializer.toJson(inComponent, RegistryAccess.EMPTY);
++        final String serialised = Component.Serializer.toJson(inComponent);
+         return GsonComponentSerializer.gson().deserialize(serialised);
+     }
+ 
