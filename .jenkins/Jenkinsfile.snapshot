@@ -33,7 +33,7 @@ pipeline {
                 dir('dev') {
                     sh "chmod +x ./gradlew"
                     sh "./gradlew clean"
-                    sh "./gradlew build"
+                    sh "./gradlew build -PreleaseType=snapshot"
                 }
             }
         }
@@ -42,7 +42,7 @@ pipeline {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     dir('dev') {
-                        sh "./gradlew publish"
+                        sh "./gradlew publish -PreleaseType=snapshot"
                     }
                 }
             }
