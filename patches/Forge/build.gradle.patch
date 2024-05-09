@@ -1,5 +1,14 @@
 --- a/Forge/build.gradle
 +++ b/Forge/build.gradle
+@@ -3,7 +3,7 @@
+ 
+ dependencies {
+     // Compat
+-    modImplementation("maven.modrinth:vanishmod:${vanishmod}")
++    // NOT AVAILABLE FOR FORGE modImplementation("maven.modrinth:vanishmod:${vanishmod}")
+ 
+     // Do not edit or remove
+     implementation project(":Common")
 @@ -104,8 +104,8 @@
      setVersionType("release")
      setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md")
