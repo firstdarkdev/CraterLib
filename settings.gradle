@@ -10,4 +10,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'CraterLib'
+rootProject.name = 'CraterLibPort'

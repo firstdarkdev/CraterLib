@@ -1,5 +1,14 @@
 --- a/NeoForge/build.gradle
 +++ b/NeoForge/build.gradle
+@@ -50,7 +50,7 @@
+     from project(":Common").sourceSets.main.resources
+     def buildProps = project.properties.clone()
+ 
+-    filesMatching("META-INF/neoforge.mods.toml") {
++    filesMatching("META-INF/mods.toml") {
+         expand buildProps
+     }
+ }
 @@ -103,8 +103,8 @@
      setVersionType("release")
      setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md")
