@@ -1,0 +1,41 @@
+name: Test Orbit Auto PR
+
+on:
+  pull_request:
+    branches:
+      - porting
+
+jobs:
+  run-gradle-taks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: zulu
+          java-version: 17
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Test LTS Branches
+        run: |
+          for dir in dev/*/ ; do
+            if [ -d "$dir" ]; then
+              echo "Running Gradle build for $dir"
+              cd "$dir"
+              ./gradlew build
+              cd -
+            fi
+          done
