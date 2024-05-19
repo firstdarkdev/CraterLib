@@ -1,0 +1,11 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/mixin/events/client/ClientLevelMixin.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/mixin/events/client/ClientLevelMixin.java
+@@ -15,7 +15,7 @@
+ public class ClientLevelMixin {
+ 
+     @Inject(method = "addEntity", at = @At("HEAD"))
+-    private void injectSinglePlayerJoinEvent(Entity entity, CallbackInfo ci) {
++    private void injectSinglePlayerJoinEvent(int i, Entity entity, CallbackInfo ci) {
+         if (entity instanceof Player player) {
+             CraterSinglePlayerEvent.PlayerLogin playerLogin = new CraterSinglePlayerEvent.PlayerLogin(BridgedPlayer.of(player));
+             CraterEventBus.INSTANCE.postEvent(playerLogin);

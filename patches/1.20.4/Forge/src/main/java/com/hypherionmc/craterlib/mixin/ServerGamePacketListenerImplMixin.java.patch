@@ -1,0 +1,11 @@
+--- a/Forge/src/main/java/com/hypherionmc/craterlib/mixin/ServerGamePacketListenerImplMixin.java
++++ b/Forge/src/main/java/com/hypherionmc/craterlib/mixin/ServerGamePacketListenerImplMixin.java
+@@ -22,7 +22,7 @@
+     public ServerPlayer player;
+ 
+     @Inject(
+-            method = "lambda$handleChat$5",
++            method = "lambda$handleChat$6",
+             at = @At("HEAD"),
+             cancellable = true
+     )

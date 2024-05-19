@@ -1,0 +1,44 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/widgets/BaseWidget.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/widgets/BaseWidget.java
+@@ -1,9 +1,9 @@
+ package com.hypherionmc.craterlib.client.gui.config.widgets;
+ 
++import com.mojang.blaze3d.vertex.PoseStack;
+ import net.minecraft.ChatFormatting;
+ import net.minecraft.client.Minecraft;
+ import net.minecraft.client.gui.Font;
+-import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.client.gui.components.Button;
+ import net.minecraft.network.chat.Component;
+ import net.minecraft.network.chat.MutableComponent;
+@@ -16,7 +16,7 @@
+ public class BaseWidget<T> extends Option<T> {
+ 
+     public static final int resetButtonOffset = 48;
+-    private final Button resetButton = addChild(Button.builder(Component.literal("Reset"), this::onResetPressed).size(46, 20).build());
++    private final Button resetButton = addChild(new Button(0, 0, 46, 20, Component.literal("Reset"), this::onResetPressed));
+     private boolean hideReset = false;
+ 
+     private boolean isSubConfig = false;
+@@ -39,7 +39,7 @@
+     }
+ 
+     @Override
+-    public void render(Minecraft minecraft, Font font, int x, int y, int width, int height, GuiGraphics matrices, int mouseX, int mouseY, float delta) {
++    public void render(Minecraft minecraft, Font font, int x, int y, int width, int height, PoseStack matrices, int mouseX, int mouseY, float delta) {
+         MutableComponent text = Component.literal(this.text.getString());
+         boolean edited = isEdited() || hasErrors;
+         if (edited) {
+@@ -50,9 +50,9 @@
+         } else {
+             text.withStyle(ChatFormatting.GRAY);
+         }
+-        matrices.drawString(font, text, x, y + font.lineHeight - 2, 0xFFFFFF);
+-        resetButton.setX(x + width - 46);
+-        resetButton.setY(y + 1);
++        font.draw(matrices, text, x, y, 0xFFFFFF);
++        resetButton.x = (x + width - 46);
++        resetButton.y = (y + 1);
+         resetButton.active = isNotDefault();
+         if (!hideReset) {
+             resetButton.render(matrices, mouseX, mouseY, delta);

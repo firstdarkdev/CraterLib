@@ -1,0 +1,11 @@
+--- a/Forge/src/main/java/com/hypherionmc/craterlib/network/CraterForgeNetworkHandler.java
++++ b/Forge/src/main/java/com/hypherionmc/craterlib/network/CraterForgeNetworkHandler.java
+@@ -36,7 +36,7 @@
+     protected <T> void registerPacket(PacketHolder<T> holder) {
+         if (CHANNELS.get(holder.messageType()) == null) {
+             SimpleChannel channel = ChannelBuilder
+-                    .named(holder.type().id())
++                    .named(holder.type().toMojang())
+                     .clientAcceptedVersions((a, b) -> true)
+                     .serverAcceptedVersions((a, b) -> true)
+                     .networkProtocolVersion(1)

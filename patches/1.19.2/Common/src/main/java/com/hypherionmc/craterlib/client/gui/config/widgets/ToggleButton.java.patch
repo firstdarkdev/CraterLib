@@ -1,0 +1,11 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/widgets/ToggleButton.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/widgets/ToggleButton.java
+@@ -18,7 +18,7 @@
+     public ToggleButton(List<T> options, Function<T, Component> toComponent) {
+         this.options = options;
+         this.toComponent = toComponent;
+-        this.widget = addChild(Button.builder(Component.empty(), this::switchNext).size(buttonWidth, buttonHeight).build());
++        this.widget = addChild(new Button(0, 0, buttonWidth, buttonHeight, Component.empty(), this::switchNext));
+     }
+ 
+     @Override

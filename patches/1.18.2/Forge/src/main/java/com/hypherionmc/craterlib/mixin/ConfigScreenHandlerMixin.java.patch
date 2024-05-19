@@ -1,0 +1,28 @@
+--- a/Forge/src/main/java/com/hypherionmc/craterlib/mixin/ConfigScreenHandlerMixin.java
++++ b/Forge/src/main/java/com/hypherionmc/craterlib/mixin/ConfigScreenHandlerMixin.java
+@@ -6,7 +6,7 @@
+ import com.hypherionmc.craterlib.core.config.annotations.NoConfigScreen;
+ import net.minecraft.client.Minecraft;
+ import net.minecraft.client.gui.screens.Screen;
+-import net.minecraftforge.client.ConfigScreenHandler;
++import net.minecraftforge.client.ConfigGuiHandler;
+ import net.minecraftforge.forgespi.language.IModInfo;
+ import org.spongepowered.asm.mixin.Mixin;
+ import org.spongepowered.asm.mixin.injection.At;
+@@ -19,14 +19,14 @@
+ /**
+  * @author HypherionSA
+  */
+-@Mixin(ConfigScreenHandler.class)
++@Mixin(ConfigGuiHandler.class)
+ public class ConfigScreenHandlerMixin {
+ 
+     /**
+      * Inject Auto Generated config Screens into forge
+      *
+      */
+-    @Inject(at = @At("RETURN"), method = "getScreenFactoryFor", cancellable = true, remap = false)
++    @Inject(at = @At("RETURN"), method = "getGuiFactoryFor", cancellable = true, remap = false)
+     private static void injectConfigScreen(IModInfo selectedMod, CallbackInfoReturnable<Optional<BiFunction<Minecraft, Screen, Screen>>> cir) {
+         ConfigController.getMonitoredConfigs().forEach((conf, watcher) -> {
+             if (!conf.getClass().isAnnotationPresent(NoConfigScreen.class)) {

@@ -1,0 +1,28 @@
+--- a/Forge/src/main/java/com/hypherionmc/craterlib/mixin/ServerGamePacketListenerImplMixin.java
++++ b/Forge/src/main/java/com/hypherionmc/craterlib/mixin/ServerGamePacketListenerImplMixin.java
+@@ -14,6 +14,9 @@
+ import org.spongepowered.asm.mixin.injection.At;
+ import org.spongepowered.asm.mixin.injection.Inject;
+ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
++import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
++
++import java.util.concurrent.CompletableFuture;
+ 
+ @Mixin(value = ServerGamePacketListenerImpl.class, priority = Integer.MIN_VALUE)
+ public class ServerGamePacketListenerImplMixin {
+@@ -22,12 +25,12 @@
+     public ServerPlayer player;
+ 
+     @Inject(
+-            method = "lambda$handleChat$5",
++            method = "lambda$handleChat$10",
+             at = @At("HEAD"),
+             cancellable = true
+     )
+-    private void injectChatEvent(Component component, PlayerChatMessage arg, FilteredText p_296589_, CallbackInfo ci) {
+-        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), arg.decoratedContent().getString(), ChatUtils.mojangToAdventure(arg.decoratedContent()));
++    private void injectChatEvent(PlayerChatMessage arg, CallbackInfoReturnable<CompletableFuture> ci) {
++        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), arg.serverContent().getString(), ChatUtils.mojangToAdventure(arg.serverContent()));
+         CraterEventBus.INSTANCE.postEvent(event);
+         if (event.wasCancelled())
+             ci.cancel();

@@ -1,0 +1,22 @@
+--- a/Forge/build.gradle
++++ b/Forge/build.gradle
+@@ -3,7 +3,7 @@
+ 
+ dependencies {
+     // Compat
+-    // NOT AVAILABLE ON FORGE modImplementation("maven.modrinth:vanishmod:${vanishmod}")
++    modImplementation("maven.modrinth:vanishmod:${vanishmod}")
+ 
+     // Do not edit or remove
+     implementation project(":Common")
+@@ -104,8 +104,8 @@
+     setVersionType("release")
+     setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md")
+     setProjectVersion("${minecraft_version}-${project.version}")
+-    setDisplayName("[Forge 1.20.6] CraterLib - ${project.version}")
+-    setGameVersions("1.20.6")
++    setDisplayName("[Forge 1.19.3/1.19.4] CraterLib - ${project.version}")
++    setGameVersions("1.19.3", "1.19.4")
+     setLoaders("forge")
+     setArtifact(remapJar)
+     setCurseEnvironment("both")

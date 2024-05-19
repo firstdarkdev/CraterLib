@@ -1,0 +1,13 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/mixin/events/client/RealmsMainScreenMixin.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/mixin/events/client/RealmsMainScreenMixin.java
+@@ -14,8 +14,8 @@
+ @Mixin(RealmsMainScreen.class)
+ public class RealmsMainScreenMixin {
+ 
+-    @Inject(at = @At("HEAD"), method = "play(Lcom/mojang/realmsclient/dto/RealmsServer;Lnet/minecraft/client/gui/screens/Screen;Z)V")
+-    private static void play(RealmsServer serverData, Screen arg2, boolean bl, CallbackInfo ci) {
++    @Inject(at = @At("HEAD"), method = "play")
++    private void play(RealmsServer serverData, Screen arg2, CallbackInfo ci) {
+         PlayerJoinRealmEvent playerJoinRealm = new PlayerJoinRealmEvent(BridgedRealmsServer.of(serverData));
+         CraterEventBus.INSTANCE.postEvent(playerJoinRealm);
+     }

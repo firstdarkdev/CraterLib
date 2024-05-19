@@ -1,0 +1,42 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/widgets/InternalConfigButton.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/widgets/InternalConfigButton.java
+@@ -1,11 +1,13 @@
+ package com.hypherionmc.craterlib.client.gui.config.widgets;
+ 
+ import com.hypherionmc.craterlib.client.gui.config.CraterConfigScreen;
+-import net.minecraft.client.gui.GuiGraphics;
++import com.mojang.blaze3d.vertex.PoseStack;
+ import net.minecraft.client.gui.components.AbstractButton;
+ import net.minecraft.client.gui.narration.NarratedElementType;
+ import net.minecraft.client.gui.narration.NarrationElementOutput;
+ import net.minecraft.network.chat.Component;
++import net.minecraft.network.chat.TranslatableComponent;
++import org.jetbrains.annotations.NotNull;
+ 
+ /**
+  * @author HypherionSA
+@@ -22,19 +24,19 @@
+     }
+ 
+     @Override
+-    protected void renderWidget(GuiGraphics arg, int i, int j, float f) {
++    public void render(@NotNull PoseStack poseStack, int i, int j, float f) {
+         if (cancel) {
+-            setMessage(Component.translatable(screen.isEdited() ? "t.clc.cancel_discard" : "gui.cancel"));
++            setMessage(new TranslatableComponent(screen.isEdited() ? "t.clc.cancel_discard" : "gui.cancel"));
+         } else {
+             boolean hasErrors = screen.hasErrors();
+             active = screen.isEdited() && !hasErrors;
+-            setMessage(Component.translatable(hasErrors ? "t.clc.error" : "t.clc.save"));
++            setMessage(new TranslatableComponent(hasErrors ? "t.clc.error" : "t.clc.save"));
+         }
+-        super.renderWidget(arg, i, j, f);
++        super.render(poseStack, i, j, f);
+     }
+ 
+     @Override
+-    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
++    public void updateNarration(NarrationElementOutput narrationElementOutput) {
+         narrationElementOutput.add(NarratedElementType.USAGE, getMessage());
+     }
+ 

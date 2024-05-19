@@ -1,0 +1,13 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/advancements/BridgedAdvancement.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/advancements/BridgedAdvancement.java
+@@ -11,8 +11,8 @@
+     private final Advancement internal;
+ 
+     public Optional<BridgedDisplayInfo> displayInfo() {
+-        if (internal.display().isPresent()) {
+-            return Optional.of(BridgedDisplayInfo.of(internal.display().get()));
++        if (internal.getDisplay() != null) {
++            return Optional.of(BridgedDisplayInfo.of(internal.getDisplay()));
+         }
+ 
+         return Optional.empty();

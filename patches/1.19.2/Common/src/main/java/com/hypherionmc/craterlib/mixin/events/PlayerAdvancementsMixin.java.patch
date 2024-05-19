@@ -1,0 +1,26 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/mixin/events/PlayerAdvancementsMixin.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/mixin/events/PlayerAdvancementsMixin.java
+@@ -5,7 +5,6 @@
+ import com.hypherionmc.craterlib.nojang.advancements.BridgedAdvancement;
+ import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+ import net.minecraft.advancements.Advancement;
+-import net.minecraft.advancements.AdvancementHolder;
+ import net.minecraft.server.PlayerAdvancements;
+ import net.minecraft.server.level.ServerPlayer;
+ import org.spongepowered.asm.mixin.Mixin;
+@@ -21,11 +20,10 @@
+     private ServerPlayer player;
+ 
+     @Inject(method = "award", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancements/AdvancementRewards;grant(Lnet/minecraft/server/level/ServerPlayer;)V", shift = At.Shift.AFTER))
+-    private void injectAdvancementEvent(AdvancementHolder advancementHolder, String string, CallbackInfoReturnable<Boolean> cir) {
+-        Advancement advancement = advancementHolder.value();
++    private void injectAdvancementEvent(Advancement advancement, String string, CallbackInfoReturnable<Boolean> cir) {
++        if (advancement.getDisplay() == null || !advancement.getDisplay().shouldAnnounceChat())
++            return;
+ 
+-        if (advancement.display().isPresent() && advancement.display().get().shouldAnnounceChat()) {
+-            CraterEventBus.INSTANCE.postEvent(new CraterAdvancementEvent(BridgedPlayer.of(this.player), BridgedAdvancement.of(advancementHolder.value())));
+-        }
++        CraterEventBus.INSTANCE.postEvent(new CraterAdvancementEvent(BridgedPlayer.of(this.player), BridgedAdvancement.of(advancement)));
+     }
+ }

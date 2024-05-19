@@ -1,0 +1,11 @@
+--- a/Forge/src/main/java/com/hypherionmc/craterlib/client/ForgeClientEvents.java
++++ b/Forge/src/main/java/com/hypherionmc/craterlib/client/ForgeClientEvents.java
+@@ -14,7 +14,7 @@
+ public class ForgeClientEvents {
+ 
+     @SubscribeEvent
+-    public static void clientTick(TickEvent.LevelTickEvent event) {
++    public static void clientTick(TickEvent.WorldTickEvent event) {
+         if (Minecraft.getInstance().level == null)
+             return;
+ 

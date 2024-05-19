@@ -1,0 +1,94 @@
+--- a/Forge/src/main/java/com/hypherionmc/craterlib/network/CraterForgeNetworkHandler.java
++++ b/Forge/src/main/java/com/hypherionmc/craterlib/network/CraterForgeNetworkHandler.java
+@@ -12,16 +12,17 @@
+ import net.minecraft.network.FriendlyByteBuf;
+ import net.minecraft.server.level.ServerPlayer;
+ import net.minecraft.server.network.ServerGamePacketListenerImpl;
+-import net.minecraftforge.event.network.CustomPayloadEvent;
+-import net.minecraftforge.network.ChannelBuilder;
+-import net.minecraftforge.network.PacketDistributor;
+-import net.minecraftforge.network.SimpleChannel;
++import net.minecraftforge.network.NetworkDirection;
++import net.minecraftforge.network.NetworkEvent;
++import net.minecraftforge.network.NetworkRegistry;
++import net.minecraftforge.network.simple.SimpleChannel;
+ 
+ import java.util.HashMap;
+ import java.util.Map;
+ import java.util.function.BiConsumer;
+ import java.util.function.Consumer;
+ import java.util.function.Function;
++import java.util.function.Supplier;
+ 
+ /**
+  * Based on https://github.com/mysticdrew/common-networking/tree/1.20.4
+@@ -35,18 +36,19 @@
+ 
+     protected <T> void registerPacket(PacketHolder<T> holder) {
+         if (CHANNELS.get(holder.messageType()) == null) {
+-            SimpleChannel channel = ChannelBuilder
+-                    .named(holder.type().id())
+-                    .clientAcceptedVersions((a, b) -> true)
+-                    .serverAcceptedVersions((a, b) -> true)
+-                    .networkProtocolVersion(1)
++            SimpleChannel channel = NetworkRegistry.ChannelBuilder
++                    .named(holder.type().toMojang())
++                    .clientAcceptedVersions((a) -> true)
++                    .serverAcceptedVersions((a) -> true)
++                    .networkProtocolVersion(() -> "1")
+                     .simpleChannel();
+ 
+-            channel.messageBuilder(holder.messageType())
+-                    .decoder(mojangDecoder(holder.decoder()))
+-                    .encoder(mojangEncoder(holder.encoder()))
+-                    .consumerNetworkThread(buildHandler(holder.handler()))
+-                    .add();
++            channel.registerMessage(
++                    0,
++                    holder.messageType(),
++                    mojangEncoder(holder.encoder()),
++                    mojangDecoder(holder.decoder()),
++                    buildHandler(holder.handler()));
+ 
+             CHANNELS.put(holder.messageType(), channel);
+         } else {
+@@ -62,7 +64,7 @@
+         SimpleChannel channel = CHANNELS.get(packet.getClass());
+         Connection connection = Minecraft.getInstance().getConnection().getConnection();
+         if (channel.isRemotePresent(connection) || ignoreCheck) {
+-            channel.send(packet, PacketDistributor.SERVER.noArg());
++            channel.sendToServer(packet);
+         }
+     }
+ 
+@@ -72,8 +74,8 @@
+         if (connection == null)
+             return;
+ 
+-        if (channel.isRemotePresent(connection.getConnection())) {
+-            channel.send(packet, PacketDistributor.PLAYER.with(player.toMojangServerPlayer()));
++        if (channel.isRemotePresent(connection.connection)) {
++            channel.sendTo(packet, player.getConnection().connection, NetworkDirection.PLAY_TO_CLIENT);
+         }
+     }
+ 
+@@ -85,14 +87,14 @@
+         return ((t, byteBuf) -> handler.accept(t, BridgedFriendlyByteBuf.of(byteBuf)));
+     }
+ 
+-    private <T> BiConsumer<T, CustomPayloadEvent.Context> buildHandler(Consumer<PacketContext<T>> handler) {
++    private <T> BiConsumer<T, Supplier<NetworkEvent.Context>> buildHandler(Consumer<PacketContext<T>> handler) {
+         return (message, ctx) -> {
+-            ctx.enqueueWork(() -> {
+-                PacketSide side = ctx.getDirection().getReceptionSide().isServer() ? PacketSide.SERVER : PacketSide.CLIENT;
+-                ServerPlayer player = ctx.getSender();
++            ctx.get().enqueueWork(() -> {
++                PacketSide side = ctx.get().getDirection().getReceptionSide().isServer() ? PacketSide.SERVER : PacketSide.CLIENT;
++                ServerPlayer player = ctx.get().getSender();
+                 handler.accept(new PacketContext<>(BridgedPlayer.of(player), message, side));
+             });
+-            ctx.setPacketHandled(true);
++            ctx.get().setPacketHandled(true);
+         };
+     }
+ }

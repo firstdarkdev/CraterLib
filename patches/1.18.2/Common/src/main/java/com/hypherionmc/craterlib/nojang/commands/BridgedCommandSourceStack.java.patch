@@ -1,0 +1,11 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/commands/BridgedCommandSourceStack.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/commands/BridgedCommandSourceStack.java
+@@ -13,7 +13,7 @@
+     private final CommandSourceStack internal;
+ 
+     public void sendSuccess(Supplier<Component> supplier, boolean bl) {
+-        internal.sendSuccess(() -> ChatUtils.adventureToMojang(supplier.get()), bl);
++        internal.sendSuccess(ChatUtils.adventureToMojang(supplier.get()), bl);
+     }
+ 
+     public CommandSourceStack toMojang() {

@@ -1,0 +1,65 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
+@@ -5,22 +5,31 @@
+ import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
+ import net.kyori.adventure.text.format.NamedTextColor;
+ import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
++import net.kyori.adventure.text.serializer.json.JSONOptions;
++import net.kyori.option.OptionState;
+ import net.minecraft.ChatFormatting;
+ import net.minecraft.Util;
+-import net.minecraft.core.RegistryAccess;
+ import net.minecraft.network.chat.Component;
+ import net.minecraft.network.chat.Style;
++import net.minecraft.network.chat.TextComponent;
++import net.minecraft.network.chat.TranslatableComponent;
+ 
+ public class ChatUtils {
+ 
++    private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
++            OptionState.optionState()
++                    .value(JSONOptions.EMIT_HOVER_SHOW_ENTITY_ID_AS_INT_ARRAY, false)
++                    .value(JSONOptions.EMIT_HOVER_EVENT_TYPE, JSONOptions.HoverEventValueMode.MODERN_ONLY).build()
++    ).build();
++
+     public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
+-        final String serialised = GsonComponentSerializer.gson().serialize(inComponent);
+-        return Component.Serializer.fromJson(serialised, RegistryAccess.EMPTY);
++        final String serialised = adventureSerializer.serialize(inComponent);
++        return Component.Serializer.fromJson(serialised);
+     }
+ 
+     public static net.kyori.adventure.text.Component mojangToAdventure(Component inComponent) {
+-        final String serialised = Component.Serializer.toJson(inComponent, RegistryAccess.EMPTY);
+-        return GsonComponentSerializer.gson().deserialize(serialised);
++        final String serialised = Component.Serializer.toJson(inComponent);
++        return adventureSerializer.deserialize(serialised);
+     }
+ 
+     // Some text components contain duplicate text, resulting in duplicate messages
+@@ -28,7 +37,7 @@
+     public static Component safeCopy(Component inComponent) {
+         String value = inComponent.getString();
+         Style style = inComponent.getStyle();
+-        return Component.literal(value).withStyle(style);
++        return new TextComponent(value).withStyle(style);
+     }
+ 
+     public static String strip(String inString, String... toStrip) {
+@@ -57,7 +66,7 @@
+     }
+ 
+     public static net.kyori.adventure.text.Component resolve(String component, boolean formatted) {
+-        Component returnVal = Component.literal(component);
++        Component returnVal = new TextComponent(component);
+         if (formatted) {
+             returnVal = MinecraftSerializer.INSTANCE.serialize(component);
+         }
+@@ -85,6 +94,6 @@
+         if (identifier == null)
+             return net.kyori.adventure.text.Component.text("Unknown");
+ 
+-        return mojangToAdventure(Component.translatable(Util.makeDescriptionId("biome", identifier.toMojang())));
++        return mojangToAdventure(new TranslatableComponent(Util.makeDescriptionId("biome", identifier.toMojang())));
+     }
+ }

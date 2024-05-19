@@ -1,0 +1,11 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/client/BridgedMinecraft.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/client/BridgedMinecraft.java
+@@ -35,7 +35,7 @@
+     }
+ 
+     public boolean isRealmServer() {
+-        return internal.getCurrentServer() != null && internal.getCurrentServer().isRealm();
++        return internal.getCurrentServer() != null && internal.isConnectedToRealms();
+     }
+ 
+     public boolean isSinglePlayer() {

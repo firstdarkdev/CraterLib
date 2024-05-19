@@ -1,0 +1,39 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/mixin/events/PlayerListMixin.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/mixin/events/PlayerListMixin.java
+@@ -9,9 +9,9 @@
+ import com.hypherionmc.craterlib.utils.ChatUtils;
+ import com.mojang.authlib.GameProfile;
+ import net.minecraft.network.Connection;
++import net.minecraft.network.chat.ChatType;
+ import net.minecraft.network.chat.Component;
+ import net.minecraft.server.level.ServerPlayer;
+-import net.minecraft.server.network.CommonListenerCookie;
+ import net.minecraft.server.players.PlayerList;
+ import org.spongepowered.asm.mixin.Mixin;
+ import org.spongepowered.asm.mixin.injection.At;
+@@ -20,20 +20,21 @@
+ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+ 
+ import java.net.SocketAddress;
++import java.util.UUID;
+ import java.util.function.Function;
+ 
+ @Mixin(PlayerList.class)
+ public class PlayerListMixin {
+ 
+-    @Inject(method = "broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Ljava/util/function/Function;Z)V", at = @At("HEAD"))
+-    private void injectBroadcastEvent(Component component, Function<ServerPlayer, Component> function, boolean bl, CallbackInfo ci) {
++    @Inject(method = "broadcastMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/ChatType;Ljava/util/UUID;)V", at = @At("HEAD"))
++    private void injectBroadcast(Component component, ChatType chatType, UUID uUID, CallbackInfo ci) {
+         String thread = Thread.currentThread().getStackTrace()[3].getClassName();
+-        MessageBroadcastEvent event = new MessageBroadcastEvent(ChatUtils.mojangToAdventure(component), (f) -> ChatUtils.mojangToAdventure(component), bl, thread);
++        MessageBroadcastEvent event = new MessageBroadcastEvent(ChatUtils.mojangToAdventure(component), (s) -> null, false, thread);
+         CraterEventBus.INSTANCE.postEvent(event);
+     }
+ 
+     @Inject(method = "placeNewPlayer", at = @At("TAIL"))
+-    private void injectPlayerLoginEvent(Connection connection, ServerPlayer serverPlayer, CommonListenerCookie commonListenerCookie, CallbackInfo ci) {
++    private void injectPlayerLoginEvent(Connection arg, ServerPlayer serverPlayer, CallbackInfo ci) {
+         CraterEventBus.INSTANCE.postEvent(new CraterPlayerEvent.PlayerLoggedIn(BridgedPlayer.of(serverPlayer)));
+     }
+ 

@@ -1,0 +1,28 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/commands/BridgedFakePlayer.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/commands/BridgedFakePlayer.java
+@@ -5,6 +5,7 @@
+ import net.minecraft.commands.CommandSource;
+ import net.minecraft.commands.CommandSourceStack;
+ import net.minecraft.network.chat.Component;
++import net.minecraft.network.chat.TextComponent;
+ import net.minecraft.server.MinecraftServer;
+ import net.minecraft.world.phys.Vec2;
+ import net.minecraft.world.phys.Vec3;
+@@ -37,14 +38,14 @@
+         public final Consumer<net.kyori.adventure.text.Component> errorCallback;
+ 
+         MojangBridge(MinecraftServer server, int perm, String name, BiConsumer<Supplier<net.kyori.adventure.text.Component>, Boolean> successCallback, Consumer<net.kyori.adventure.text.Component> errorCallback) {
+-            super(CommandSource.NULL, Vec3.ZERO, Vec2.ZERO, server.overworld(), perm, name, Component.literal(name), server, null);
++            super(CommandSource.NULL, Vec3.ZERO, Vec2.ZERO, server.overworld(), perm, name, new TextComponent(name), server, null);
+             this.successCallback = successCallback;
+             this.errorCallback = errorCallback;
+         }
+ 
+         @Override
+-        public void sendSuccess(Supplier<Component> supplier, boolean bl) {
+-            successCallback.accept(() -> ChatUtils.mojangToAdventure(supplier.get()), bl);
++        public void sendSuccess(Component supplier, boolean bl) {
++            successCallback.accept(() -> ChatUtils.mojangToAdventure(supplier), bl);
+         }
+ 
+         @Override

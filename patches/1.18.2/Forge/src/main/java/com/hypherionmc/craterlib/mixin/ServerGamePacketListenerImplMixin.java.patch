@@ -1,0 +1,36 @@
+--- a/Forge/src/main/java/com/hypherionmc/craterlib/mixin/ServerGamePacketListenerImplMixin.java
++++ b/Forge/src/main/java/com/hypherionmc/craterlib/mixin/ServerGamePacketListenerImplMixin.java
+@@ -5,10 +5,10 @@
+ import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+ import com.hypherionmc.craterlib.utils.ChatUtils;
+ import net.minecraft.network.chat.Component;
+-import net.minecraft.network.chat.PlayerChatMessage;
++import net.minecraft.network.chat.TextComponent;
+ import net.minecraft.server.level.ServerPlayer;
+-import net.minecraft.server.network.FilteredText;
+ import net.minecraft.server.network.ServerGamePacketListenerImpl;
++import net.minecraft.server.network.TextFilter;
+ import org.spongepowered.asm.mixin.Mixin;
+ import org.spongepowered.asm.mixin.Shadow;
+ import org.spongepowered.asm.mixin.injection.At;
+@@ -22,12 +22,16 @@
+     public ServerPlayer player;
+ 
+     @Inject(
+-            method = "lambda$handleChat$5",
+-            at = @At("HEAD"),
++            method = "handleChat(Lnet/minecraft/server/network/TextFilter$FilteredText;)V",
++            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/TextFilter$FilteredText;getFiltered()Ljava/lang/String;"),
+             cancellable = true
+     )
+-    private void injectChatEvent(Component component, PlayerChatMessage arg, FilteredText p_296589_, CallbackInfo ci) {
+-        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), arg.decoratedContent().getString(), ChatUtils.mojangToAdventure(arg.decoratedContent()));
++    private void injectChatEvent(TextFilter.FilteredText arg, CallbackInfo ci) {
++        Component message = new TextComponent(arg.getRaw());
++        if (message.getString().startsWith("/"))
++            return;
++
++        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), arg.getFiltered(), ChatUtils.mojangToAdventure(message));
+         CraterEventBus.INSTANCE.postEvent(event);
+         if (event.wasCancelled())
+             ci.cancel();

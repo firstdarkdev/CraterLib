@@ -1,0 +1,97 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
+@@ -8,10 +8,10 @@
+ import com.hypherionmc.craterlib.core.config.annotations.Tooltip;
+ import com.mojang.blaze3d.systems.RenderSystem;
+ import com.mojang.blaze3d.vertex.*;
++import com.mojang.math.Matrix4f;
+ import me.hypherionmc.moonconfig.core.conversion.SpecComment;
+ import net.minecraft.ChatFormatting;
+ import net.minecraft.client.gui.Font;
+-import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.client.gui.screens.ConfirmScreen;
+ import net.minecraft.client.gui.screens.Screen;
+ import net.minecraft.client.renderer.GameRenderer;
+@@ -20,7 +20,6 @@
+ import net.minecraft.util.Mth;
+ import org.jetbrains.annotations.NotNull;
+ import org.jetbrains.annotations.Nullable;
+-import org.joml.Matrix4f;
+ 
+ import java.lang.reflect.Field;
+ import java.lang.reflect.Modifier;
+@@ -177,19 +176,19 @@
+     }
+ 
+     @Override
+-    public void render(@NotNull GuiGraphics matrices, int mouseX, int mouseY, float delta) {
+-        overlayBackground(matrices.pose(), TOP, height - BOTTOM, 32);
++    public void render(@NotNull PoseStack matrices, int mouseX, int mouseY, float delta) {
++        overlayBackground(matrices, TOP, height - BOTTOM, 32);
++
+         renderScrollBar();
+ 
+-        matrices.pose().pushPose();
+-        matrices.pose().translate(0, 0, 500.0);
+-        overlayBackground(matrices.pose(), 0, TOP, 64);
+-        overlayBackground(matrices.pose(), height - BOTTOM, height, 64);
+-        renderShadow(matrices.pose());
+-        matrices.drawCenteredString(font, getTitle(), width / 2, 9, 0xFFFFFF);
+-        matrices.pose().popPose();
+-
++        matrices.pushPose();
++        matrices.translate(0, 0, 500.0);
++        overlayBackground(matrices, 0, TOP, 64);
++        overlayBackground(matrices, height - BOTTOM, height, 64);
++        renderShadow(matrices);
++        drawCenteredString(matrices, font, getTitle(), width / 2, 9, 0xFFFFFF);
+         super.render(matrices, mouseX, mouseY, delta);
++        matrices.popPose();
+ 
+         int y = (int) (TOP + 4 - Math.round(scrollerAmount));
+         for (Option<?> option : options) {
+@@ -268,9 +267,9 @@
+     protected void overlayBackground(Matrix4f matrix, int minX, int minY, int maxX, int maxY, int red, int green, int blue, int startAlpha, int endAlpha) {
+         Tesselator tesselator = Tesselator.getInstance();
+         BufferBuilder buffer = tesselator.getBuilder();
+-        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
+-        RenderSystem.setShaderTexture(0, Screen.MENU_BACKGROUND);
++        RenderSystem.setShaderTexture(0, Screen.BACKGROUND_LOCATION);
+         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
++        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
+         buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
+         buffer.vertex(matrix, minX, maxY, 0.0F).uv(minX / 32.0F, maxY / 32.0F).color(red, green, blue, endAlpha).endVertex();
+         buffer.vertex(matrix, maxX, maxY, 0.0F).uv(maxX / 32.0F, maxY / 32.0F).color(red, green, blue, endAlpha).endVertex();
+@@ -334,12 +333,12 @@
+     }
+ 
+     @Override
+-    public boolean mouseScrolled(double d, double e, double f, double g) {
++    public boolean mouseScrolled(double d, double e, double f) {
+         if (e >= TOP && e <= height - BOTTOM) {
+             scrollerAmount = Mth.clamp(scrollerAmount - f * 16.0D, 0, scrollHeight());
+             return true;
+         }
+-        return super.mouseScrolled(d, e, f, g);
++        return super.mouseScrolled(d, e, f);
+     }
+ 
+     @Override
+@@ -378,7 +377,7 @@
+         }
+     }
+ 
+-    private void renderConfigTooltip(GuiGraphics stack, Font font, int mouseX, int mouseY, int startX, int startY, int sizeX, int sizeY, String title, String... description) {
++    private void renderConfigTooltip(PoseStack stack, Font font, int mouseX, int mouseY, int startX, int startY, int sizeX, int sizeY, String title, String... description) {
+         if (mouseX > startX && mouseX < startX + sizeX) {
+             if (mouseY > startY && mouseY < startY + sizeY) {
+                 List<Component> list = new ArrayList<>();
+@@ -386,7 +385,7 @@
+                 for (String desc : description) {
+                     list.add(Component.translatable(desc));
+                 }
+-                stack.renderComponentTooltip(font, list, mouseX, mouseY);
++                renderComponentTooltip(stack, list, mouseX, mouseY);
+             }
+         }
+     }

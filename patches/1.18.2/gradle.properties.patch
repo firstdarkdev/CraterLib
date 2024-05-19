@@ -1,0 +1,40 @@
+--- a/gradle.properties
++++ b/gradle.properties
+@@ -9,18 +9,15 @@
+ mod_name=CraterLib
+ 
+ # Shared
+-minecraft_version=1.20.6
++minecraft_version=1.18.2
+ project_group=com.hypherionmc.craterlib
+ 
+ # Fabric
+ fabric_loader=0.15.0
+-fabric_api=0.97.8+1.20.6
++fabric_api=0.76.0+1.18.2
+ 
+ # Forge
+-forge_version=50.0.6
+-
+-# NeoForged
+-neoforge_version=41-beta
++forge_version=40.2.0
+ 
+ # Dependencies
+ moon_config=1.0.9
+@@ -30,11 +27,10 @@
+ discord_formatter=2.0.0
+ 
+ # Mod Dependencies
+-fabrictailor=2.3.1
+-vanish=1.5.4+1.20.5
+-mod_menu_version=10.0.0-beta.1
+-vanishmod=1.1.12.1
+-vanishmod_neo=puxrKAMr
++fabrictailor=1.9.0+1.18.2
++vanish=1.1.0
++mod_menu_version=3.2.5
++vanishmod=1.1.14
+ 
+ # Publishing
+ curse_id=867099

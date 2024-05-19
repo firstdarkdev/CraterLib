@@ -1,0 +1,11 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/api/events/server/CraterCommandEvent.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/api/events/server/CraterCommandEvent.java
+@@ -37,7 +37,7 @@
+     @Nullable
+     public BridgedPlayer getPlayer() {
+         try {
+-            Player p = parseResults.getContext().getLastChild().getSource().getPlayer();
++            Player p = parseResults.getContext().getLastChild().getSource().getPlayerOrException();
+ 
+             if (p != null)
+                 return BridgedPlayer.of(p);

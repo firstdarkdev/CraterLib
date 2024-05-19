@@ -1,0 +1,31 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/client/multiplayer/BridgedServerData.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/client/multiplayer/BridgedServerData.java
+@@ -3,6 +3,7 @@
+ import com.hypherionmc.craterlib.utils.ChatUtils;
+ import lombok.RequiredArgsConstructor;
+ import net.kyori.adventure.text.Component;
++import net.minecraft.ChatFormatting;
+ import net.minecraft.client.multiplayer.ServerData;
+ import net.minecraft.client.multiplayer.ServerStatusPinger;
+ 
+@@ -24,13 +25,17 @@
+     }
+ 
+     public int getMaxPlayers() {
+-        if (internal.players == null) {
++        if (!internal.pinged || internal.status.getString() == null) {
+             try {
+-                new ServerStatusPinger().pingServer(internal, () -> {}, () -> {});
++                new ServerStatusPinger().pingServer(internal, () -> {});
+             } catch (Exception ignored) {}
+         }
+ 
+-        return internal.players == null ? 0 : internal.players.max();
++        try {
++            return Integer.parseInt(ChatFormatting.stripFormatting(internal.status.getString()).split("/")[1]);
++        } catch (Exception ignored) {}
++
++        return 0;
+     }
+ 
+     public ServerData toMojang() {

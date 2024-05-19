@@ -1,0 +1,19 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/mixin/events/PlayerListMixin.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/mixin/events/PlayerListMixin.java
+@@ -11,7 +11,6 @@
+ import net.minecraft.network.Connection;
+ import net.minecraft.network.chat.Component;
+ import net.minecraft.server.level.ServerPlayer;
+-import net.minecraft.server.network.CommonListenerCookie;
+ import net.minecraft.server.players.PlayerList;
+ import org.spongepowered.asm.mixin.Mixin;
+ import org.spongepowered.asm.mixin.injection.At;
+@@ -33,7 +32,7 @@
+     }
+ 
+     @Inject(method = "placeNewPlayer", at = @At("TAIL"))
+-    private void injectPlayerLoginEvent(Connection connection, ServerPlayer serverPlayer, CommonListenerCookie commonListenerCookie, CallbackInfo ci) {
++    private void injectPlayerLoginEvent(Connection arg, ServerPlayer serverPlayer, CallbackInfo ci) {
+         CraterEventBus.INSTANCE.postEvent(new CraterPlayerEvent.PlayerLoggedIn(BridgedPlayer.of(serverPlayer)));
+     }
+ 

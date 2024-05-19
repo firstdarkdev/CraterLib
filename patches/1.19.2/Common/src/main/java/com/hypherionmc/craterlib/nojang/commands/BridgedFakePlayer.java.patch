@@ -1,0 +1,13 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/commands/BridgedFakePlayer.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/commands/BridgedFakePlayer.java
+@@ -43,8 +43,8 @@
+         }
+ 
+         @Override
+-        public void sendSuccess(Supplier<Component> supplier, boolean bl) {
+-            successCallback.accept(() -> ChatUtils.mojangToAdventure(supplier.get()), bl);
++        public void sendSuccess(Component supplier, boolean bl) {
++            successCallback.accept(() -> ChatUtils.mojangToAdventure(supplier), bl);
+         }
+ 
+         @Override

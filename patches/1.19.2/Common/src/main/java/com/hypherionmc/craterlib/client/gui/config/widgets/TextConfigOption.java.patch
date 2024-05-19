@@ -1,0 +1,21 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/widgets/TextConfigOption.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/widgets/TextConfigOption.java
+@@ -1,8 +1,8 @@
+ package com.hypherionmc.craterlib.client.gui.config.widgets;
+ 
++import com.mojang.blaze3d.vertex.PoseStack;
+ import net.minecraft.client.Minecraft;
+ import net.minecraft.client.gui.Font;
+-import net.minecraft.client.gui.GuiGraphics;
+ 
+ import java.util.function.Function;
+ 
+@@ -29,7 +29,7 @@
+     }
+ 
+     @Override
+-    public void render(Minecraft minecraft, Font font, int x, int y, int width, int height, GuiGraphics matrices, int mouseX, int mouseY, float delta) {
++    public void render(Minecraft minecraft, Font font, int x, int y, int width, int height, PoseStack matrices, int mouseX, int mouseY, float delta) {
+         widget.setTextColor(hasErrors ? 16733525 : 14737632);
+         super.render(minecraft, font, x, y, width, height, matrices, mouseX, mouseY, delta);
+     }

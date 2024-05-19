@@ -1,0 +1,25 @@
+--- a/Forge/src/main/resources/META-INF/mods.toml
++++ b/Forge/src/main/resources/META-INF/mods.toml
+@@ -1,5 +1,5 @@
+ modLoader = "javafml"
+-loaderVersion = "[50,)"
++loaderVersion = "[44,)"
+ license = "MIT"
+ issueTrackerURL = "https://github.com/firstdarkdev/craterLib/issues"
+ 
+@@ -19,13 +19,13 @@
+ [[dependencies.${ mod_id }]]
+     modId = "forge"
+     mandatory = true
+-    versionRange = "[50,)"
++    versionRange = "[44,)"
+     ordering = "NONE"
+     side = "BOTH"
+ 
+ [[dependencies.${ mod_id }]]
+     modId = "minecraft"
+     mandatory = true
+-    versionRange = "[1.20.6,1.21)"
++    versionRange = "[1.19.3,1.20)"
+     ordering = "NONE"
+     side = "BOTH"
