@@ -3,7 +3,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
     id "xyz.wagyourtail.unimined" version "1.2.4" apply false
     id "com.hypherionmc.modutils.modpublisher" version "2.1.+"
-    id "com.hypherionmc.modutils.orion" version "1.0.14"
+    id "com.hypherionmc.modutils.orion" version "1.0.+"
     id 'maven-publish'
 }
 
