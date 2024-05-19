@@ -30,6 +30,9 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Test LTS Branches
+        run: chmod +x ./gradle && ./gradlew setupWorkspace
+
+      - name: Test LTS Branches
         run: |
           for dir in dev/*/ ; do
             if [ -d "$dir" ]; then
