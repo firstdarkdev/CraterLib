@@ -12,6 +12,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Fetch all branches and tags
+        run: git fetch --all
 
       - name: Set Up JDK
         uses: actions/setup-java@v3
@@ -29,7 +34,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Test LTS Branches
+      - name: Setup Workspace
         run: chmod +x ./gradle && ./gradlew setupWorkspace
 
       - name: Test LTS Branches
