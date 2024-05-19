@@ -43,6 +43,7 @@ jobs:
             if [ -d "$dir" ]; then
               echo "Running Gradle build for $dir"
               cd "$dir"
+              chmod +x ./gradlew
               ./gradlew build
               cd -
             fi
