@@ -7,11 +7,11 @@ public class ResourceIdentifier {
     private final ResourceLocation internal;
 
     public ResourceIdentifier(String namespace, String path) {
-        this.internal = new ResourceLocation(namespace, path);
+        this.internal = ResourceLocation.fromNamespaceAndPath(namespace, path);
     }
 
     public ResourceIdentifier(String path) {
-        this.internal = new ResourceLocation(path);
+        this.internal = ResourceLocation.withDefaultNamespace(path);
     }
 
     public String getNamespace() {

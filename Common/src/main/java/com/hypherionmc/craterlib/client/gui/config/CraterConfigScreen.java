@@ -158,7 +158,7 @@ public class CraterConfigScreen extends Screen {
             return new TextConfigOption<>(Objects::toString, BigDecimal::new);
         }
         if (value instanceof ResourceLocation) {
-            return new TextConfigOption<>(Objects::toString, ResourceLocation::new);
+            return new TextConfigOption<>(Objects::toString, ResourceLocation::parse);
         }
         if (isSubConfig) {
             return new SubConfigWidget<>(config, this, value);
@@ -216,24 +216,23 @@ public class CraterConfigScreen extends Screen {
             int maxY = this.height - BOTTOM;
             //RenderSystem.disableTexture();
             Tesselator tesselator = Tesselator.getInstance();
-            BufferBuilder buffer = tesselator.getBuilder();
+            BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
-            buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
-            buffer.vertex(scrollbarPositionMinX, maxY, 0.0D).color(0, 0, 0, 255).endVertex();
-            buffer.vertex(scrollbarPositionMaxX, maxY, 0.0D).color(0, 0, 0, 255).endVertex();
-            buffer.vertex(scrollbarPositionMaxX, TOP, 0.0D).color(0, 0, 0, 255).endVertex();
-            buffer.vertex(scrollbarPositionMinX, TOP, 0.0D).color(0, 0, 0, 255).endVertex();
+            buffer.addVertex(scrollbarPositionMinX, maxY, 0.0f).setColor(0, 0, 0, 255);
+            buffer.addVertex(scrollbarPositionMaxX, maxY, 0.0f).setColor(0, 0, 0, 255);
+            buffer.addVertex(scrollbarPositionMaxX, TOP, 0.0f).setColor(0, 0, 0, 255);
+            buffer.addVertex(scrollbarPositionMinX, TOP, 0.0f).setColor(0, 0, 0, 255);
 
-            buffer.vertex(scrollbarPositionMinX, minY + height, 0.0D).color(SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, 1).endVertex();
-            buffer.vertex(scrollbarPositionMaxX, minY + height, 0.0D).color(SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, 1).endVertex();
-            buffer.vertex(scrollbarPositionMaxX, minY, 0.0D).color(SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, 1).endVertex();
-            buffer.vertex(scrollbarPositionMinX, minY, 0.0D).color(SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, 1).endVertex();
-            buffer.vertex(scrollbarPositionMinX, (minY + height - 1), 0.0D).color(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1).endVertex();
-            buffer.vertex((scrollbarPositionMaxX - 1), (minY + height - 1), 0.0D).color(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1).endVertex();
-            buffer.vertex((scrollbarPositionMaxX - 1), minY, 0.0D).color(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1).endVertex();
-            buffer.vertex(scrollbarPositionMinX, minY, 0.0D).color(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1).endVertex();
-            tesselator.end();
+            buffer.addVertex(scrollbarPositionMinX, minY + height, 0.0f).setColor(SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, 1);
+            buffer.addVertex(scrollbarPositionMaxX, minY + height, 0.0f).setColor(SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, 1);
+            buffer.addVertex(scrollbarPositionMaxX, minY, 0.0f).setColor(SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, 1);
+            buffer.addVertex(scrollbarPositionMinX, minY, 0.0f).setColor(SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, SCROLLBAR_BOTTOM_COLOR, 1);
+            buffer.addVertex(scrollbarPositionMinX, (minY + height - 1), 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
+            buffer.addVertex((scrollbarPositionMaxX - 1), (minY + height - 1), 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
+            buffer.addVertex((scrollbarPositionMaxX - 1), minY, 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
+            buffer.addVertex(scrollbarPositionMinX, minY, 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
+            BufferUploader.drawWithShader(buffer.buildOrThrow());
             RenderSystem.disableBlend();
             //RenderSystem.enableTexture();
         }
@@ -241,22 +240,21 @@ public class CraterConfigScreen extends Screen {
 
     private void renderShadow(PoseStack matrices) {
         Tesselator tesselator = Tesselator.getInstance();
-        BufferBuilder buffer = tesselator.getBuilder();
+        BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(770, 771, 0, 1);
         //RenderSystem.disableTexture();
         RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         Matrix4f matrix = matrices.last().pose();
-        buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
-        buffer.vertex(matrix, 0, TOP + 4, 0.0F).uv(0, 1).color(0, 0, 0, 0).endVertex();
-        buffer.vertex(matrix, width, TOP + 4, 0.0F).uv(1, 1).color(0, 0, 0, 0).endVertex();
-        buffer.vertex(matrix, width, TOP, 0.0F).uv(1, 0).color(0, 0, 0, 185).endVertex();
-        buffer.vertex(matrix, 0, TOP, 0.0F).uv(0, 0).color(0, 0, 0, 185).endVertex();
-        buffer.vertex(matrix, 0, height - BOTTOM, 0.0F).uv(0, 1).color(0, 0, 0, 185).endVertex();
-        buffer.vertex(matrix, width, height - BOTTOM, 0.0F).uv(1, 1).color(0, 0, 0, 185).endVertex();
-        buffer.vertex(matrix, width, height - BOTTOM - 4, 0.0F).uv(1, 0).color(0, 0, 0, 0).endVertex();
-        buffer.vertex(matrix, 0, height - BOTTOM - 4, 0.0F).uv(0, 0).color(0, 0, 0, 0).endVertex();
-        tesselator.end();
+        buffer.addVertex(matrix, 0, TOP + 4, 0.0F).setUv(0, 1).setColor(0, 0, 0, 0);
+        buffer.addVertex(matrix, width, TOP + 4, 0.0F).setUv(1, 1).setColor(0, 0, 0, 0);
+        buffer.addVertex(matrix, width, TOP, 0.0F).setUv(1, 0).setColor(0, 0, 0, 185);
+        buffer.addVertex(matrix, 0, TOP, 0.0F).setUv(0, 0).setColor(0, 0, 0, 185);
+        buffer.addVertex(matrix, 0, height - BOTTOM, 0.0F).setUv(0, 1).setColor(0, 0, 0, 185);
+        buffer.addVertex(matrix, width, height - BOTTOM, 0.0F).setUv(1, 1).setColor(0, 0, 0, 185);
+        buffer.addVertex(matrix, width, height - BOTTOM - 4, 0.0F).setUv(1, 0).setColor(0, 0, 0, 0);
+        buffer.addVertex(matrix, 0, height - BOTTOM - 4, 0.0F).setUv(0, 0).setColor(0, 0, 0, 0);
+        BufferUploader.drawWithShader(buffer.buildOrThrow());
         //RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
@@ -267,16 +265,15 @@ public class CraterConfigScreen extends Screen {
 
     protected void overlayBackground(Matrix4f matrix, int minX, int minY, int maxX, int maxY, int red, int green, int blue, int startAlpha, int endAlpha) {
         Tesselator tesselator = Tesselator.getInstance();
-        BufferBuilder buffer = tesselator.getBuilder();
+        BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
         RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         RenderSystem.setShaderTexture(0, Screen.MENU_BACKGROUND);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
-        buffer.vertex(matrix, minX, maxY, 0.0F).uv(minX / 32.0F, maxY / 32.0F).color(red, green, blue, endAlpha).endVertex();
-        buffer.vertex(matrix, maxX, maxY, 0.0F).uv(maxX / 32.0F, maxY / 32.0F).color(red, green, blue, endAlpha).endVertex();
-        buffer.vertex(matrix, maxX, minY, 0.0F).uv(maxX / 32.0F, minY / 32.0F).color(red, green, blue, startAlpha).endVertex();
-        buffer.vertex(matrix, minX, minY, 0.0F).uv(minX / 32.0F, minY / 32.0F).color(red, green, blue, startAlpha).endVertex();
-        tesselator.end();
+        buffer.addVertex(matrix, minX, maxY, 0.0F).setUv(minX / 32.0F, maxY / 32.0F).setColor(red, green, blue, endAlpha);
+        buffer.addVertex(matrix, maxX, maxY, 0.0F).setUv(maxX / 32.0F, maxY / 32.0F).setColor(red, green, blue, endAlpha);
+        buffer.addVertex(matrix, maxX, minY, 0.0F).setUv(maxX / 32.0F, minY / 32.0F).setColor(red, green, blue, startAlpha);
+        buffer.addVertex(matrix, minX, minY, 0.0F).setUv(minX / 32.0F, minY / 32.0F).setColor(red, green, blue, startAlpha);
+        BufferUploader.drawWithShader(buffer.buildOrThrow());
     }
 
     public int scrollHeight() {

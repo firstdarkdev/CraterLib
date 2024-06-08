@@ -11,6 +11,7 @@ orion.setup {
     multiProject = true
     enableMirrorMaven = true
     enableReleasesMaven = true
+    enableSnapshotsMaven = true
 
     dopplerToken = System.getenv("DOPPLER_KEY")
 
