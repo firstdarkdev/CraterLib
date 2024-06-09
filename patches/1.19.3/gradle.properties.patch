@@ -22,7 +22,7 @@
  
  # Dependencies
  moon_config=1.0.9
-@@ -30,11 +27,10 @@
+@@ -30,16 +27,15 @@
  discord_formatter=2.0.0
  
  # Mod Dependencies
@@ -38,3 +38,9 @@
  
  # Publishing
  curse_id=867099
+ modrinth_id=Nn8Wasaq
+-release_type=port
++release_type=release
+ 
+ # Gradle
+ org.gradle.jvmargs=-Xmx3G

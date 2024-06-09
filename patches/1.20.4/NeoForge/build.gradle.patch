@@ -1,5 +1,14 @@
 --- a/NeoForge/build.gradle
 +++ b/NeoForge/build.gradle
+@@ -31,7 +31,7 @@
+ 
+ unimined.minecraft {
+     neoForged {
+-        loader "net.neoforged:neoforge:${neoforge_version}:universal"
++        loader neoforge_version
+         mixinConfig("${mod_id}.mixins.json", "${mod_id}.neoforge.mixins.json")
+     }
+ }
 @@ -50,7 +50,7 @@
      from project(":Common").sourceSets.main.resources
      def buildProps = project.properties.clone()
