@@ -1,5 +1,14 @@
 --- a/NeoForge/build.gradle
 +++ b/NeoForge/build.gradle
+@@ -31,7 +31,7 @@
+ 
+ unimined.minecraft {
+     neoForged {
+-        loader "net.neoforged:neoforge:${neoforge_version}:universal"
++        loader neoforge_version
+         mixinConfig("${mod_id}.mixins.json", "${mod_id}.neoforge.mixins.json")
+     }
+ }
 @@ -50,7 +50,7 @@
      from project(":Common").sourceSets.main.resources
      def buildProps = project.properties.clone()
@@ -13,8 +22,8 @@
      setVersionType("release")
      setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md")
      setProjectVersion("${minecraft_version}-${project.version}")
--    setDisplayName("[NeoForge 1.20.6] CraterLib - ${project.version}")
--    setGameVersions("1.20.6")
+-    setDisplayName("[NeoForge 1.21.0] CraterLib - ${project.version}")
+-    setGameVersions("1.21")
 +    setDisplayName("[NeoForge 1.20.4] CraterLib - ${project.version}")
 +    setGameVersions("1.20.4")
      setLoaders("neoforge")

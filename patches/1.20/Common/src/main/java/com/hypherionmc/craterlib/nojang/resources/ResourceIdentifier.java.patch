@@ -1,0 +1,16 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/resources/ResourceIdentifier.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/resources/ResourceIdentifier.java
+@@ -7,11 +7,11 @@
+     private final ResourceLocation internal;
+ 
+     public ResourceIdentifier(String namespace, String path) {
+-        this.internal = ResourceLocation.fromNamespaceAndPath(namespace, path);
++        this.internal = new ResourceLocation(namespace, path);
+     }
+ 
+     public ResourceIdentifier(String path) {
+-        this.internal = ResourceLocation.withDefaultNamespace(path);
++        this.internal = new ResourceLocation(path);
+     }
+ 
+     public String getNamespace() {
