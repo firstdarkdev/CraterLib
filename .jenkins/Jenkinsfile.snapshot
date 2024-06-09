@@ -6,7 +6,12 @@ pipeline {
         docker {
             image "registry.firstdark.dev/java21:latest"
             alwaysPull true
+            args '-v gradle-cache:/home/gradle/.gradle'
         }
+    }
+
+    environment {
+        GRADLE_USER_HOME = '/home/gradle/.gradle'
     }
 
     stages {
@@ -51,8 +56,8 @@ pipeline {
                 projectSlug: "craterlib",
                 projectName: "${projectName}",
                 projectIcon: "${projectIcon}",
-                modLoaders: "forge|neoforge|fabric|quilt",
-                minecraftVersions: "1.20.6",
+                modLoaders: "neoforge|fabric|quilt",
+                minecraftVersions: "1.21",
                 failWebhook: env.SSS_WEBHOOK,
                 publishWebhooks: "${env.SSS_WEBHOOK}|${env.FDD_WH}"
 
