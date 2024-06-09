@@ -7,9 +7,9 @@
 -            image "registry.firstdark.dev/java21:latest"
 +            image "registry.firstdark.dev/java17:latest"
              alwaysPull true
+             args '-v gradle-cache:/home/gradle/.gradle'
          }
-     }
-@@ -10,7 +10,7 @@
+@@ -15,7 +15,7 @@
          stage("Notify Discord") {
              steps {
                  discordSend webhookURL: env.FDD_WH_ADMIN,
@@ -18,7 +18,7 @@
                          link: env.BUILD_URL,
                          result: 'SUCCESS',
                          description: "Build: [${BUILD_NUMBER}](${env.BUILD_URL})"
-@@ -39,7 +39,7 @@
+@@ -44,7 +44,7 @@
              deleteDir()
  
              discordSend webhookURL: env.FDD_WH_ADMIN,

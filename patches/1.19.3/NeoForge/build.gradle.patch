@@ -34,7 +34,7 @@
 -
 -unimined.minecraft {
 -    neoForged {
--        loader neoforge_version
+-        loader "net.neoforged:neoforge:${neoforge_version}:universal"
 -        mixinConfig("${mod_id}.mixins.json", "${mod_id}.neoforge.mixins.json")
 -    }
 -}
@@ -106,8 +106,8 @@
 -    setVersionType("release")
 -    setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md")
 -    setProjectVersion("${minecraft_version}-${project.version}")
--    setDisplayName("[NeoForge 1.20.6] CraterLib - ${project.version}")
--    setGameVersions("1.20.6")
+-    setDisplayName("[NeoForge 1.21.0] CraterLib - ${project.version}")
+-    setGameVersions("1.21")
 -    setLoaders("neoforge")
 -    setArtifact(remapJar)
 -    setCurseEnvironment("both")

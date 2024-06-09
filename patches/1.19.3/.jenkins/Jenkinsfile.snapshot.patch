@@ -7,7 +7,7 @@
  
  pipeline {
      agent {
-@@ -13,7 +14,7 @@
+@@ -18,7 +19,7 @@
          stage("Notify Discord") {
              steps {
                  discordSend webhookURL: env.SSS_WEBHOOK,
@@ -16,7 +16,7 @@
                          link: env.BUILD_URL,
                          result: 'SUCCESS',
                          description: "Build: [${BUILD_NUMBER}](${env.BUILD_URL})"
-@@ -29,14 +30,14 @@
+@@ -34,14 +35,14 @@
  
          stage("Build") {
              steps {
@@ -33,12 +33,12 @@
                  }
              }
          }
-@@ -51,8 +52,8 @@
+@@ -56,8 +57,8 @@
                  projectSlug: "craterlib",
                  projectName: "${projectName}",
                  projectIcon: "${projectIcon}",
--                modLoaders: "forge|neoforge|fabric|quilt",
--                minecraftVersions: "1.20.6",
+-                modLoaders: "neoforge|fabric|quilt",
+-                minecraftVersions: "1.21",
 +                modLoaders: "forge|fabric|quilt",
 +                minecraftVersions: "1.19.3|1.19.4",
                  failWebhook: env.SSS_WEBHOOK,
