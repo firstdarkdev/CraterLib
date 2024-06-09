@@ -4,5 +4,5 @@
  }
  
  rootProject.name = 'CraterLib'
--include("Common", "Fabric", "NeoForge", "Forge")
+-include("Common", "Fabric", "NeoForge")
 +include("Common", "Fabric", "Forge")
