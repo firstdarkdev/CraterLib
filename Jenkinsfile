@@ -15,8 +15,10 @@ pipeline {
 
                 if (dir(subfolderPath).exists()) {
                   try {
-                    def subfolderJob = load "${subfolderPath}/.jenkins/Jenkinsfile.snapshot"
-                    subfolderJob()
+                    dir("${WORKSPACE}/${subfolderName}") {
+                        def subfolderJob = load ".jenkins/Jenkinsfile.snapshot"
+                        subfolderJob()
+                    }
                   } catch (Exception e) {
                     echo "Error running pipeline for ${subfolderPath}: ${e.message}"
                     hasFailure = true
