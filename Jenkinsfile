@@ -1,4 +1,8 @@
 pipeline {
+    agent {
+        label "master"
+    }
+
     stages {
         stage("Build LTS Folders") {
             steps {
