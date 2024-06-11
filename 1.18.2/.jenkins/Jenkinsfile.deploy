@@ -1,3 +1,4 @@
+def majorMc = "1.18.2";
 def JDK = "17"
 
 pipeline {
@@ -17,7 +18,7 @@ pipeline {
         stage("Notify Discord") {
             steps {
                 discordSend webhookURL: env.FDD_WH_ADMIN,
-                        title: "Deploy Started: CraterLib 1.18.2 Deploy #${BUILD_NUMBER}",
+                        title: "Deploy Started: CraterLib ${majorMc} Deploy #${BUILD_NUMBER}",
                         link: env.BUILD_URL,
                         result: 'SUCCESS',
                         description: "Build: [${BUILD_NUMBER}](${env.BUILD_URL})"

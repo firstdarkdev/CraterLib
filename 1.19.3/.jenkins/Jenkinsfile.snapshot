@@ -33,7 +33,7 @@ pipeline {
         stage("Prepare") {
             steps {
                 sh "chmod +x ./gradlew"
-                sh "./gradlew build -PreleaseType=port"
+                sh "./gradlew build -PreleaseType=${reltype}"
             }
         }
 
