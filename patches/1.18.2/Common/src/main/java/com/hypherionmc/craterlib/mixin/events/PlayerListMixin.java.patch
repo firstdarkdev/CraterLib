@@ -11,12 +11,12 @@
  import net.minecraft.server.players.PlayerList;
  import org.spongepowered.asm.mixin.Mixin;
  import org.spongepowered.asm.mixin.injection.At;
-@@ -20,20 +20,21 @@
+@@ -20,20 +20,20 @@
  import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  
  import java.net.SocketAddress;
+-import java.util.function.Function;
 +import java.util.UUID;
- import java.util.function.Function;
  
  @Mixin(PlayerList.class)
  public class PlayerListMixin {

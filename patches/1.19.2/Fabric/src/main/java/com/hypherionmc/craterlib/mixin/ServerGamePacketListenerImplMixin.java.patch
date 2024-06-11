@@ -1,16 +1,26 @@
 --- a/Fabric/src/main/java/com/hypherionmc/craterlib/mixin/ServerGamePacketListenerImplMixin.java
 +++ b/Fabric/src/main/java/com/hypherionmc/craterlib/mixin/ServerGamePacketListenerImplMixin.java
-@@ -14,6 +14,9 @@
+@@ -4,16 +4,16 @@
+ import com.hypherionmc.craterlib.core.event.CraterEventBus;
+ import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+ import com.hypherionmc.craterlib.utils.ChatUtils;
+-import net.minecraft.network.chat.Component;
+ import net.minecraft.network.chat.PlayerChatMessage;
+ import net.minecraft.server.level.ServerPlayer;
+-import net.minecraft.server.network.FilteredText;
+ import net.minecraft.server.network.ServerGamePacketListenerImpl;
+ import org.spongepowered.asm.mixin.Mixin;
+ import org.spongepowered.asm.mixin.Shadow;
  import org.spongepowered.asm.mixin.injection.At;
  import org.spongepowered.asm.mixin.injection.Inject;
- import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 +import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 +
 +import java.util.concurrent.CompletableFuture;
  
  @Mixin(value = ServerGamePacketListenerImpl.class, priority = Integer.MIN_VALUE)
  public class ServerGamePacketListenerImplMixin {
-@@ -22,12 +25,12 @@
+@@ -22,12 +22,12 @@
      public ServerPlayer player;
  
      @Inject(

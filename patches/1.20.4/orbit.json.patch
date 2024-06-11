@@ -1,7 +1,0 @@
---- a/orbit.json
-+++ /dev/null
-@@ -1,4 +1,0 @@
--{
--  "action": "port",
--  "devBranch": "porting"
--}

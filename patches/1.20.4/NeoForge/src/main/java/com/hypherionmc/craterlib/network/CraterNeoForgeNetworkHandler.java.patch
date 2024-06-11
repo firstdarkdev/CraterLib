@@ -1,6 +1,6 @@
 --- a/NeoForge/src/main/java/com/hypherionmc/craterlib/network/CraterNeoForgeNetworkHandler.java
 +++ b/NeoForge/src/main/java/com/hypherionmc/craterlib/network/CraterNeoForgeNetworkHandler.java
-@@ -1,40 +1,71 @@
+@@ -1,40 +1,70 @@
  package com.hypherionmc.craterlib.network;
  
  import com.hypherionmc.craterlib.CraterConstants;
@@ -12,7 +12,6 @@
 +import com.hypherionmc.craterlib.nojang.network.BridgedFriendlyByteBuf;
  import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 +import net.minecraft.network.FriendlyByteBuf;
-+import net.minecraft.server.level.ServerPlayer;
 +import net.minecraft.world.entity.player.Player;
  import net.neoforged.bus.api.SubscribeEvent;
  import net.neoforged.fml.LogicalSide;
@@ -80,7 +79,7 @@
      }
  
      public <T> void sendToServer(T packet) {
-@@ -42,36 +73,45 @@
+@@ -42,36 +72,45 @@
      }
  
      public <T> void sendToServer(T packet, boolean ignoreCheck) {

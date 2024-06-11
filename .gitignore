@@ -25,3 +25,5 @@ artifacts
 src/test/**
 dev
 upstream
+rejects
+workspace

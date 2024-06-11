@@ -1,6 +1,6 @@
 # CraterLib
 
-This is a branch for porting automation. Commits and Pull Requests should NEVER target this branch directly
+This is a branch for all supported LTS versions. Please do NOT directly submit changes and PR's here. Submit them to the DEV branch instead
 
 ### Supported Minecraft Versions
 

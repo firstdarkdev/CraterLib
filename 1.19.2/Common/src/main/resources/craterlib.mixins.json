@@ -1,0 +1,24 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.hypherionmc.craterlib.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "client": [
+    "ChatInputSuggestorMixin",
+    "events.PlayerMixin",
+    "events.client.ClientLevelMixin",
+    "events.client.MinecraftMixin",
+    "events.client.RealmsMainScreenMixin"
+  ],
+  "server": [
+    "events.CommandMixin",
+    "events.PlayerAdvancementsMixin",
+    "events.PlayerListMixin",
+    "events.ServerPlayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

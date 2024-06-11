@@ -1,0 +1,110 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+    id "xyz.wagyourtail.unimined" version "1.2.4" apply false
+    id "com.hypherionmc.modutils.modpublisher" version "2.1.+"
+    id "com.hypherionmc.modutils.orion" version "1.0.+"
+    id 'maven-publish'
+}
+
+orion.setup {
+    multiProject = true
+    enableMirrorMaven = true
+    enableReleasesMaven = true
+
+    dopplerToken = System.getenv("DOPPLER_KEY")
+
+    versioning {
+        var relType = project.properties["releaseType"] ?: "${release_type}"
+        identifier("${relType}")
+    }
+}
+
+group = project_group
+
+subprojects {
+    apply plugin: "xyz.wagyourtail.unimined"
+    apply plugin: "java"
+    apply plugin: 'maven-publish'
+    apply plugin: 'com.github.johnrengelman.shadow'
+    apply plugin: 'com.hypherionmc.modutils.modpublisher'
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    group = rootProject.group
+
+    repositories {
+        mavenCentral()
+
+        maven {
+            name = "Modrinth"
+            url = "https://api.modrinth.com/maven"
+            content {
+                includeGroup "maven.modrinth"
+            }
+        }
+    }
+
+    configurations {
+        shade
+        modCompileOnly
+        implementation.extendsFrom shade
+        compileOnly.extendsFrom modCompileOnly
+    }
+
+    dependencies {
+        // All Projects
+        shade "me.hypherionmc.moon-config:core:${moon_config}"
+        shade "me.hypherionmc.moon-config:toml:${moon_config}"
+        shade "com.hypherionmc:rpcsdk:${rpc_sdk}"
+        shade "me.hypherionmc.sdlink:mcdiscordformatter-1.18.1:${discord_formatter}"
+        shade "net.kyori:adventure-api:${adventure}"
+        shade "net.kyori:adventure-text-serializer-gson:${adventure}"
+
+        compileOnly("org.projectlombok:lombok:${lombok}")
+        annotationProcessor("org.projectlombok:lombok:${lombok}")
+    }
+
+    jar {
+        manifest {
+            attributes([
+                    'Specification-Title'     : mod_name,
+                    'Specification-Vendor'    : mod_author,
+                    'Specification-Version'   : project.jar.archiveVersion,
+                    'Implementation-Title'    : project.name,
+                    'Implementation-Version'  : project.jar.archiveVersion,
+                    'Implementation-Vendor'   : mod_author,
+                    'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                    'Timestamp'               : System.currentTimeMillis(),
+                    'Built-On-Java'           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})",
+                    'Built-On-Minecraft'      : minecraft_version
+            ])
+        }
+    }
+
+/**
+ * ===============================================================================
+ * =       DO NOT EDIT BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING        =
+ * ===============================================================================
+ */
+    unimined.minecraft(sourceSets.main, true) {
+        version minecraft_version
+
+        mappings {
+            mojmap()
+            devNamespace "mojmap"
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        it.options.encoding = 'UTF-8'
+        it.options.release = 17
+    }
+
+    tasks.withType(GenerateModuleMetadata).configureEach {
+        enabled = false
+    }
+}
+
+// TODO MODULE JARS

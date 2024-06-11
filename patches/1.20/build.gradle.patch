@@ -1,0 +1,31 @@
+--- a/build.gradle
++++ b/build.gradle
+@@ -11,8 +11,6 @@
+     multiProject = true
+     enableMirrorMaven = true
+     enableReleasesMaven = true
+-    enableSnapshotsMaven = true
+-
+     dopplerToken = System.getenv("DOPPLER_KEY")
+ 
+     versioning {
+@@ -30,8 +28,8 @@
+     apply plugin: 'com.github.johnrengelman.shadow'
+     apply plugin: 'com.hypherionmc.modutils.modpublisher'
+ 
+-    sourceCompatibility = JavaVersion.VERSION_21
+-    targetCompatibility = JavaVersion.VERSION_21
++    sourceCompatibility = JavaVersion.VERSION_17
++    targetCompatibility = JavaVersion.VERSION_17
+ 
+     group = rootProject.group
+ 
+@@ -59,7 +57,7 @@
+         shade "me.hypherionmc.moon-config:core:${moon_config}"
+         shade "me.hypherionmc.moon-config:toml:${moon_config}"
+         shade "com.hypherionmc:rpcsdk:${rpc_sdk}"
+-        shade "me.hypherionmc.sdlink:mcdiscordformatter-1.20.3:${discord_formatter}"
++        shade "me.hypherionmc.sdlink:mcdiscordformatter-1.19.1:${discord_formatter}"
+         shade "net.kyori:adventure-api:${adventure}"
+         shade "net.kyori:adventure-text-serializer-gson:${adventure}"
+ 

@@ -1,9 +1,13 @@
+import codechicken.diffpatch.util.PatchMode
+
 plugins {
     id 'java'
-    id "com.hypherionmc.modutils.orion" version "1.0.17"
+    id "com.hypherionmc.modutils.orion.porting" version "1.0.18"
 }
 
 orionporting {
     upstreamBranch = "dev"
+    // Enable During Porting
+    //patchMode = PatchMode.FUZZY
     porting("1.20.4", "1.20.2", "1.20", "1.19.3", "1.19.2", "1.18.2")
 }

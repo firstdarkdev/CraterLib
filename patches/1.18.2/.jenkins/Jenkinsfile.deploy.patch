@@ -1,15 +1,12 @@
 --- a/.jenkins/Jenkinsfile.deploy
 +++ b/.jenkins/Jenkinsfile.deploy
-@@ -1,7 +1,7 @@
+@@ -1,4 +1,4 @@
+-def JDK = "21"
++def JDK = "17"
+ 
  pipeline {
      agent {
-         docker {
--            image "registry.firstdark.dev/java21:latest"
-+            image "registry.firstdark.dev/java17:latest"
-             alwaysPull true
-             args '-v gradle-cache:/home/gradle/.gradle'
-         }
-@@ -15,7 +15,7 @@
+@@ -17,7 +17,7 @@
          stage("Notify Discord") {
              steps {
                  discordSend webhookURL: env.FDD_WH_ADMIN,
@@ -18,12 +15,3 @@
                          link: env.BUILD_URL,
                          result: 'SUCCESS',
                          description: "Build: [${BUILD_NUMBER}](${env.BUILD_URL})"
-@@ -44,7 +44,7 @@
-             deleteDir()
- 
-             discordSend webhookURL: env.FDD_WH_ADMIN,
--                    title: "CraterLib Port Deploy #${BUILD_NUMBER}",
-+                    title: "CraterLib 1.18.2 Deploy #${BUILD_NUMBER}",
-                     link: env.BUILD_URL,
-                     result: currentBuild.currentResult,
-                     description: "Build: [${BUILD_NUMBER}](${env.BUILD_URL})\nStatus: ${currentBuild.currentResult}"

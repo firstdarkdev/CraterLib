@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "A library mod used by First Dark Development and HypherionSA Mods",
+  "authors": [
+    "${mod_author}",
+    "Misha"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/craterlib",
+    "sources": "https://github.com/firstdarkdev/craterLib/"
+  },
+  "license": "MIT",
+  "icon": "assets/craterlib/craterlib_logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.hypherionmc.craterlib.CraterLibInitializer"
+    ],
+    "client": [
+      "com.hypherionmc.craterlib.client.CraterLibClientInitializer"
+    ],
+    "modmenu": [
+      "com.hypherionmc.craterlib.CraterLibModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "${mod_id}.mixins.json",
+    "${mod_id}.fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "fabric-api": "*",
+    "minecraft": "1.18.2",
+    "java": ">=17"
+  }
+}

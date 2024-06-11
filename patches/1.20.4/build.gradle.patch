@@ -1,0 +1,21 @@
+--- a/build.gradle
++++ b/build.gradle
+@@ -11,7 +11,6 @@
+     multiProject = true
+     enableMirrorMaven = true
+     enableReleasesMaven = true
+-    enableSnapshotsMaven = true
+ 
+     dopplerToken = System.getenv("DOPPLER_KEY")
+ 
+@@ -30,8 +29,8 @@
+     apply plugin: 'com.github.johnrengelman.shadow'
+     apply plugin: 'com.hypherionmc.modutils.modpublisher'
+ 
+-    sourceCompatibility = JavaVersion.VERSION_21
+-    targetCompatibility = JavaVersion.VERSION_21
++    sourceCompatibility = JavaVersion.VERSION_17
++    targetCompatibility = JavaVersion.VERSION_17
+ 
+     group = rootProject.group
+ 
