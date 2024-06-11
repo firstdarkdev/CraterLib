@@ -49,6 +49,7 @@ pipeline {
     post {
         always {
             sh "./gradlew --stop"
+            archiveArtifacts artifacts: 'artifacts/*.jar'
 
             fddsnapshotter apiKey: env.PLATFORM_KEY,
                 projectSlug: "craterlib",
