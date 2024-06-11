@@ -3,8 +3,48 @@
 @@ -1,5 +1,5 @@
 -def JDK = "21"
 -def majorMc = "1.21";
-+def majorMc = "1.19.3/4";
++def majorMc = "1.19.3";
 +def JDK = "17"
  
  pipeline {
      agent {
+@@ -26,25 +26,33 @@
+         }
+         stage("Prepare") {
+             steps {
+-                sh "chmod +x ./gradlew"
+-                sh "./gradlew clean"
++                dir("${WORKSPACE}/${majorMc}") {
++                    sh "chmod +x ./gradlew"
++                    sh "./gradlew clean"
++                }
+             }
+         }
+         stage("Publish to Modrinth/Curseforge") {
+             steps {
+-                sh "./gradlew publishMod -Prelease=true"
++                dir("${WORKSPACE}/${majorMc}") {
++                    sh "./gradlew publishMod -Prelease=true"
++                }
+             }
+         }
+         stage("Publish to Maven") {
+             steps {
+-                sh "./gradlew publish -Prelease=true"
++                dir("${WORKSPACE}/${majorMc}") {
++                    sh "./gradlew publish -Prelease=true"
++                }
+             }
+         }
+     }
+     post {
+         always {
+-            sh "./gradlew --stop"
+-            deleteDir()
++            dir("${WORKSPACE}/${majorMc}") {
++                sh "./gradlew --stop"
++                deleteDir()
++            }
+ 
+             discordSend webhookURL: env.FDD_WH_ADMIN,
+                     title: "CraterLib Port Deploy #${BUILD_NUMBER}",

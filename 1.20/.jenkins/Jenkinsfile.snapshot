@@ -1,7 +1,7 @@
 def projectName = "CraterLib";
 def projectIcon = "https://cdn.modrinth.com/data/Nn8Wasaq/a172c634683a11a2e9ae593e56eba7885743bb44.png";
 def JDK = "17";
-def majorMc = "1.20/1";
+def majorMc = "1.20";
 def modLoaders = "forge|fabric|quilt";
 def supportedMc = "1.20|1.20.1";
 def reltype = "snapshot";
@@ -32,15 +32,19 @@ pipeline {
 
         stage("Prepare") {
             steps {
-                sh "chmod +x ./gradlew"
-                sh "./gradlew build -PreleaseType=${reltype}"
+                dir("${WORKSPACE}/${majorMc}") {
+                    sh "chmod +x ./gradlew"
+                    sh "./gradlew build -PreleaseType=${reltype}"
+                }
             }
         }
 
         stage("Publish to Maven") {
             steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh "./gradlew publish -PreleaseType=${reltype}"
+                dir ("${WORKSPACE}/${majorMc}") {
+                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                        sh "./gradlew publish -PreleaseType=${reltype}"
+                    }
                 }
             }
         }
@@ -48,18 +52,21 @@ pipeline {
 
     post {
         always {
-            sh "./gradlew --stop"
+            dir("${WORKSPACE}/${majorMc}") {
+                sh "./gradlew --stop"
+                archiveArtifacts artifacts: 'artifacts/*.jar'
 
-            fddsnapshotter apiKey: env.PLATFORM_KEY,
-                projectSlug: "craterlib",
-                projectName: "${projectName}",
-                projectIcon: "${projectIcon}",
-                modLoaders: "${modLoaders}",
-                minecraftVersions: "${supportedMc}",
-                failWebhook: env.SSS_WEBHOOK,
-                publishWebhooks: "${env.SSS_WEBHOOK}|${env.FDD_WH}"
+                fddsnapshotter apiKey: env.PLATFORM_KEY,
+                    projectSlug: "craterlib",
+                    projectName: "${projectName}",
+                    projectIcon: "${projectIcon}",
+                    modLoaders: "${modLoaders}",
+                    minecraftVersions: "${supportedMc}",
+                    failWebhook: env.SSS_WEBHOOK,
+                    publishWebhooks: "${env.SSS_WEBHOOK}|${env.FDD_WH}"
 
-            deleteDir()
+                deleteDir()
+            }
         }
     }
 }
