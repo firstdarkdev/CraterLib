@@ -5,22 +5,30 @@ import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
 import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+import net.kyori.adventure.text.serializer.json.JSONOptions;
 import net.minecraft.ChatFormatting;
+import net.minecraft.SharedConstants;
 import net.minecraft.Util;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 
+import java.util.function.Consumer;
+
 public class ChatUtils {
 
+    private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
+            JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().getDataVersion().getVersion())
+    ).build();
+
     public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
-        final String serialised = GsonComponentSerializer.gson().serialize(inComponent);
+        final String serialised = adventureSerializer.serialize(inComponent);
         return Component.Serializer.fromJson(serialised, RegistryAccess.EMPTY);
     }
 
     public static net.kyori.adventure.text.Component mojangToAdventure(Component inComponent) {
         final String serialised = Component.Serializer.toJson(inComponent, RegistryAccess.EMPTY);
-        return GsonComponentSerializer.gson().deserialize(serialised);
+        return adventureSerializer.deserialize(serialised);
     }
 
     // Some text components contain duplicate text, resulting in duplicate messages
@@ -87,4 +95,5 @@ public class ChatUtils {
 
         return mojangToAdventure(Component.translatable(Util.makeDescriptionId("biome", identifier.toMojang())));
     }
+
 }
