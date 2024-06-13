@@ -31,7 +31,7 @@ shadowJar {
 
 unimined.minecraft {
     neoForged {
-        loader "net.neoforged:neoforge:${neoforge_version}:universal"
+        loader neoforge_version
         mixinConfig("${mod_id}.mixins.json", "${mod_id}.neoforge.mixins.json")
     }
 }
