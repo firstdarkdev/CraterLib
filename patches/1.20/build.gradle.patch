@@ -1,15 +1,14 @@
 --- a/build.gradle
 +++ b/build.gradle
-@@ -11,8 +11,6 @@
+@@ -11,7 +11,6 @@
      multiProject = true
      enableMirrorMaven = true
      enableReleasesMaven = true
--    enableSnapshotsMaven = true
 -
      dopplerToken = System.getenv("DOPPLER_KEY")
  
      versioning {
-@@ -30,8 +28,8 @@
+@@ -29,8 +28,8 @@
      apply plugin: 'com.github.johnrengelman.shadow'
      apply plugin: 'com.hypherionmc.modutils.modpublisher'
  
@@ -20,7 +19,7 @@
  
      group = rootProject.group
  
-@@ -59,7 +57,7 @@
+@@ -58,7 +57,7 @@
          shade "me.hypherionmc.moon-config:core:${moon_config}"
          shade "me.hypherionmc.moon-config:toml:${moon_config}"
          shade "com.hypherionmc:rpcsdk:${rpc_sdk}"

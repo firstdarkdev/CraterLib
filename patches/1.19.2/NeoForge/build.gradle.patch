@@ -1,6 +1,6 @@
 --- a/NeoForge/build.gradle
 +++ /dev/null
-@@ -1,111 +1,0 @@
+@@ -1,112 +1,0 @@
 -archivesBaseName = "${mod_name.replace(" ", "")}-NeoForge-${minecraft_version}"
 -
 -dependencies {
@@ -34,7 +34,7 @@
 -
 -unimined.minecraft {
 -    neoForged {
--        loader "net.neoforged:neoforge:${neoforge_version}:universal"
+-        loader neoforge_version
 -        mixinConfig("${mod_id}.mixins.json", "${mod_id}.neoforge.mixins.json")
 -    }
 -}
@@ -111,4 +111,5 @@
 -    setLoaders("neoforge")
 -    setArtifact(remapJar)
 -    setCurseEnvironment("both")
+-    setIsManualRelease(true)
 -}
