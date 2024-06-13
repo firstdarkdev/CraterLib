@@ -115,6 +115,7 @@ publisher {
     setLoaders("fabric", "quilt")
     setArtifact(remapJar)
     setCurseEnvironment("both")
+    setIsManualRelease(true)
 
     modrinthDepends {
         required("fabric-api")
