@@ -108,4 +108,5 @@ publisher {
     setLoaders("neoforge")
     setArtifact(remapJar)
     setCurseEnvironment("both")
+    setIsManualRelease(true)
 }

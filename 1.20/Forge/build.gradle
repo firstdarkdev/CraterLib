@@ -109,4 +109,5 @@ publisher {
     setLoaders("forge")
     setArtifact(remapJar)
     setCurseEnvironment("both")
+    setIsManualRelease(true)
 }
