@@ -11,7 +11,7 @@ public class ResourceIdentifier {
     }
 
     public ResourceIdentifier(String path) {
-        this.internal = ResourceLocation.withDefaultNamespace(path);
+        this.internal = ResourceLocation.parse(path);
     }
 
     public String getNamespace() {
