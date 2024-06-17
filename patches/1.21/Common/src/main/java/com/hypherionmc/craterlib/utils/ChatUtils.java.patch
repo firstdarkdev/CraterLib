@@ -1,0 +1,46 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
+@@ -1,5 +1,7 @@
+ package com.hypherionmc.craterlib.utils;
+ 
++import com.hypherionmc.craterlib.core.platform.CommonPlatform;
++import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
+ import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
+ import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
+ import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
+@@ -9,7 +11,10 @@
+ import net.minecraft.ChatFormatting;
+ import net.minecraft.SharedConstants;
+ import net.minecraft.Util;
++import net.minecraft.client.Minecraft;
++import net.minecraft.core.HolderLookup;
+ import net.minecraft.core.RegistryAccess;
++import net.minecraft.data.registries.VanillaRegistries;
+ import net.minecraft.network.chat.Component;
+ import net.minecraft.network.chat.Style;
+ 
+@@ -23,12 +28,22 @@
+ 
+     public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
+         final String serialised = adventureSerializer.serialize(inComponent);
+-        return Component.Serializer.fromJson(serialised, RegistryAccess.EMPTY);
++        return Component.Serializer.fromJson(serialised, getRegistryLookup());
+     }
+ 
+     public static net.kyori.adventure.text.Component mojangToAdventure(Component inComponent) {
+-        final String serialised = Component.Serializer.toJson(inComponent, RegistryAccess.EMPTY);
++        final String serialised = Component.Serializer.toJson(inComponent, getRegistryLookup());
+         return adventureSerializer.deserialize(serialised);
++    }
++
++    private static HolderLookup.Provider getRegistryLookup() {
++        if (ModloaderEnvironment.INSTANCE.getEnvironment().isClient() && Minecraft.getInstance().level != null)
++            return Minecraft.getInstance().level.registryAccess();
++
++        if (ModloaderEnvironment.INSTANCE.getEnvironment().isServer() && CommonPlatform.INSTANCE.getMCServer() != null)
++            return CommonPlatform.INSTANCE.getMCServer().toMojang().registryAccess();
++
++        return RegistryAccess.EMPTY;
+     }
+ 
+     // Some text components contain duplicate text, resulting in duplicate messages
