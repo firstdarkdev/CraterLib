@@ -103,10 +103,12 @@ publisher {
     apiKeys {
         modrinth(System.getenv("MODRINTH_TOKEN"))
         curseforge(System.getenv("CURSE_TOKEN"))
+        nightbloom(System.getenv("PLATFORM_KEY"))
     }
 
     setCurseID(curse_id)
     setModrinthID(modrinth_id)
+    setNightbloomID("craterlib")
     setVersionType("release")
     setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-fabric.md")
     setProjectVersion("${minecraft_version}-${project.version}")

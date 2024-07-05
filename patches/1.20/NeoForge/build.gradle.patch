@@ -1,6 +1,6 @@
 --- a/NeoForge/build.gradle
 +++ /dev/null
-@@ -1,112 +1,0 @@
+@@ -1,114 +1,0 @@
 -archivesBaseName = "${mod_name.replace(" ", "")}-NeoForge-${minecraft_version}"
 -
 -dependencies {
@@ -99,10 +99,12 @@
 -    apiKeys {
 -        modrinth(System.getenv("MODRINTH_TOKEN"))
 -        curseforge(System.getenv("CURSE_TOKEN"))
+-        nightbloom(System.getenv("PLATFORM_KEY"))
 -    }
 -
 -    setCurseID(curse_id)
 -    setModrinthID(modrinth_id)
+-    setNightbloomID("craterlib")
 -    setVersionType("release")
 -    setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md")
 -    setProjectVersion("${minecraft_version}-${project.version}")

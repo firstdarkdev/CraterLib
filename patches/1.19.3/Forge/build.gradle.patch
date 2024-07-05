@@ -9,7 +9,7 @@
  
      // Do not edit or remove
      implementation project(":Common")
-@@ -104,8 +104,8 @@
+@@ -106,8 +106,8 @@
      setVersionType("release")
      setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md")
      setProjectVersion("${minecraft_version}-${project.version}")

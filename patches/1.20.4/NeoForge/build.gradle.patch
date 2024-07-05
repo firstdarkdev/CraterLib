@@ -9,7 +9,7 @@
          expand buildProps
      }
  }
-@@ -103,8 +103,8 @@
+@@ -105,8 +105,8 @@
      setVersionType("release")
      setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md")
      setProjectVersion("${minecraft_version}-${project.version}")

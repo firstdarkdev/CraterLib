@@ -33,7 +33,7 @@
                  }
              }
          }
-@@ -48,19 +52,21 @@
+@@ -48,20 +52,22 @@
  
      post {
          always {
@@ -46,6 +46,7 @@
 -                projectIcon: "${projectIcon}",
 -                modLoaders: "${modLoaders}",
 -                minecraftVersions: "${supportedMc}",
+-                type: "snapshot",
 -                failWebhook: env.SSS_WEBHOOK,
 -                publishWebhooks: "${env.SSS_WEBHOOK}|${env.FDD_WH}"
 -
@@ -60,6 +61,7 @@
 +                    projectIcon: "${projectIcon}",
 +                    modLoaders: "${modLoaders}",
 +                    minecraftVersions: "${supportedMc}",
++                    type: "snapshot",
 +                    failWebhook: env.SSS_WEBHOOK,
 +                    publishWebhooks: "${env.SSS_WEBHOOK}|${env.FDD_WH}"
 +
