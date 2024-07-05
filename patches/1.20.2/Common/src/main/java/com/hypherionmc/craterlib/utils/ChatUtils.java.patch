@@ -1,10 +1,21 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
-@@ -9,12 +9,9 @@
+@@ -1,7 +1,5 @@
+ package com.hypherionmc.craterlib.utils;
+ 
+-import com.hypherionmc.craterlib.core.platform.CommonPlatform;
+-import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
+ import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
+ import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
+ import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
+@@ -11,15 +9,9 @@
  import net.minecraft.ChatFormatting;
  import net.minecraft.SharedConstants;
  import net.minecraft.Util;
+-import net.minecraft.client.Minecraft;
+-import net.minecraft.core.HolderLookup;
 -import net.minecraft.core.RegistryAccess;
+-import net.minecraft.data.registries.VanillaRegistries;
  import net.minecraft.network.chat.Component;
  import net.minecraft.network.chat.Style;
  
@@ -13,17 +24,28 @@
  public class ChatUtils {
  
      private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
-@@ -23,11 +20,11 @@
+@@ -28,22 +20,12 @@
  
      public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
          final String serialised = adventureSerializer.serialize(inComponent);
--        return Component.Serializer.fromJson(serialised, RegistryAccess.EMPTY);
+-        return Component.Serializer.fromJson(serialised, getRegistryLookup());
 +        return Component.Serializer.fromJson(serialised);
      }
  
      public static net.kyori.adventure.text.Component mojangToAdventure(Component inComponent) {
--        final String serialised = Component.Serializer.toJson(inComponent, RegistryAccess.EMPTY);
+-        final String serialised = Component.Serializer.toJson(inComponent, getRegistryLookup());
 +        final String serialised = Component.Serializer.toJson(inComponent);
          return adventureSerializer.deserialize(serialised);
+-    }
+-
+-    private static HolderLookup.Provider getRegistryLookup() {
+-        if (ModloaderEnvironment.INSTANCE.getEnvironment().isClient() && Minecraft.getInstance().level != null)
+-            return Minecraft.getInstance().level.registryAccess();
+-
+-        if (ModloaderEnvironment.INSTANCE.getEnvironment().isServer() && CommonPlatform.INSTANCE.getMCServer() != null)
+-            return CommonPlatform.INSTANCE.getMCServer().toMojang().registryAccess();
+-
+-        return RegistryAccess.EMPTY;
      }
  
+     // Some text components contain duplicate text, resulting in duplicate messages

@@ -1,10 +1,21 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
-@@ -9,11 +9,10 @@
+@@ -1,7 +1,5 @@
+ package com.hypherionmc.craterlib.utils;
+ 
+-import com.hypherionmc.craterlib.core.platform.CommonPlatform;
+-import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
+ import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
+ import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
+ import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
+@@ -11,14 +9,10 @@
  import net.minecraft.ChatFormatting;
  import net.minecraft.SharedConstants;
  import net.minecraft.Util;
+-import net.minecraft.client.Minecraft;
+-import net.minecraft.core.HolderLookup;
 -import net.minecraft.core.RegistryAccess;
+-import net.minecraft.data.registries.VanillaRegistries;
  import net.minecraft.network.chat.Component;
  import net.minecraft.network.chat.Style;
 -
@@ -14,21 +25,32 @@
  
  public class ChatUtils {
  
-@@ -23,11 +22,11 @@
+@@ -28,30 +22,20 @@
  
      public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
          final String serialised = adventureSerializer.serialize(inComponent);
--        return Component.Serializer.fromJson(serialised, RegistryAccess.EMPTY);
+-        return Component.Serializer.fromJson(serialised, getRegistryLookup());
 +        return Component.Serializer.fromJson(serialised);
      }
  
      public static net.kyori.adventure.text.Component mojangToAdventure(Component inComponent) {
--        final String serialised = Component.Serializer.toJson(inComponent, RegistryAccess.EMPTY);
+-        final String serialised = Component.Serializer.toJson(inComponent, getRegistryLookup());
 +        final String serialised = Component.Serializer.toJson(inComponent);
          return adventureSerializer.deserialize(serialised);
      }
  
-@@ -36,7 +35,7 @@
+-    private static HolderLookup.Provider getRegistryLookup() {
+-        if (ModloaderEnvironment.INSTANCE.getEnvironment().isClient() && Minecraft.getInstance().level != null)
+-            return Minecraft.getInstance().level.registryAccess();
+-
+-        if (ModloaderEnvironment.INSTANCE.getEnvironment().isServer() && CommonPlatform.INSTANCE.getMCServer() != null)
+-            return CommonPlatform.INSTANCE.getMCServer().toMojang().registryAccess();
+-
+-        return RegistryAccess.EMPTY;
+-    }
+-
+     // Some text components contain duplicate text, resulting in duplicate messages
+     // sent back to discord. This should help fix those issues
      public static Component safeCopy(Component inComponent) {
          String value = inComponent.getString();
          Style style = inComponent.getStyle();
@@ -37,7 +59,7 @@
      }
  
      public static String strip(String inString, String... toStrip) {
-@@ -65,7 +64,7 @@
+@@ -80,7 +64,7 @@
      }
  
      public static net.kyori.adventure.text.Component resolve(String component, boolean formatted) {
@@ -46,7 +68,7 @@
          if (formatted) {
              returnVal = MinecraftSerializer.INSTANCE.serialize(component);
          }
-@@ -93,7 +92,7 @@
+@@ -108,7 +92,7 @@
          if (identifier == null)
              return net.kyori.adventure.text.Component.text("Unknown");
  

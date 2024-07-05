@@ -9,7 +9,7 @@
      }
  
      public ResourceIdentifier(String path) {
--        this.internal = ResourceLocation.withDefaultNamespace(path);
+-        this.internal = ResourceLocation.parse(path);
 +        this.internal = new ResourceLocation(path);
      }
  
