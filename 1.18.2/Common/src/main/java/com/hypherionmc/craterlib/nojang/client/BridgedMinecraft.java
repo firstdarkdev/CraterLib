@@ -72,6 +72,9 @@ public class BridgedMinecraft {
 
     @Nullable
     public BridgedIntegratedServer getSinglePlayerServer() {
+        if (internal.getSingleplayerServer() == null)
+            return null;
+
         return BridgedIntegratedServer.of(internal.getSingleplayerServer());
     }
 

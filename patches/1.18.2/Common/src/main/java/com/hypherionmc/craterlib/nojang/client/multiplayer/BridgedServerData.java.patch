@@ -6,21 +6,18 @@
  import net.kyori.adventure.text.Component;
 +import net.minecraft.ChatFormatting;
  import net.minecraft.client.multiplayer.ServerData;
- import net.minecraft.client.multiplayer.ServerStatusPinger;
  
-@@ -24,13 +25,17 @@
+ @RequiredArgsConstructor(staticName = "of")
+@@ -23,11 +24,15 @@
      }
  
      public int getMaxPlayers() {
 -        if (internal.players == null) {
 +        if (!internal.pinged || internal.status.getString() == null) {
-             try {
--                new ServerStatusPinger().pingServer(internal, () -> {}, () -> {});
-+                new ServerStatusPinger().pingServer(internal, () -> {});
-             } catch (Exception ignored) {}
+             return internal.playerList.size() + 1;
          }
  
--        return internal.players == null ? 0 : internal.players.max();
+-        return internal.players.max();
 +        try {
 +            return Integer.parseInt(ChatFormatting.stripFormatting(internal.status.getString()).split("/")[1]);
 +        } catch (Exception ignored) {}

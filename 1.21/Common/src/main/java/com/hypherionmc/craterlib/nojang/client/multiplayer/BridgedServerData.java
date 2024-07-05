@@ -4,7 +4,6 @@ import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
 import net.minecraft.client.multiplayer.ServerData;
-import net.minecraft.client.multiplayer.ServerStatusPinger;
 
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedServerData {
@@ -25,12 +24,10 @@ public class BridgedServerData {
 
     public int getMaxPlayers() {
         if (internal.players == null) {
-            try {
-                new ServerStatusPinger().pingServer(internal, () -> {}, () -> {});
-            } catch (Exception ignored) {}
+            return internal.playerList.size() + 1;
         }
 
-        return internal.players == null ? 0 : internal.players.max();
+        return internal.players.max();
     }
 
     public ServerData toMojang() {

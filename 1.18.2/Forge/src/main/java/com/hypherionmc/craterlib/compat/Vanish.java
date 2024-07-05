@@ -17,9 +17,9 @@ public class Vanish {
     public void vanishevent(PlayerVanishEvent event) {
         if (event.getEntity() instanceof Player p) {
             if (event.isVanished()) {
-                CraterEventBus.INSTANCE.postEvent(new CraterPlayerEvent.PlayerLoggedOut(BridgedPlayer.of(p)));
+                CraterEventBus.INSTANCE.postEvent(new CraterPlayerEvent.PlayerLoggedOut(BridgedPlayer.of(p), true));
             } else {
-                CraterEventBus.INSTANCE.postEvent(new CraterPlayerEvent.PlayerLoggedIn(BridgedPlayer.of(p)));
+                CraterEventBus.INSTANCE.postEvent(new CraterPlayerEvent.PlayerLoggedIn(BridgedPlayer.of(p), true));
             }
         }
     }

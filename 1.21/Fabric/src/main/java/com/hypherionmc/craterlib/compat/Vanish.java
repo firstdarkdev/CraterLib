@@ -12,9 +12,9 @@ public class Vanish {
     public static void register() {
         VanishEvents.VANISH_EVENT.register((serverPlayer, b) -> {
             if (b) {
-                CraterEventBus.INSTANCE.postEvent(new CraterPlayerEvent.PlayerLoggedOut(BridgedPlayer.of(serverPlayer)));
+                CraterEventBus.INSTANCE.postEvent(new CraterPlayerEvent.PlayerLoggedOut(BridgedPlayer.of(serverPlayer), true));
             } else {
-                CraterEventBus.INSTANCE.postEvent(new CraterPlayerEvent.PlayerLoggedIn(BridgedPlayer.of(serverPlayer)));
+                CraterEventBus.INSTANCE.postEvent(new CraterPlayerEvent.PlayerLoggedIn(BridgedPlayer.of(serverPlayer), true));
             }
         });
     }
