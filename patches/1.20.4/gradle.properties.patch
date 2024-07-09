@@ -1,6 +1,6 @@
 --- a/gradle.properties
 +++ b/gradle.properties
-@@ -9,18 +9,18 @@
+@@ -10,18 +10,18 @@
  mod_name=CraterLib
  
  # Shared
@@ -23,7 +23,7 @@
  
  # Dependencies
  moon_config=1.0.9
-@@ -31,15 +31,15 @@
+@@ -32,15 +32,15 @@
  
  # Mod Dependencies
  fabrictailor=2.3.1

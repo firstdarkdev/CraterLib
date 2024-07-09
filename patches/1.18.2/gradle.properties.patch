@@ -1,6 +1,6 @@
 --- a/gradle.properties
 +++ b/gradle.properties
-@@ -9,18 +9,15 @@
+@@ -10,18 +10,15 @@
  mod_name=CraterLib
  
  # Shared
@@ -22,7 +22,7 @@
  
  # Dependencies
  moon_config=1.0.9
-@@ -30,16 +27,15 @@
+@@ -31,16 +28,15 @@
  discord_formatter=2.0.0
  
  # Mod Dependencies
