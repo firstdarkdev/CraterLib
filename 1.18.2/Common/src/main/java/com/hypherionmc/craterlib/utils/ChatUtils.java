@@ -54,7 +54,7 @@ public class ChatUtils {
 
     public static String resolve(net.kyori.adventure.text.Component component, boolean formatted) {
         Component c = adventureToMojang(component);
-        String returnVal = ChatFormatting.stripFormatting(c.getString());
+        String returnVal = ChatFormatting.stripFormatting(DiscordMarkdownStripper.stripMarkdown(c.getString()));
 
         if (formatted) {
             returnVal = DiscordSerializer.INSTANCE.serialize(safeCopy(c).copy());

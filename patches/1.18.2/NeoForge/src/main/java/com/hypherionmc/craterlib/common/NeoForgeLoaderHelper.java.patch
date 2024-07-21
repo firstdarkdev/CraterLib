@@ -1,9 +1,10 @@
 --- a/NeoForge/src/main/java/com/hypherionmc/craterlib/common/NeoForgeLoaderHelper.java
 +++ /dev/null
-@@ -1,73 +1,0 @@
+@@ -1,79 +1,0 @@
 -package com.hypherionmc.craterlib.common;
 -
 -import com.hypherionmc.craterlib.core.platform.Environment;
+-import com.hypherionmc.craterlib.core.platform.LoaderType;
 -import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 -import net.minecraft.SharedConstants;
 -import net.minecraft.client.Minecraft;
@@ -24,6 +25,11 @@
 -    @Override
 -    public boolean isFabric() {
 -        return false;
+-    }
+-
+-    @Override
+-    public LoaderType getLoaderType() {
+-        return LoaderType.NEOFORGE;
 -    }
 -
 -    @Override

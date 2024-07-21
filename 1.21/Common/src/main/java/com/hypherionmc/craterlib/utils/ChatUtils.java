@@ -14,11 +14,8 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-
-import java.util.function.Consumer;
 
 public class ChatUtils {
 
@@ -70,7 +67,7 @@ public class ChatUtils {
 
     public static String resolve(net.kyori.adventure.text.Component component, boolean formatted) {
         Component c = adventureToMojang(component);
-        String returnVal = ChatFormatting.stripFormatting(c.getString());
+        String returnVal = ChatFormatting.stripFormatting(DiscordMarkdownStripper.stripMarkdown(c.getString()));
 
         if (formatted) {
             returnVal = DiscordSerializer.INSTANCE.serialize(safeCopy(c).copy());

@@ -1,6 +1,7 @@
 package com.hypherionmc.craterlib.common;
 
 import com.hypherionmc.craterlib.core.platform.Environment;
+import com.hypherionmc.craterlib.core.platform.LoaderType;
 import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.SharedConstants;
@@ -17,6 +18,11 @@ public class FabricLoaderHelper implements ModloaderEnvironment {
     @Override
     public boolean isFabric() {
         return true;
+    }
+
+    @Override
+    public LoaderType getLoaderType() {
+        return LoaderType.FABRIC;
     }
 
     @Override

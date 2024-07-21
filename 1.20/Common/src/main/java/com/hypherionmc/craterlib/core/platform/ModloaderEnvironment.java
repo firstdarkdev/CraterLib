@@ -12,7 +12,10 @@ public interface ModloaderEnvironment {
 
     public final ModloaderEnvironment INSTANCE = InternalServiceUtil.load(ModloaderEnvironment.class);
 
+    @Deprecated(forRemoval = true, since = "2.0.2")
     boolean isFabric();
+
+    LoaderType getLoaderType();
 
     String getGameVersion();
 

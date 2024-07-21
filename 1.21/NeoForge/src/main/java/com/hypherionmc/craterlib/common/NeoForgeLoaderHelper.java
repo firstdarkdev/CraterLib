@@ -1,6 +1,7 @@
 package com.hypherionmc.craterlib.common;
 
 import com.hypherionmc.craterlib.core.platform.Environment;
+import com.hypherionmc.craterlib.core.platform.LoaderType;
 import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
@@ -21,6 +22,11 @@ public class NeoForgeLoaderHelper implements ModloaderEnvironment {
     @Override
     public boolean isFabric() {
         return false;
+    }
+
+    @Override
+    public LoaderType getLoaderType() {
+        return LoaderType.NEOFORGE;
     }
 
     @Override

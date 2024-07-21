@@ -22,12 +22,12 @@ public class CraterPlayerEvent extends CraterEvent {
 
         public PlayerLoggedIn(BridgedPlayer player, boolean isFromVanish) {
             super(player);
-            this.isFromVanish = false;
+            this.isFromVanish = isFromVanish;
         }
 
     }
 
-    @Getter @Setter
+    @Getter
     public static class PlayerLoggedOut extends CraterPlayerEvent {
         private final boolean isFromVanish;
 
@@ -37,7 +37,7 @@ public class CraterPlayerEvent extends CraterEvent {
 
         public PlayerLoggedOut(BridgedPlayer player, boolean isFromVanish) {
             super(player);
-            this.isFromVanish = false;
+            this.isFromVanish = isFromVanish;
         }
 
     }
