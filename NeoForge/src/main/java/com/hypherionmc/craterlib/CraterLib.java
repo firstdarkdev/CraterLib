@@ -27,7 +27,7 @@ public class CraterLib {
         handler = new CraterNeoForgeNetworkHandler(FMLLoader.getDist().isClient() ? PacketSide.CLIENT : PacketSide.SERVER);
 
         if (ModloaderEnvironment.INSTANCE.isModLoaded("vmod")) {
-            eventBus.register(new Vanish());
+            NeoForge.EVENT_BUS.register(new Vanish());
         }
     }
 
