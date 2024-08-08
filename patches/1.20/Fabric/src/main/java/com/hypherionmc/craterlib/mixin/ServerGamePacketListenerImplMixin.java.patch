@@ -1,17 +1,6 @@
 --- a/Fabric/src/main/java/com/hypherionmc/craterlib/mixin/ServerGamePacketListenerImplMixin.java
 +++ b/Fabric/src/main/java/com/hypherionmc/craterlib/mixin/ServerGamePacketListenerImplMixin.java
-@@ -4,10 +4,8 @@
- import com.hypherionmc.craterlib.core.event.CraterEventBus;
- import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
- import com.hypherionmc.craterlib.utils.ChatUtils;
--import net.minecraft.network.chat.Component;
- import net.minecraft.network.chat.PlayerChatMessage;
- import net.minecraft.server.level.ServerPlayer;
--import net.minecraft.server.network.FilteredText;
- import net.minecraft.server.network.ServerGamePacketListenerImpl;
- import org.spongepowered.asm.mixin.Mixin;
- import org.spongepowered.asm.mixin.Shadow;
-@@ -15,6 +13,8 @@
+@@ -15,6 +15,8 @@
  import org.spongepowered.asm.mixin.injection.Inject;
  import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  
@@ -20,7 +9,7 @@
  @Mixin(value = ServerGamePacketListenerImpl.class, priority = Integer.MIN_VALUE)
  public class ServerGamePacketListenerImplMixin {
  
-@@ -22,12 +22,12 @@
+@@ -22,11 +24,12 @@
      public ServerPlayer player;
  
      @Inject(
@@ -30,8 +19,8 @@
              cancellable = true
      )
 -    private void injectChatEvent(PlayerChatMessage arg, Component arg2, FilteredText arg3, CallbackInfo ci) {
++    private void injectChatEvent(PlayerChatMessage arg, CompletableFuture<FilteredText> completableFuture, CompletableFuture<Component> completableFuture2, Void void_, CallbackInfo ci) {
++        Component arg2 = completableFuture2.join();
          Component finalArg = arg2 == null ? arg.decoratedContent() : arg2;
-+    private void injectChatEvent(PlayerChatMessage arg, CompletableFuture completableFuture, CompletableFuture completableFuture2, Void void_, CallbackInfo ci) {
          CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), finalArg.getString(), ChatUtils.mojangToAdventure(finalArg));
          CraterEventBus.INSTANCE.postEvent(event);
-         if (event.wasCancelled())
