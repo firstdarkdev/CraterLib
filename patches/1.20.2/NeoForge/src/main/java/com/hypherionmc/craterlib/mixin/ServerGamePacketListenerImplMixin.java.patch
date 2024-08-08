@@ -1,6 +1,6 @@
 --- a/NeoForge/src/main/java/com/hypherionmc/craterlib/mixin/ServerGamePacketListenerImplMixin.java
 +++ /dev/null
-@@ -1,36 +1,0 @@
+@@ -1,37 +1,0 @@
 -package com.hypherionmc.craterlib.mixin;
 -
 -import com.hypherionmc.craterlib.api.events.server.CraterServerChatEvent;
@@ -30,7 +30,8 @@
 -            cancellable = true
 -    )
 -    private void injectChatEvent(Component component, PlayerChatMessage arg, FilteredText p_296589_, CallbackInfo ci) {
--        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), arg.decoratedContent().getString(), ChatUtils.mojangToAdventure(arg.decoratedContent()));
+-        Component finalArg = component == null ? arg.decoratedContent() : component;
+-        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), finalArg.getString(), ChatUtils.mojangToAdventure(finalArg));
 -        CraterEventBus.INSTANCE.postEvent(event);
 -        if (event.wasCancelled())
 -            ci.cancel();

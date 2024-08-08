@@ -29,6 +29,7 @@ shadowJar {
     }
 
     setArchiveClassifier('dev-shadow')
+    mergeServiceFiles()
 }
 
 /**
@@ -112,8 +113,8 @@ publisher {
     setVersionType("release")
     setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-fabric.md")
     setProjectVersion("${minecraft_version}-${project.version}")
-    setDisplayName("[FABRIC/QUILT 1.21.x] CraterLib - ${project.version}")
-    setGameVersions("1.21", "1.21.1")
+    setDisplayName("[FABRIC/QUILT 1.21.0] CraterLib - ${project.version}")
+    setGameVersions("1.21")
     setLoaders("fabric", "quilt")
     setArtifact(remapJar)
     setCurseEnvironment("both")

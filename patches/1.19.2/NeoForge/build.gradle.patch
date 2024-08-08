@@ -1,6 +1,6 @@
 --- a/NeoForge/build.gradle
 +++ /dev/null
-@@ -1,114 +1,0 @@
+@@ -1,115 +1,0 @@
 -archivesBaseName = "${mod_name.replace(" ", "")}-NeoForge-${minecraft_version}"
 -
 -dependencies {
@@ -24,6 +24,7 @@
 -    }
 -
 -    setArchiveClassifier('dev-shadow')
+-    mergeServiceFiles()
 -}
 -
 -/**

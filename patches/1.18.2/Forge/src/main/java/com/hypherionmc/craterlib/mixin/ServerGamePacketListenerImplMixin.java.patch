@@ -13,7 +13,7 @@
  import org.spongepowered.asm.mixin.Mixin;
  import org.spongepowered.asm.mixin.Shadow;
  import org.spongepowered.asm.mixin.injection.At;
-@@ -22,12 +22,16 @@
+@@ -22,13 +22,16 @@
      public ServerPlayer player;
  
      @Inject(
@@ -24,7 +24,8 @@
              cancellable = true
      )
 -    private void injectChatEvent(Component component, PlayerChatMessage arg, FilteredText p_296589_, CallbackInfo ci) {
--        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), arg.decoratedContent().getString(), ChatUtils.mojangToAdventure(arg.decoratedContent()));
+-        Component finalArg = component == null ? arg.decoratedContent() : component;
+-        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), finalArg.getString(), ChatUtils.mojangToAdventure(finalArg));
 +    private void injectChatEvent(TextFilter.FilteredText arg, CallbackInfo ci) {
 +        Component message = new TextComponent(arg.getRaw());
 +        if (message.getString().startsWith("/"))

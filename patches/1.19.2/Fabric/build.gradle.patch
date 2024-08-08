@@ -1,6 +1,6 @@
 --- a/Fabric/build.gradle
 +++ b/Fabric/build.gradle
-@@ -112,8 +112,8 @@
+@@ -113,8 +113,8 @@
      setVersionType("release")
      setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-fabric.md")
      setProjectVersion("${minecraft_version}-${project.version}")

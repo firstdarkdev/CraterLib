@@ -26,8 +26,9 @@ public class ServerGamePacketListenerImplMixin {
             at = @At("HEAD"),
             cancellable = true
     )
+        Component finalArg = component == null ? arg.decoratedContent() : component;
     private void injectChatEvent(CompletableFuture completablefuture1, PlayerChatMessage arg, CompletableFuture completablefuture, Void p_248218_, CallbackInfo ci) {
-        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), arg.decoratedContent().getString(), ChatUtils.mojangToAdventure(arg.decoratedContent()));
+        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), finalArg.getString(), ChatUtils.mojangToAdventure(finalArg));
         CraterEventBus.INSTANCE.postEvent(event);
         if (event.wasCancelled())
             ci.cancel();

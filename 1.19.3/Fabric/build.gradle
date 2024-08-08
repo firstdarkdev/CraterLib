@@ -29,6 +29,7 @@ shadowJar {
     }
 
     setArchiveClassifier('dev-shadow')
+    mergeServiceFiles()
 }
 
 /**
