@@ -16,7 +16,7 @@ A Library mod and modding api for easier multi-version minecraft and mod loader 
 | 1.18.2-1.20.2     | ✳️             |
 | 1.20.4            | ✳️             |
 | 1.20.6            | ❌             |
-| 1.21              | ✳️             |
+| 1.21.x            | ✳️             |
 
 - ❌ - Not Supported; no bug fixes or new features.
 - 🚧 - Work in Progress; not ready for release.

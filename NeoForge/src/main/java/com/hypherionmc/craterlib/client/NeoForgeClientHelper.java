@@ -2,8 +2,8 @@ package com.hypherionmc.craterlib.client;
 
 import com.hypherionmc.craterlib.api.events.client.LateInitEvent;
 import com.hypherionmc.craterlib.client.gui.config.CraterConfigScreen;
+import com.hypherionmc.craterlib.core.config.AbstractConfig;
 import com.hypherionmc.craterlib.core.config.ConfigController;
-import com.hypherionmc.craterlib.core.config.ModuleConfig;
 import com.hypherionmc.craterlib.core.config.annotations.NoConfigScreen;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.hypherionmc.craterlib.core.platform.ClientPlatform;
@@ -51,9 +51,9 @@ public class NeoForgeClientHelper implements ClientPlatform {
         LateInitEvent event = new LateInitEvent(new BridgedMinecraft(), BridgedOptions.of(Minecraft.getInstance().options));
         CraterEventBus.INSTANCE.postEvent(event);
 
-        ConfigController.getMonitoredConfigs().forEach((conf, watcher) -> {
+        ConfigController.getWatchedConfigs().forEach((conf, watcher) -> {
             if (!conf.getClass().isAnnotationPresent(NoConfigScreen.class)) {
-                ModuleConfig config = (ModuleConfig) conf;
+                AbstractConfig config = watcher.getLeft();
                 ModList.get().getModContainerById(config.getModId()).ifPresent(c -> c.registerExtensionPoint(IConfigScreenFactory.class, ((minecraft, screen) -> new CraterConfigScreen(config, screen))));
             }
         });

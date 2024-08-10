@@ -9,7 +9,8 @@
     "ConfigScreenHandlerMixin"
   ],
   "server": [
-    "ServerGamePacketListenerImplMixin"
+    "ServerGamePacketListenerImplMixin",
+    "ServerStatusPacketListenerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
