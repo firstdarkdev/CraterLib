@@ -16,7 +16,8 @@
     "events.CommandMixin",
     "events.PlayerAdvancementsMixin",
     "events.PlayerListMixin",
-    "events.ServerPlayerMixin"
+    "events.ServerPlayerMixin",
+    "events.ServerStatusMixin"
   ],
   "injectors": {
     "defaultRequire": 1

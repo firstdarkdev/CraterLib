@@ -3,7 +3,7 @@ def projectIcon = "https://cdn.modrinth.com/data/Nn8Wasaq/a172c634683a11a2e9ae59
 def JDK = "17";
 def majorMc = "1.19.3";
 def modLoaders = "forge|fabric|quilt";
-def supportedMc = "1.19.3|1.19.4";
+def supportedMc = "1.19.4";
 def reltype = "snapshot";
 
 pipeline {

@@ -11,9 +11,9 @@
  
      group = rootProject.group
  
-@@ -58,7 +58,7 @@
-         shade "me.hypherionmc.moon-config:core:${moon_config}"
+@@ -59,7 +59,7 @@
          shade "me.hypherionmc.moon-config:toml:${moon_config}"
+         shade "me.hypherionmc.moon-config:json:${moon_config}"
          shade "com.hypherionmc:rpcsdk:${rpc_sdk}"
 -        shade "me.hypherionmc.sdlink:mcdiscordformatter-1.20.3:${discord_formatter}"
 +        shade "me.hypherionmc.sdlink:mcdiscordformatter-1.18.1:${discord_formatter}"

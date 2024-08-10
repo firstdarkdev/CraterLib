@@ -1,0 +1,11 @@
+--- a/Forge/src/main/java/com/hypherionmc/craterlib/mixin/ServerStatusPacketListenerMixin.java
++++ b/Forge/src/main/java/com/hypherionmc/craterlib/mixin/ServerStatusPacketListenerMixin.java
+@@ -44,7 +44,7 @@
+                             status.version(),
+                             status.favicon(),
+                             status.enforcesSecureChat(),
+-                            status.isModded()
++                            status.forgeData()
+                     )
+             ));
+         }

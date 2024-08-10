@@ -6,12 +6,12 @@
 -def JDK = "21";
 -def majorMc = "1.21";
 -def modLoaders = "neoforge|fabric|quilt";
--def supportedMc = "1.21";
+-def supportedMc = "1.21|1.21.1";
 -def reltype = "port";
 +def JDK = "17";
 +def majorMc = "1.19.3";
 +def modLoaders = "forge|fabric|quilt";
-+def supportedMc = "1.19.3|1.19.4";
++def supportedMc = "1.19.4";
 +def reltype = "snapshot";
  
  pipeline {

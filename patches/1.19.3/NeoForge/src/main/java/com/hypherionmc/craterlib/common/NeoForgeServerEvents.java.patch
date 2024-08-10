@@ -1,12 +1,11 @@
 --- a/NeoForge/src/main/java/com/hypherionmc/craterlib/common/NeoForgeServerEvents.java
 +++ /dev/null
-@@ -1,43 +1,0 @@
+@@ -1,41 +1,0 @@
 -package com.hypherionmc.craterlib.common;
 -
 -import com.hypherionmc.craterlib.api.events.server.CraterRegisterCommandEvent;
 -import com.hypherionmc.craterlib.api.events.server.CraterServerLifecycleEvent;
 -import com.hypherionmc.craterlib.core.event.CraterEventBus;
--import com.hypherionmc.craterlib.nojang.commands.CommandsRegistry;
 -import com.hypherionmc.craterlib.nojang.server.BridgedMinecraftServer;
 -import net.neoforged.bus.api.SubscribeEvent;
 -import net.neoforged.neoforge.event.RegisterCommandsEvent;
@@ -39,8 +38,7 @@
 -
 -    @SubscribeEvent
 -    public void onCommandRegister(RegisterCommandsEvent event) {
--        CraterEventBus.INSTANCE.postEvent(new CraterRegisterCommandEvent());
--        CommandsRegistry.INSTANCE.registerCommands(event.getDispatcher());
+-        CraterEventBus.INSTANCE.postEvent(new CraterRegisterCommandEvent(event.getDispatcher()));
 -    }
 -
 -}

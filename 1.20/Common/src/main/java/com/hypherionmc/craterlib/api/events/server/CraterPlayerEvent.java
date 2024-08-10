@@ -4,7 +4,6 @@ import com.hypherionmc.craterlib.core.event.CraterEvent;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @RequiredArgsConstructor
 @Getter

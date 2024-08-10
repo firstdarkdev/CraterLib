@@ -9,7 +9,7 @@
  @Mixin(value = ServerGamePacketListenerImpl.class, priority = Integer.MIN_VALUE)
  public class ServerGamePacketListenerImplMixin {
  
-@@ -22,11 +24,12 @@
+@@ -22,13 +24,14 @@
      public ServerPlayer player;
  
      @Inject(
@@ -19,8 +19,12 @@
              cancellable = true
      )
 -    private void injectChatEvent(Component component, PlayerChatMessage arg, FilteredText p_296589_, CallbackInfo ci) {
+-        Component finalcomp = component == null ? arg.decoratedContent() : component;
+-        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), finalcomp.getString(), ChatUtils.mojangToAdventure(finalcomp));
 +    private void injectChatEvent(CompletableFuture<Component> completablefuture1, PlayerChatMessage arg, CompletableFuture<FilteredText> completablefuture, Void p_248218_, CallbackInfo ci) {
 +        Component component = completablefuture1.join();
-         Component finalArg = component == null ? arg.decoratedContent() : component;
-         CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), finalArg.getString(), ChatUtils.mojangToAdventure(finalArg));
++        Component finalArg = component == null ? arg.decoratedContent() : component;
++        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), finalArg.getString(), ChatUtils.mojangToAdventure(finalArg));
          CraterEventBus.INSTANCE.postEvent(event);
+         if (event.wasCancelled())
+             ci.cancel();

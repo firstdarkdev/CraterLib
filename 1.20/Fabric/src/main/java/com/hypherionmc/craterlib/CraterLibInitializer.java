@@ -9,7 +9,6 @@ import com.hypherionmc.craterlib.core.networking.CraterPacketNetwork;
 import com.hypherionmc.craterlib.core.networking.data.PacketSide;
 import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.network.CraterFabricNetworkHandler;
-import com.hypherionmc.craterlib.nojang.commands.CommandsRegistry;
 import com.hypherionmc.craterlib.nojang.server.BridgedMinecraftServer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -21,8 +20,7 @@ public class CraterLibInitializer implements ModInitializer {
     public void onInitialize() {
         new CraterPacketNetwork(new CraterFabricNetworkHandler(PacketSide.SERVER));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            CraterEventBus.INSTANCE.postEvent(new CraterRegisterCommandEvent());
-            CommandsRegistry.INSTANCE.registerCommands(dispatcher);
+            CraterEventBus.INSTANCE.postEvent(new CraterRegisterCommandEvent(dispatcher));
         });
 
 

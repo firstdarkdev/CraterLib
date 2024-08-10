@@ -92,4 +92,11 @@ public class ChatUtils {
         return mojangToAdventure(Component.translatable(Util.makeDescriptionId("biome", identifier.toMojang())));
     }
 
+    public static net.kyori.adventure.text.Component format(String value) {
+        return net.kyori.adventure.text.Component.translatable(convertFormattingCodes(value));
+    }
+
+    private static String convertFormattingCodes(String input) {
+        return input.replaceAll("§([0-9a-fklmnor])", "\u00A7$1");
+    }
 }

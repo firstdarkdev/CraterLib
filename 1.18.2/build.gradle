@@ -57,11 +57,13 @@ subprojects {
         // All Projects
         shade "me.hypherionmc.moon-config:core:${moon_config}"
         shade "me.hypherionmc.moon-config:toml:${moon_config}"
+        shade "me.hypherionmc.moon-config:json:${moon_config}"
         shade "com.hypherionmc:rpcsdk:${rpc_sdk}"
         shade "me.hypherionmc.sdlink:mcdiscordformatter-1.18.1:${discord_formatter}"
         shade "net.kyori:adventure-api:${adventure}"
         shade "net.kyori:adventure-text-serializer-gson:${adventure}"
 
+        compileOnly 'net.luckperms:api:5.4'
         compileOnly("org.projectlombok:lombok:${lombok}")
         annotationProcessor("org.projectlombok:lombok:${lombok}")
     }

@@ -1,7 +1,7 @@
 package com.hypherionmc.craterlib.client.gui.config.widgets;
 
 import com.hypherionmc.craterlib.client.gui.config.CraterConfigScreen;
-import com.hypherionmc.craterlib.core.config.ModuleConfig;
+import com.hypherionmc.craterlib.core.config.AbstractConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -15,10 +15,10 @@ import net.minecraft.network.chat.Component;
 public class SubConfigWidget<T> extends AbstractConfigWidget<T, Button> {
 
     private final Object subConfig;
-    private final ModuleConfig config;
+    private final AbstractConfig config;
     private final Screen screen;
 
-    public SubConfigWidget(ModuleConfig config, Screen screen, Object subConfig) {
+    public SubConfigWidget(AbstractConfig config, Screen screen, Object subConfig) {
         this.config = config;
         this.subConfig = subConfig;
         this.screen = screen;

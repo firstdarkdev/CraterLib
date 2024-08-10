@@ -1,0 +1,77 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/api/commands/CraterCommand.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/api/commands/CraterCommand.java
+@@ -14,6 +14,7 @@
+ import net.minecraft.commands.CommandSourceStack;
+ import net.minecraft.commands.Commands;
+ import net.minecraft.commands.arguments.GameProfileArgument;
++import net.minecraft.server.level.ServerPlayer;
+ import net.minecraft.world.entity.player.Player;
+ import org.jetbrains.annotations.ApiStatus;
+ 
+@@ -53,7 +54,7 @@
+     public CraterCommand withGameProfilesArgument(String key, CommandExecutorWithArgs<List<BridgedGameProfile>> executor) {
+         this.mojangCommand.then(Commands.argument(key, GameProfileArgument.gameProfile())
+                 .executes(context -> executor.run(
+-                        BridgedPlayer.of(context.getSource().getPlayer()),
++                        BridgedPlayer.of(context.getSource().getPlayerOrException()),
+                         GameProfileArgument.getGameProfiles(context, key).stream().map(BridgedGameProfile::of).toList(),
+                         BridgedCommandSourceStack.of(context.getSource()))
+                 ));
+@@ -63,7 +64,7 @@
+     public CraterCommand withBoolArgument(String key, CommandExecutorWithArgs<Boolean> executor) {
+         this.mojangCommand.then(Commands.argument(key, BoolArgumentType.bool())
+                 .executes(context -> executor.run(
+-                        BridgedPlayer.of(context.getSource().getPlayer()),
++                        BridgedPlayer.of(context.getSource().getPlayerOrException()),
+                         BoolArgumentType.getBool(context, key),
+                         BridgedCommandSourceStack.of(context.getSource())
+                 )));
+@@ -73,7 +74,7 @@
+     public CraterCommand withWordArgument(String key, CommandExecutorWithArgs<String> executor) {
+         this.mojangCommand.then(Commands.argument(key, StringArgumentType.word())
+                 .executes(context -> executor.run(
+-                        BridgedPlayer.of(context.getSource().getPlayer()),
++                        BridgedPlayer.of(context.getSource().getPlayerOrException()),
+                         StringArgumentType.getString(context, key),
+                         BridgedCommandSourceStack.of(context.getSource())
+                 )));
+@@ -83,7 +84,7 @@
+     public CraterCommand withStringArgument(String key, CommandExecutorWithArgs<String> executor) {
+         this.mojangCommand.then(Commands.argument(key, StringArgumentType.string())
+                 .executes(context -> executor.run(
+-                        BridgedPlayer.of(context.getSource().getPlayer()),
++                        BridgedPlayer.of(context.getSource().getPlayerOrException()),
+                         StringArgumentType.getString(context, key),
+                         BridgedCommandSourceStack.of(context.getSource())
+                 )));
+@@ -93,7 +94,7 @@
+     public CraterCommand withPhraseArgument(String key, CommandExecutorWithArgs<String> executor) {
+         this.mojangCommand.then(Commands.argument(key, StringArgumentType.greedyString())
+                 .executes(context -> executor.run(
+-                        BridgedPlayer.of(context.getSource().getPlayer()),
++                        BridgedPlayer.of(context.getSource().getPlayerOrException()),
+                         StringArgumentType.getString(context, key),
+                         BridgedCommandSourceStack.of(context.getSource())
+                 )));
+@@ -103,7 +104,7 @@
+     public CraterCommand withIntegerArgument(String key, CommandExecutorWithArgs<Integer> executor) {
+         this.mojangCommand.then(Commands.argument(key, IntegerArgumentType.integer())
+                 .executes(context -> executor.run(
+-                        BridgedPlayer.of(context.getSource().getPlayer()),
++                        BridgedPlayer.of(context.getSource().getPlayerOrException()),
+                         IntegerArgumentType.getInteger(context, key),
+                         BridgedCommandSourceStack.of(context.getSource())
+                 )));
+@@ -137,10 +138,10 @@
+     }
+ 
+     private boolean checkPermission(CommandSourceStack stack) {
+-        if (!ModloaderEnvironment.INSTANCE.isModLoaded("luckperms") || !stack.isPlayer() || luckPermNode.isEmpty())
++        if (!ModloaderEnvironment.INSTANCE.isModLoaded("luckperms") || !(stack.getEntity() instanceof Player) || luckPermNode.isEmpty())
+             return stack.hasPermission(this.permLevel);
+ 
+-        return LuckPermsCompat.INSTANCE.hasPermission(stack.getPlayer(), this.luckPermNode) || stack.hasPermission(this.permLevel);
++        return LuckPermsCompat.INSTANCE.hasPermission((ServerPlayer) stack.getEntity(), this.luckPermNode) || stack.hasPermission(this.permLevel);
+     }
+ 
+     @FunctionalInterface

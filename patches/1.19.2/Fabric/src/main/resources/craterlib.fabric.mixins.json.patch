@@ -1,0 +1,12 @@
+--- a/Fabric/src/main/resources/craterlib.fabric.mixins.json
++++ b/Fabric/src/main/resources/craterlib.fabric.mixins.json
+@@ -9,8 +9,7 @@
+     "TutorialMixin"
+   ],
+   "server": [
+-    "ServerGamePacketListenerImplMixin",
+-    "ServerStatusPacketListenerMixin"
++    "ServerGamePacketListenerImplMixin"
+   ],
+   "injectors": {
+     "defaultRequire": 1

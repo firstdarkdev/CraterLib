@@ -1,0 +1,12 @@
+--- a/Forge/src/main/resources/craterlib.forge.mixins.json
++++ b/Forge/src/main/resources/craterlib.forge.mixins.json
+@@ -9,8 +9,7 @@
+     "ConfigScreenHandlerMixin"
+   ],
+   "server": [
+-    "ServerGamePacketListenerImplMixin",
+-    "ServerStatusPacketListenerMixin"
++    "ServerGamePacketListenerImplMixin"
+   ],
+   "injectors": {
+     "defaultRequire": 1

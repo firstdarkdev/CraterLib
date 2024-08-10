@@ -1,0 +1,12 @@
+--- a/Common/src/main/resources/craterlib.mixins.json
++++ b/Common/src/main/resources/craterlib.mixins.json
+@@ -17,7 +17,8 @@
+     "events.PlayerAdvancementsMixin",
+     "events.PlayerListMixin",
+     "events.ServerPlayerMixin",
+-    "events.ServerStatusMixin"
++    "events.ServerStatusMixin",
++    "events.ServerStatusPacketListenerMixin"
+   ],
+   "injectors": {
+     "defaultRequire": 1

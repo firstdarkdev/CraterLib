@@ -26,7 +26,7 @@
 @@ -49,7 +50,7 @@
      private boolean dragging;
  
-     public CraterConfigScreen(ModuleConfig config, Screen parent, Object subConfig) {
+     public CraterConfigScreen(AbstractConfig config, Screen parent, Object subConfig) {
 -        super(Component.translatable("cl." + config.getClass().getSimpleName().toLowerCase() + ".title"));
 +        super(new TranslatableComponent("cl." + config.getClass().getSimpleName().toLowerCase() + ".title"));
          this.parent = parent;

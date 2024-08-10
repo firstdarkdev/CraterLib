@@ -2,14 +2,17 @@ package com.hypherionmc.craterlib.api.events.server;
 
 import com.hypherionmc.craterlib.api.commands.CraterCommand;
 import com.hypherionmc.craterlib.core.event.CraterEvent;
-import com.hypherionmc.craterlib.nojang.commands.CommandsRegistry;
-import lombok.NoArgsConstructor;
+import com.mojang.brigadier.CommandDispatcher;
+import lombok.AllArgsConstructor;
+import net.minecraft.commands.CommandSourceStack;
 
-@NoArgsConstructor
+@AllArgsConstructor
 public class CraterRegisterCommandEvent extends CraterEvent {
 
+    private final CommandDispatcher<CommandSourceStack> stack;
+
     public void registerCommand(CraterCommand cmd) {
-        CommandsRegistry.INSTANCE.registerCommand(cmd);
+        cmd.register(stack);
     }
 
 }

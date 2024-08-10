@@ -57,6 +57,11 @@ public class BridgedPlayer {
         return null;
     }
 
+    public void disconnect(Component message) {
+        if (isServerPlayer())
+            toMojangServerPlayer().connection.disconnect(ChatUtils.adventureToMojang(message));
+    }
+
     public ServerPlayer toMojangServerPlayer() {
         return (ServerPlayer) internal;
     }

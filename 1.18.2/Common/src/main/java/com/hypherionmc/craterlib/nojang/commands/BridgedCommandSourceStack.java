@@ -16,6 +16,10 @@ public class BridgedCommandSourceStack {
         internal.sendSuccess(ChatUtils.adventureToMojang(supplier.get()), bl);
     }
 
+    public void sendFailure(Component text) {
+        internal.sendFailure(ChatUtils.adventureToMojang(text));
+    }
+
     public CommandSourceStack toMojang() {
         return internal;
     }

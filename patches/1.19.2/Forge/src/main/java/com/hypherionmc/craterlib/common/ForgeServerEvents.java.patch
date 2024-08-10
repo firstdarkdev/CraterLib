@@ -1,0 +1,20 @@
+--- a/Forge/src/main/java/com/hypherionmc/craterlib/common/ForgeServerEvents.java
++++ b/Forge/src/main/java/com/hypherionmc/craterlib/common/ForgeServerEvents.java
+@@ -3,7 +3,6 @@
+ import com.hypherionmc.craterlib.api.events.server.CraterRegisterCommandEvent;
+ import com.hypherionmc.craterlib.api.events.server.CraterServerLifecycleEvent;
+ import com.hypherionmc.craterlib.core.event.CraterEventBus;
+-import com.hypherionmc.craterlib.nojang.commands.CommandsRegistry;
+ import com.hypherionmc.craterlib.nojang.server.BridgedMinecraftServer;
+ import net.minecraftforge.event.RegisterCommandsEvent;
+ import net.minecraftforge.event.server.ServerStartedEvent;
+@@ -36,8 +35,7 @@
+ 
+     @SubscribeEvent
+     public void onCommandRegister(RegisterCommandsEvent event) {
+-        CraterEventBus.INSTANCE.postEvent(new CraterRegisterCommandEvent());
+-        CommandsRegistry.INSTANCE.registerCommands(event.getDispatcher());
++        CraterEventBus.INSTANCE.postEvent(new CraterRegisterCommandEvent(event.getDispatcher()));
+     }
+ 
+ }

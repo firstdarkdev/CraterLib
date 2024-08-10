@@ -1,7 +1,7 @@
 --- a/Fabric/src/main/java/com/hypherionmc/craterlib/CraterLibInitializer.java
 +++ b/Fabric/src/main/java/com/hypherionmc/craterlib/CraterLibInitializer.java
-@@ -12,7 +12,7 @@
- import com.hypherionmc.craterlib.nojang.commands.CommandsRegistry;
+@@ -11,7 +11,7 @@
+ import com.hypherionmc.craterlib.network.CraterFabricNetworkHandler;
  import com.hypherionmc.craterlib.nojang.server.BridgedMinecraftServer;
  import net.fabricmc.api.ModInitializer;
 -import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -9,12 +9,12 @@
  import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
  
  public class CraterLibInitializer implements ModInitializer {
-@@ -20,7 +20,7 @@
+@@ -19,7 +19,7 @@
      @Override
      public void onInitialize() {
          new CraterPacketNetwork(new CraterFabricNetworkHandler(PacketSide.SERVER));
 -        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 +        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-             CraterEventBus.INSTANCE.postEvent(new CraterRegisterCommandEvent());
-             CommandsRegistry.INSTANCE.registerCommands(dispatcher);
+             CraterEventBus.INSTANCE.postEvent(new CraterRegisterCommandEvent(dispatcher));
          });
+ 

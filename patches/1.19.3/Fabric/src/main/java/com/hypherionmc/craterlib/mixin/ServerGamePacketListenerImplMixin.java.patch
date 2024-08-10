@@ -21,11 +21,12 @@
              cancellable = true
      )
 -    private void injectChatEvent(PlayerChatMessage arg, Component arg2, FilteredText arg3, CallbackInfo ci) {
--        Component finalArg = arg2 == null ? arg.decoratedContent() : arg2;
+-        Component finalcomp = arg2 == null ? arg.decoratedContent() : arg2;
+-        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), finalcomp.getString(), ChatUtils.mojangToAdventure(finalcomp));
 +    private void injectChatEvent(CompletableFuture<FilteredText> completableFuture, CompletableFuture<Component> completableFuture2, PlayerChatMessage arg, Executor executor, CallbackInfoReturnable<CompletableFuture> cir) {
 +        Component comp2 = completableFuture2.join();
 +        Component finalArg = comp2 == null ? arg.decoratedContent() : comp2;
-         CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), finalArg.getString(), ChatUtils.mojangToAdventure(finalArg));
++        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), finalArg.getString(), ChatUtils.mojangToAdventure(finalArg));
          CraterEventBus.INSTANCE.postEvent(event);
          if (event.wasCancelled())
 -            ci.cancel();

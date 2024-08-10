@@ -9,5 +9,5 @@
 +    "ConfigScreenHandlerMixin"
 +  ],
    "server": [
-     "ServerGamePacketListenerImplMixin"
-   ],
+     "ServerGamePacketListenerImplMixin",
+     "ServerStatusPacketListenerMixin"

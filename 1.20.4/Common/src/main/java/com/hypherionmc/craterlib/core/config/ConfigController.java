@@ -3,6 +3,7 @@ package com.hypherionmc.craterlib.core.config;
 import com.hypherionmc.craterlib.CraterConstants;
 import lombok.Getter;
 import me.hypherionmc.moonconfig.core.file.FileWatcher;
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.io.Serializable;
@@ -18,7 +19,7 @@ public final class ConfigController implements Serializable {
      * Cache of registered configs
      */
     @Getter
-    private static final HashMap<Object, FileWatcher> monitoredConfigs = new HashMap<>();
+    private static final HashMap<String, Pair<AbstractConfig, FileWatcher>> watchedConfigs = new HashMap<>();
 
     /**
      * INTERNAL METHOD - Register and watch the config
@@ -26,23 +27,34 @@ public final class ConfigController implements Serializable {
      * @param config - The config class to register and watch
      */
     @ApiStatus.Internal
+    @Deprecated
     public static void register_config(ModuleConfig config) {
-        if (monitoredConfigs.containsKey(config)) {
-            CraterConstants.LOG.error("Failed to register " + config.getConfigPath().getName() + ". Config already registered");
+        register_config((AbstractConfig) config);
+    }
+
+    /**
+     * INTERNAL METHOD - Register and watch the config
+     *
+     * @param config - The config class to register and watch
+     */
+    @ApiStatus.Internal
+    public static void register_config(AbstractConfig config) {
+        if (watchedConfigs.containsKey(config.getConfigPath().toString())) {
+            CraterConstants.LOG.error("Failed to register {}. Config already registered", config.getConfigPath().getName());
         } else {
             FileWatcher configWatcher = new FileWatcher();
             try {
                 configWatcher.setWatch(config.getConfigPath(), () -> {
-                    if (!config.isSaveCalled()) {
-                        CraterConstants.LOG.info("Sending Reload Event for: " + config.getConfigPath().getName());
+                    if (!config.isWasSaveCalled()) {
+                        CraterConstants.LOG.info("Sending Reload Event for: {}", config.getConfigPath().getName());
                         config.configReloaded();
                     }
                 });
             } catch (Exception e) {
-                CraterConstants.LOG.error("Failed to register " + config.getConfigPath().getName() + " for auto reloading. " + e.getMessage());
+                CraterConstants.LOG.error("Failed to register {} for auto reloading. {}", config.getConfigPath().getName(), e.getMessage());
             }
-            monitoredConfigs.put(config, configWatcher);
-            CraterConstants.LOG.info("Registered " + config.getConfigPath().getName() + " successfully!");
+            watchedConfigs.put(config.getConfigPath().toString(), Pair.of(config, configWatcher));
+            CraterConstants.LOG.info("Registered {} successfully!", config.getConfigPath().getName());
         }
     }
 

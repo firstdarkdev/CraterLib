@@ -1,6 +1,6 @@
 --- a/NeoForge/src/main/resources/craterlib.neoforge.mixins.json
 +++ /dev/null
-@@ -1,15 +1,0 @@
+@@ -1,16 +1,0 @@
 -{
 -  "required": true,
 -  "minVersion": "0.8",
@@ -10,7 +10,8 @@
 -  ],
 -  "client": [],
 -  "server": [
--    "ServerGamePacketListenerImplMixin"
+-    "ServerGamePacketListenerImplMixin",
+-    "ServerStatusPacketListenerMixin"
 -  ],
 -  "injectors": {
 -    "defaultRequire": 1

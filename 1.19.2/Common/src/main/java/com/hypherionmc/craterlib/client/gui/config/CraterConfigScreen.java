@@ -2,7 +2,7 @@ package com.hypherionmc.craterlib.client.gui.config;
 
 import com.hypherionmc.craterlib.CraterConstants;
 import com.hypherionmc.craterlib.client.gui.config.widgets.*;
-import com.hypherionmc.craterlib.core.config.ModuleConfig;
+import com.hypherionmc.craterlib.core.config.AbstractConfig;
 import com.hypherionmc.craterlib.core.config.annotations.HideFromScreen;
 import com.hypherionmc.craterlib.core.config.annotations.SubConfig;
 import com.hypherionmc.craterlib.core.config.annotations.Tooltip;
@@ -43,11 +43,11 @@ public class CraterConfigScreen extends Screen {
     private static final int BOTTOM = 24;
     private final Screen parent;
     private final List<Option<?>> options = new ArrayList<>();
-    private final ModuleConfig config;
+    private final AbstractConfig config;
     public double scrollerAmount;
     private boolean dragging;
 
-    public CraterConfigScreen(ModuleConfig config, Screen parent, Object subConfig) {
+    public CraterConfigScreen(AbstractConfig config, Screen parent, Object subConfig) {
         super(Component.translatable("cl." + config.getClass().getSimpleName().toLowerCase() + ".title"));
         this.parent = parent;
         this.config = config;
@@ -58,7 +58,7 @@ public class CraterConfigScreen extends Screen {
         }
     }
 
-    public CraterConfigScreen(ModuleConfig config, Screen parent) {
+    public CraterConfigScreen(AbstractConfig config, Screen parent) {
         this(config, parent, null);
     }
 

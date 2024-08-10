@@ -8,4 +8,4 @@
 +        internal.sendSuccess(ChatUtils.adventureToMojang(supplier.get()), bl);
      }
  
-     public CommandSourceStack toMojang() {
+     public void sendFailure(Component text) {
