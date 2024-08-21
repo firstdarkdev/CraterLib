@@ -217,7 +217,7 @@ public class CraterConfigScreen extends Screen {
             //RenderSystem.disableTexture();
             Tesselator tesselator = Tesselator.getInstance();
             BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-            RenderSystem.setShader(GameRenderer::getPositionColorShader);
+            //RenderSystem.setShader(RenderSystem.getShader());
 
             buffer.addVertex(scrollbarPositionMinX, maxY, 0.0f).setColor(0, 0, 0, 255);
             buffer.addVertex(scrollbarPositionMaxX, maxY, 0.0f).setColor(0, 0, 0, 255);
@@ -244,7 +244,7 @@ public class CraterConfigScreen extends Screen {
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(770, 771, 0, 1);
         //RenderSystem.disableTexture();
-        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
+        //RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         Matrix4f matrix = matrices.last().pose();
         buffer.addVertex(matrix, 0, TOP + 4, 0.0F).setUv(0, 1).setColor(0, 0, 0, 0);
         buffer.addVertex(matrix, width, TOP + 4, 0.0F).setUv(1, 1).setColor(0, 0, 0, 0);
@@ -266,7 +266,7 @@ public class CraterConfigScreen extends Screen {
     protected void overlayBackground(Matrix4f matrix, int minX, int minY, int maxX, int maxY, int red, int green, int blue, int startAlpha, int endAlpha) {
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
-        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
+        //RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         RenderSystem.setShaderTexture(0, Screen.MENU_BACKGROUND);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         buffer.addVertex(matrix, minX, maxY, 0.0F).setUv(minX / 32.0F, maxY / 32.0F).setColor(red, green, blue, endAlpha);
