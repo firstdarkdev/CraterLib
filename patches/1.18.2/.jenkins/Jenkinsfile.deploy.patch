@@ -2,7 +2,7 @@
 +++ b/.jenkins/Jenkinsfile.deploy
 @@ -1,5 +1,5 @@
 -def JDK = "21"
--def majorMc = "1.21";
+-def majorMc = "1.21.2";
 +def majorMc = "1.18.2";
 +def JDK = "17"
  

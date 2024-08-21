@@ -1,5 +1,12 @@
 --- a/.jenkins/Jenkinsfile.deploy
 +++ b/.jenkins/Jenkinsfile.deploy
+@@ -1,5 +1,5 @@
+ def JDK = "21"
+-def majorMc = "1.21.2";
++def majorMc = "1.21";
+ 
+ pipeline {
+     agent {
 @@ -26,25 +26,33 @@
          }
          stage("Prepare") {

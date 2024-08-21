@@ -22,7 +22,7 @@
 -[[dependencies.${ mod_id }]]
 -    modId = "neoforge"
 -    type="required"
--    versionRange = "[21.0,)"
+-    versionRange = "[*,)"
 -    ordering = "NONE"
 -    side = "BOTH"
 -

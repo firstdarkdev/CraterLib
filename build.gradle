@@ -2,7 +2,7 @@ import codechicken.diffpatch.util.PatchMode
 
 plugins {
     id 'java'
-    id "com.hypherionmc.modutils.orion.porting" version "1.0.18"
+    id "com.hypherionmc.modutils.orion.porting" version "1.0.20"
 }
 
 orionporting {

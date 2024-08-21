@@ -4,7 +4,7 @@
  [[dependencies.${ mod_id }]]
      modId = "neoforge"
      type="required"
--    versionRange = "[21.0,)"
+-    versionRange = "[*,)"
 +    versionRange = "[21.0.0-beta,)"
      ordering = "NONE"
      side = "BOTH"
