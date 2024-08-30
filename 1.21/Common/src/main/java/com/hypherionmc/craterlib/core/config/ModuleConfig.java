@@ -10,7 +10,7 @@ import java.io.File;
  * Base Config class containing the save, upgrading and loading logic.
  * All config classes must extend this class
  */
-@Deprecated
+@Deprecated(forRemoval = true, since = "2.1.0")
 public class ModuleConfig extends AbstractConfig {
 
     /**

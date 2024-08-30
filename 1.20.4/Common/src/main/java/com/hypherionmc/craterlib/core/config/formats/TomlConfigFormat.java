@@ -26,7 +26,7 @@ public class TomlConfigFormat<S> extends AbstractConfigFormat<S> {
     public S readConfig(S conf) {
         /* Set up the Serializer and Config Object */
         ObjectConverter converter = new ObjectConverter();
-        CommentedFileConfig config = CommentedFileConfig.builder(getConfigPath()).build();
+        CommentedFileConfig config = CommentedFileConfig.builder(getConfigPath()).sync().build();
         config.load();
 
         /* Load the config and return the loaded config */
