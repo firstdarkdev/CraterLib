@@ -8,7 +8,7 @@
  import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
  import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
  import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
-@@ -11,12 +9,8 @@
+@@ -12,12 +10,8 @@
  import net.minecraft.ChatFormatting;
  import net.minecraft.SharedConstants;
  import net.minecraft.Util;
@@ -21,7 +21,7 @@
  public class ChatUtils {
  
      private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
-@@ -25,22 +19,12 @@
+@@ -28,22 +22,12 @@
  
      public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
          final String serialised = adventureSerializer.serialize(inComponent);

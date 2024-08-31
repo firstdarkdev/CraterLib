@@ -19,4 +19,4 @@
 +        shade "me.hypherionmc.sdlink:mcdiscordformatter-1.18.1:${discord_formatter}"
          shade "net.kyori:adventure-api:${adventure}"
          shade "net.kyori:adventure-text-serializer-gson:${adventure}"
- 
+         shade "net.kyori:adventure-text-minimessage:${adventure}"
