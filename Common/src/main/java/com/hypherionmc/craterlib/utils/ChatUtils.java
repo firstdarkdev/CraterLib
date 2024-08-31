@@ -6,6 +6,7 @@ import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
 import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
 import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.kyori.adventure.text.serializer.json.JSONOptions;
 import net.minecraft.ChatFormatting;
@@ -22,6 +23,8 @@ public class ChatUtils {
     private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
             JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().getDataVersion().getVersion())
     ).build();
+
+    private static final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
         final String serialised = adventureSerializer.serialize(inComponent);
@@ -109,7 +112,8 @@ public class ChatUtils {
     }
 
     public static net.kyori.adventure.text.Component format(String value) {
-        return net.kyori.adventure.text.Component.translatable(convertFormattingCodes(value));
+        value = convertFormattingCodes(value);
+        return miniMessage.deserializeOr(value, net.kyori.adventure.text.Component.translatable(value));
     }
 
     private static String convertFormattingCodes(String input) {
