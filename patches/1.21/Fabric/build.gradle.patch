@@ -1,6 +1,15 @@
 --- a/Fabric/build.gradle
 +++ b/Fabric/build.gradle
-@@ -113,8 +113,8 @@
+@@ -9,6 +9,8 @@
+         exclude(group: "net.fabricmc.fabric-api")
+     }
+ 
++    stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
++
+     modImplementation "maven.modrinth:fabrictailor:${fabrictailor}"
+     modImplementation "maven.modrinth:vanish:${vanish}"
+ 
+@@ -113,8 +115,8 @@
      setVersionType("release")
      setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-fabric.md")
      setProjectVersion("${minecraft_version}-${project.version}")

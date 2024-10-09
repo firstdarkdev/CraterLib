@@ -11,7 +11,7 @@
  
      group = rootProject.group
  
-@@ -59,7 +59,7 @@
+@@ -61,13 +61,11 @@
          shade "me.hypherionmc.moon-config:toml:${moon_config}"
          shade "me.hypherionmc.moon-config:json:${moon_config}"
          shade "com.hypherionmc:rpcsdk:${rpc_sdk}"
@@ -20,3 +20,18 @@
          shade "net.kyori:adventure-api:${adventure}"
          shade "net.kyori:adventure-text-serializer-gson:${adventure}"
          shade "net.kyori:adventure-text-minimessage:${adventure}"
+ 
+-        stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
+-
+         compileOnly 'net.luckperms:api:5.4'
+         compileOnly("org.projectlombok:lombok:${lombok}")
+         annotationProcessor("org.projectlombok:lombok:${lombok}")
+@@ -112,7 +110,7 @@
+ 
+     tasks.withType(JavaCompile).configureEach {
+         it.options.encoding = 'UTF-8'
+-        it.options.release = 21
++        it.options.release = 17
+     }
+ 
+     tasks.withType(GenerateModuleMetadata).configureEach {

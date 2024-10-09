@@ -4,6 +4,8 @@ dependencies {
     // Compat
     modImplementation("maven.modrinth:vanishmod:${vanishmod_neo}")
 
+    stupidRemapArch("dev.ftb.mods:ftb-essentials-neoforge:${ftb_essentials}")
+
     // Do not edit or remove
     implementation project(":Common")
 }

@@ -1,0 +1,11 @@
+--- a/build.gradle
++++ b/build.gradle
+@@ -66,8 +66,6 @@
+         shade "net.kyori:adventure-text-serializer-gson:${adventure}"
+         shade "net.kyori:adventure-text-minimessage:${adventure}"
+ 
+-        stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
+-
+         compileOnly 'net.luckperms:api:5.4'
+         compileOnly("org.projectlombok:lombok:${lombok}")
+         annotationProcessor("org.projectlombok:lombok:${lombok}")

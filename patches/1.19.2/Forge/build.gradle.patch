@@ -1,15 +1,17 @@
 --- a/Forge/build.gradle
 +++ b/Forge/build.gradle
-@@ -3,7 +3,7 @@
+@@ -3,8 +3,9 @@
  
  dependencies {
      // Compat
 -    // NOT AVAILABLE ON FORGE modImplementation("maven.modrinth:vanishmod:${vanishmod}")
 +    modImplementation("maven.modrinth:vanishmod:${vanishmod}")
  
++    stupidRemapArch("dev.ftb.mods:ftb-essentials-forge:${ftb_essentials}")
      // Do not edit or remove
      implementation project(":Common")
-@@ -107,8 +107,8 @@
+ }
+@@ -107,8 +108,8 @@
      setVersionType("release")
      setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md")
      setProjectVersion("${minecraft_version}-${project.version}")

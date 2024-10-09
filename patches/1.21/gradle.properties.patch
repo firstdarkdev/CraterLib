@@ -1,6 +1,6 @@
 --- a/gradle.properties
 +++ b/gradle.properties
-@@ -10,12 +10,12 @@
+@@ -10,18 +10,18 @@
  mod_name=CraterLib
  
  # Shared
@@ -16,7 +16,14 @@
  
  # Forge
  forge_version=50.0.6
-@@ -40,7 +40,7 @@
+ 
+ # NeoForged
+-neoforge_version=0.0-beta
++neoforge_version=0-beta
+ 
+ # Dependencies
+ moon_config=1.0.9
+@@ -41,7 +41,7 @@
  # Publishing
  curse_id=867099
  modrinth_id=Nn8Wasaq

@@ -1,6 +1,15 @@
 --- a/NeoForge/build.gradle
 +++ b/NeoForge/build.gradle
-@@ -51,7 +51,7 @@
+@@ -4,6 +4,8 @@
+     // Compat
+     modImplementation("maven.modrinth:vanishmod:${vanishmod_neo}")
+ 
++    stupidRemapArch("dev.ftb.mods:ftb-essentials-neoforge:${ftb_essentials}")
++
+     // Do not edit or remove
+     implementation project(":Common")
+ }
+@@ -51,7 +53,7 @@
      from project(":Common").sourceSets.main.resources
      def buildProps = project.properties.clone()
  
@@ -9,7 +18,7 @@
          expand buildProps
      }
  }
-@@ -106,8 +106,8 @@
+@@ -106,8 +108,8 @@
      setVersionType("release")
      setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md")
      setProjectVersion("${minecraft_version}-${project.version}")

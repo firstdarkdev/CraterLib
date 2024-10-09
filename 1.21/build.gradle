@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
-    id "xyz.wagyourtail.unimined" version "1.2.4" apply false
+    id "xyz.wagyourtail.unimined" version "1.3.9" apply false
     id "com.hypherionmc.modutils.modpublisher" version "2.1.6"
     id "com.hypherionmc.modutils.orion" version "1.0.+"
     id 'maven-publish'
@@ -49,8 +49,10 @@ subprojects {
     configurations {
         shade
         modCompileOnly
+        stupidRemapArch
         implementation.extendsFrom shade
         compileOnly.extendsFrom modCompileOnly
+        compileOnly.extendsFrom stupidRemapArch
     }
 
     dependencies {
@@ -98,11 +100,17 @@ subprojects {
             mojmap()
             devNamespace "mojmap"
         }
+
+        mods {
+            remap(configurations.stupidRemapArch) {
+                catchAWNamespaceAssertion()
+            }
+        }
     }
 
     tasks.withType(JavaCompile).configureEach {
         it.options.encoding = 'UTF-8'
-        it.options.release = 17
+        it.options.release = 21
     }
 
     tasks.withType(GenerateModuleMetadata).configureEach {

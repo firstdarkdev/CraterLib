@@ -5,6 +5,7 @@ dependencies {
     // Compat
     modImplementation("maven.modrinth:vanishmod:${vanishmod}")
 
+    stupidRemapArch("dev.ftb.mods:ftb-essentials-forge:${ftb_essentials}")
     // Do not edit or remove
     implementation project(":Common")
 }
