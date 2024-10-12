@@ -1,11 +1,33 @@
 --- a/build.gradle
 +++ b/build.gradle
-@@ -66,8 +66,6 @@
-         shade "net.kyori:adventure-text-serializer-gson:${adventure}"
-         shade "net.kyori:adventure-text-minimessage:${adventure}"
+@@ -7,21 +7,15 @@
+     id 'maven-publish'
+ }
  
--        stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
+-var relType = project.properties["releaseType"] ?: "${release_type}"
 -
-         compileOnly 'net.luckperms:api:5.4'
-         compileOnly("org.projectlombok:lombok:${lombok}")
-         annotationProcessor("org.projectlombok:lombok:${lombok}")
+-ext {
+-    isPort = (relType == 'port')
+-}
+-
+ orion.setup {
+     multiProject = true
+     enableMirrorMaven = true
+     enableReleasesMaven = true
+-    enableSnapshotsMaven = isPort
+ 
+     dopplerToken = System.getenv("DOPPLER_KEY")
+ 
+     versioning {
++        var relType = project.properties["releaseType"] ?: "${release_type}"
+         identifier("${relType}")
+     }
+ }
+@@ -42,7 +36,6 @@
+ 
+     repositories {
+         mavenCentral()
+-        mavenLocal()
+ 
+         maven {
+             name = "Modrinth"

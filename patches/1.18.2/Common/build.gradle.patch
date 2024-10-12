@@ -4,8 +4,8 @@
  archivesBaseName = "${mod_name.replace(" ", "")}-Common-${minecraft_version}"
  
  dependencies {
--
-+    stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
+-    stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
++
  }
  
  shadowJar {

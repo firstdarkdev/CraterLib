@@ -1,14 +1,29 @@
 --- a/build.gradle
 +++ b/build.gradle
-@@ -11,7 +11,6 @@
+@@ -7,21 +7,14 @@
+     id 'maven-publish'
+ }
+ 
+-var relType = project.properties["releaseType"] ?: "${release_type}"
+-
+-ext {
+-    isPort = (relType == 'port')
+-}
+-
+ orion.setup {
      multiProject = true
      enableMirrorMaven = true
      enableReleasesMaven = true
+-    enableSnapshotsMaven = isPort
 -
      dopplerToken = System.getenv("DOPPLER_KEY")
  
      versioning {
-@@ -29,8 +28,8 @@
++        var relType = project.properties["releaseType"] ?: "${release_type}"
+         identifier("${relType}")
+     }
+ }
+@@ -35,14 +28,13 @@
      apply plugin: 'com.github.johnrengelman.shadow'
      apply plugin: 'com.hypherionmc.modutils.modpublisher'
  
@@ -19,7 +34,13 @@
  
      group = rootProject.group
  
-@@ -61,13 +60,11 @@
+     repositories {
+         mavenCentral()
+-        mavenLocal()
+ 
+         maven {
+             name = "Modrinth"
+@@ -68,7 +60,7 @@
          shade "me.hypherionmc.moon-config:toml:${moon_config}"
          shade "me.hypherionmc.moon-config:json:${moon_config}"
          shade "com.hypherionmc:rpcsdk:${rpc_sdk}"
@@ -28,13 +49,7 @@
          shade "net.kyori:adventure-api:${adventure}"
          shade "net.kyori:adventure-text-serializer-gson:${adventure}"
          shade "net.kyori:adventure-text-minimessage:${adventure}"
- 
--        stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
--
-         compileOnly 'net.luckperms:api:5.4'
-         compileOnly("org.projectlombok:lombok:${lombok}")
-         annotationProcessor("org.projectlombok:lombok:${lombok}")
-@@ -112,7 +109,7 @@
+@@ -117,7 +109,7 @@
  
      tasks.withType(JavaCompile).configureEach {
          it.options.encoding = 'UTF-8'

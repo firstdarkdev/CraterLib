@@ -1,6 +1,29 @@
 --- a/build.gradle
 +++ b/build.gradle
-@@ -29,8 +29,8 @@
+@@ -7,21 +7,15 @@
+     id 'maven-publish'
+ }
+ 
+-var relType = project.properties["releaseType"] ?: "${release_type}"
+-
+-ext {
+-    isPort = (relType == 'port')
+-}
+-
+ orion.setup {
+     multiProject = true
+     enableMirrorMaven = true
+     enableReleasesMaven = true
+-    enableSnapshotsMaven = isPort
+ 
+     dopplerToken = System.getenv("DOPPLER_KEY")
+ 
+     versioning {
++        var relType = project.properties["releaseType"] ?: "${release_type}"
+         identifier("${relType}")
+     }
+ }
+@@ -35,14 +29,13 @@
      apply plugin: 'com.github.johnrengelman.shadow'
      apply plugin: 'com.hypherionmc.modutils.modpublisher'
  
@@ -11,16 +34,13 @@
  
      group = rootProject.group
  
-@@ -66,8 +66,6 @@
-         shade "net.kyori:adventure-text-serializer-gson:${adventure}"
-         shade "net.kyori:adventure-text-minimessage:${adventure}"
+     repositories {
+         mavenCentral()
+-        mavenLocal()
  
--        stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
--
-         compileOnly 'net.luckperms:api:5.4'
-         compileOnly("org.projectlombok:lombok:${lombok}")
-         annotationProcessor("org.projectlombok:lombok:${lombok}")
-@@ -112,7 +110,7 @@
+         maven {
+             name = "Modrinth"
+@@ -117,7 +110,7 @@
  
      tasks.withType(JavaCompile).configureEach {
          it.options.encoding = 'UTF-8'

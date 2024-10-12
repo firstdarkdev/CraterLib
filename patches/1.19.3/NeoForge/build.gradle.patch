@@ -1,11 +1,13 @@
 --- a/NeoForge/build.gradle
 +++ /dev/null
-@@ -1,115 +1,0 @@
+@@ -1,122 +1,0 @@
 -archivesBaseName = "${mod_name.replace(" ", "")}-NeoForge-${minecraft_version}"
 -
 -dependencies {
 -    // Compat
 -    modImplementation("maven.modrinth:vanishmod:${vanishmod_neo}")
+-
+-    stupidRemapArch("dev.ftb.mods:ftb-essentials-neoforge:${ftb_essentials}")
 -
 -    // Do not edit or remove
 -    implementation project(":Common")
@@ -35,7 +37,12 @@
 -
 -unimined.minecraft {
 -    neoForged {
--        loader neoforge_version
+-        if (isPort) {
+-            loader "net.neoforged:neoforge:${neoforge_version}:universal"
+-        } else {
+-            loader neoforge_version
+-        }
+-
 -        mixinConfig("${mod_id}.mixins.json", "${mod_id}.neoforge.mixins.json")
 -    }
 -}
