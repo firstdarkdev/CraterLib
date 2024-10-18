@@ -4,6 +4,8 @@ dependencies {
     // Compat
     modImplementation("maven.modrinth:vanishmod:${vanishmod_neo}")
 
+    stupidRemapArch("dev.ftb.mods:ftb-essentials-neoforge:${ftb_essentials}")
+
     // Do not edit or remove
     implementation project(":Common")
 }
@@ -32,7 +34,12 @@ shadowJar {
 
 unimined.minecraft {
     neoForged {
-        loader neoforge_version
+        if (isPort) {
+            loader "net.neoforged:neoforge:${neoforge_version}:universal"
+        } else {
+            loader neoforge_version
+        }
+
         mixinConfig("${mod_id}.mixins.json", "${mod_id}.neoforge.mixins.json")
     }
 }

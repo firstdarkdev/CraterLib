@@ -7,15 +7,21 @@ plugins {
     id 'maven-publish'
 }
 
+var relType = project.properties["releaseType"] ?: "${release_type}"
+
+ext {
+    isPort = (relType == 'port')
+}
+
 orion.setup {
     multiProject = true
     enableMirrorMaven = true
     enableReleasesMaven = true
+    enableSnapshotsMaven = isPort
 
     dopplerToken = System.getenv("DOPPLER_KEY")
 
     versioning {
-        var relType = project.properties["releaseType"] ?: "${release_type}"
         identifier("${relType}")
     }
 }
@@ -36,6 +42,7 @@ subprojects {
 
     repositories {
         mavenCentral()
+        mavenLocal()
 
         maven {
             name = "Modrinth"
@@ -65,8 +72,6 @@ subprojects {
         shade "net.kyori:adventure-api:${adventure}"
         shade "net.kyori:adventure-text-serializer-gson:${adventure}"
         shade "net.kyori:adventure-text-minimessage:${adventure}"
-
-        stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
 
         compileOnly 'net.luckperms:api:5.4'
         compileOnly("org.projectlombok:lombok:${lombok}")
