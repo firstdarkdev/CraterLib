@@ -12,7 +12,9 @@ import net.kyori.adventure.text.serializer.json.JSONOptions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.SharedConstants;
 import net.minecraft.Util;
+// @noplugin
 import net.minecraft.client.Minecraft;
+// #noplugin
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
@@ -37,8 +39,10 @@ public class ChatUtils {
     }
 
     private static HolderLookup.Provider getRegistryLookup() {
+        // @noplugin
         if (ModloaderEnvironment.INSTANCE.getEnvironment().isClient() && Minecraft.getInstance().level != null)
             return Minecraft.getInstance().level.registryAccess();
+        // #noplugin
 
         if (ModloaderEnvironment.INSTANCE.getEnvironment().isServer() && CommonPlatform.INSTANCE.getMCServer() != null)
             return CommonPlatform.INSTANCE.getMCServer().toMojang().registryAccess();
@@ -113,7 +117,15 @@ public class ChatUtils {
 
     public static net.kyori.adventure.text.Component format(String value) {
         value = convertFormattingCodes(value);
-        return miniMessage.deserializeOr(value, net.kyori.adventure.text.Component.translatable(value));
+
+        try {
+            return miniMessage.deserializeOr(value, net.kyori.adventure.text.Component.translatable(value));
+        } catch (Exception ignored) {
+            // Mini message fails to format text that contain legacy formatting. Since we support both, that's bad.
+            // We just ignore the exception here so that the whole format doesn't fail
+        }
+
+        return net.kyori.adventure.text.Component.translatable(value);
     }
 
     private static String convertFormattingCodes(String input) {

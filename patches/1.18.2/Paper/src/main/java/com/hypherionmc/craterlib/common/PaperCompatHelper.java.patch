@@ -1,0 +1,81 @@
+--- a/Paper/src/main/java/com/hypherionmc/craterlib/common/PaperCompatHelper.java
++++ /dev/null
+@@ -1,78 +1,0 @@
+-package com.hypherionmc.craterlib.common;
+-
+-import com.hypherionmc.craterlib.core.platform.CompatUtils;
+-import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
+-import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+-import com.hypherionmc.craterlib.utils.ChatUtils;
+-import org.bukkit.Bukkit;
+-import org.bukkit.entity.Player;
+-import org.bukkit.metadata.MetadataValue;
+-import org.bukkit.plugin.Plugin;
+-
+-import java.lang.reflect.Method;
+-
+-public class PaperCompatHelper implements CompatUtils {
+-
+-    @Override
+-    public boolean isPlayerActive(BridgedPlayer player) {
+-        // Essentials Vanish
+-        if (ModloaderEnvironment.INSTANCE.isModLoaded("Essentials")) {
+-            return !isEssentialsVanished(player);
+-        }
+-
+-        // PhantomAdmin Vanish
+-        if (ModloaderEnvironment.INSTANCE.isModLoaded("PhantomAdmin"))
+-            return !isPhantomVanished(player);
+-
+-        // Other vanish mods
+-        try {
+-            Player p = (Player) player.toMojangServerPlayer();
+-            for (MetadataValue meta : p.getMetadata("vanished")) {
+-                if (meta.asBoolean()) return true;
+-            }
+-        } catch (Exception ignored) {}
+-
+-        return true;
+-    }
+-
+-    @Override
+-    public String getSkinUUID(BridgedPlayer player) {
+-        return player.getStringUUID();
+-    }
+-
+-    private boolean isEssentialsVanished(BridgedPlayer player) {
+-        try {
+-            Plugin p = Bukkit.getPluginManager().getPlugin("Essentials");
+-            if (p == null)
+-                return false;
+-
+-            Method getUser = p.getClass().getMethod("getUser", String.class);
+-            Object essentialsPlayer = getUser.invoke(p, ChatUtils.resolve(player.getName(), false));
+-
+-            if (essentialsPlayer != null) {
+-                Method isVanished = essentialsPlayer.getClass().getMethod("isVanished");
+-                return (boolean) isVanished.invoke(essentialsPlayer);
+-            }
+-        } catch (Exception ignored) {}
+-
+-        return false;
+-    }
+-
+-    private boolean isPhantomVanished(BridgedPlayer player) {
+-        try {
+-            Plugin p = Bukkit.getPluginManager().getPlugin("PhantomAdmin");
+-            if (p == null)
+-                return false;
+-
+-            Method isInvisible = p.getClass().getDeclaredMethod("isInvisible", Player.class);
+-            isInvisible.setAccessible(true);
+-
+-            return (boolean) isInvisible.invoke(p, (Player) player.toMojangServerPlayer());
+-        } catch (Exception ignored) {
+-            ignored.printStackTrace();
+-        }
+-
+-        return false;
+-    }
+-
+-}

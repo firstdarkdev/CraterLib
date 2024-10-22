@@ -13,7 +13,7 @@ public class FabricCompatHelper implements CompatUtils {
         if (!ModloaderEnvironment.INSTANCE.isModLoaded("melius-vanish"))
             return true;
 
-        return Vanish.isPlayerVanished(player.toMojangServerPlayer());
+        return !Vanish.isPlayerVanished(player.toMojangServerPlayer());
     }
 
     @Override

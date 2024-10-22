@@ -12,7 +12,7 @@ public class NeoForgeCompatHelper implements CompatUtils {
         if (!ModloaderEnvironment.INSTANCE.isModLoaded("vmod"))
             return true;
 
-        return VanishUtil.isVanished(player.toMojangServerPlayer());
+        return !VanishUtil.isVanished(player.toMojangServerPlayer());
     }
 
     @Override

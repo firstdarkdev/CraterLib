@@ -1,0 +1,10 @@
+--- a/Paper/src/main/resources/paper-plugin.yml
++++ b/Paper/src/main/resources/paper-plugin.yml
+@@ -3,6 +3,6 @@
+ description: "A Modding API used to create 'universal' mods"
+ main: com.hypherionmc.craterlib.paper.CraterLibPlugin
+ author: HypherionSA
+-api-version: '1.21.3'
++api-version: '1.19'
+ bootstrapper: com.hypherionmc.craterlib.paper.CraterLibBootstrap
+ load: STARTUP

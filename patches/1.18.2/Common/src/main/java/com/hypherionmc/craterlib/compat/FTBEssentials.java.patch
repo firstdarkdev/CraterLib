@@ -1,6 +1,6 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/compat/FTBEssentials.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/compat/FTBEssentials.java
-@@ -8,8 +8,8 @@
+@@ -9,8 +9,8 @@
  public class FTBEssentials {
  
      public static boolean isPlayerMuted(BridgedPlayer player) {

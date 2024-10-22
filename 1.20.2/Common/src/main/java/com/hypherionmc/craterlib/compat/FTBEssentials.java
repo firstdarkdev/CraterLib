@@ -1,3 +1,4 @@
+// @excludeplugin
 package com.hypherionmc.craterlib.compat;
 
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;

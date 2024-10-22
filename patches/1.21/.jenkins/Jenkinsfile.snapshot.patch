@@ -6,8 +6,8 @@
  def JDK = "21";
 -def majorMc = "1.21.2";
 +def majorMc = "1.21";
- def modLoaders = "neoforge|fabric|quilt";
--def supportedMc = "1.21.2";
+ def modLoaders = "neoforge|fabric|quilt|paper";
+-def supportedMc = "1.21.3";
 -def reltype = "port";
 +def supportedMc = "1.21|1.21.1";
 +def reltype = "snapshot";

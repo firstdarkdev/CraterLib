@@ -14,8 +14,14 @@ public class CraterPlayerDeathEvent extends CraterEvent {
 
     private final BridgedPlayer player;
     private final DamageSource damageSource;
+    private Component deathMessage;
+
+    public CraterPlayerDeathEvent(BridgedPlayer player, DamageSource damageSource, Component deathMessage) {
+        this(player, null);
+        this.deathMessage = deathMessage;
+    }
 
     public Component getDeathMessage() {
-        return ChatUtils.mojangToAdventure(damageSource.getLocalizedDeathMessage(player.toMojang()));
+        return deathMessage != null ? deathMessage : ChatUtils.mojangToAdventure(damageSource.getLocalizedDeathMessage(player.toMojang()));
     }
 }

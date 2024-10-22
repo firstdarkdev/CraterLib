@@ -1,6 +1,6 @@
 --- a/build.gradle
 +++ b/build.gradle
-@@ -7,21 +7,15 @@
+@@ -8,21 +8,15 @@
      id 'maven-publish'
  }
  
@@ -23,7 +23,7 @@
          identifier("${relType}")
      }
  }
-@@ -42,7 +36,6 @@
+@@ -47,7 +41,6 @@
  
      repositories {
          mavenCentral()

@@ -1,0 +1,11 @@
+--- a/Paper/src/main/java/com/hypherionmc/craterlib/paper/CraterLibPlugin.java
++++ b/Paper/src/main/java/com/hypherionmc/craterlib/paper/CraterLibPlugin.java
+@@ -23,7 +23,7 @@
+ 
+     @Override
+     public void onEnable() {
+-        CraterEventBus.INSTANCE.postEvent(new CraterRegisterCommandEvent(MinecraftServer.getServer().createCommandSourceStack().dispatcher()));
++        CraterEventBus.INSTANCE.postEvent(new CraterRegisterCommandEvent(MinecraftServer.getServer().getCommands().getDispatcher()));
+         getServer().getPluginManager().registerEvents(listener, this);
+         getServer().getScheduler().scheduleSyncDelayedTask(this, listener::onServerStarted);
+     }

@@ -15,3 +15,4 @@ pluginManagement {
 
 rootProject.name = 'CraterLib-1.20.4'
 include("Common", "Fabric", "Forge", "NeoForge")
+include 'Paper'

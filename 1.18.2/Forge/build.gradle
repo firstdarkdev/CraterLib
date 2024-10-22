@@ -105,7 +105,7 @@ publisher {
     setModrinthID(modrinth_id)
     setNightbloomID("craterlib")
     setVersionType("release")
-    setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md")
+    setChangelog(rootProject.file("changelog.md"))
     setProjectVersion("${minecraft_version}-${project.version}")
     setDisplayName("[Forge 1.18.2] CraterLib - ${project.version}")
     setGameVersions("1.18.2")

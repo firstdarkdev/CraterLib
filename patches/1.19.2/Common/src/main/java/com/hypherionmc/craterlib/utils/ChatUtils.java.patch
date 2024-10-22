@@ -8,20 +8,19 @@
  import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
  import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
  import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
-@@ -12,12 +10,8 @@
+@@ -12,11 +10,6 @@
  import net.minecraft.ChatFormatting;
  import net.minecraft.SharedConstants;
  import net.minecraft.Util;
+-// @noplugin
 -import net.minecraft.client.Minecraft;
+-// #noplugin
 -import net.minecraft.core.HolderLookup;
 -import net.minecraft.core.RegistryAccess;
  import net.minecraft.network.chat.Component;
  import net.minecraft.network.chat.Style;
--
- public class ChatUtils {
  
-     private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
-@@ -28,22 +22,12 @@
+@@ -30,24 +23,12 @@
  
      public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
          final String serialised = adventureSerializer.serialize(inComponent);
@@ -36,8 +35,10 @@
 -    }
 -
 -    private static HolderLookup.Provider getRegistryLookup() {
+-        // @noplugin
 -        if (ModloaderEnvironment.INSTANCE.getEnvironment().isClient() && Minecraft.getInstance().level != null)
 -            return Minecraft.getInstance().level.registryAccess();
+-        // #noplugin
 -
 -        if (ModloaderEnvironment.INSTANCE.getEnvironment().isServer() && CommonPlatform.INSTANCE.getMCServer() != null)
 -            return CommonPlatform.INSTANCE.getMCServer().toMojang().registryAccess();

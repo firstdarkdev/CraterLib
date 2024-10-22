@@ -112,7 +112,7 @@ publisher {
     setModrinthID(modrinth_id)
     setNightbloomID("craterlib")
     setVersionType("release")
-    setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-fabric.md")
+    setChangelog(rootProject.file("changelog.md"))
     setProjectVersion("${minecraft_version}-${project.version}")
     setDisplayName("[FABRIC/QUILT 1.19.2] CraterLib - ${project.version}")
     setGameVersions("1.19.2")

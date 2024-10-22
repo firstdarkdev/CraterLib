@@ -1,0 +1,83 @@
+--- a/Paper/build.gradle
++++ /dev/null
+@@ -1,80 +1,0 @@
+-plugins {
+-    id "io.papermc.paperweight.userdev" version "1.7.3"
+-    id "xyz.jpenilla.run-paper" version "2.3.0"
+-}
+-
+-archivesBaseName = "${mod_name.replace(" ", "")}-Paper-${minecraft_version}"
+-
+-origami {
+-    excludedPackages = ["com.hypherionmc.craterlib.client", "com.hypherionmc.craterlib.mixin", "com.hypherionmc.craterlib.nojang.client", "com.hypherionmc.craterlib.core.rpcsdk", "com.hypherionmc.craterlib.nojang.realmsclient"]
+-    excludedResources = ["pack.mcmeta", "craterlib.mixins.json"]
+-}
+-
+-dependencies {
+-    paperweight.paperDevBundle("${minecraft_version}-R0.1-SNAPSHOT")
+-
+-    // Do not edit or remove
+-    implementation project(":Common")
+-}
+-
+-shadowJar {
+-    from sourceSets.main.output
+-    configurations = [project.configurations.shade]
+-
+-    dependencies {
+-        exclude(dependency('com.google.code.gson:.*'))
+-        exclude(dependency('net.kyori:.*'))
+-
+-        relocate 'me.hypherionmc.moonconfig', 'shadow.hypherionmc.moonconfig'
+-        relocate 'me.hypherionmc.mcdiscordformatter', 'shadow.hypherionmc.mcdiscordformatter'
+-
+-        exclude("linux-x86-64/**", "win32-x86/**", "win32-x86-64/**", "darwin/**")
+-    }
+-
+-    setArchiveClassifier(null)
+-    mergeServiceFiles()
+-}
+-
+-jar {
+-    archiveClassifier.set "slim"
+-}
+-
+-tasks {
+-    runServer {
+-        minecraftVersion(project.minecraft_version)
+-    }
+-}
+-
+-processResources {
+-    def buildProps = project.properties.clone()
+-
+-    filesMatching(['paper-plugin.yml']) {
+-        expand buildProps
+-    }
+-}
+-
+-compileTestJava.enabled = false
+-
+-tasks.assemble {
+-    dependsOn(tasks.reobfJar)
+-}
+-
+-publisher {
+-    apiKeys {
+-        modrinth(System.getenv("MODRINTH_TOKEN"))
+-        nightbloom(System.getenv("PLATFORM_KEY"))
+-    }
+-
+-    setModrinthID(modrinth_id)
+-    setNightbloomID("craterlib")
+-    setVersionType("alpha")
+-    setChangelog(rootProject.file("changelog.md"))
+-    setProjectVersion("${minecraft_version}-${project.version}")
+-    setDisplayName("[Paper 1.21.3] CraterLib - ${project.version}")
+-    setGameVersions("1.21.3")
+-    setLoaders("paper")
+-    setArtifact(reobfJar.outputJar)
+-}
+-
+-publishModrinth.dependsOn(reobfJar)
+-publishNightbloom.dependsOn(reobfJar)

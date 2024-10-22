@@ -1,0 +1,37 @@
+--- a/Paper/src/main/java/com/hypherionmc/craterlib/paper/PaperEventListener.java
++++ b/Paper/src/main/java/com/hypherionmc/craterlib/paper/PaperEventListener.java
+@@ -13,12 +13,13 @@
+ import com.mojang.brigadier.ParseResults;
+ import io.papermc.paper.event.player.AsyncChatEvent;
+ import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
++import net.minecraft.advancements.Advancement;
++import net.minecraft.advancements.AdvancementHolder;
+ import net.minecraft.commands.CommandSourceStack;
+ import net.minecraft.server.MinecraftServer;
+ import org.bukkit.command.ConsoleCommandSender;
+-import org.bukkit.craftbukkit.advancement.CraftAdvancement;
+-import org.bukkit.craftbukkit.damage.CraftDamageSource;
+-import org.bukkit.craftbukkit.entity.CraftPlayer;
++import org.bukkit.craftbukkit.v1_20_R2.advancement.CraftAdvancement;
++import org.bukkit.craftbukkit.v1_20_R2.entity.CraftPlayer;
+ import org.bukkit.event.EventHandler;
+ import org.bukkit.event.EventPriority;
+ import org.bukkit.event.Listener;
+@@ -31,13 +32,15 @@
+     @EventHandler(priority = EventPriority.HIGHEST)
+     public void onPlayerDeath(PlayerDeathEvent event) {
+         CraterEventBus.INSTANCE.postEvent(
+-                new CraterPlayerDeathEvent(BridgedPlayer.of(((CraftPlayer) event.getPlayer()).getHandle()), ((CraftDamageSource) event.getDamageSource()).getHandle())
++                new CraterPlayerDeathEvent(BridgedPlayer.of(((CraftPlayer) event.getPlayer()).getHandle()), null, event.deathMessage())
+         );
+     }
+ 
+     @EventHandler(priority = EventPriority.HIGHEST)
+     public void onAdvancement(PlayerAdvancementDoneEvent event) {
+-        if (((CraftAdvancement) event.getAdvancement()).getHandle().value().display().isEmpty() || !((CraftAdvancement) event.getAdvancement()).getHandle().value().display().get().shouldAnnounceChat())
++        AdvancementHolder advancement = ((CraftAdvancement) event.getAdvancement()).getHandle();
++
++        if (advancement.value().display().isEmpty() || !advancement.value().display().get().shouldAnnounceChat())
+             return;
+ 
+         CraterEventBus.INSTANCE.postEvent(

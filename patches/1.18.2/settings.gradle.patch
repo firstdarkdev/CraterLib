@@ -1,10 +1,12 @@
 --- a/settings.gradle
 +++ b/settings.gradle
-@@ -13,5 +13,5 @@
+@@ -13,7 +13,5 @@
      }
  }
  
 -rootProject.name = 'CraterLib'
 -include("Common", "Fabric", "NeoForge")
+-include 'Paper'
+-
 +rootProject.name = 'CraterLib-1.18.2'
 +include("Common", "Fabric", "Forge")

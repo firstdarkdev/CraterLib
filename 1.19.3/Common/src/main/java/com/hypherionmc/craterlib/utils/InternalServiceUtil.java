@@ -10,6 +10,8 @@ import java.util.ServiceLoader;
  */
 public class InternalServiceUtil {
 
+    public static ClassLoader loader = Thread.currentThread().getContextClassLoader();
+
     /**
      * Try to load a service
      *
@@ -17,7 +19,7 @@ public class InternalServiceUtil {
      * @return The loaded class
      */
     public static <T> T load(Class<T> clazz) {
-        final T loadedService = ServiceLoader.load(clazz)
+        final T loadedService = ServiceLoader.load(clazz, loader)
                 .findFirst()
                 .orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
         CraterConstants.LOG.debug("Loaded {} for service {}", loadedService, clazz);

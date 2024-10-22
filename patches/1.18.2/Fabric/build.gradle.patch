@@ -11,10 +11,10 @@
  
 @@ -115,8 +113,8 @@
      setVersionType("release")
-     setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-fabric.md")
+     setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")
--    setDisplayName("[FABRIC/QUILT 1.21.2] CraterLib - ${project.version}")
--    setGameVersions("1.21.2")
+-    setDisplayName("[FABRIC/QUILT 1.21.3] CraterLib - ${project.version}")
+-    setGameVersions("1.21.3")
 +    setDisplayName("[FABRIC/QUILT 1.18.2] CraterLib - ${project.version}")
 +    setGameVersions("1.18.2")
      setLoaders("fabric", "quilt")

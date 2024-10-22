@@ -1,0 +1,18 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/api/events/common/CraterPlayerDeathEvent.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/api/events/common/CraterPlayerDeathEvent.java
+@@ -14,8 +14,14 @@
+ 
+     private final BridgedPlayer player;
+     private final DamageSource damageSource;
++    private Component deathMessage;
++
++    public CraterPlayerDeathEvent(BridgedPlayer player, DamageSource source, Component deathMessage) {
++        this(player, source);
++        this.deathMessage = deathMessage;
++    }
+ 
+     public Component getDeathMessage() {
+-        return ChatUtils.mojangToAdventure(damageSource.getLocalizedDeathMessage(player.toMojang()));
++        return deathMessage != null ? deathMessage : ChatUtils.mojangToAdventure(damageSource.getLocalizedDeathMessage(player.toMojang()));
+     }
+ }

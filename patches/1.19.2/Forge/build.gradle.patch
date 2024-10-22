@@ -13,7 +13,7 @@
  }
 @@ -107,8 +108,8 @@
      setVersionType("release")
-     setChangelog("https://raw.githubusercontent.com/hypherionmc/changelogs/main/craterlib/changelog-forge.md")
+     setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")
 -    setDisplayName("[Forge 1.20.6] CraterLib - ${project.version}")
 -    setGameVersions("1.20.6")

@@ -8,11 +8,14 @@
  import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
  import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
  import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
-@@ -12,11 +10,10 @@
+@@ -11,14 +9,10 @@
+ import net.kyori.adventure.text.serializer.json.JSONOptions;
  import net.minecraft.ChatFormatting;
  import net.minecraft.SharedConstants;
- import net.minecraft.Util;
+-import net.minecraft.Util;
+-// @noplugin
 -import net.minecraft.client.Minecraft;
+-// #noplugin
 -import net.minecraft.core.HolderLookup;
 -import net.minecraft.core.RegistryAccess;
  import net.minecraft.network.chat.Component;
@@ -22,7 +25,7 @@
  
  public class ChatUtils {
  
-@@ -28,30 +25,20 @@
+@@ -30,32 +24,20 @@
  
      public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
          final String serialised = adventureSerializer.serialize(inComponent);
@@ -37,8 +40,10 @@
      }
  
 -    private static HolderLookup.Provider getRegistryLookup() {
+-        // @noplugin
 -        if (ModloaderEnvironment.INSTANCE.getEnvironment().isClient() && Minecraft.getInstance().level != null)
 -            return Minecraft.getInstance().level.registryAccess();
+-        // #noplugin
 -
 -        if (ModloaderEnvironment.INSTANCE.getEnvironment().isServer() && CommonPlatform.INSTANCE.getMCServer() != null)
 -            return CommonPlatform.INSTANCE.getMCServer().toMojang().registryAccess();
@@ -56,7 +61,7 @@
      }
  
      public static String strip(String inString, String... toStrip) {
-@@ -80,7 +67,7 @@
+@@ -84,7 +66,7 @@
      }
  
      public static net.kyori.adventure.text.Component resolve(String component, boolean formatted) {
@@ -65,7 +70,7 @@
          if (formatted) {
              returnVal = MinecraftSerializer.INSTANCE.serialize(component);
          }
-@@ -108,7 +95,7 @@
+@@ -112,7 +94,7 @@
          if (identifier == null)
              return net.kyori.adventure.text.Component.text("Unknown");
  

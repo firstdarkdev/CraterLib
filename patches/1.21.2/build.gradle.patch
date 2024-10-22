@@ -1,6 +1,6 @@
 --- a/build.gradle
 +++ b/build.gradle
-@@ -9,15 +9,10 @@
+@@ -10,15 +10,10 @@
  
  var relType = project.properties["releaseType"] ?: "${release_type}"
  

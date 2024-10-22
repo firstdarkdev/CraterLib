@@ -1,6 +1,6 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
-@@ -1,7 +1,5 @@
+@@ -1,53 +1,30 @@
  package com.hypherionmc.craterlib.utils;
  
 -import com.hypherionmc.craterlib.core.platform.CommonPlatform;
@@ -8,20 +8,29 @@
  import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
  import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
  import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
-@@ -12,12 +10,8 @@
+ import net.kyori.adventure.text.format.NamedTextColor;
+ import net.kyori.adventure.text.minimessage.MiniMessage;
+ import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+-import net.kyori.adventure.text.serializer.json.JSONOptions;
  import net.minecraft.ChatFormatting;
- import net.minecraft.SharedConstants;
+-import net.minecraft.SharedConstants;
  import net.minecraft.Util;
+-// @noplugin
 -import net.minecraft.client.Minecraft;
+-// #noplugin
 -import net.minecraft.core.HolderLookup;
 -import net.minecraft.core.RegistryAccess;
  import net.minecraft.network.chat.Component;
  import net.minecraft.network.chat.Style;
--
+ 
  public class ChatUtils {
  
-     private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
-@@ -28,22 +22,12 @@
+-    private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
+-            JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().getDataVersion().getVersion())
+-    ).build();
++    private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().build();
+ 
+     private static final MiniMessage miniMessage = MiniMessage.miniMessage();
  
      public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
          final String serialised = adventureSerializer.serialize(inComponent);
@@ -36,8 +45,10 @@
 -    }
 -
 -    private static HolderLookup.Provider getRegistryLookup() {
+-        // @noplugin
 -        if (ModloaderEnvironment.INSTANCE.getEnvironment().isClient() && Minecraft.getInstance().level != null)
 -            return Minecraft.getInstance().level.registryAccess();
+-        // #noplugin
 -
 -        if (ModloaderEnvironment.INSTANCE.getEnvironment().isServer() && CommonPlatform.INSTANCE.getMCServer() != null)
 -            return CommonPlatform.INSTANCE.getMCServer().toMojang().registryAccess();
