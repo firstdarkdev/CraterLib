@@ -1,0 +1,18 @@
+--- a/NeoForge/src/main/resources/META-INF/neoforge.mods.toml
++++ b/NeoForge/src/main/resources/META-INF/neoforge.mods.toml
+@@ -19,13 +19,13 @@
+ [[dependencies.${ mod_id }]]
+     modId = "neoforge"
+     type="required"
+-    versionRange = "[*,)"
++    versionRange = "[21.2.0-beta,)"
+     ordering = "NONE"
+     side = "BOTH"
+ 
+ [[dependencies.${ mod_id }]]
+     modId = "minecraft"
+     type="required"
+-    versionRange = "[*,)"
++    versionRange = "[1.21.2,)"
+     ordering = "NONE"
+     side = "BOTH"

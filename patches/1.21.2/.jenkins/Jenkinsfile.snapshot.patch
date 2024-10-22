@@ -1,0 +1,11 @@
+--- a/.jenkins/Jenkinsfile.snapshot
++++ b/.jenkins/Jenkinsfile.snapshot
+@@ -4,7 +4,7 @@
+ def majorMc = "1.21.2";
+ def modLoaders = "neoforge|fabric|quilt";
+ def supportedMc = "1.21.2";
+-def reltype = "port";
++def reltype = "release";
+ 
+ pipeline {
+     agent {

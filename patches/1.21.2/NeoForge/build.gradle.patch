@@ -1,0 +1,16 @@
+--- a/NeoForge/build.gradle
++++ b/NeoForge/build.gradle
+@@ -34,12 +34,7 @@
+ 
+ unimined.minecraft {
+     neoForged {
+-        /*if (isPort) {
+-            loader "net.neoforged:neoforge:${neoforge_version}:universal"
+-        } else {*/
+-            loader neoforge_version
+-        //}
+-
++        loader neoforge_version
+         mixinConfig("${mod_id}.mixins.json", "${mod_id}.neoforge.mixins.json")
+     }
+ }

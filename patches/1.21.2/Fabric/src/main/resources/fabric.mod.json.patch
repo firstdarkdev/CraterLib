@@ -1,0 +1,11 @@
+--- a/Fabric/src/main/resources/fabric.mod.json
++++ b/Fabric/src/main/resources/fabric.mod.json
+@@ -33,7 +33,7 @@
+   "depends": {
+     "fabricloader": ">=0.16.7",
+     "fabric-api": "*",
+-    "minecraft": "*",
++    "minecraft": ">=1.21.2",
+     "java": ">=21"
+   }
+ }

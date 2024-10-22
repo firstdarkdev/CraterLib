@@ -1,0 +1,18 @@
+--- a/build.gradle
++++ b/build.gradle
+@@ -9,15 +9,10 @@
+ 
+ var relType = project.properties["releaseType"] ?: "${release_type}"
+ 
+-ext {
+-    isPort = (relType == 'port')
+-}
+-
+ orion.setup {
+     multiProject = true
+     enableMirrorMaven = true
+     enableReleasesMaven = true
+-    //enableSnapshotsMaven = isPort
+ 
+     dopplerToken = System.getenv("DOPPLER_KEY")
+ 

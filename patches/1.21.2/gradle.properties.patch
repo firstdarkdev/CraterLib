@@ -1,0 +1,11 @@
+--- a/gradle.properties
++++ b/gradle.properties
+@@ -41,7 +41,7 @@
+ # Publishing
+ curse_id=867099
+ modrinth_id=Nn8Wasaq
+-release_type=port
++release_type=release
+ 
+ # Gradle
+ org.gradle.jvmargs=-Xmx3G
