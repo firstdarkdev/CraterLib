@@ -14,7 +14,7 @@
      multiProject = true
      enableMirrorMaven = true
      enableReleasesMaven = true
--    enableSnapshotsMaven = isPort
+-    //enableSnapshotsMaven = isPort
 -
      dopplerToken = System.getenv("DOPPLER_KEY")
  

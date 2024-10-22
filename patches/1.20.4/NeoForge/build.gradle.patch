@@ -4,11 +4,11 @@
  
  unimined.minecraft {
      neoForged {
--        if (isPort) {
+-        /*if (isPort) {
 -            loader "net.neoforged:neoforge:${neoforge_version}:universal"
--        } else {
+-        } else {*/
 -            loader neoforge_version
--        }
+-        //}
 -
 +        loader neoforge_version
          mixinConfig("${mod_id}.mixins.json", "${mod_id}.neoforge.mixins.json")
