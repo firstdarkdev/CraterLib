@@ -1,0 +1,36 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/compat/ftbranks/FTBRanks.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/compat/ftbranks/FTBRanks.java
+@@ -24,13 +24,13 @@
+ 
+     public List<BridgedRank> getPlayerRanks(BridgedGameProfile profile) {
+         List<BridgedRank> ranks = new ArrayList<>();
+-        FTBRanksAPI.manager().getAddedRanks(profile.toMojang()).forEach(rank -> ranks.add(BridgedRank.of(rank)));
++        FTBRanksAPI.INSTANCE.getManager().getAddedRanks(profile.toMojang()).forEach(rank -> ranks.add(BridgedRank.of(rank)));
+         return ranks;
+     }
+ 
+     public List<BridgedRank> getAllRanks() {
+         List<BridgedRank> ranks = new ArrayList<>();
+-        FTBRanksAPI.manager().getAllRanks().forEach(r -> ranks.add(BridgedRank.of(r)));
++        FTBRanksAPI.INSTANCE.getManager().getAllRanks().forEach(r -> ranks.add(BridgedRank.of(r)));
+         return ranks;
+     }
+ 
+@@ -42,7 +42,7 @@
+         rank = rank.toLowerCase();
+ 
+         AtomicBoolean didAddRank = new AtomicBoolean(false);
+-        FTBRanksAPI.manager().getRank(rank).ifPresent(r -> {
++        FTBRanksAPI.INSTANCE.getManager().getRank(rank).ifPresent(r -> {
+             r.add(profile.toMojang());
+             didAddRank.set(true);
+         });
+@@ -54,7 +54,7 @@
+         rank = rank.toLowerCase();
+ 
+         AtomicBoolean didRemoveRank = new AtomicBoolean(false);
+-        FTBRanksAPI.manager().getRank(rank).ifPresent(r -> {
++        FTBRanksAPI.INSTANCE.getManager().getRank(rank).ifPresent(r -> {
+             r.remove(profile.toMojang());
+             didRemoveRank.set(true);
+         });

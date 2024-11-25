@@ -23,7 +23,7 @@
  
  # Dependencies
  moon_config=1.0.10
-@@ -31,17 +28,16 @@
+@@ -31,18 +28,17 @@
  discord_formatter=2.0.0
  
  # Mod Dependencies
@@ -33,6 +33,8 @@
 -vanishmod=1.1.12.1
 -vanishmod_neo=puxrKAMr
 -ftb_essentials=2101.1.0
+-ftb_ranks=2101.1.1
++ftb_ranks=2001.1.3
 +ftb_essentials=2001.2.2
 +fabrictailor=2.2.1
 +vanish=1.5.0+1.20.2

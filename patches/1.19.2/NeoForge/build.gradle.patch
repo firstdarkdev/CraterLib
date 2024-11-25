@@ -1,6 +1,6 @@
 --- a/NeoForge/build.gradle
 +++ /dev/null
-@@ -1,122 +1,0 @@
+@@ -1,123 +1,0 @@
 -archivesBaseName = "${mod_name.replace(" ", "")}-NeoForge-${minecraft_version}"
 -
 -dependencies {
@@ -8,6 +8,7 @@
 -    modImplementation("maven.modrinth:vanishmod:${vanishmod_neo}")
 -
 -    stupidRemapArch("dev.ftb.mods:ftb-essentials-neoforge:${ftb_essentials}")
+-    stupidRemapArch("dev.ftb.mods:ftb-ranks-neoforge:${ftb_ranks}")
 -
 -    // Do not edit or remove
 -    implementation project(":Common")

@@ -6,6 +6,8 @@ dependencies {
     modImplementation("maven.modrinth:vanishmod:${vanishmod}")
 
     stupidRemapArch("dev.ftb.mods:ftb-essentials-forge:${ftb_essentials}")
+    stupidRemapArch("dev.ftb.mods:ftb-ranks-forge:${ftb_ranks}")
+
     // Do not edit or remove
     implementation project(":Common")
 }

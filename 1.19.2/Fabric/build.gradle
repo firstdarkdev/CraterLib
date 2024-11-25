@@ -10,6 +10,7 @@ dependencies {
     }
 
     stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
+    stupidRemapArch("dev.ftb.mods:ftb-ranks:${ftb_ranks}")
     modImplementation "maven.modrinth:fabrictailor:${fabrictailor}"
     modImplementation "maven.modrinth:vanish:${vanish}"
 

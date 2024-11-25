@@ -40,7 +40,7 @@
  
          maven {
              name = "Modrinth"
-@@ -73,11 +66,13 @@
+@@ -73,11 +66,14 @@
          shade "me.hypherionmc.moon-config:toml:${moon_config}"
          shade "me.hypherionmc.moon-config:json:${moon_config}"
          shade "com.hypherionmc:rpcsdk:${rpc_sdk}"
@@ -51,11 +51,12 @@
          shade "net.kyori:adventure-text-minimessage:${adventure}"
  
 +        stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
++        stupidRemapArch("dev.ftb.mods:ftb-ranks:${ftb_ranks}")
 +
          compileOnly 'net.luckperms:api:5.4'
          compileOnly("org.projectlombok:lombok:${lombok}")
          annotationProcessor("org.projectlombok:lombok:${lombok}")
-@@ -124,7 +119,7 @@
+@@ -124,7 +120,7 @@
  
      tasks.withType(JavaCompile).configureEach {
          it.options.encoding = 'UTF-8'

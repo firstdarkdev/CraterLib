@@ -1,6 +1,6 @@
 --- a/gradle.properties
 +++ b/gradle.properties
-@@ -41,7 +41,7 @@
+@@ -42,7 +42,7 @@
  # Publishing
  curse_id=867099
  modrinth_id=Nn8Wasaq

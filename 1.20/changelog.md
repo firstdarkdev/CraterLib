@@ -1,6 +1,7 @@
 **New Features**:
 
 - Paper Support. Currently only available on Modrinth and NightBloom
+- Added API's for working with FTB Ranks and LuckPerms groups
 
 **Bug Fixes**:
 

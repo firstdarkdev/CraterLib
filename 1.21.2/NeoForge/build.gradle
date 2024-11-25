@@ -5,6 +5,7 @@ dependencies {
     modImplementation("maven.modrinth:vanishmod:${vanishmod_neo}")
 
     stupidRemapArch("dev.ftb.mods:ftb-essentials-neoforge:${ftb_essentials}")
+    stupidRemapArch("dev.ftb.mods:ftb-ranks-neoforge:${ftb_ranks}")
 
     // Do not edit or remove
     implementation project(":Common")

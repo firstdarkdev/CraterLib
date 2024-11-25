@@ -72,6 +72,7 @@ subprojects {
         shade "net.kyori:adventure-text-minimessage:${adventure}"
 
         stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
+        stupidRemapArch("dev.ftb.mods:ftb-ranks:${ftb_ranks}")
 
         compileOnly 'net.luckperms:api:5.4'
         compileOnly("org.projectlombok:lombok:${lombok}")

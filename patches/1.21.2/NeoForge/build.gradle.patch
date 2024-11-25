@@ -1,6 +1,6 @@
 --- a/NeoForge/build.gradle
 +++ b/NeoForge/build.gradle
-@@ -34,12 +34,7 @@
+@@ -35,12 +35,7 @@
  
  unimined.minecraft {
      neoForged {

@@ -1,15 +1,16 @@
 --- a/Fabric/build.gradle
 +++ b/Fabric/build.gradle
-@@ -9,8 +9,6 @@
+@@ -9,9 +9,6 @@
          exclude(group: "net.fabricmc.fabric-api")
      }
  
 -    stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
+-    stupidRemapArch("dev.ftb.mods:ftb-ranks:${ftb_ranks}")
 -
      modImplementation "maven.modrinth:fabrictailor:${fabrictailor}"
      modImplementation "maven.modrinth:vanish:${vanish}"
  
-@@ -115,8 +113,8 @@
+@@ -116,8 +113,8 @@
      setVersionType("release")
      setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")
