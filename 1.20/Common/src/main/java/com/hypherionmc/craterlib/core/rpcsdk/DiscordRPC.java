@@ -9,6 +9,7 @@ import org.jetbrains.annotations.Nullable;
  * @author HypherionSA
  * Java Wrapper of the Discord-RPC Library
  */
+@Deprecated(forRemoval = true)
 public interface DiscordRPC extends Library {
 
     DiscordRPC INSTANCE = Native.load("discord-rpc", DiscordRPC.class);

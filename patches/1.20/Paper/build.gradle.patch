@@ -1,6 +1,6 @@
 --- a/Paper/build.gradle
 +++ b/Paper/build.gradle
-@@ -70,8 +70,8 @@
+@@ -68,8 +68,8 @@
      setVersionType("alpha")
      setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")

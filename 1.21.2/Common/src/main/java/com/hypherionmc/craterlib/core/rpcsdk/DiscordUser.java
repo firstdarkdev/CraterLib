@@ -9,6 +9,7 @@ import java.util.List;
  * @author HypherionSA
  * Class representing the Discord User
  */
+@Deprecated(forRemoval = true)
 public class DiscordUser extends Structure {
 
     // The User ID of the User

@@ -11,6 +11,7 @@ import java.util.List;
  * Class containing references to all available discord event handles.
  * Registering a handler is optional, and non-assigned handlers will be ignored
  */
+@Deprecated(forRemoval = true)
 public class DiscordEventHandlers extends Structure {
 
     // Callback for when the RPC was initialized successfully

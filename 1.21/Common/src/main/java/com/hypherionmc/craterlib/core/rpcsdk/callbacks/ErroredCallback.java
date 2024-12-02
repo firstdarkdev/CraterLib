@@ -6,6 +6,7 @@ import com.sun.jna.Callback;
  * @author HypherionSA
  * Callback for when the RPC ran into an error
  */
+@Deprecated(forRemoval = true)
 public interface ErroredCallback extends Callback {
 
     /**

@@ -7,6 +7,7 @@ import com.sun.jna.Callback;
  * @author HypherionSA
  * Callback for when someone requests to join your game
  */
+@Deprecated(forRemoval = true)
 public interface JoinRequestCallback extends Callback {
 
     /**

@@ -1,6 +1,6 @@
 --- a/Paper/build.gradle
 +++ /dev/null
-@@ -1,80 +1,0 @@
+@@ -1,78 +1,0 @@
 -plugins {
 -    id "io.papermc.paperweight.userdev" version "1.7.3"
 -    id "xyz.jpenilla.run-paper" version "2.3.0"
@@ -64,11 +64,9 @@
 -
 -publisher {
 -    apiKeys {
--        modrinth(System.getenv("MODRINTH_TOKEN"))
 -        nightbloom(System.getenv("PLATFORM_KEY"))
 -    }
 -
--    setModrinthID(modrinth_id)
 -    setNightbloomID("craterlib")
 -    setVersionType("alpha")
 -    setChangelog(rootProject.file("changelog.md"))

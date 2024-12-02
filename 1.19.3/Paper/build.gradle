@@ -61,11 +61,9 @@ tasks.assemble {
 
 publisher {
     apiKeys {
-        modrinth(System.getenv("MODRINTH_TOKEN"))
         nightbloom(System.getenv("PLATFORM_KEY"))
     }
 
-    setModrinthID(modrinth_id)
     setNightbloomID("craterlib")
     setVersionType("alpha")
     setChangelog(rootProject.file("changelog.md"))

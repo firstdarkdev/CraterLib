@@ -6,6 +6,7 @@ import com.sun.jna.Callback;
  * @author HypherionSA
  * Callback for when the Discord RPC disconnects
  */
+@Deprecated(forRemoval = true)
 public interface DisconnectedCallback extends Callback {
 
     /**

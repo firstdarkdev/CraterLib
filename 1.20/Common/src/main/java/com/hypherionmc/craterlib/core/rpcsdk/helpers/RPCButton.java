@@ -9,6 +9,7 @@ import java.io.Serializable;
  * Helper class to add Buttons to Discord Rich Presence
  * This can not be used with Join/Spectate
  */
+@Deprecated(forRemoval = true)
 public class RPCButton implements Serializable {
 
     // The label of the button

@@ -6,6 +6,7 @@ import com.sun.jna.Callback;
  * @author HypherionSA
  * Callback for when someone is requesting to spectate your game
  */
+@Deprecated(forRemoval = true)
 public interface SpectateGameCallback extends Callback {
 
     /**

@@ -1,7 +1,7 @@
 **New Features**:
 
-- Paper Support. Currently only available on Modrinth and NightBloom
-- Added API's for working with FTB Ranks and LuckPerms groups
+- Paper Support. Currently only available on [NightBloom](https://nightbloom.cc/project/craterlib/files?loader=paper)
+- Added APIs for working with FTB Ranks and LuckPerms groups
 
 **Bug Fixes**:
 
