@@ -13,6 +13,7 @@ import java.util.List;
  * @author HypherionSA
  * Class reprenting a Discord RPC activity
  */
+@Deprecated(forRemoval = true)
 public class DiscordRichPresence extends Structure {
 
     // First line of text on the RPC

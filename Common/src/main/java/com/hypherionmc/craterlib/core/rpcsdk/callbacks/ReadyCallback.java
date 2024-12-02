@@ -7,6 +7,7 @@ import com.sun.jna.Callback;
  * @author HypherionSA
  * Callback for when the RPC has connected successfully
  */
+@Deprecated(forRemoval = true)
 public interface ReadyCallback extends Callback {
 
     /**
