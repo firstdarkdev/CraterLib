@@ -1,19 +1,20 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
-@@ -1,53 +1,30 @@
+@@ -1,6 +1,6 @@
  package com.hypherionmc.craterlib.utils;
  
 -import com.hypherionmc.craterlib.core.platform.CommonPlatform;
--import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
++import com.hypherionmc.craterlib.core.platform.LoaderType;
+ import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
  import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
  import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
- import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
- import net.kyori.adventure.text.format.NamedTextColor;
+@@ -9,20 +9,15 @@
  import net.kyori.adventure.text.minimessage.MiniMessage;
  import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
--import net.kyori.adventure.text.serializer.json.JSONOptions;
- import net.minecraft.ChatFormatting;
--import net.minecraft.SharedConstants;
+ import net.kyori.adventure.text.serializer.json.JSONOptions;
+-import net.minecraft.ChatFormatting;
+ import net.minecraft.SharedConstants;
++import net.minecraft.ChatFormatting;
  import net.minecraft.Util;
 -// @noplugin
 -import net.minecraft.client.Minecraft;
@@ -26,11 +27,11 @@
  public class ChatUtils {
  
 -    private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
--            JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().getDataVersion().getVersion())
--    ).build();
-+    private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().build();
++    private static final GsonComponentSerializer adventureSerializer = (ModloaderEnvironment.INSTANCE.getLoaderType() == LoaderType.PAPER) ? GsonComponentSerializer.builder().build() : GsonComponentSerializer.builder().options(
+             JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().getDataVersion().getVersion())
+     ).build();
  
-     private static final MiniMessage miniMessage = MiniMessage.miniMessage();
+@@ -30,24 +25,12 @@
  
      public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
          final String serialised = adventureSerializer.serialize(inComponent);

@@ -1,11 +1,15 @@
 package com.hypherionmc.craterlib.utils;
 
+import com.hypherionmc.craterlib.core.platform.LoaderType;
+import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
 import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
 import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
+import net.kyori.adventure.text.serializer.json.JSONOptions;
+import net.minecraft.SharedConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
@@ -13,7 +17,9 @@ import net.minecraft.network.chat.Style;
 
 public class ChatUtils {
 
-    private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().build();
+    private static final GsonComponentSerializer adventureSerializer = (ModloaderEnvironment.INSTANCE.getLoaderType() == LoaderType.PAPER) ? GsonComponentSerializer.builder().build() : GsonComponentSerializer.builder().options(
+            JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().getDataVersion().getVersion())
+    ).build();
 
     private static final MiniMessage miniMessage = MiniMessage.miniMessage();
 
