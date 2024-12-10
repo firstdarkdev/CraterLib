@@ -1,3 +1,5 @@
+import io.papermc.paperweight.userdev.ReobfArtifactConfiguration
+
 plugins {
     id "io.papermc.paperweight.userdev" version "1.7.3"
     id "xyz.jpenilla.run-paper" version "2.3.0"
@@ -9,6 +11,8 @@ origami {
     excludedPackages = ["com.hypherionmc.craterlib.client", "com.hypherionmc.craterlib.mixin", "com.hypherionmc.craterlib.nojang.client", "com.hypherionmc.craterlib.core.rpcsdk", "com.hypherionmc.craterlib.nojang.realmsclient"]
     excludedResources = ["pack.mcmeta", "craterlib.mixins.json"]
 }
+
+paperweight.reobfArtifactConfiguration = ReobfArtifactConfiguration.getMOJANG_PRODUCTION()
 
 dependencies {
     paperweight.paperDevBundle("${minecraft_version}-R0.1-SNAPSHOT")
@@ -55,10 +59,6 @@ processResources {
 
 compileTestJava.enabled = false
 
-tasks.assemble {
-    dependsOn(tasks.reobfJar)
-}
-
 publisher {
     apiKeys {
         nightbloom(System.getenv("PLATFORM_KEY"))
@@ -71,8 +71,9 @@ publisher {
     setDisplayName("[Paper 1.21.3] CraterLib - ${project.version}")
     setGameVersions("1.21.3")
     setLoaders("paper")
-    setArtifact(reobfJar.outputJar)
+    setArtifact(shadowJar)
 }
 
-publishModrinth.dependsOn(reobfJar)
-publishNightbloom.dependsOn(reobfJar)
+publishModrinth.dependsOn(shadowJar)
+publishNightbloom.dependsOn(shadowJar)
+build.dependsOn(shadowJar)
