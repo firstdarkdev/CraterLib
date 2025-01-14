@@ -9,6 +9,7 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
+    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config}")
     modImplementation "maven.modrinth:fabrictailor:${fabrictailor}"
     modImplementation "maven.modrinth:vanish:${vanish}"
 
@@ -122,9 +123,11 @@ publisher {
 
     modrinthDepends {
         required("fabric-api")
+        optional("cloth-config", "modmenu")
     }
 
     curseDepends {
         required("fabric-api")
+        optional("cloth-config", "modmenu")
     }
 }

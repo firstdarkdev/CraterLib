@@ -23,8 +23,12 @@
  
  # Dependencies
  moon_config=1.0.10
-@@ -31,18 +28,17 @@
+@@ -29,21 +26,20 @@
+ adventure=4.17.0
+ rpc_sdk=1.0
  discord_formatter=2.0.0
+-cloth_config=17.0.144
++cloth_config=6.5.102
  
  # Mod Dependencies
 -fabrictailor=2.3.1

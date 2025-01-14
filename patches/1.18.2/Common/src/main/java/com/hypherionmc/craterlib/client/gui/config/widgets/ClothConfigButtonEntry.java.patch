@@ -1,0 +1,67 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/widgets/ClothConfigButtonEntry.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/widgets/ClothConfigButtonEntry.java
+@@ -1,13 +1,14 @@
+ package com.hypherionmc.craterlib.client.gui.config.widgets;
+ 
+ import com.mojang.blaze3d.platform.Window;
++import com.mojang.blaze3d.vertex.PoseStack;
+ import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
+ import net.minecraft.client.Minecraft;
+-import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.client.gui.components.Button;
+ import net.minecraft.client.gui.components.events.GuiEventListener;
+ import net.minecraft.client.gui.narration.NarratableEntry;
+ import net.minecraft.network.chat.Component;
++import net.minecraft.network.chat.TextComponent;
+ import org.jetbrains.annotations.NotNull;
+ import org.jetbrains.annotations.Nullable;
+ 
+@@ -53,36 +54,36 @@
+         this.wasEdited = wasEdited;
+ 
+         int mainButtonWidth = hasDeleteButton ? 75 : 100;
+-        this.button = Button.builder(fieldName, onPress).size(mainButtonWidth, 20).pos(0, 0).build();
+-        this.deleteButton = deletePress != null ? Button.builder(Component.literal("X"), deletePress).size(20, 20).pos(0, 0).build() : null;
++        this.button = new Button(0, 0, mainButtonWidth, 20, fieldName, onPress);
++        this.deleteButton = deletePress != null ? new Button(0, 0, 20, 20, new TextComponent("X"), deletePress) : null;
+         this.displayName = displayName;
+     }
+ 
+     @Override
+-    public void render(GuiGraphics matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean isHovered, float delta) {
++    public void render(PoseStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean isHovered, float delta) {
+         Window window = Minecraft.getInstance().getWindow();
+         Component displayedFieldName = displayName;
+         if (Minecraft.getInstance().font.isBidirectional()) {
+-            matrices.drawString(Minecraft.getInstance().font, displayedFieldName.getVisualOrderText(), window.getGuiScaledWidth() - x - Minecraft.getInstance().font.width(displayedFieldName), y + 6, 16777215);
+-            this.button.setX(x);
++            drawString(matrices, Minecraft.getInstance().font, displayedFieldName.getVisualOrderText(), window.getGuiScaledWidth() - x - Minecraft.getInstance().font.width(displayedFieldName), y + 6, 16777215);
++            this.button.x = x;
+             if (hasDeleteButton) {
+-                this.deleteButton.setX(x + this.button.getWidth() + 4);
++                this.deleteButton.x = x + this.button.getWidth() + 4;
+             }
+         } else {
+-            matrices.drawString(Minecraft.getInstance().font, displayedFieldName.getVisualOrderText(), x, y + 6, this.getPreferredTextColor());
++            drawString(matrices, Minecraft.getInstance().font, displayedFieldName.getVisualOrderText(), x, y + 6, this.getPreferredTextColor());
+             if (hasDeleteButton) {
+-                this.button.setX(x + entryWidth - this.button.getWidth() - 24);
+-                this.deleteButton.setX(x + entryWidth - 20);
++                this.button.x = x + entryWidth - this.button.getWidth() - 24;
++                this.deleteButton.x = x + entryWidth - 20;
+             } else {
+-                this.button.setX(x + entryWidth - this.button.getWidth());
++                this.button.x = x + entryWidth - this.button.getWidth();
+             }
+         }
+ 
+-        button.setY(y + (entryHeight - 20) / 2);
++        button.y = y + (entryHeight - 20) / 2;
+         button.render(matrices, mouseX, mouseY, delta);
+ 
+         if (hasDeleteButton) {
+-            deleteButton.setY(y + (entryHeight - 20) / 2);
++            deleteButton.y = y + (entryHeight - 20) / 2;
+             deleteButton.render(matrices, mouseX, mouseY, delta);
+         }
+     }

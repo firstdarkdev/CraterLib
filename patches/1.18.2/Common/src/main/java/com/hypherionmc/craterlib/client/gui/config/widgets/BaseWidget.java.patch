@@ -16,7 +16,7 @@
  
  /**
   * Copied from Cloth Config Lite
-@@ -16,7 +16,7 @@
+@@ -17,7 +17,7 @@
  public class BaseWidget<T> extends Option<T> {
  
      public static final int resetButtonOffset = 48;
@@ -25,7 +25,7 @@
      private boolean hideReset = false;
  
      private boolean isSubConfig = false;
-@@ -39,8 +39,8 @@
+@@ -40,8 +40,8 @@
      }
  
      @Override
@@ -36,7 +36,7 @@
          boolean edited = isEdited() || hasErrors;
          if (edited) {
              text.withStyle(ChatFormatting.ITALIC);
-@@ -50,9 +50,9 @@
+@@ -51,9 +51,9 @@
          } else {
              text.withStyle(ChatFormatting.GRAY);
          }

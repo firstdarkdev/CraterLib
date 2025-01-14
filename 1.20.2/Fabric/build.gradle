@@ -11,6 +11,7 @@ dependencies {
 
     stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
     stupidRemapArch("dev.ftb.mods:ftb-ranks:${ftb_ranks}")
+    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config}")
     modImplementation "maven.modrinth:fabrictailor:${fabrictailor}"
     modImplementation "maven.modrinth:vanish:${vanish}"
 
@@ -124,9 +125,11 @@ publisher {
 
     modrinthDepends {
         required("fabric-api")
+        optional("cloth-config", "modmenu")
     }
 
     curseDepends {
         required("fabric-api")
+        optional("cloth-config", "modmenu")
     }
 }

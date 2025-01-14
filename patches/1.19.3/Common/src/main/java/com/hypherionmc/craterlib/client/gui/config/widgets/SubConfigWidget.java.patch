@@ -11,7 +11,7 @@
  import net.minecraft.client.gui.components.Button;
  import net.minecraft.client.gui.screens.Screen;
  import net.minecraft.network.chat.Component;
-@@ -27,7 +27,7 @@
+@@ -28,7 +28,7 @@
      }
  
      @Override

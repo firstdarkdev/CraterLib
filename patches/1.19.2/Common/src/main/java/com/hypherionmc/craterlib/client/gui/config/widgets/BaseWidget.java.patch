@@ -11,7 +11,7 @@
  import net.minecraft.client.gui.components.Button;
  import net.minecraft.network.chat.Component;
  import net.minecraft.network.chat.MutableComponent;
-@@ -16,7 +16,7 @@
+@@ -17,7 +17,7 @@
  public class BaseWidget<T> extends Option<T> {
  
      public static final int resetButtonOffset = 48;
@@ -20,7 +20,7 @@
      private boolean hideReset = false;
  
      private boolean isSubConfig = false;
-@@ -39,7 +39,7 @@
+@@ -40,7 +40,7 @@
      }
  
      @Override
@@ -29,7 +29,7 @@
          MutableComponent text = Component.literal(this.text.getString());
          boolean edited = isEdited() || hasErrors;
          if (edited) {
-@@ -50,9 +50,9 @@
+@@ -51,9 +51,9 @@
          } else {
              text.withStyle(ChatFormatting.GRAY);
          }

@@ -1,6 +1,6 @@
 --- a/NeoForge/build.gradle
 +++ b/NeoForge/build.gradle
-@@ -35,12 +35,7 @@
+@@ -37,12 +37,7 @@
  
  unimined.minecraft {
      neoForged {
@@ -14,12 +14,12 @@
          mixinConfig("${mod_id}.mixins.json", "${mod_id}.neoforge.mixins.json")
      }
  }
-@@ -114,8 +109,8 @@
+@@ -116,8 +111,8 @@
      setVersionType("release")
      setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")
--    setDisplayName("[NeoForge 1.21.3] CraterLib - ${project.version}")
--    setGameVersions("1.21.3")
+-    setDisplayName("[NeoForge 1.21.3/1.21.4] CraterLib - ${project.version}")
+-    setGameVersions("1.21.3", "1.21.4")
 +    setDisplayName("[NeoForge 1.21.x] CraterLib - ${project.version}")
 +    setGameVersions("1.21", "1.21.1")
      setLoaders("neoforge")

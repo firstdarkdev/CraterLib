@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 /**
  * @author HypherionSA
  */
+@Deprecated(forRemoval = true, since = "2.1.3")
 public class SubConfigWidget<T> extends AbstractConfigWidget<T, Button> {
 
     private final Object subConfig;

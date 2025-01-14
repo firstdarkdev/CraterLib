@@ -10,6 +10,7 @@ import net.minecraft.client.gui.components.EditBox;
  * Copied from Cloth Config Lite
  * <a href="https://github.com/shedaniel/cloth-config-lite/blob/1.17/src/main/java/me/shedaniel/clothconfiglite/impl/option/AbstractWidgetOption.java">...</a>
  */
+@Deprecated(forRemoval = true, since = "2.1.3")
 public class AbstractConfigWidget<T, W extends AbstractWidget> extends BaseWidget<T> {
 
     public static final int buttonWidth = 200;

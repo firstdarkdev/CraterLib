@@ -12,7 +12,7 @@
  import net.minecraft.client.gui.components.events.AbstractContainerEventHandler;
  import net.minecraft.client.gui.components.events.GuiEventListener;
  import net.minecraft.network.chat.Component;
-@@ -34,7 +34,7 @@
+@@ -35,7 +35,7 @@
      @Getter
      private List<String> langKeys = new ArrayList<>();
  

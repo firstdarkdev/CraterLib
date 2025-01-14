@@ -1,6 +1,6 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
-@@ -158,7 +158,7 @@
+@@ -159,7 +159,7 @@
              return new TextConfigOption<>(Objects::toString, BigDecimal::new);
          }
          if (value instanceof ResourceLocation) {
@@ -9,7 +9,7 @@
          }
          if (isSubConfig) {
              return new SubConfigWidget<>(config, this, value);
-@@ -179,6 +179,7 @@
+@@ -180,6 +180,7 @@
      @Override
      public void render(@NotNull GuiGraphics matrices, int mouseX, int mouseY, float delta) {
          overlayBackground(matrices.pose(), TOP, height - BOTTOM, 32);
@@ -17,7 +17,7 @@
          renderScrollBar();
  
          matrices.pose().pushPose();
-@@ -187,9 +188,8 @@
+@@ -188,9 +189,8 @@
          overlayBackground(matrices.pose(), height - BOTTOM, height, 64);
          renderShadow(matrices.pose());
          matrices.drawCenteredString(font, getTitle(), width / 2, 9, 0xFFFFFF);
@@ -28,7 +28,7 @@
  
          int y = (int) (TOP + 4 - Math.round(scrollerAmount));
          for (Option<?> option : options) {
-@@ -216,23 +216,24 @@
+@@ -217,23 +217,24 @@
              int maxY = this.height - BOTTOM;
              //RenderSystem.disableTexture();
              Tesselator tesselator = Tesselator.getInstance();
@@ -70,7 +70,7 @@
              RenderSystem.disableBlend();
              //RenderSystem.enableTexture();
          }
-@@ -240,21 +241,22 @@
+@@ -241,21 +242,22 @@
  
      private void renderShadow(PoseStack matrices) {
          Tesselator tesselator = Tesselator.getInstance();
@@ -104,7 +104,7 @@
          //RenderSystem.enableTexture();
          RenderSystem.disableBlend();
      }
-@@ -265,15 +267,16 @@
+@@ -266,15 +268,16 @@
  
      protected void overlayBackground(Matrix4f matrix, int minX, int minY, int maxX, int maxY, int red, int green, int blue, int startAlpha, int endAlpha) {
          Tesselator tesselator = Tesselator.getInstance();
@@ -129,7 +129,7 @@
      }
  
      public int scrollHeight() {
-@@ -331,12 +334,12 @@
+@@ -332,12 +335,12 @@
      }
  
      @Override

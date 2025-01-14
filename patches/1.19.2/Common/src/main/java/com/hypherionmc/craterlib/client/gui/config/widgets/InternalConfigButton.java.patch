@@ -14,7 +14,7 @@
  
  /**
   * @author HypherionSA
-@@ -22,7 +23,7 @@
+@@ -23,7 +24,7 @@
      }
  
      @Override
@@ -23,7 +23,7 @@
          if (cancel) {
              setMessage(Component.translatable(screen.isEdited() ? "t.clc.cancel_discard" : "gui.cancel"));
          } else {
-@@ -30,11 +31,11 @@
+@@ -31,11 +32,11 @@
              active = screen.isEdited() && !hasErrors;
              setMessage(Component.translatable(hasErrors ? "t.clc.error" : "t.clc.save"));
          }

@@ -1,0 +1,14 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/ClothConfigScreenBuilder.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/ClothConfigScreenBuilder.java
+@@ -390,9 +390,9 @@
+             config.saveConfig(config);
+             Files.deleteIfExists(backupPath);
+         } catch (Exception e) {
+-            Minecraft.getInstance().getToastManager().addToast(
++            Minecraft.getInstance().getToasts().addToast(
+                     new SystemToast(
+-                            SystemToast.SystemToastId.PACK_LOAD_FAILURE,
++                            SystemToast.SystemToastIds.PACK_LOAD_FAILURE,
+                             Component.literal("Failed To Save Config"),
+                             Component.literal("Restoring Backup Copy. Check log for details"))
+             );

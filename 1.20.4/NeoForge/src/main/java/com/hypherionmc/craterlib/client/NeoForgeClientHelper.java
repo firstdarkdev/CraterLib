@@ -1,6 +1,7 @@
 package com.hypherionmc.craterlib.client;
 
 import com.hypherionmc.craterlib.core.platform.ClientPlatform;
+import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.nojang.client.BridgedMinecraft;
 import com.hypherionmc.craterlib.nojang.client.multiplayer.BridgedClientLevel;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;

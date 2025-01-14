@@ -11,7 +11,7 @@
  import net.minecraft.client.gui.components.Button;
  import net.minecraft.network.chat.Component;
  import net.minecraft.network.chat.MutableComponent;
-@@ -39,7 +39,7 @@
+@@ -40,7 +40,7 @@
      }
  
      @Override
@@ -20,7 +20,7 @@
          MutableComponent text = Component.literal(this.text.getString());
          boolean edited = isEdited() || hasErrors;
          if (edited) {
-@@ -50,7 +50,7 @@
+@@ -51,7 +51,7 @@
          } else {
              text.withStyle(ChatFormatting.GRAY);
          }

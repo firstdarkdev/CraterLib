@@ -16,7 +16,16 @@
  
  # Forge
  forge_version=50.0.6
-@@ -42,7 +42,7 @@
+@@ -29,7 +29,7 @@
+ adventure=4.17.0
+ rpc_sdk=1.0
+ discord_formatter=2.0.0
+-cloth_config=17.0.144
++cloth_config=15.0.140
+ 
+ # Mod Dependencies
+ fabrictailor=2.3.1
+@@ -43,7 +43,7 @@
  # Publishing
  curse_id=867099
  modrinth_id=Nn8Wasaq

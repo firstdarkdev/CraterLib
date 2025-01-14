@@ -1,12 +1,14 @@
 --- a/Forge/build.gradle
 +++ /dev/null
-@@ -1,116 +1,0 @@
+@@ -1,126 +1,0 @@
 -// Adjust the output jar name here
 -archivesBaseName = "${mod_name.replace(" ", "")}-Forge-${minecraft_version}"
 -
 -dependencies {
 -    // Compat
 -    // NOT AVAILABLE ON FORGE modImplementation("maven.modrinth:vanishmod:${vanishmod}")
+-
+-    modImplementation("me.shedaniel.cloth:cloth-config-forge:${cloth_config}")
 -
 -    // Do not edit or remove
 -    implementation project(":Common")
@@ -116,4 +118,12 @@
 -    setArtifact(remapJar)
 -    setCurseEnvironment("both")
 -    setIsManualRelease(true)
+-
+-    curseDepends {
+-        optional("cloth-config")
+-    }
+-
+-    modrinthDepends {
+-        optional("cloth-config")
+-    }
 -}

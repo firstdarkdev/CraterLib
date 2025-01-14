@@ -7,9 +7,9 @@
 -    // NOT AVAILABLE ON FORGE modImplementation("maven.modrinth:vanishmod:${vanishmod}")
 +    modImplementation("maven.modrinth:vanishmod:${vanishmod}")
  
-     // Do not edit or remove
-     implementation project(":Common")
-@@ -107,8 +107,8 @@
+     modImplementation("me.shedaniel.cloth:cloth-config-forge:${cloth_config}")
+ 
+@@ -109,8 +109,8 @@
      setVersionType("release")
      setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")

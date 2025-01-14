@@ -20,7 +20,7 @@
  
  import java.lang.reflect.Field;
  import java.lang.reflect.Modifier;
-@@ -158,7 +157,7 @@
+@@ -159,7 +158,7 @@
              return new TextConfigOption<>(Objects::toString, BigDecimal::new);
          }
          if (value instanceof ResourceLocation) {
@@ -29,7 +29,7 @@
          }
          if (isSubConfig) {
              return new SubConfigWidget<>(config, this, value);
-@@ -177,19 +176,19 @@
+@@ -178,19 +177,19 @@
      }
  
      @Override
@@ -59,7 +59,7 @@
  
          int y = (int) (TOP + 4 - Math.round(scrollerAmount));
          for (Option<?> option : options) {
-@@ -216,23 +215,24 @@
+@@ -217,23 +216,24 @@
              int maxY = this.height - BOTTOM;
              //RenderSystem.disableTexture();
              Tesselator tesselator = Tesselator.getInstance();
@@ -101,7 +101,7 @@
              RenderSystem.disableBlend();
              //RenderSystem.enableTexture();
          }
-@@ -240,21 +240,22 @@
+@@ -241,21 +241,22 @@
  
      private void renderShadow(PoseStack matrices) {
          Tesselator tesselator = Tesselator.getInstance();
@@ -135,7 +135,7 @@
          //RenderSystem.enableTexture();
          RenderSystem.disableBlend();
      }
-@@ -265,15 +266,16 @@
+@@ -266,15 +267,16 @@
  
      protected void overlayBackground(Matrix4f matrix, int minX, int minY, int maxX, int maxY, int red, int green, int blue, int startAlpha, int endAlpha) {
          Tesselator tesselator = Tesselator.getInstance();
@@ -160,7 +160,7 @@
      }
  
      public int scrollHeight() {
-@@ -331,12 +333,12 @@
+@@ -332,12 +334,12 @@
      }
  
      @Override
@@ -175,7 +175,7 @@
      }
  
      @Override
-@@ -375,7 +377,7 @@
+@@ -376,7 +378,7 @@
          }
      }
  
@@ -184,7 +184,7 @@
          if (mouseX > startX && mouseX < startX + sizeX) {
              if (mouseY > startY && mouseY < startY + sizeY) {
                  List<Component> list = new ArrayList<>();
-@@ -383,7 +385,7 @@
+@@ -384,7 +386,7 @@
                  for (String desc : description) {
                      list.add(Component.translatable(desc));
                  }

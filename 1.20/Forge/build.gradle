@@ -8,6 +8,8 @@ dependencies {
     stupidRemapArch("dev.ftb.mods:ftb-essentials-forge:${ftb_essentials}")
     stupidRemapArch("dev.ftb.mods:ftb-ranks-forge:${ftb_ranks}")
 
+    modImplementation("me.shedaniel.cloth:cloth-config-forge:${cloth_config}")
+
     // Do not edit or remove
     implementation project(":Common")
 }
@@ -116,4 +118,12 @@ publisher {
     setArtifact(remapJar)
     setCurseEnvironment("both")
     setIsManualRelease(true)
+
+    curseDepends {
+        optional("cloth-config")
+    }
+
+    modrinthDepends {
+        optional("cloth-config")
+    }
 }

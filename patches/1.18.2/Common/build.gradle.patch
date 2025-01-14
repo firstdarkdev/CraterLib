@@ -1,11 +1,13 @@
 --- a/Common/build.gradle
 +++ b/Common/build.gradle
-@@ -1,8 +1,8 @@
+@@ -1,10 +1,10 @@
  archivesBaseName = "${mod_name.replace(" ", "")}-Common-${minecraft_version}"
  
  dependencies {
 -    stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
      stupidRemapArch("dev.ftb.mods:ftb-ranks:${ftb_ranks}")
+ 
+     stupidRemapArch("me.shedaniel.cloth:cloth-config:${cloth_config}")
 +
  }
  

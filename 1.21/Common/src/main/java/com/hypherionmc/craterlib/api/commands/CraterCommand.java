@@ -1,5 +1,6 @@
 package com.hypherionmc.craterlib.api.commands;
 
+import com.hypherionmc.craterlib.CraterConstants;
 import com.hypherionmc.craterlib.compat.LuckPermsCompat;
 import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.nojang.authlib.BridgedGameProfile;
@@ -137,10 +138,15 @@ public class CraterCommand {
     }
 
     private boolean checkPermission(CommandSourceStack stack) {
-        if (!ModloaderEnvironment.INSTANCE.isModLoaded("luckperms") || !stack.isPlayer() || luckPermNode.isEmpty())
-            return stack.hasPermission(this.permLevel);
+        try {
+            if (!ModloaderEnvironment.INSTANCE.isModLoaded("luckperms") || !stack.isPlayer() || luckPermNode.isEmpty())
+                return stack.hasPermission(this.permLevel);
 
-        return LuckPermsCompat.INSTANCE.hasPermission(stack.getPlayer(), this.luckPermNode) || stack.hasPermission(this.permLevel);
+            return LuckPermsCompat.INSTANCE.hasPermission(stack.getPlayer(), this.luckPermNode) || stack.hasPermission(this.permLevel);
+        } catch (Exception e) {
+            CraterConstants.LOG.error("Failed to check luckperms permissions", e);
+            return stack.hasPermission(this.permLevel);
+        }
     }
 
     @FunctionalInterface

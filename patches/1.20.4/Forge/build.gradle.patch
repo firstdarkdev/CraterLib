@@ -10,9 +10,9 @@
 +    stupidRemapArch("dev.ftb.mods:ftb-essentials-forge:${ftb_essentials}")
 +    stupidRemapArch("dev.ftb.mods:ftb-ranks-forge:${ftb_ranks}")
  
-     // Do not edit or remove
-     implementation project(":Common")
-@@ -107,8 +110,8 @@
+     modImplementation("me.shedaniel.cloth:cloth-config-forge:${cloth_config}")
+ 
+@@ -109,8 +112,8 @@
      setVersionType("release")
      setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")

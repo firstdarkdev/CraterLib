@@ -15,7 +15,7 @@
  
  /**
   * @author HypherionSA
-@@ -23,12 +23,12 @@
+@@ -24,12 +24,12 @@
          this.subConfig = subConfig;
          this.screen = screen;
  

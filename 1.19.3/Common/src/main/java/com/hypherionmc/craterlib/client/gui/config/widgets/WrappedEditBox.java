@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author HypherionSA
  */
+@Deprecated(forRemoval = true, since = "2.1.3")
 public class WrappedEditBox extends EditBox {
 
     public WrappedEditBox(Font font, int i, int j, int k, int l, @NotNull Component component) {

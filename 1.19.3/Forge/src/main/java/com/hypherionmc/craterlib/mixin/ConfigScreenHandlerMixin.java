@@ -1,10 +1,12 @@
 package com.hypherionmc.craterlib.mixin;
 
+import com.hypherionmc.craterlib.client.gui.config.ClothConfigScreenBuilder;
 import com.hypherionmc.craterlib.client.gui.config.CraterConfigScreen;
 import com.hypherionmc.craterlib.core.config.AbstractConfig;
 import com.hypherionmc.craterlib.core.config.ConfigController;
-import com.hypherionmc.craterlib.core.config.ModuleConfig;
+import com.hypherionmc.craterlib.core.config.annotations.ClothScreen;
 import com.hypherionmc.craterlib.core.config.annotations.NoConfigScreen;
+import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.client.ConfigScreenHandler;
@@ -30,9 +32,16 @@ public class ConfigScreenHandlerMixin {
     @Inject(at = @At("RETURN"), method = "getScreenFactoryFor", cancellable = true, remap = false)
     private static void injectConfigScreen(IModInfo selectedMod, CallbackInfoReturnable<Optional<BiFunction<Minecraft, Screen, Screen>>> cir) {
         ConfigController.getWatchedConfigs().forEach((conf, watcher) -> {
-            if (!conf.getClass().isAnnotationPresent(NoConfigScreen.class)) {
-                AbstractConfig config = watcher.getLeft();
-                if (config.getModId().equals(selectedMod.getModId())) {
+            AbstractConfig config = watcher.getLeft();
+            if (config.getClass().isAnnotationPresent(NoConfigScreen.class))
+                return;
+
+            if (config.getModId().equals(selectedMod.getModId())) {
+                if (watcher.getLeft().getClass().isAnnotationPresent(ClothScreen.class) && ModloaderEnvironment.INSTANCE.isModLoaded("cloth_config")) {
+                    cir.setReturnValue(
+                            Optional.of((minecraft, screen) -> ClothConfigScreenBuilder.buildConfigScreen(config, screen))
+                    );
+                } else {
                     cir.setReturnValue(
                             Optional.of((minecraft, screen) -> new CraterConfigScreen(config, screen))
                     );
@@ -40,5 +49,4 @@ public class ConfigScreenHandlerMixin {
             }
         });
     }
-
 }

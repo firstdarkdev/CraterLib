@@ -1,0 +1,120 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/ClothConfigScreenBuilder.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/ClothConfigScreenBuilder.java
+@@ -14,6 +14,8 @@
+ import net.minecraft.client.gui.components.toasts.SystemToast;
+ import net.minecraft.client.gui.screens.Screen;
+ import net.minecraft.network.chat.Component;
++import net.minecraft.network.chat.TextComponent;
++import net.minecraft.network.chat.TranslatableComponent;
+ import org.jetbrains.annotations.ApiStatus;
+ import org.jetbrains.annotations.Nullable;
+ 
+@@ -89,7 +91,7 @@
+                 .setParentScreen(parent)
+                 .setTitle(getTranslationKey(config, invoker, field.getName()));
+ 
+-        ConfigCategory category = builder.getOrCreateCategory(Component.literal("Entries"));
++        ConfigCategory category = builder.getOrCreateCategory(new TextComponent("Entries"));
+ 
+         // Handle Existing items in the list
+         for (int i = 0; i < list.size(); i++) {
+@@ -99,8 +101,8 @@
+             // Add a button to open the edit screen, as well as a delete button
+             category.addEntry(
+                     new ClothConfigButtonEntry(
+-                            Component.translatable("cl.buttons.entry", (i + 1)),
+-                            Component.translatable("cl.buttons.edit"),
++                            new TranslatableComponent("cl.buttons.entry", (i + 1)),
++                            new TranslatableComponent("cl.buttons.edit"),
+                             button -> Minecraft.getInstance().setScreen(
+                                     buildSubScreen(config, item, builder.build())
+                             ),
+@@ -121,8 +123,8 @@
+ 
+             category.addEntry(
+                     new ClothConfigButtonEntry(
+-                            Component.literal(""),
+-                            Component.translatable("cl.buttons.add_entry"),
++                            new TextComponent(""),
++                            new TranslatableComponent("cl.buttons.add_entry"),
+                             button -> {
+                                 try {
+                                     Object newItem = elementType.getDeclaredConstructor().newInstance();
+@@ -150,7 +152,7 @@
+      */
+     private static void readConfigFields(AbstractConfig baseConfig, Object config, ConfigBuilder builder) {
+         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
+-        ConfigCategory configCategory = builder.getOrCreateCategory(Component.literal("General"));
++        ConfigCategory configCategory = builder.getOrCreateCategory(new TextComponent("General"));
+ 
+         for (Field field : config.getClass().getDeclaredFields()) {
+             try {
+@@ -168,8 +170,8 @@
+                     if (val != null) {
+                         configCategory.addEntry(
+                                 new ClothConfigButtonEntry(
+-                                        Component.translatable("cl.config." + baseConfig.getClass().getSimpleName().toLowerCase() + "." + field.getName().toLowerCase()),
+-                                        Component.translatable("cl.buttons.edit"),
++                                        new TranslatableComponent("cl.config." + baseConfig.getClass().getSimpleName().toLowerCase() + "." + field.getName().toLowerCase()),
++                                        new TranslatableComponent("cl.buttons.edit"),
+                                         button -> Minecraft.getInstance().setScreen(
+                                                 buildSubScreen(baseConfig, val, builder.build())
+                                         )
+@@ -285,7 +287,7 @@
+                             configCategory.addEntry(
+                                     new ClothConfigButtonEntry(
+                                             getTranslationKey(baseConfig, config, field.getName()),
+-                                            Component.translatable("cl.buttons.edit"),
++                                            new TranslatableComponent("cl.buttons.edit"),
+                                             button -> Minecraft.getInstance().setScreen(
+                                                     buildListScreen(baseConfig, list, field, config, builder.build(), false)
+                                             )
+@@ -310,19 +312,19 @@
+      * @return A {@link Component} that can be used for the tooltip
+      */
+     private static Component getToolTip(Field field) {
+-        Component component = Component.empty();
++        Component component = new TextComponent("");
+ 
+         if (field.isAnnotationPresent(SpecComment.class)) {
+             SpecComment comment = field.getAnnotation(SpecComment.class);
+-            component = Component.literal(comment.value());
++            component = new TextComponent(comment.value());
+         }
+ 
+         if (field.isAnnotationPresent(Tooltip.class)) {
+             Tooltip tooltip = field.getAnnotation(Tooltip.class);
+-            Component c = Component.empty();
++            Component c = new TextComponent("");
+ 
+             for (String comment : tooltip.value()) {
+-                c.getSiblings().add(Component.literal(comment));
++                c.getSiblings().add(new TextComponent(comment));
+             }
+ 
+             component = c;
+@@ -350,7 +352,7 @@
+             baseKey += "." + fieldName.toLowerCase();
+         }
+ 
+-        return Component.translatable(baseKey);
++        return new TranslatableComponent(baseKey);
+     }
+ 
+     /**
+@@ -390,11 +392,11 @@
+             config.saveConfig(config);
+             Files.deleteIfExists(backupPath);
+         } catch (Exception e) {
+-            Minecraft.getInstance().getToastManager().addToast(
++            Minecraft.getInstance().getToasts().addToast(
+                     new SystemToast(
+-                            SystemToast.SystemToastId.PACK_LOAD_FAILURE,
+-                            Component.literal("Failed To Save Config"),
+-                            Component.literal("Restoring Backup Copy. Check log for details"))
++                            SystemToast.SystemToastIds.PACK_LOAD_FAILURE,
++                            new TextComponent("Failed To Save Config"),
++                            new TextComponent("Restoring Backup Copy. Check log for details"))
+             );
+             CraterConstants.LOG.error("Failed to save config, restoring backup", e);
+             try {

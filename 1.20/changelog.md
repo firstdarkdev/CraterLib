@@ -1,12 +1,9 @@
-**New Features**:
-
-- Paper Support. Currently only available on [NightBloom](https://nightbloom.cc/project/craterlib/files?loader=paper)
-- Added APIs for working with FTB Ranks and LuckPerms groups
-
 **Bug Fixes**:
 
-- Fixed Vanish compact API being swapped
+- Added a workaround for LuckPerms turning players into ghost players
+- Fixed Missing Getters on LuckPerms events
 
-**Changes**:
+**New Features**:
 
-- Config library now logs which line of the config the error is on
+- Swapped Built In Config screen for a Cloth Config System, so client side mods can have in-game configs
+- Added new APIs for Simple RPC (V4 rewrite)

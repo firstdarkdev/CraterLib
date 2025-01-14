@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author HypherionSA
  */
+@Deprecated(forRemoval = true, since = "2.1.3")
 public class InternalConfigButton extends AbstractButton {
 
     CraterConfigScreen screen;

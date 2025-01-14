@@ -13,6 +13,7 @@ import net.minecraft.network.chat.TextColor;
  * Copied from Cloth Config Lite
  * <a href="https://github.com/shedaniel/cloth-config-lite/blob/1.17/src/main/java/me/shedaniel/clothconfiglite/impl/option/BaseOption.java">...</a>
  */
+@Deprecated(forRemoval = true, since = "2.1.3")
 public class BaseWidget<T> extends Option<T> {
 
     public static final int resetButtonOffset = 48;

@@ -1,6 +1,6 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/widgets/ToggleButton.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/widgets/ToggleButton.java
-@@ -18,7 +18,7 @@
+@@ -19,7 +19,7 @@
      public ToggleButton(List<T> options, Function<T, Component> toComponent) {
          this.options = options;
          this.toComponent = toComponent;

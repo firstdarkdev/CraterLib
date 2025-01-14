@@ -1,6 +1,6 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
-@@ -217,7 +217,7 @@
+@@ -218,7 +218,7 @@
              //RenderSystem.disableTexture();
              Tesselator tesselator = Tesselator.getInstance();
              BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
@@ -9,7 +9,7 @@
  
              buffer.addVertex(scrollbarPositionMinX, maxY, 0.0f).setColor(0, 0, 0, 255);
              buffer.addVertex(scrollbarPositionMaxX, maxY, 0.0f).setColor(0, 0, 0, 255);
-@@ -244,7 +244,7 @@
+@@ -245,7 +245,7 @@
          RenderSystem.enableBlend();
          RenderSystem.blendFuncSeparate(770, 771, 0, 1);
          //RenderSystem.disableTexture();
@@ -18,7 +18,7 @@
          Matrix4f matrix = matrices.last().pose();
          buffer.addVertex(matrix, 0, TOP + 4, 0.0F).setUv(0, 1).setColor(0, 0, 0, 0);
          buffer.addVertex(matrix, width, TOP + 4, 0.0F).setUv(1, 1).setColor(0, 0, 0, 0);
-@@ -266,7 +266,7 @@
+@@ -267,7 +267,7 @@
      protected void overlayBackground(Matrix4f matrix, int minX, int minY, int maxX, int maxY, int red, int green, int blue, int startAlpha, int endAlpha) {
          Tesselator tesselator = Tesselator.getInstance();
          BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
