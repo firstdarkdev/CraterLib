@@ -5,6 +5,8 @@ dependencies {
     // Compat
     // NOT AVAILABLE ON FORGE modImplementation("maven.modrinth:vanishmod:${vanishmod}")
 
+    modImplementation("me.shedaniel.cloth:cloth-config-forge:${cloth_config}")
+
     // Do not edit or remove
     implementation project(":Common")
 }
@@ -113,4 +115,12 @@ publisher {
     setArtifact(remapJar)
     setCurseEnvironment("both")
     setIsManualRelease(true)
+
+    curseDepends {
+        optional("cloth-config")
+    }
+
+    modrinthDepends {
+        optional("cloth-config")
+    }
 }

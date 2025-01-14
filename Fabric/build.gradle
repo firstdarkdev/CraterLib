@@ -12,6 +12,7 @@ dependencies {
     stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
     stupidRemapArch("dev.ftb.mods:ftb-ranks:${ftb_ranks}")
 
+    modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config}")
     modImplementation "maven.modrinth:fabrictailor:${fabrictailor}"
     modImplementation "maven.modrinth:vanish:${vanish}"
 
@@ -116,8 +117,8 @@ publisher {
     setVersionType("release")
     setChangelog(rootProject.file("changelog.md"))
     setProjectVersion("${minecraft_version}-${project.version}")
-    setDisplayName("[FABRIC/QUILT 1.21.3] CraterLib - ${project.version}")
-    setGameVersions("1.21.3")
+    setDisplayName("[FABRIC/QUILT 1.21.3/4] CraterLib - ${project.version}")
+    setGameVersions("1.21.3", "1.21.4")
     setLoaders("fabric", "quilt")
     setArtifact(remapJar)
     setCurseEnvironment("both")
@@ -125,9 +126,11 @@ publisher {
 
     modrinthDepends {
         required("fabric-api")
+        optional("cloth-config", "modmenu")
     }
 
     curseDepends {
         required("fabric-api")
+        optional("cloth-config", "modmenu")
     }
 }

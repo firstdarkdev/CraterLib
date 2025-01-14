@@ -3,7 +3,7 @@ def projectIcon = "https://cdn.modrinth.com/data/Nn8Wasaq/a172c634683a11a2e9ae59
 def JDK = "21";
 def majorMc = "1.21.2";
 def modLoaders = "neoforge|fabric|quilt|paper";
-def supportedMc = "1.21.3";
+def supportedMc = "1.21.3|1.21.4";
 def reltype = "port";
 
 pipeline {

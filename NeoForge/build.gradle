@@ -7,6 +7,8 @@ dependencies {
     stupidRemapArch("dev.ftb.mods:ftb-essentials-neoforge:${ftb_essentials}")
     stupidRemapArch("dev.ftb.mods:ftb-ranks-neoforge:${ftb_ranks}")
 
+    modImplementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config}")
+
     // Do not edit or remove
     implementation project(":Common")
 }
@@ -114,10 +116,18 @@ publisher {
     setVersionType("release")
     setChangelog(rootProject.file("changelog.md"))
     setProjectVersion("${minecraft_version}-${project.version}")
-    setDisplayName("[NeoForge 1.21.3] CraterLib - ${project.version}")
-    setGameVersions("1.21.3")
+    setDisplayName("[NeoForge 1.21.3/1.21.4] CraterLib - ${project.version}")
+    setGameVersions("1.21.3", "1.21.4")
     setLoaders("neoforge")
     setArtifact(remapJar)
     setCurseEnvironment("both")
     setIsManualRelease(true)
+
+    curseDepends {
+        optional("cloth-config")
+    }
+
+    modrinthDepends {
+        optional("cloth-config")
+    }
 }
