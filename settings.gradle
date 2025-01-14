@@ -15,5 +15,5 @@ pluginManagement {
 
 rootProject.name = 'CraterLib'
 include("Common", "Fabric", "NeoForge")
-//include 'Paper'
+include 'Paper'
 
