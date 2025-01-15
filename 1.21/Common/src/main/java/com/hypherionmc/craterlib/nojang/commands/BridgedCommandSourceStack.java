@@ -1,5 +1,6 @@
 package com.hypherionmc.craterlib.nojang.commands;
 
+import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
@@ -18,6 +19,14 @@ public class BridgedCommandSourceStack {
 
     public void sendFailure(Component text) {
         internal.sendFailure(ChatUtils.adventureToMojang(text));
+    }
+
+    public boolean isPlayer() {
+        return internal.isPlayer();
+    }
+
+    public BridgedPlayer getPlayer() {
+        return BridgedPlayer.of(internal.getPlayer());
     }
 
     public CommandSourceStack toMojang() {

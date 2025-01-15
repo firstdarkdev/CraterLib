@@ -1,6 +1,6 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/client/BridgedMinecraft.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/client/BridgedMinecraft.java
-@@ -35,7 +35,7 @@
+@@ -39,7 +39,7 @@
      }
  
      public boolean isRealmServer() {

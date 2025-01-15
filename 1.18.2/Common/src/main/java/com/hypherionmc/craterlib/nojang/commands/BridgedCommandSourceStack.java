@@ -1,5 +1,7 @@
 package com.hypherionmc.craterlib.nojang.commands;
 
+import com.hypherionmc.craterlib.CraterConstants;
+import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
@@ -18,6 +20,25 @@ public class BridgedCommandSourceStack {
 
     public void sendFailure(Component text) {
         internal.sendFailure(ChatUtils.adventureToMojang(text));
+    }
+
+    public boolean isPlayer() {
+        try {
+            internal.getPlayerOrException();
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
+    public BridgedPlayer getPlayer() {
+        try {
+            return BridgedPlayer.of(internal.getPlayerOrException());
+        } catch (Exception e) {
+            CraterConstants.LOG.error("Failed to retrieve player", e);
+        }
+
+        return null;
     }
 
     public CommandSourceStack toMojang() {

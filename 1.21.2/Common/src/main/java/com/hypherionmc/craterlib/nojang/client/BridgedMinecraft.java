@@ -4,9 +4,13 @@ import com.hypherionmc.craterlib.nojang.client.multiplayer.BridgedClientLevel;
 import com.hypherionmc.craterlib.nojang.client.multiplayer.BridgedServerData;
 import com.hypherionmc.craterlib.nojang.client.server.BridgedIntegratedServer;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.Getter;
+import net.kyori.adventure.text.Component;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.AlertScreen;
+import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -76,6 +80,25 @@ public class BridgedMinecraft {
             return null;
 
         return BridgedIntegratedServer.of(internal.getSingleplayerServer());
+    }
+
+    public void showWarningScreen(Component title, Component message) {
+        Screen currentScreen = internal.screen;
+        internal.setScreen(
+                new AlertScreen(
+                        () -> internal.setScreen(currentScreen),
+                        ChatUtils.adventureToMojang(title),
+                        ChatUtils.adventureToMojang(message)
+                )
+        );
+    }
+
+    public Screen buildWarningScreen(Component title, Component message, Screen parent) {
+        return new AlertScreen(
+                () -> internal.setScreen(parent),
+                ChatUtils.adventureToMojang(title),
+                ChatUtils.adventureToMojang(message)
+        );
     }
 
     public int getServerPlayerCount () {

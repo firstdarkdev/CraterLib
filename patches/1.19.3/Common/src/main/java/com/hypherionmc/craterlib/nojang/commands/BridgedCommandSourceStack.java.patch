@@ -1,6 +1,6 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/commands/BridgedCommandSourceStack.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/commands/BridgedCommandSourceStack.java
-@@ -13,7 +13,7 @@
+@@ -14,7 +14,7 @@
      private final CommandSourceStack internal;
  
      public void sendSuccess(Supplier<Component> supplier, boolean bl) {
