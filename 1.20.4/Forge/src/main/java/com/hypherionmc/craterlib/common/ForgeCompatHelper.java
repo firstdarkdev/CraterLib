@@ -32,10 +32,6 @@ public class ForgeCompatHelper implements CompatUtils {
 
     @Override
     public boolean playerRevived(BridgedPlayer player) {
-        if (!ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive"))
-            return false;
-
-        IBleeding bleeding = PlayerReviveServer.getBleeding(player.toMojangServerPlayer());
-        return bleeding != null && bleeding.revived();
+        return false;
     }
 }

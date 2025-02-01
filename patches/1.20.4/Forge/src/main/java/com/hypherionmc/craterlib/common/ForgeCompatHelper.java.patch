@@ -22,7 +22,7 @@
      }
  
      @Override
-@@ -19,19 +22,12 @@
+@@ -19,27 +22,16 @@
  
      @Override
      public boolean isPlayerBleeding(BridgedPlayer player) {
@@ -44,3 +44,12 @@
      }
  
      @Override
+     public boolean playerRevived(BridgedPlayer player) {
+-        if (!ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive"))
+-            return false;
+-
+-        IBleeding bleeding = PlayerReviveServer.getBleeding(player.toMojangServerPlayer());
+-        return bleeding != null && bleeding.revived();
++        return false;
+     }
+ }
