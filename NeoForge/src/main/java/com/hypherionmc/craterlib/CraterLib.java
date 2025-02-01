@@ -2,6 +2,7 @@ package com.hypherionmc.craterlib;
 
 import com.hypherionmc.craterlib.client.NeoForgeClientHelper;
 import com.hypherionmc.craterlib.common.NeoForgeServerEvents;
+import com.hypherionmc.craterlib.compat.PlayerReviveEvents;
 import com.hypherionmc.craterlib.compat.Vanish;
 import com.hypherionmc.craterlib.core.networking.CraterPacketNetwork;
 import com.hypherionmc.craterlib.core.networking.PacketRegistry;
@@ -28,6 +29,10 @@ public class CraterLib {
 
         if (ModloaderEnvironment.INSTANCE.isModLoaded("vmod")) {
             NeoForge.EVENT_BUS.register(new Vanish());
+        }
+
+        if (ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive")) {
+            NeoForge.EVENT_BUS.register(new PlayerReviveEvents());
         }
     }
 
