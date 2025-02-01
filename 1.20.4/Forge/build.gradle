@@ -10,6 +10,10 @@ dependencies {
 
     modImplementation("me.shedaniel.cloth:cloth-config-forge:${cloth_config}")
 
+    // NOT AVAILABLE FOR FORGE
+    //modImplementation("unimaven.curseforge:playerrevive-266890:5019850")
+    //modImplementation("unimaven.curseforge:creativecore-257814:5140174")
+
     // Do not edit or remove
     implementation project(":Common")
 }

@@ -20,4 +20,19 @@ public class FabricCompatHelper implements CompatUtils {
     public String getSkinUUID(BridgedPlayer player) {
         return FabricTailor.getTailorSkin(player.toMojangServerPlayer());
     }
+
+    @Override
+    public boolean isPlayerBleeding(BridgedPlayer player) {
+        return false;
+    }
+
+    @Override
+    public boolean playerBledOut(BridgedPlayer player) {
+        return false;
+    }
+
+    @Override
+    public boolean playerRevived(BridgedPlayer player) {
+        return false;
+    }
 }

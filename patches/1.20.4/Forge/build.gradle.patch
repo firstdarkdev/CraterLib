@@ -1,6 +1,6 @@
 --- a/Forge/build.gradle
 +++ b/Forge/build.gradle
-@@ -3,7 +3,10 @@
+@@ -3,11 +3,16 @@
  
  dependencies {
      // Compat
@@ -11,8 +11,16 @@
 +    stupidRemapArch("dev.ftb.mods:ftb-ranks-forge:${ftb_ranks}")
  
      modImplementation("me.shedaniel.cloth:cloth-config-forge:${cloth_config}")
+-    modImplementation("unimaven.curseforge:playerrevive-266890:${player_revive}")
+-    modImplementation("unimaven.curseforge:creativecore-257814:${creative_core}")
++
++    // NOT AVAILABLE FOR FORGE
++    //modImplementation("unimaven.curseforge:playerrevive-266890:5019850")
++    //modImplementation("unimaven.curseforge:creativecore-257814:5140174")
  
-@@ -109,8 +112,8 @@
+     // Do not edit or remove
+     implementation project(":Common")
+@@ -111,8 +116,8 @@
      setVersionType("release")
      setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")

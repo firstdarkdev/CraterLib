@@ -1,6 +1,6 @@
 --- a/Common/src/main/resources/craterlib.mixins.json
 +++ b/Common/src/main/resources/craterlib.mixins.json
-@@ -17,7 +17,8 @@
+@@ -19,7 +19,8 @@
      "events.PlayerAdvancementsMixin",
      "events.PlayerListMixin",
      "events.ServerPlayerMixin",

@@ -2,6 +2,7 @@ package com.hypherionmc.craterlib;
 
 import com.hypherionmc.craterlib.api.events.client.LateInitEvent;
 import com.hypherionmc.craterlib.common.ForgeServerEvents;
+import com.hypherionmc.craterlib.compat.PlayerReviveEvents;
 import com.hypherionmc.craterlib.compat.Vanish;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.hypherionmc.craterlib.core.networking.CraterPacketNetwork;
@@ -36,6 +37,10 @@ public class CraterLib {
 
         if (ModloaderEnvironment.INSTANCE.isModLoaded("vmod")) {
             MinecraftForge.EVENT_BUS.register(new Vanish());
+        }
+
+        if (ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive")) {
+            MinecraftForge.EVENT_BUS.register(new PlayerReviveEvents());
         }
     }
 }

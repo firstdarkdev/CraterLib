@@ -19,4 +19,23 @@ public class ForgeCompatHelper implements CompatUtils {
     public String getSkinUUID(BridgedPlayer player) {
         return player.getStringUUID();
     }
+
+    @Override
+    public boolean isPlayerBleeding(BridgedPlayer player) {
+        return false;
+    }
+
+    @Override
+    public boolean playerBledOut(BridgedPlayer player) {
+        return false;
+    }
+
+    @Override
+    public boolean playerRevived(BridgedPlayer player) {
+        if (!ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive"))
+            return false;
+
+        IBleeding bleeding = PlayerReviveServer.getBleeding(player.toMojangServerPlayer());
+        return bleeding != null && bleeding.revived();
+    }
 }

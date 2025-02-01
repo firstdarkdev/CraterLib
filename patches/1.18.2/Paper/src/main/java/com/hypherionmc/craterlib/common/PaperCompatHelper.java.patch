@@ -1,6 +1,6 @@
 --- a/Paper/src/main/java/com/hypherionmc/craterlib/common/PaperCompatHelper.java
 +++ /dev/null
-@@ -1,78 +1,0 @@
+@@ -1,92 +1,0 @@
 -package com.hypherionmc.craterlib.common;
 -
 -import com.hypherionmc.craterlib.core.platform.CompatUtils;
@@ -78,4 +78,18 @@
 -        return false;
 -    }
 -
+-    @Override
+-    public boolean isPlayerBleeding(BridgedPlayer player) {
+-        return false;
+-    }
+-
+-    @Override
+-    public boolean playerBledOut(BridgedPlayer player) {
+-        return false;
+-    }
+-
+-    @Override
+-    public boolean playerRevived(BridgedPlayer player) {
+-        return false;
+-    }
 -}

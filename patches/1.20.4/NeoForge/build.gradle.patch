@@ -1,6 +1,6 @@
 --- a/NeoForge/build.gradle
 +++ b/NeoForge/build.gradle
-@@ -37,12 +37,7 @@
+@@ -39,12 +39,7 @@
  
  unimined.minecraft {
      neoForged {
@@ -14,7 +14,7 @@
          mixinConfig("${mod_id}.mixins.json", "${mod_id}.neoforge.mixins.json")
      }
  }
-@@ -61,7 +56,7 @@
+@@ -63,7 +58,7 @@
      from project(":Common").sourceSets.main.resources
      def buildProps = project.properties.clone()
  
@@ -23,7 +23,7 @@
          expand buildProps
      }
  }
-@@ -116,8 +111,8 @@
+@@ -118,8 +113,8 @@
      setVersionType("release")
      setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")

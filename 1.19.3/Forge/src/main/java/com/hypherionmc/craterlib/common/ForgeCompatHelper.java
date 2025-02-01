@@ -3,6 +3,8 @@ package com.hypherionmc.craterlib.common;
 import com.hypherionmc.craterlib.core.platform.CompatUtils;
 import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+import team.creative.playerrevive.api.IBleeding;
+import team.creative.playerrevive.server.PlayerReviveServer;
 import redstonedubstep.mods.vanishmod.VanishUtil;
 
 public class ForgeCompatHelper implements CompatUtils {
@@ -18,5 +20,31 @@ public class ForgeCompatHelper implements CompatUtils {
     @Override
     public String getSkinUUID(BridgedPlayer player) {
         return player.getStringUUID();
+    }
+
+    @Override
+    public boolean isPlayerBleeding(BridgedPlayer player) {
+        if (!ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive"))
+            return false;
+
+        return PlayerReviveServer.isBleeding(player.toMojangServerPlayer());
+    }
+
+    @Override
+    public boolean playerBledOut(BridgedPlayer player) {
+        if (!ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive"))
+            return false;
+
+        IBleeding bleeding = PlayerReviveServer.getBleeding(player.toMojangServerPlayer());
+        return bleeding != null && bleeding.bledOut();
+    }
+
+    @Override
+    public boolean playerRevived(BridgedPlayer player) {
+        if (!ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive"))
+            return false;
+
+        IBleeding bleeding = PlayerReviveServer.getBleeding(player.toMojangServerPlayer());
+        return bleeding != null && bleeding.revived();
     }
 }

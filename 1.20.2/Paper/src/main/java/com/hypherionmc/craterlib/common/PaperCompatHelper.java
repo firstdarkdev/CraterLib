@@ -75,4 +75,18 @@ public class PaperCompatHelper implements CompatUtils {
         return false;
     }
 
+    @Override
+    public boolean isPlayerBleeding(BridgedPlayer player) {
+        return false;
+    }
+
+    @Override
+    public boolean playerBledOut(BridgedPlayer player) {
+        return false;
+    }
+
+    @Override
+    public boolean playerRevived(BridgedPlayer player) {
+        return false;
+    }
 }

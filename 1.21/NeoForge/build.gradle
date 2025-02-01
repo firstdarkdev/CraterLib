@@ -8,6 +8,8 @@ dependencies {
     stupidRemapArch("dev.ftb.mods:ftb-ranks-neoforge:${ftb_ranks}")
 
     modImplementation("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config}")
+    modImplementation("unimaven.curseforge:playerrevive-266890:${player_revive}")
+    modImplementation("unimaven.curseforge:creativecore-257814:${creative_core}")
 
     // Do not edit or remove
     implementation project(":Common")

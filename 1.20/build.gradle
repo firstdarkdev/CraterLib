@@ -48,6 +48,10 @@ subprojects {
                 includeGroup "maven.modrinth"
             }
         }
+
+        maven {
+            url = "https://unimaven.cc"
+        }
     }
 
     configurations {

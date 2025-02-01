@@ -9,5 +9,8 @@ public interface CompatUtils {
 
     boolean isPlayerActive(BridgedPlayer player);
     String getSkinUUID(BridgedPlayer player);
+    boolean isPlayerBleeding(BridgedPlayer player);
+    boolean playerBledOut(BridgedPlayer player);
+    boolean playerRevived(BridgedPlayer player);
 
 }

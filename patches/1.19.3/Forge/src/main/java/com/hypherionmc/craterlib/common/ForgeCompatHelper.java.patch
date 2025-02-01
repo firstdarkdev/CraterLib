@@ -1,11 +1,13 @@
 --- a/Forge/src/main/java/com/hypherionmc/craterlib/common/ForgeCompatHelper.java
 +++ b/Forge/src/main/java/com/hypherionmc/craterlib/common/ForgeCompatHelper.java
-@@ -1,13 +1,18 @@
+@@ -1,15 +1,20 @@
  package com.hypherionmc.craterlib.common;
  
  import com.hypherionmc.craterlib.core.platform.CompatUtils;
 +import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
  import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+ import team.creative.playerrevive.api.IBleeding;
+ import team.creative.playerrevive.server.PlayerReviveServer;
 +import redstonedubstep.mods.vanishmod.VanishUtil;
  
  public class ForgeCompatHelper implements CompatUtils {

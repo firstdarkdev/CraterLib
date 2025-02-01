@@ -1,10 +1,11 @@
 --- a/NeoForge/src/main/java/com/hypherionmc/craterlib/CraterLib.java
 +++ /dev/null
-@@ -1,41 +1,0 @@
+@@ -1,46 +1,0 @@
 -package com.hypherionmc.craterlib;
 -
 -import com.hypherionmc.craterlib.client.NeoForgeClientHelper;
 -import com.hypherionmc.craterlib.common.NeoForgeServerEvents;
+-import com.hypherionmc.craterlib.compat.PlayerReviveEvents;
 -import com.hypherionmc.craterlib.compat.Vanish;
 -import com.hypherionmc.craterlib.core.networking.CraterPacketNetwork;
 -import com.hypherionmc.craterlib.core.networking.PacketRegistry;
@@ -31,6 +32,10 @@
 -
 -        if (ModloaderEnvironment.INSTANCE.isModLoaded("vmod")) {
 -            NeoForge.EVENT_BUS.register(new Vanish());
+-        }
+-
+-        if (ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive")) {
+-            NeoForge.EVENT_BUS.register(new PlayerReviveEvents());
 -        }
 -    }
 -
