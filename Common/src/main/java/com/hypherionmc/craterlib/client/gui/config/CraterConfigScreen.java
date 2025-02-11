@@ -233,7 +233,7 @@ public class CraterConfigScreen extends Screen {
             buffer.addVertex((scrollbarPositionMaxX - 1), (minY + height - 1), 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
             buffer.addVertex((scrollbarPositionMaxX - 1), minY, 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
             buffer.addVertex(scrollbarPositionMinX, minY, 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
-            BufferUploader.drawWithShader(buffer.buildOrThrow());
+            //BufferUploader.drawWithShader(buffer.buildOrThrow());
             RenderSystem.disableBlend();
             //RenderSystem.enableTexture();
         }
@@ -255,7 +255,7 @@ public class CraterConfigScreen extends Screen {
         buffer.addVertex(matrix, width, height - BOTTOM, 0.0F).setUv(1, 1).setColor(0, 0, 0, 185);
         buffer.addVertex(matrix, width, height - BOTTOM - 4, 0.0F).setUv(1, 0).setColor(0, 0, 0, 0);
         buffer.addVertex(matrix, 0, height - BOTTOM - 4, 0.0F).setUv(0, 0).setColor(0, 0, 0, 0);
-        BufferUploader.drawWithShader(buffer.buildOrThrow());
+        //BufferUploader.drawWithShader(buffer.buildOrThrow());
         //RenderSystem.enableTexture();
         RenderSystem.disableBlend();
     }
@@ -274,7 +274,7 @@ public class CraterConfigScreen extends Screen {
         buffer.addVertex(matrix, maxX, maxY, 0.0F).setUv(maxX / 32.0F, maxY / 32.0F).setColor(red, green, blue, endAlpha);
         buffer.addVertex(matrix, maxX, minY, 0.0F).setUv(maxX / 32.0F, minY / 32.0F).setColor(red, green, blue, startAlpha);
         buffer.addVertex(matrix, minX, minY, 0.0F).setUv(minX / 32.0F, minY / 32.0F).setColor(red, green, blue, startAlpha);
-        BufferUploader.drawWithShader(buffer.buildOrThrow());
+        //BufferUploader.drawWithShader(buffer.buildOrThrow());
     }
 
     public int scrollHeight() {

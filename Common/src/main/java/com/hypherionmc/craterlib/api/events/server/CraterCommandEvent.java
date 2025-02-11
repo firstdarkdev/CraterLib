@@ -53,6 +53,6 @@ public class CraterCommandEvent extends CraterEvent {
     }
 
     public Component getMessage() {
-        return ChatUtils.mojangToAdventure(ComponentArgument.getComponent(parseResults.getContext().build(parseResults.getReader().getString()), "message"));
+        return ChatUtils.mojangToAdventure(ComponentArgument.getRawComponent(parseResults.getContext().build(parseResults.getReader().getString()), "message"));
     }
 }
