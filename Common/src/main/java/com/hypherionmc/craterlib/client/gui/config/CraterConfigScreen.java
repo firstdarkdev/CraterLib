@@ -243,7 +243,7 @@ public class CraterConfigScreen extends Screen {
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
         RenderSystem.enableBlend();
-        RenderSystem.blendFuncSeparate(770, 771, 0, 1);
+        //RenderSystem.blendFuncSeparate(770, 771, 0, 1);
         //RenderSystem.disableTexture();
         //RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         Matrix4f matrix = matrices.last().pose();
