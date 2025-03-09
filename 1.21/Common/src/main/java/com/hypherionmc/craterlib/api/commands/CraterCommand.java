@@ -2,6 +2,7 @@ package com.hypherionmc.craterlib.api.commands;
 
 import com.hypherionmc.craterlib.CraterConstants;
 import com.hypherionmc.craterlib.compat.LuckPermsCompat;
+import com.hypherionmc.craterlib.core.platform.LoaderType;
 import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.nojang.authlib.BridgedGameProfile;
 import com.hypherionmc.craterlib.nojang.commands.BridgedCommandSourceStack;
@@ -139,7 +140,7 @@ public class CraterCommand {
 
     private boolean checkPermission(CommandSourceStack stack) {
         try {
-            if (!ModloaderEnvironment.INSTANCE.isModLoaded("luckperms") || !stack.isPlayer() || luckPermNode.isEmpty())
+            if (!ModloaderEnvironment.INSTANCE.isModLoaded("luckperms") || ModloaderEnvironment.INSTANCE.getLoaderType() == LoaderType.PAPER || !stack.isPlayer() || luckPermNode.isEmpty())
                 return stack.hasPermission(this.permLevel);
 
             return LuckPermsCompat.INSTANCE.hasPermission(stack.getPlayer(), this.luckPermNode) || stack.hasPermission(this.permLevel);
