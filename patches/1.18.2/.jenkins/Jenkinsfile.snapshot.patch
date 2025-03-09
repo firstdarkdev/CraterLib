@@ -4,10 +4,10 @@
  def projectName = "CraterLib";
  def projectIcon = "https://cdn.modrinth.com/data/Nn8Wasaq/a172c634683a11a2e9ae593e56eba7885743bb44.png";
 -def JDK = "21";
--def majorMc = "1.21.2";
+-def majorMc = "1.21.5";
 -def modLoaders = "neoforge|fabric|quilt|paper";
--def supportedMc = "1.21.3|1.21.4";
--def reltype = "port";
+-def supportedMc = "25w10a";
+-def reltype = "experimental";
 +def JDK = "17";
 +def majorMc = "1.18.2";
 +def modLoaders = "forge|fabric|quilt";
@@ -53,7 +53,7 @@
 -                projectIcon: "${projectIcon}",
 -                modLoaders: "${modLoaders}",
 -                minecraftVersions: "${supportedMc}",
--                type: "snapshot",
+-                type: "experimental",
 -                dependsOn: "",
 -                failWebhook: env.SSS_WEBHOOK,
 -                publishWebhooks: "${env.SSS_WEBHOOK}|${env.FDD_WH}"

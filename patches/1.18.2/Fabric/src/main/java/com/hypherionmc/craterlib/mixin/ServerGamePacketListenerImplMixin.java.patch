@@ -17,7 +17,7 @@
      public ServerPlayer player;
  
      @Inject(
--            method = "lambda$handleChat$5",
+-            method = "lambda$handleChat$6",
 -            at = @At("HEAD"),
 +            method = "handleChat(Lnet/minecraft/server/network/TextFilter$FilteredText;)V",
 +            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/TextFilter$FilteredText;getFiltered()Ljava/lang/String;"),

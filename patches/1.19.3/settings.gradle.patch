@@ -5,8 +5,9 @@
  }
  
 -rootProject.name = 'CraterLib'
--include("Common", "Fabric", "NeoForge")
+-include("Common", "Fabric"/*, "NeoForge"*/)
+-//include 'Paper'
+-
 +rootProject.name = 'CraterLib-1.19.3'
 +include("Common", "Fabric", "Forge")
- include 'Paper'
--
++include 'Paper'

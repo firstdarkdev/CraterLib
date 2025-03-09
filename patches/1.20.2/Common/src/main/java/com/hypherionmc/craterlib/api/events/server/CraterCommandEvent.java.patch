@@ -1,0 +1,10 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/api/events/server/CraterCommandEvent.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/api/events/server/CraterCommandEvent.java
+@@ -53,6 +53,6 @@
+     }
+ 
+     public Component getMessage() {
+-        return ChatUtils.mojangToAdventure(ComponentArgument.getRawComponent(parseResults.getContext().build(parseResults.getReader().getString()), "message"));
++        return ChatUtils.mojangToAdventure(ComponentArgument.getComponent(parseResults.getContext().build(parseResults.getReader().getString()), "message"));
+     }
+ }

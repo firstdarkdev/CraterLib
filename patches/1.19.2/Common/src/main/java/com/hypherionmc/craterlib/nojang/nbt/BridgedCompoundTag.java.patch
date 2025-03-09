@@ -1,0 +1,26 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/nbt/BridgedCompoundTag.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/nbt/BridgedCompoundTag.java
+@@ -15,19 +15,19 @@
+     }
+ 
+     public BridgedCompoundTag getCompound(String key) {
+-        return BridgedCompoundTag.of(internal.getCompound(key).orElse(new CompoundTag()));
++        return BridgedCompoundTag.of(internal.getCompound(key));
+     }
+ 
+     public Set<String> getAllKeys() {
+-        return internal.keySet();
++        return internal.getAllKeys();
+     }
+ 
+     public String getString(String key) {
+-        return internal.getStringOr(key, "");
++        return internal.getString(key);
+     }
+ 
+     public boolean getBoolean(String key) {
+-        return internal.getBooleanOr(key, false);
++        return internal.getBoolean(key);
+     }
+ 
+     public void putString(String key, String value) {

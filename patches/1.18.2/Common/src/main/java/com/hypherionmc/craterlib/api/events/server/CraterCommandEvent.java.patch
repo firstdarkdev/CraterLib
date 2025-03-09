@@ -9,3 +9,11 @@
  
              if (p != null)
                  return BridgedPlayer.of(p);
+@@ -53,6 +53,6 @@
+     }
+ 
+     public Component getMessage() {
+-        return ChatUtils.mojangToAdventure(ComponentArgument.getRawComponent(parseResults.getContext().build(parseResults.getReader().getString()), "message"));
++        return ChatUtils.mojangToAdventure(ComponentArgument.getComponent(parseResults.getContext().build(parseResults.getReader().getString()), "message"));
+     }
+ }

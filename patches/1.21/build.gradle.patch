@@ -7,7 +7,7 @@
 -var relType = project.properties["releaseType"] ?: "${release_type}"
 -
 -ext {
--    isPort = (relType == 'port')
+-    isPort = (relType == 'experimental')
 -}
 -
  orion.setup {

@@ -9,21 +9,58 @@
  
              buffer.addVertex(scrollbarPositionMinX, maxY, 0.0f).setColor(0, 0, 0, 255);
              buffer.addVertex(scrollbarPositionMaxX, maxY, 0.0f).setColor(0, 0, 0, 255);
-@@ -245,7 +245,7 @@
-         RenderSystem.enableBlend();
-         RenderSystem.blendFuncSeparate(770, 771, 0, 1);
+@@ -233,8 +233,8 @@
+             buffer.addVertex((scrollbarPositionMaxX - 1), (minY + height - 1), 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
+             buffer.addVertex((scrollbarPositionMaxX - 1), minY, 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
+             buffer.addVertex(scrollbarPositionMinX, minY, 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
+-            //BufferUploader.drawWithShader(buffer.buildOrThrow());
+-            //RenderSystem.disableBlend();
++            BufferUploader.drawWithShader(buffer.buildOrThrow());
++            RenderSystem.disableBlend();
+             //RenderSystem.enableTexture();
+         }
+     }
+@@ -242,10 +242,10 @@
+     private void renderShadow(PoseStack matrices) {
+         Tesselator tesselator = Tesselator.getInstance();
+         BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
+-        //RenderSystem.enableBlend();
+-        //RenderSystem.blendFuncSeparate(770, 771, 0, 1);
++        RenderSystem.enableBlend();
++        RenderSystem.blendFuncSeparate(770, 771, 0, 1);
          //RenderSystem.disableTexture();
 -        //RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
 +        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
          Matrix4f matrix = matrices.last().pose();
          buffer.addVertex(matrix, 0, TOP + 4, 0.0F).setUv(0, 1).setColor(0, 0, 0, 0);
          buffer.addVertex(matrix, width, TOP + 4, 0.0F).setUv(1, 1).setColor(0, 0, 0, 0);
-@@ -267,7 +267,7 @@
+@@ -255,9 +255,9 @@
+         buffer.addVertex(matrix, width, height - BOTTOM, 0.0F).setUv(1, 1).setColor(0, 0, 0, 185);
+         buffer.addVertex(matrix, width, height - BOTTOM - 4, 0.0F).setUv(1, 0).setColor(0, 0, 0, 0);
+         buffer.addVertex(matrix, 0, height - BOTTOM - 4, 0.0F).setUv(0, 0).setColor(0, 0, 0, 0);
+-        //BufferUploader.drawWithShader(buffer.buildOrThrow());
++        BufferUploader.drawWithShader(buffer.buildOrThrow());
+         //RenderSystem.enableTexture();
+-        //RenderSystem.disableBlend();
++        RenderSystem.disableBlend();
+     }
+ 
+     protected void overlayBackground(PoseStack matrices, int h1, int h2, int color) {
+@@ -267,14 +267,14 @@
      protected void overlayBackground(Matrix4f matrix, int minX, int minY, int maxX, int maxY, int red, int green, int blue, int startAlpha, int endAlpha) {
          Tesselator tesselator = Tesselator.getInstance();
          BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
 -        //RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
+-        //RenderSystem.setShaderTexture(0, Screen.MENU_BACKGROUND);
 +        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
-         RenderSystem.setShaderTexture(0, Screen.MENU_BACKGROUND);
++        RenderSystem.setShaderTexture(0, Screen.MENU_BACKGROUND);
          RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
          buffer.addVertex(matrix, minX, maxY, 0.0F).setUv(minX / 32.0F, maxY / 32.0F).setColor(red, green, blue, endAlpha);
+         buffer.addVertex(matrix, maxX, maxY, 0.0F).setUv(maxX / 32.0F, maxY / 32.0F).setColor(red, green, blue, endAlpha);
+         buffer.addVertex(matrix, maxX, minY, 0.0F).setUv(maxX / 32.0F, minY / 32.0F).setColor(red, green, blue, startAlpha);
+         buffer.addVertex(matrix, minX, minY, 0.0F).setUv(minX / 32.0F, minY / 32.0F).setColor(red, green, blue, startAlpha);
+-        //BufferUploader.drawWithShader(buffer.buildOrThrow());
++        BufferUploader.drawWithShader(buffer.buildOrThrow());
+     }
+ 
+     public int scrollHeight() {
