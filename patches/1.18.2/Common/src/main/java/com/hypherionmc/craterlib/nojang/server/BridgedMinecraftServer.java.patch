@@ -1,6 +1,6 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/server/BridgedMinecraftServer.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/server/BridgedMinecraftServer.java
-@@ -7,6 +7,8 @@
+@@ -9,6 +9,8 @@
  import lombok.RequiredArgsConstructor;
  import net.kyori.adventure.text.Component;
  import net.minecraft.SharedConstants;
@@ -9,7 +9,7 @@
  import net.minecraft.server.MinecraftServer;
  import net.minecraft.server.players.UserBanListEntry;
  import net.minecraft.server.players.UserWhiteListEntry;
-@@ -44,7 +46,7 @@
+@@ -46,7 +48,7 @@
      }
  
      public void broadcastSystemMessage(Component text, boolean bl) {
@@ -18,7 +18,7 @@
      }
  
      public boolean isPlayerBanned(BridgedGameProfile profile) {
-@@ -81,7 +83,7 @@
+@@ -87,7 +89,7 @@
      }
  
      public void executeCommand(BridgedMinecraftServer server, BridgedFakePlayer player, String command) {

@@ -6,3 +6,15 @@ author: HypherionSA
 api-version: '1.21.3'
 bootstrapper: com.hypherionmc.craterlib.paper.CraterLibBootstrap
 load: STARTUP
+
+dependencies:
+  bootstrap:
+    LuckPerms:
+      load: BEFORE
+      required: false
+      join-classpath: true
+  server:
+    LuckPerms:
+      load: BEFORE
+      required: false
+      join-classpath: true

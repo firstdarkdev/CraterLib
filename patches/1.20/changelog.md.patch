@@ -1,0 +1,10 @@
+--- a/changelog.md
++++ b/changelog.md
+@@ -1,6 +1,7 @@
+ **Bug Fixes**:
+ 
+ - Fixed LuckPerms breaking commands on Paper
++- Fixed crash when trying to open config screens on NeoForge
+ 
+ **New Features**:
+ 

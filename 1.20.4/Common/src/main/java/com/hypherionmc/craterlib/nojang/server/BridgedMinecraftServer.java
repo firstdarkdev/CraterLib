@@ -1,8 +1,10 @@
 package com.hypherionmc.craterlib.nojang.server;
 
 import com.hypherionmc.craterlib.nojang.authlib.BridgedGameProfile;
+import com.hypherionmc.craterlib.nojang.client.multiplayer.BridgedClientLevel;
 import com.hypherionmc.craterlib.nojang.commands.BridgedFakePlayer;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+import com.hypherionmc.craterlib.nojang.world.level.BridgedGameRules;
 import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
@@ -74,6 +76,10 @@ public class BridgedMinecraftServer {
         internal.getPlayerList().getPlayers().forEach(p -> profiles.add(BridgedPlayer.of(p)));
 
         return profiles;
+    }
+
+    public BridgedGameRules getGameRules() {
+        return BridgedGameRules.bridge(internal.getGameRules());
     }
 
     public void banPlayer(BridgedGameProfile profile) {

@@ -1,0 +1,45 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/world/level/BridgedGameRules.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/world/level/BridgedGameRules.java
+@@ -10,7 +10,7 @@
+ 
+     // Wrapped Mojang Rules for convenience
+     public static final WrappedBooleanKey RULE_DOFIRETICK = WrappedBooleanKey.wrap(GameRules.RULE_DOFIRETICK);
+-    public static final WrappedBooleanKey RULE_ALLOWFIRETICKAWAYFROMPLAYERS = WrappedBooleanKey.wrap(GameRules.RULE_ALLOWFIRETICKAWAYFROMPLAYERS);
++    public static final WrappedBooleanKey RULE_ALLOWFIRETICKAWAYFROMPLAYERS = WrappedBooleanKey.wrap(null);
+     public static final WrappedBooleanKey RULE_MOBGRIEFING = WrappedBooleanKey.wrap(GameRules.RULE_MOBGRIEFING);
+     public static final WrappedBooleanKey RULE_KEEPINVENTORY = WrappedBooleanKey.wrap(GameRules.RULE_KEEPINVENTORY);
+     public static final WrappedBooleanKey RULE_DOMOBSPAWNING = WrappedBooleanKey.wrap(GameRules.RULE_DOMOBSPAWNING);
+@@ -28,7 +28,7 @@
+     public static final WrappedBooleanKey RULE_REDUCEDDEBUGINFO = WrappedBooleanKey.wrap(GameRules.RULE_REDUCEDDEBUGINFO);
+     public static final WrappedBooleanKey RULE_SPECTATORSGENERATECHUNKS = WrappedBooleanKey.wrap(GameRules.RULE_SPECTATORSGENERATECHUNKS);
+     public static final WrappedIntegerKey RULE_SPAWN_RADIUS = WrappedIntegerKey.wrap(GameRules.RULE_SPAWN_RADIUS);
+-    public static final WrappedBooleanKey RULE_DISABLE_PLAYER_MOVEMENT_CHECK = WrappedBooleanKey.wrap(GameRules.RULE_DISABLE_PLAYER_MOVEMENT_CHECK);
++    public static final WrappedBooleanKey RULE_DISABLE_PLAYER_MOVEMENT_CHECK = WrappedBooleanKey.wrap(null);
+     public static final WrappedBooleanKey RULE_DISABLE_ELYTRA_MOVEMENT_CHECK = WrappedBooleanKey.wrap(GameRules.RULE_DISABLE_ELYTRA_MOVEMENT_CHECK);
+     public static final WrappedIntegerKey RULE_MAX_ENTITY_CRAMMING = WrappedIntegerKey.wrap(GameRules.RULE_MAX_ENTITY_CRAMMING);
+     public static final WrappedBooleanKey RULE_WEATHER_CYCLE = WrappedBooleanKey.wrap(GameRules.RULE_WEATHER_CYCLE);
+@@ -61,15 +61,21 @@
+     public static final WrappedBooleanKey RULE_GLOBAL_SOUND_EVENTS = WrappedBooleanKey.wrap(GameRules.RULE_GLOBAL_SOUND_EVENTS);
+     public static final WrappedBooleanKey RULE_DO_VINES_SPREAD = WrappedBooleanKey.wrap(GameRules.RULE_DO_VINES_SPREAD);
+     public static final WrappedBooleanKey RULE_ENDER_PEARLS_VANISH_ON_DEATH = WrappedBooleanKey.wrap(GameRules.RULE_ENDER_PEARLS_VANISH_ON_DEATH);
+-    public static final WrappedIntegerKey RULE_MINECART_MAX_SPEED = WrappedIntegerKey.wrap(GameRules.RULE_MINECART_MAX_SPEED);
+-    public static final WrappedIntegerKey RULE_SPAWN_CHUNK_RADIUS = WrappedIntegerKey.wrap(GameRules.RULE_SPAWN_CHUNK_RADIUS);
+-    public static final WrappedBooleanKey RULE_TNT_EXPLODES = WrappedBooleanKey.wrap(GameRules.RULE_TNT_EXPLODES);
++    public static final WrappedIntegerKey RULE_MINECART_MAX_SPEED = WrappedIntegerKey.wrap(null);
++    public static final WrappedIntegerKey RULE_SPAWN_CHUNK_RADIUS = WrappedIntegerKey.wrap(null);
++    public static final WrappedBooleanKey RULE_TNT_EXPLODES = WrappedBooleanKey.wrap(null);
+ 
+     public boolean getBoolean(WrappedBooleanKey key) {
++        if (key.toMojang() == null)
++            return false;
++
+         return internal.getBoolean(key.toMojang());
+     }
+ 
+     public int getInt(WrappedIntegerKey key) {
++        if (key.toMojang() == null)
++            return 0;
++
+         return internal.getInt(key.toMojang());
+     }
+ 

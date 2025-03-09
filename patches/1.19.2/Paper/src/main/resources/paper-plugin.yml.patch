@@ -1,6 +1,6 @@
 --- a/Paper/src/main/resources/paper-plugin.yml
 +++ /dev/null
-@@ -1,8 +1,0 @@
+@@ -1,20 +1,0 @@
 -name: CraterLib
 -version: ${version}
 -description: "A Modding API used to create 'universal' mods"
@@ -9,3 +9,15 @@
 -api-version: '1.21.3'
 -bootstrapper: com.hypherionmc.craterlib.paper.CraterLibBootstrap
 -load: STARTUP
+-
+-dependencies:
+-  bootstrap:
+-    LuckPerms:
+-      load: BEFORE
+-      required: false
+-      join-classpath: true
+-  server:
+-    LuckPerms:
+-      load: BEFORE
+-      required: false
+-      join-classpath: true
