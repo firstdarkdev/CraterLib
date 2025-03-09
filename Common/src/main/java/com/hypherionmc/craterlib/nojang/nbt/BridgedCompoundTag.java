@@ -15,19 +15,19 @@ public class BridgedCompoundTag {
     }
 
     public BridgedCompoundTag getCompound(String key) {
-        return BridgedCompoundTag.of(internal.getCompound(key));
+        return BridgedCompoundTag.of(internal.getCompound(key).orElse(new CompoundTag()));
     }
 
     public Set<String> getAllKeys() {
-        return internal.getAllKeys();
+        return internal.keySet();
     }
 
     public String getString(String key) {
-        return internal.getString(key);
+        return internal.getStringOr(key, "");
     }
 
     public boolean getBoolean(String key) {
-        return internal.getBoolean(key);
+        return internal.getBooleanOr(key, false);
     }
 
     public void putString(String key, String value) {

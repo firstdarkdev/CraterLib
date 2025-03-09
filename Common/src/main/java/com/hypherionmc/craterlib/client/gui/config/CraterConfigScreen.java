@@ -234,7 +234,7 @@ public class CraterConfigScreen extends Screen {
             buffer.addVertex((scrollbarPositionMaxX - 1), minY, 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
             buffer.addVertex(scrollbarPositionMinX, minY, 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
             //BufferUploader.drawWithShader(buffer.buildOrThrow());
-            RenderSystem.disableBlend();
+            //RenderSystem.disableBlend();
             //RenderSystem.enableTexture();
         }
     }
@@ -242,7 +242,7 @@ public class CraterConfigScreen extends Screen {
     private void renderShadow(PoseStack matrices) {
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
-        RenderSystem.enableBlend();
+        //RenderSystem.enableBlend();
         //RenderSystem.blendFuncSeparate(770, 771, 0, 1);
         //RenderSystem.disableTexture();
         //RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
@@ -257,7 +257,7 @@ public class CraterConfigScreen extends Screen {
         buffer.addVertex(matrix, 0, height - BOTTOM - 4, 0.0F).setUv(0, 0).setColor(0, 0, 0, 0);
         //BufferUploader.drawWithShader(buffer.buildOrThrow());
         //RenderSystem.enableTexture();
-        RenderSystem.disableBlend();
+        //RenderSystem.disableBlend();
     }
 
     protected void overlayBackground(PoseStack matrices, int h1, int h2, int color) {
@@ -268,7 +268,7 @@ public class CraterConfigScreen extends Screen {
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
         //RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
-        RenderSystem.setShaderTexture(0, Screen.MENU_BACKGROUND);
+        //RenderSystem.setShaderTexture(0, Screen.MENU_BACKGROUND);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         buffer.addVertex(matrix, minX, maxY, 0.0F).setUv(minX / 32.0F, maxY / 32.0F).setColor(red, green, blue, endAlpha);
         buffer.addVertex(matrix, maxX, maxY, 0.0F).setUv(maxX / 32.0F, maxY / 32.0F).setColor(red, green, blue, endAlpha);
