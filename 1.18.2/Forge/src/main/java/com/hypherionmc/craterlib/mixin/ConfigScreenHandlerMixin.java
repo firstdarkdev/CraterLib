@@ -31,12 +31,12 @@ public class ConfigScreenHandlerMixin {
      */
     @Inject(at = @At("RETURN"), method = "getGuiFactoryFor", cancellable = true, remap = false)
     private static void injectConfigScreen(IModInfo selectedMod, CallbackInfoReturnable<Optional<BiFunction<Minecraft, Screen, Screen>>> cir) {
-        ConfigController.getWatchedConfigs().forEach((conf, watcher) -> {
+        ConfigController.getWatchedConfigs().forEach((conf, config) -> {
             if (config.getClass().isAnnotationPresent(NoConfigScreen.class))
                 return;
 
             if (config.getModId().equals(selectedMod.getModId())) {
-                if (watcher.getLeft().getClass().isAnnotationPresent(ClothScreen.class) && ModloaderEnvironment.INSTANCE.isModLoaded("cloth_config")) {
+                if (config.getClass().isAnnotationPresent(ClothScreen.class) && ModloaderEnvironment.INSTANCE.isModLoaded("cloth_config")) {
                     cir.setReturnValue(
                             Optional.of((minecraft, screen) -> ClothConfigScreenBuilder.buildConfigScreen(config, screen))
                     );
