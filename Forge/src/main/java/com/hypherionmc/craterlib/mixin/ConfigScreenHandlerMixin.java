@@ -28,12 +28,11 @@ public class ConfigScreenHandlerMixin {
      */
     @Inject(at = @At("RETURN"), method = "getScreenFactoryFor", cancellable = true, remap = false)
     private static void injectConfigScreen(IModInfo selectedMod, CallbackInfoReturnable<Optional<BiFunction<Minecraft, Screen, Screen>>> cir) {
-        ConfigController.getMonitoredConfigs().forEach((conf, watcher) -> {
-            AbstractConfig config = watcher.getLeft();
+        ConfigController.getMonitoredConfigs().forEach((conf, config) -> {
             if (config.getClass().isAnnotationPresent(NoConfigScreen.class))
                 return;
 
-            if (watcher.getLeft().getClass().isAnnotationPresent(ClothScreen.class) && (ModloaderEnvironment.INSTANCE.isModLoaded("cloth_config") || ModloaderEnvironment.INSTANCE.isModLoaded("cloth-config") || ModloaderEnvironment.INSTANCE.isModLoaded("clothconfig"))) {
+            if (config.getClass().isAnnotationPresent(ClothScreen.class) && (ModloaderEnvironment.INSTANCE.isModLoaded("cloth_config") || ModloaderEnvironment.INSTANCE.isModLoaded("cloth-config") || ModloaderEnvironment.INSTANCE.isModLoaded("clothconfig"))) {
                 ModList.get().getModContainerById(config.getModId()).ifPresent(c -> c.registerExtensionPoint(IConfigScreenFactory.class, ((minecraft, screen) -> ClothConfigScreenBuilder.buildConfigScreen(config, screen))));
             } else {
                 //ModList.get().getModContainerById(config.getModId()).ifPresent(c -> c.registerExtensionPoint(IConfigScreenFactory.class, ((minecraft, screen) -> new CraterConfigScreen(config, screen))));
