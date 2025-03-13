@@ -29,9 +29,8 @@ public class ConfigScreenHandlerMixin {
      */
     @Inject(at = @At("RETURN"), method = "getScreenFactoryFor", cancellable = true, remap = false)
     private static void injectConfigScreen(IModInfo selectedMod, CallbackInfoReturnable<Optional<BiFunction<Minecraft, Screen, Screen>>> cir) {
-        ConfigController.getWatchedConfigs().forEach((conf, watcher) -> {
+        ConfigController.getWatchedConfigs().forEach((conf, config) -> {
             if (!conf.getClass().isAnnotationPresent(NoConfigScreen.class)) {
-                AbstractConfig config = watcher.getLeft();
                 if (config.getModId().equals(selectedMod.getModId())) {
                     cir.setReturnValue(
                             Optional.of((minecraft, screen) -> new CraterConfigScreen(config, screen))

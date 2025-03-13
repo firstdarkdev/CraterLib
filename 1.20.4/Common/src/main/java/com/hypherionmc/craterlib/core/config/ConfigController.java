@@ -8,6 +8,7 @@ import org.jetbrains.annotations.ApiStatus;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * @author HypherionSA
@@ -19,7 +20,9 @@ public final class ConfigController implements Serializable {
      * Cache of registered configs
      */
     @Getter
-    private static final HashMap<String, Pair<AbstractConfig, FileWatcher>> watchedConfigs = new HashMap<>();
+    private static final HashMap<String, AbstractConfig> watchedConfigs = new HashMap<>();
+
+    private static FileWatcher watcher = new FileWatcher(e -> CraterConstants.LOG.error("Config Watcher Error", e));
 
     /**
      * INTERNAL METHOD - Register and watch the config
@@ -42,9 +45,8 @@ public final class ConfigController implements Serializable {
         if (watchedConfigs.containsKey(config.getConfigPath().toString())) {
             CraterConstants.LOG.error("Failed to register {}. Config already registered", config.getConfigPath().getName());
         } else {
-            FileWatcher configWatcher = new FileWatcher();
             try {
-                configWatcher.setWatch(config.getConfigPath(), () -> {
+                watcher.addWatch(config.getConfigPath(), () -> {
                     if (!config.isWasSaveCalled()) {
                         CraterConstants.LOG.info("Sending Reload Event for: {}", config.getConfigPath().getName());
                         config.configReloaded();
@@ -53,7 +55,7 @@ public final class ConfigController implements Serializable {
             } catch (Exception e) {
                 CraterConstants.LOG.error("Failed to register {} for auto reloading. {}", config.getConfigPath().getName(), e.getMessage());
             }
-            watchedConfigs.put(config.getConfigPath().toString(), Pair.of(config, configWatcher));
+            watchedConfigs.put(config.getConfigPath().toString(), config);
             CraterConstants.LOG.info("Registered {} successfully!", config.getConfigPath().getName());
         }
     }

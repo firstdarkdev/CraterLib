@@ -1,9 +1,9 @@
 --- a/changelog.md
 +++ b/changelog.md
-@@ -1,6 +1,7 @@
- **Bug Fixes**:
+@@ -2,6 +2,7 @@
  
  - Fixed LuckPerms breaking commands on Paper
+ - Fix Config watcher using too many threads and not detecting changes on Linux systems
 +- Fixed crash when trying to open config screens on NeoForge
  
  **New Features**:

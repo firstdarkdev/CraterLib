@@ -23,7 +23,7 @@
 +neoforge_version=234
  
  # Dependencies
- moon_config=1.0.10
+ moon_config=1.0.11
 @@ -29,23 +29,23 @@
  adventure=4.17.0
  rpc_sdk=1.0

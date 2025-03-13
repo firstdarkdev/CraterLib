@@ -32,7 +32,6 @@ public class ConfigScreenHandlerMixin {
     @Inject(at = @At("RETURN"), method = "getScreenFactoryFor", cancellable = true, remap = false)
     private static void injectConfigScreen(IModInfo selectedMod, CallbackInfoReturnable<Optional<BiFunction<Minecraft, Screen, Screen>>> cir) {
         ConfigController.getWatchedConfigs().forEach((conf, watcher) -> {
-            AbstractConfig config = watcher.getLeft();
             if (config.getClass().isAnnotationPresent(NoConfigScreen.class))
                 return;
 

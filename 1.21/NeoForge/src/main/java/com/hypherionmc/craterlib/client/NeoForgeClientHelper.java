@@ -54,12 +54,11 @@ public class NeoForgeClientHelper implements ClientPlatform {
         LateInitEvent event = new LateInitEvent(new BridgedMinecraft(), BridgedOptions.of(Minecraft.getInstance().options));
         CraterEventBus.INSTANCE.postEvent(event);
 
-        ConfigController.getWatchedConfigs().forEach((conf, watcher) -> {
-            AbstractConfig config = watcher.getLeft();
+        ConfigController.getWatchedConfigs().forEach((conf, config) -> {
             if (config.getClass().isAnnotationPresent(NoConfigScreen.class))
                 return;
 
-            if (watcher.getLeft().getClass().isAnnotationPresent(ClothScreen.class) && (ModloaderEnvironment.INSTANCE.isModLoaded("cloth_config") || ModloaderEnvironment.INSTANCE.isModLoaded("cloth-config") || ModloaderEnvironment.INSTANCE.isModLoaded("clothconfig"))) {
+            if (config.getClass().isAnnotationPresent(ClothScreen.class) && (ModloaderEnvironment.INSTANCE.isModLoaded("cloth_config") || ModloaderEnvironment.INSTANCE.isModLoaded("cloth-config") || ModloaderEnvironment.INSTANCE.isModLoaded("clothconfig"))) {
                 ModList.get().getModContainerById(config.getModId()).ifPresent(c -> c.registerExtensionPoint(IConfigScreenFactory.class, ((minecraft, screen) -> ClothConfigScreenBuilder.buildConfigScreen(config, screen))));
             } else {
                 //ModList.get().getModContainerById(config.getModId()).ifPresent(c -> c.registerExtensionPoint(IConfigScreenFactory.class, ((minecraft, screen) -> new CraterConfigScreen(config, screen))));
