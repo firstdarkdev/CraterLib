@@ -3,6 +3,7 @@ package com.hypherionmc.craterlib.utils;
 import com.hypherionmc.craterlib.core.platform.CommonPlatform;
 import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
+import lombok.Getter;
 import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
 import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -22,6 +23,7 @@ import net.minecraft.network.chat.Style;
 
 public class ChatUtils {
 
+    @Getter
     private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
             JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().getDataVersion().getVersion())
     ).build();

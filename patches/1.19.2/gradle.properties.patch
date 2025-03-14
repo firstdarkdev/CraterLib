@@ -22,7 +22,7 @@
 +forge_version=43.4.0
  
  # Dependencies
- moon_config=1.0.11
+ moon_config=1.0.12
 @@ -29,23 +26,22 @@
  adventure=4.17.0
  rpc_sdk=1.0

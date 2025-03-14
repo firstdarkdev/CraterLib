@@ -7,8 +7,8 @@
 +import com.hypherionmc.craterlib.core.platform.LoaderType;
  import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
  import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
- import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
-@@ -9,20 +9,15 @@
+ import lombok.Getter;
+@@ -10,21 +10,16 @@
  import net.kyori.adventure.text.minimessage.MiniMessage;
  import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
  import net.kyori.adventure.text.serializer.json.JSONOptions;
@@ -26,12 +26,13 @@
  
  public class ChatUtils {
  
+     @Getter
 -    private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
 +    private static final GsonComponentSerializer adventureSerializer = (ModloaderEnvironment.INSTANCE.getLoaderType() == LoaderType.PAPER) ? GsonComponentSerializer.builder().build() : GsonComponentSerializer.builder().options(
              JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().getDataVersion().getVersion())
      ).build();
  
-@@ -30,24 +25,12 @@
+@@ -32,24 +27,12 @@
  
      public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
          final String serialised = adventureSerializer.serialize(inComponent);

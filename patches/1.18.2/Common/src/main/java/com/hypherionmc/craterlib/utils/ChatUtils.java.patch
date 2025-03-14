@@ -6,9 +6,9 @@
 -import com.hypherionmc.craterlib.core.platform.CommonPlatform;
 -import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
  import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
+ import lombok.Getter;
  import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
- import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
-@@ -12,13 +10,10 @@
+@@ -13,13 +11,10 @@
  import net.minecraft.ChatFormatting;
  import net.minecraft.SharedConstants;
  import net.minecraft.Util;
@@ -24,7 +24,7 @@
  
  public class ChatUtils {
  
-@@ -30,32 +25,20 @@
+@@ -32,32 +27,20 @@
  
      public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
          final String serialised = adventureSerializer.serialize(inComponent);
@@ -60,7 +60,7 @@
      }
  
      public static String strip(String inString, String... toStrip) {
-@@ -84,7 +67,7 @@
+@@ -86,7 +69,7 @@
      }
  
      public static net.kyori.adventure.text.Component resolve(String component, boolean formatted) {
@@ -69,7 +69,7 @@
          if (formatted) {
              returnVal = MinecraftSerializer.INSTANCE.serialize(component);
          }
-@@ -112,7 +95,7 @@
+@@ -114,7 +97,7 @@
          if (identifier == null)
              return net.kyori.adventure.text.Component.text("Unknown");
  
