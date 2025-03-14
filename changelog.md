@@ -6,6 +6,7 @@
 **New Features**:
 
 - Added Nojang API to allow mods to access GameRules (SDLink)
+- Exposed Adventure JSON serializer to mods
 
 **Dev Changes**:
 
