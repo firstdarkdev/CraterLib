@@ -9,4 +9,4 @@
 
 **Dev Changes**:
 
-- Bumped MoonConfig - `1.0.10` -> `1.0.11`
+- Bumped MoonConfig - `1.0.10` -> `1.0.12`
