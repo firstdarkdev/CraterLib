@@ -2,8 +2,6 @@ package com.hypherionmc.craterlib.client;
 
 import com.hypherionmc.craterlib.api.events.client.LateInitEvent;
 import com.hypherionmc.craterlib.client.gui.config.ClothConfigScreenBuilder;
-import com.hypherionmc.craterlib.client.gui.config.CraterConfigScreen;
-import com.hypherionmc.craterlib.core.config.AbstractConfig;
 import com.hypherionmc.craterlib.core.config.ConfigController;
 import com.hypherionmc.craterlib.core.config.annotations.ClothScreen;
 import com.hypherionmc.craterlib.core.config.annotations.NoConfigScreen;
