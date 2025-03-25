@@ -1,12 +1,10 @@
 --- a/NeoForge/src/main/java/com/hypherionmc/craterlib/client/NeoForgeClientHelper.java
 +++ b/NeoForge/src/main/java/com/hypherionmc/craterlib/client/NeoForgeClientHelper.java
-@@ -1,23 +1,12 @@
+@@ -1,21 +1,12 @@
  package com.hypherionmc.craterlib.client;
  
 -import com.hypherionmc.craterlib.api.events.client.LateInitEvent;
 -import com.hypherionmc.craterlib.client.gui.config.ClothConfigScreenBuilder;
--import com.hypherionmc.craterlib.client.gui.config.CraterConfigScreen;
--import com.hypherionmc.craterlib.core.config.AbstractConfig;
 -import com.hypherionmc.craterlib.core.config.ConfigController;
 -import com.hypherionmc.craterlib.core.config.annotations.ClothScreen;
 -import com.hypherionmc.craterlib.core.config.annotations.NoConfigScreen;
@@ -24,7 +22,7 @@
  
  import java.util.Objects;
  
-@@ -48,21 +37,5 @@
+@@ -46,21 +37,5 @@
      public Connection getClientConnection() {
          Objects.requireNonNull(Minecraft.getInstance().getConnection(), "Cannot send packets when not in game!");
          return Minecraft.getInstance().getConnection().getConnection();
