@@ -38,7 +38,7 @@ public class BridgedMinecraftServer {
     }
 
     public String getName() {
-        return SharedConstants.getCurrentVersion().getName();
+        return SharedConstants.getCurrentVersion().name();
     }
 
     public boolean usesAuthentication() {

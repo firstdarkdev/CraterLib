@@ -55,7 +55,7 @@ public class BridgedMinecraft {
     }
 
     public String getGameVersion() {
-        return SharedConstants.getCurrentVersion().getName();
+        return SharedConstants.getCurrentVersion().name();
     }
 
     public String getUserName() {

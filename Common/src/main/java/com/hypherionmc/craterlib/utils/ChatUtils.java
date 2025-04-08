@@ -25,7 +25,7 @@ public class ChatUtils {
 
     @Getter
     private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
-            JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().getDataVersion().getVersion())
+            JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().dataVersion().version())
     ).build();
 
     private static final MiniMessage miniMessage = MiniMessage.miniMessage();

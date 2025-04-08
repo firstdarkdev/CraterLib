@@ -179,7 +179,7 @@ public class CraterConfigScreen extends Screen {
 
     @Override
     public void render(@NotNull GuiGraphics matrices, int mouseX, int mouseY, float delta) {
-        overlayBackground(matrices.pose(), TOP, height - BOTTOM, 32);
+        /*overlayBackground(matrices.pose(), TOP, height - BOTTOM, 32);
         renderScrollBar();
 
         matrices.pose().pushPose();
@@ -198,7 +198,7 @@ public class CraterConfigScreen extends Screen {
             option.render(minecraft, font, 40, y, width - 80, height1, matrices, mouseX, mouseY, delta);
             renderConfigTooltip(matrices, font, mouseX, mouseY, 40, y, font.width(option.text), height1, option.text.getString(), option.getLangKeys().toArray(new String[0]));
             y += height1;
-        }
+        }*/
     }
 
     private void renderScrollBar() {
