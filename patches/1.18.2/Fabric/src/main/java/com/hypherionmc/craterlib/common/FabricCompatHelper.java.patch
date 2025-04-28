@@ -1,0 +1,25 @@
+--- a/Fabric/src/main/java/com/hypherionmc/craterlib/common/FabricCompatHelper.java
++++ b/Fabric/src/main/java/com/hypherionmc/craterlib/common/FabricCompatHelper.java
+@@ -5,7 +5,6 @@
+ import com.hypherionmc.craterlib.core.platform.CompatUtils;
+ import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
+ import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+-import me.wesley1808.advancedchat.api.AdvancedChatAPI;
+ import net.kyori.adventure.text.Component;
+ 
+ public class FabricCompatHelper implements CompatUtils {
+@@ -40,12 +39,11 @@
+ 
+     @Override
+     public boolean isPrivateMessage(BridgedPlayer player) {
+-        return !AdvancedChatAPI.isPublicChat(player.toMojangServerPlayer());
++        return false;
+     }
+ 
+     @Override
+     public Component getChannelPrefix(BridgedPlayer player) {
+-        net.minecraft.network.chat.Component c = AdvancedChatAPI.getChannelPrefix(player.toMojangServerPlayer());
+-        return c.getString().isBlank() ? Component.empty() : Component.text(c.getString());
++        return Component.empty();
+     }
+ }

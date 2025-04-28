@@ -1,9 +1,9 @@
 --- a/changelog.md
 +++ b/changelog.md
-@@ -2,6 +2,7 @@
+@@ -1,6 +1,7 @@
+ **Bug Fixes**:
  
- - Fixed LuckPerms breaking commands on Paper
- - Fix Config watcher using too many threads and not detecting changes on Linux systems
+ - Fix Adventure Serializer failing completely when serialization fails, causing game glitches
 +- Fixed crash when trying to open config screens on NeoForge
  
  **New Features**:

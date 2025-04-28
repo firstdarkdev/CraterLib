@@ -23,12 +23,13 @@
  
  # Dependencies
  moon_config=1.0.12
-@@ -39,13 +39,13 @@
+@@ -39,14 +39,14 @@
  vanishmod_neo=puxrKAMr
  ftb_essentials=2101.1.0
  ftb_ranks=2101.1.1
 -player_revive=6119534
 -creative_core=6113754
+ advanced_chat=SNA4dye5
 +player_revive=5886329
 +creative_core=5886272
  

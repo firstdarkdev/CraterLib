@@ -16,3 +16,12 @@
  
  # Forge
  forge_version=50.0.6
+@@ -41,7 +41,7 @@
+ ftb_ranks=2101.1.1
+ player_revive=6119534
+ creative_core=6113754
+-advanced_chat=SNA4dye5
++advanced_chat=CEJSc93h
+ 
+ # Publishing
+ curse_id=867099

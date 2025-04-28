@@ -31,8 +31,12 @@ public class ChatUtils {
     }
 
     public static net.kyori.adventure.text.Component mojangToAdventure(Component inComponent) {
+        try {
         final String serialised = Component.Serializer.toJson(inComponent);
-        return adventureSerializer.deserialize(serialised);
+            return adventureSerializer.deserialize(serialised);
+        } catch (Exception e) {
+            return net.kyori.adventure.text.Component.text(inComponent.getString());
+        }
     }
 
     // Some text components contain duplicate text, resulting in duplicate messages

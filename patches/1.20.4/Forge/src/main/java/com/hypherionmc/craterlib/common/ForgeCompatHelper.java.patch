@@ -1,6 +1,6 @@
 --- a/Forge/src/main/java/com/hypherionmc/craterlib/common/ForgeCompatHelper.java
 +++ b/Forge/src/main/java/com/hypherionmc/craterlib/common/ForgeCompatHelper.java
-@@ -1,15 +1,18 @@
+@@ -1,15 +1,19 @@
  package com.hypherionmc.craterlib.common;
  
  import com.hypherionmc.craterlib.core.platform.CompatUtils;
@@ -8,6 +8,7 @@
  import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 -import team.creative.playerrevive.api.IBleeding;
 -import team.creative.playerrevive.server.PlayerReviveServer;
++import net.kyori.adventure.text.Component;
 +import redstonedubstep.mods.vanishmod.VanishUtil;
  
  public class ForgeCompatHelper implements CompatUtils {
@@ -22,7 +23,7 @@
      }
  
      @Override
-@@ -19,27 +22,16 @@
+@@ -19,28 +23,17 @@
  
      @Override
      public boolean isPlayerBleeding(BridgedPlayer player) {
@@ -52,4 +53,5 @@
 -        return bleeding != null && bleeding.revived();
 +        return false;
      }
- }
+ 
+     @Override

@@ -8,7 +8,7 @@
      modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config}")
      modImplementation "maven.modrinth:fabrictailor:${fabrictailor}"
      modImplementation "maven.modrinth:vanish:${vanish}"
-@@ -117,8 +116,8 @@
+@@ -118,8 +117,8 @@
      setVersionType("release")
      setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")

@@ -1,5 +1,12 @@
 --- a/Paper/build.gradle
 +++ b/Paper/build.gradle
+@@ -1,5 +1,5 @@
+ plugins {
+-    id "io.papermc.paperweight.userdev" version "1.7.3"
++    id "io.papermc.paperweight.userdev" version "1.7.7"
+     id "xyz.jpenilla.run-paper" version "2.3.0"
+ }
+ 
 @@ -68,8 +68,8 @@
      setVersionType("alpha")
      setChangelog(rootProject.file("changelog.md"))

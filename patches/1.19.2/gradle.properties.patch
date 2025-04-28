@@ -23,7 +23,7 @@
  
  # Dependencies
  moon_config=1.0.12
-@@ -29,23 +26,22 @@
+@@ -29,24 +26,23 @@
  adventure=4.17.0
  rpc_sdk=1.0
  discord_formatter=2.0.0
@@ -40,6 +40,7 @@
 -ftb_ranks=2101.1.1
 -player_revive=6119534
 -creative_core=6113754
+ advanced_chat=SNA4dye5
 +player_revive=5491953
 +creative_core=5491926
 +ftb_ranks=1902.1.16-build.114

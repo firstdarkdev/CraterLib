@@ -20,7 +20,7 @@
  import net.minecraft.network.chat.Component;
  import net.minecraft.network.chat.Style;
  
-@@ -25,31 +18,19 @@
+@@ -25,35 +18,23 @@
  
      @Getter
      private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
@@ -37,9 +37,13 @@
      }
  
      public static net.kyori.adventure.text.Component mojangToAdventure(Component inComponent) {
--        final String serialised = Component.Serializer.toJson(inComponent, getRegistryLookup());
+         try {
+-            final String serialised = Component.Serializer.toJson(inComponent, getRegistryLookup());
 +        final String serialised = Component.Serializer.toJson(inComponent);
-         return adventureSerializer.deserialize(serialised);
+             return adventureSerializer.deserialize(serialised);
+         } catch (Exception e) {
+             return net.kyori.adventure.text.Component.text(inComponent.getString());
+         }
 -    }
 -
 -    private static HolderLookup.Provider getRegistryLookup() {

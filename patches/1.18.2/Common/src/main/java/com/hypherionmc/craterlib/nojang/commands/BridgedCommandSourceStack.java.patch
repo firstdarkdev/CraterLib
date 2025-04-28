@@ -7,16 +7,29 @@
  import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
  import com.hypherionmc.craterlib.utils.ChatUtils;
  import lombok.RequiredArgsConstructor;
-@@ -14,7 +15,7 @@
-     private final CommandSourceStack internal;
+@@ -17,14 +18,18 @@
  
      public void sendSuccess(Supplier<Component> supplier, boolean bl) {
--        internal.sendSuccess(() -> ChatUtils.adventureToMojang(supplier.get()), bl);
-+        internal.sendSuccess(ChatUtils.adventureToMojang(supplier.get()), bl);
+         if (!internal.getServer().getGameRules().getBoolean(RULE_SENDCOMMANDFEEDBACK)) {
+-            internal.sendSystemMessage(ChatUtils.adventureToMojang(supplier.get()));
++            try {
++                internal.getPlayerOrException().displayClientMessage(ChatUtils.adventureToMojang(supplier.get()), false);
++            } catch (Exception ignored) {}
+         } else {
+-            internal.sendSuccess(() -> ChatUtils.adventureToMojang(supplier.get()), bl);
++            internal.sendSuccess(ChatUtils.adventureToMojang(supplier.get()), bl);
+         }
+     }
+ 
+     public void sendMessage(Component text) {
+-        internal.sendSystemMessage(ChatUtils.adventureToMojang(text));
++        try {
++            internal.getPlayerOrException().displayClientMessage(ChatUtils.adventureToMojang(text), false);
++        } catch (Exception ignored) {}
      }
  
      public void sendFailure(Component text) {
-@@ -22,11 +23,22 @@
+@@ -32,11 +37,22 @@
      }
  
      public boolean isPlayer() {

@@ -1,6 +1,6 @@
 --- a/Fabric/build.gradle
 +++ b/Fabric/build.gradle
-@@ -9,9 +9,6 @@
+@@ -9,13 +9,9 @@
          exclude(group: "net.fabricmc.fabric-api")
      }
  
@@ -10,7 +10,11 @@
      modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config}")
      modImplementation "maven.modrinth:fabrictailor:${fabrictailor}"
      modImplementation "maven.modrinth:vanish:${vanish}"
-@@ -117,8 +114,8 @@
+-    modImplementation("unimaven.modrinth:advanced-chat:${advanced_chat}")
+ 
+     // Do not edit or remove
+     implementation project(":Common")
+@@ -118,8 +114,8 @@
      setVersionType("release")
      setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")

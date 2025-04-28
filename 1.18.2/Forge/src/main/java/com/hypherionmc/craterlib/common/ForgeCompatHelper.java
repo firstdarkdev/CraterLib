@@ -3,6 +3,7 @@ package com.hypherionmc.craterlib.common;
 import com.hypherionmc.craterlib.core.platform.CompatUtils;
 import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+import net.kyori.adventure.text.Component;
 import team.creative.playerrevive.api.IBleeding;
 import team.creative.playerrevive.server.PlayerReviveServer;
 import redstonedubstep.mods.vanishmod.VanishUtil;
@@ -46,5 +47,15 @@ public class ForgeCompatHelper implements CompatUtils {
 
         IBleeding bleeding = PlayerReviveServer.getBleeding(player.toMojangServerPlayer());
         return bleeding != null && bleeding.revived();
+    }
+
+    @Override
+    public boolean isPrivateMessage(BridgedPlayer player) {
+        return false;
+    }
+
+    @Override
+    public Component getChannelPrefix(BridgedPlayer player) {
+        return Component.empty();
     }
 }

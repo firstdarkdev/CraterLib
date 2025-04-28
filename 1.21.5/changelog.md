@@ -1,13 +1,8 @@
 **Bug Fixes**:
 
-- Fixed LuckPerms breaking commands on Paper
-- Fix Config watcher using too many threads and not detecting changes on Linux systems
+- Fix Adventure Serializer failing completely when serialization fails, causing game glitches
 
 **New Features**:
 
-- Added Nojang API to allow mods to access GameRules (SDLink)
-- Exposed Adventure JSON serializer to mods
-
-**Dev Changes**:
-
-- Bumped MoonConfig - `1.0.10` -> `1.0.12`
+- Allow commands to send feedback as chat messages, if command feedback is disabled
+- Added Compat API for Advanced Chat

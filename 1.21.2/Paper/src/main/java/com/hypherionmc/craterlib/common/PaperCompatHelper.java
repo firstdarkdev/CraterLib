@@ -4,6 +4,7 @@ import com.hypherionmc.craterlib.core.platform.CompatUtils;
 import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import com.hypherionmc.craterlib.utils.ChatUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
@@ -88,5 +89,15 @@ public class PaperCompatHelper implements CompatUtils {
     @Override
     public boolean playerRevived(BridgedPlayer player) {
         return false;
+    }
+
+    @Override
+    public boolean isPrivateMessage(BridgedPlayer player) {
+        return false;
+    }
+
+    @Override
+    public Component getChannelPrefix(BridgedPlayer player) {
+        return Component.empty();
     }
 }

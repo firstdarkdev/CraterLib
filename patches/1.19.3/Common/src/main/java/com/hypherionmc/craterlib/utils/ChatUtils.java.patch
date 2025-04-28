@@ -8,7 +8,7 @@
  import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
  import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
  import lombok.Getter;
-@@ -10,46 +10,29 @@
+@@ -10,50 +10,33 @@
  import net.kyori.adventure.text.minimessage.MiniMessage;
  import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
  import net.kyori.adventure.text.serializer.json.JSONOptions;
@@ -42,9 +42,13 @@
      }
  
      public static net.kyori.adventure.text.Component mojangToAdventure(Component inComponent) {
--        final String serialised = Component.Serializer.toJson(inComponent, getRegistryLookup());
+         try {
+-            final String serialised = Component.Serializer.toJson(inComponent, getRegistryLookup());
 +        final String serialised = Component.Serializer.toJson(inComponent);
-         return adventureSerializer.deserialize(serialised);
+             return adventureSerializer.deserialize(serialised);
+         } catch (Exception e) {
+             return net.kyori.adventure.text.Component.text(inComponent.getString());
+         }
 -    }
 -
 -    private static HolderLookup.Provider getRegistryLookup() {

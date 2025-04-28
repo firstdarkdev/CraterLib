@@ -1,6 +1,6 @@
 --- a/Paper/src/main/java/com/hypherionmc/craterlib/common/PaperCompatHelper.java
 +++ /dev/null
-@@ -1,92 +1,0 @@
+@@ -1,102 +1,0 @@
 -package com.hypherionmc.craterlib.common;
 -
 -import com.hypherionmc.craterlib.core.platform.CompatUtils;
@@ -91,5 +91,15 @@
 -    @Override
 -    public boolean playerRevived(BridgedPlayer player) {
 -        return false;
+-    }
+-
+-    @Override
+-    public boolean isPrivateMessage(BridgedPlayer player) {
+-        return false;
+-    }
+-
+-    @Override
+-    public Component getChannelPrefix(BridgedPlayer player) {
+-        return Component.empty();
 -    }
 -}
