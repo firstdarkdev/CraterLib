@@ -8,13 +8,23 @@ import net.minecraft.commands.CommandSourceStack;
 
 import java.util.function.Supplier;
 
+import static net.minecraft.world.level.GameRules.RULE_SENDCOMMANDFEEDBACK;
+
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedCommandSourceStack {
 
     private final CommandSourceStack internal;
 
     public void sendSuccess(Supplier<Component> supplier, boolean bl) {
-        internal.sendSuccess(() -> ChatUtils.adventureToMojang(supplier.get()), bl);
+        if (!internal.getServer().getGameRules().getBoolean(RULE_SENDCOMMANDFEEDBACK)) {
+            internal.sendSystemMessage(ChatUtils.adventureToMojang(supplier.get()));
+        } else {
+            internal.sendSuccess(() -> ChatUtils.adventureToMojang(supplier.get()), bl);
+        }
+    }
+
+    public void sendMessage(Component text) {
+        internal.sendSystemMessage(ChatUtils.adventureToMojang(text));
     }
 
     public void sendFailure(Component text) {
