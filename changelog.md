@@ -5,3 +5,4 @@
 **New Features**:
 
 - Allow commands to send feedback as chat messages, if command feedback is disabled
+- Added Compat API for Advanced Chat

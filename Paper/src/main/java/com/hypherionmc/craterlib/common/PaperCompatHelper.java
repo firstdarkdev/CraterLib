@@ -89,4 +89,14 @@ public class PaperCompatHelper implements CompatUtils {
     public boolean playerRevived(BridgedPlayer player) {
         return false;
     }
+
+    @Override
+    public boolean isPrivateMessage(BridgedPlayer player) {
+        return false;
+    }
+
+    @Override
+    public Component getChannelPrefix(BridgedPlayer player) {
+        return Component.empty();
+    }
 }

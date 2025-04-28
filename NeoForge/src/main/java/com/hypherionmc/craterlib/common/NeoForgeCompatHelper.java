@@ -47,4 +47,14 @@ public class NeoForgeCompatHelper implements CompatUtils {
         IBleeding bleeding = PlayerReviveServer.getBleeding(player.toMojangServerPlayer());
         return bleeding != null && bleeding.revived();
     }
+
+    @Override
+    public boolean isPrivateMessage(BridgedPlayer player) {
+        return false;
+    }
+
+    @Override
+    public Component getChannelPrefix(BridgedPlayer player) {
+        return Component.empty();
+    }
 }
