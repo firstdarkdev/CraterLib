@@ -37,6 +37,7 @@ import java.util.function.Supplier;
 /**
  * @author HypherionSA
  */
+@SuppressWarnings("deprecation")
 @Deprecated(forRemoval = true, since = "2.1.3")
 public class CraterConfigScreen extends Screen {
     public static final float SCROLLBAR_BOTTOM_COLOR = .5f;
@@ -269,7 +270,7 @@ public class CraterConfigScreen extends Screen {
         BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
         //RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         //RenderSystem.setShaderTexture(0, Screen.MENU_BACKGROUND);
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+        //RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         buffer.addVertex(matrix, minX, maxY, 0.0F).setUv(minX / 32.0F, maxY / 32.0F).setColor(red, green, blue, endAlpha);
         buffer.addVertex(matrix, maxX, maxY, 0.0F).setUv(maxX / 32.0F, maxY / 32.0F).setColor(red, green, blue, endAlpha);
         buffer.addVertex(matrix, maxX, minY, 0.0F).setUv(maxX / 32.0F, minY / 32.0F).setColor(red, green, blue, startAlpha);
@@ -384,7 +385,7 @@ public class CraterConfigScreen extends Screen {
                 for (String desc : description) {
                     list.add(Component.translatable(desc));
                 }
-                stack.renderComponentTooltip(font, list, mouseX, mouseY);
+                //stack.renderComponentTooltip(font, list, mouseX, mouseY);
             }
         }
     }
