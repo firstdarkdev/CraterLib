@@ -36,8 +36,12 @@ public class ChatUtils {
     }
 
     public static net.kyori.adventure.text.Component mojangToAdventure(Component inComponent) {
-        final String serialised = Component.Serializer.toJson(inComponent, getRegistryLookup());
-        return adventureSerializer.deserialize(serialised);
+        try {
+            final String serialised = Component.Serializer.toJson(inComponent, getRegistryLookup());
+            return adventureSerializer.deserialize(serialised);
+        } catch (Exception e) {
+            return net.kyori.adventure.text.Component.text(inComponent.getString());
+        }
     }
 
     private static HolderLookup.Provider getRegistryLookup() {
