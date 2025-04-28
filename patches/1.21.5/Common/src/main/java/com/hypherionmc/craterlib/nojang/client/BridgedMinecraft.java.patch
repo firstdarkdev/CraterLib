@@ -1,0 +1,11 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/client/BridgedMinecraft.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/client/BridgedMinecraft.java
+@@ -55,7 +55,7 @@
+     }
+ 
+     public String getGameVersion() {
+-        return SharedConstants.getCurrentVersion().name();
++        return SharedConstants.getCurrentVersion().getName();
+     }
+ 
+     public String getUserName() {

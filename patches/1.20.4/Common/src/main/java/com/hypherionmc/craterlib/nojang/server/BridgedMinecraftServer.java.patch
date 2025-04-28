@@ -1,0 +1,11 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/server/BridgedMinecraftServer.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/server/BridgedMinecraftServer.java
+@@ -38,7 +38,7 @@
+     }
+ 
+     public String getName() {
+-        return SharedConstants.getCurrentVersion().name();
++        return SharedConstants.getCurrentVersion().getName();
+     }
+ 
+     public boolean usesAuthentication() {

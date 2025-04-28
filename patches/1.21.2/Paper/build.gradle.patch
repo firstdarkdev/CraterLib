@@ -26,9 +26,14 @@
  publisher {
      apiKeys {
          nightbloom(System.getenv("PLATFORM_KEY"))
-@@ -71,8 +71,9 @@
-     setDisplayName("[Paper 1.21.3] CraterLib - ${project.version}")
-     setGameVersions("1.21.3")
+@@ -68,11 +68,12 @@
+     setVersionType("alpha")
+     setChangelog(rootProject.file("changelog.md"))
+     setProjectVersion("${minecraft_version}-${project.version}")
+-    setDisplayName("[Paper 1.21.6] CraterLib - ${project.version}")
+-    setGameVersions("1.21.6")
++    setDisplayName("[Paper 1.21.3] CraterLib - ${project.version}")
++    setGameVersions("1.21.3")
      setLoaders("paper")
 -    setArtifact(reobfJar.outputJar)
 +    setArtifact(shadowJar)

@@ -1,0 +1,11 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/utils/ChatUtils.java
+@@ -25,7 +25,7 @@
+ 
+     @Getter
+     private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
+-            JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().dataVersion().version())
++            JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().getDataVersion().getVersion())
+     ).build();
+ 
+     private static final MiniMessage miniMessage = MiniMessage.miniMessage();

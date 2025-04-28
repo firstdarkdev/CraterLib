@@ -1,6 +1,32 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
-@@ -218,7 +218,7 @@
+@@ -37,7 +37,6 @@
+ /**
+  * @author HypherionSA
+  */
+-@SuppressWarnings("deprecation")
+ @Deprecated(forRemoval = true, since = "2.1.3")
+ public class CraterConfigScreen extends Screen {
+     public static final float SCROLLBAR_BOTTOM_COLOR = .5f;
+@@ -180,7 +179,7 @@
+ 
+     @Override
+     public void render(@NotNull GuiGraphics matrices, int mouseX, int mouseY, float delta) {
+-        /*overlayBackground(matrices.pose(), TOP, height - BOTTOM, 32);
++        overlayBackground(matrices.pose(), TOP, height - BOTTOM, 32);
+         renderScrollBar();
+ 
+         matrices.pose().pushPose();
+@@ -199,7 +198,7 @@
+             option.render(minecraft, font, 40, y, width - 80, height1, matrices, mouseX, mouseY, delta);
+             renderConfigTooltip(matrices, font, mouseX, mouseY, 40, y, font.width(option.text), height1, option.text.getString(), option.getLangKeys().toArray(new String[0]));
+             y += height1;
+-        }*/
++        }
+     }
+ 
+     private void renderScrollBar() {
+@@ -219,7 +218,7 @@
              //RenderSystem.disableTexture();
              Tesselator tesselator = Tesselator.getInstance();
              BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
@@ -9,7 +35,7 @@
  
              buffer.addVertex(scrollbarPositionMinX, maxY, 0.0f).setColor(0, 0, 0, 255);
              buffer.addVertex(scrollbarPositionMaxX, maxY, 0.0f).setColor(0, 0, 0, 255);
-@@ -233,8 +233,8 @@
+@@ -234,8 +233,8 @@
              buffer.addVertex((scrollbarPositionMaxX - 1), (minY + height - 1), 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
              buffer.addVertex((scrollbarPositionMaxX - 1), minY, 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
              buffer.addVertex(scrollbarPositionMinX, minY, 0.0f).setColor(SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, SCROLLBAR_TOP_COLOR, 1);
@@ -20,7 +46,7 @@
              //RenderSystem.enableTexture();
          }
      }
-@@ -242,10 +242,10 @@
+@@ -243,10 +242,10 @@
      private void renderShadow(PoseStack matrices) {
          Tesselator tesselator = Tesselator.getInstance();
          BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
@@ -34,7 +60,7 @@
          Matrix4f matrix = matrices.last().pose();
          buffer.addVertex(matrix, 0, TOP + 4, 0.0F).setUv(0, 1).setColor(0, 0, 0, 0);
          buffer.addVertex(matrix, width, TOP + 4, 0.0F).setUv(1, 1).setColor(0, 0, 0, 0);
-@@ -255,9 +255,9 @@
+@@ -256,9 +255,9 @@
          buffer.addVertex(matrix, width, height - BOTTOM, 0.0F).setUv(1, 1).setColor(0, 0, 0, 185);
          buffer.addVertex(matrix, width, height - BOTTOM - 4, 0.0F).setUv(1, 0).setColor(0, 0, 0, 0);
          buffer.addVertex(matrix, 0, height - BOTTOM - 4, 0.0F).setUv(0, 0).setColor(0, 0, 0, 0);
@@ -46,15 +72,16 @@
      }
  
      protected void overlayBackground(PoseStack matrices, int h1, int h2, int color) {
-@@ -267,14 +267,14 @@
+@@ -268,14 +267,14 @@
      protected void overlayBackground(Matrix4f matrix, int minX, int minY, int maxX, int maxY, int red, int green, int blue, int startAlpha, int endAlpha) {
          Tesselator tesselator = Tesselator.getInstance();
          BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
 -        //RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
 -        //RenderSystem.setShaderTexture(0, Screen.MENU_BACKGROUND);
+-        //RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 +        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
 +        RenderSystem.setShaderTexture(0, Screen.MENU_BACKGROUND);
-         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
++        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
          buffer.addVertex(matrix, minX, maxY, 0.0F).setUv(minX / 32.0F, maxY / 32.0F).setColor(red, green, blue, endAlpha);
          buffer.addVertex(matrix, maxX, maxY, 0.0F).setUv(maxX / 32.0F, maxY / 32.0F).setColor(red, green, blue, endAlpha);
          buffer.addVertex(matrix, maxX, minY, 0.0F).setUv(maxX / 32.0F, minY / 32.0F).setColor(red, green, blue, startAlpha);
@@ -64,3 +91,12 @@
      }
  
      public int scrollHeight() {
+@@ -385,7 +384,7 @@
+                 for (String desc : description) {
+                     list.add(Component.translatable(desc));
+                 }
+-                //stack.renderComponentTooltip(font, list, mouseX, mouseY);
++                stack.renderComponentTooltip(font, list, mouseX, mouseY);
+             }
+         }
+     }

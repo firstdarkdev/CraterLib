@@ -1,6 +1,14 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
-@@ -159,7 +159,7 @@
+@@ -37,7 +37,6 @@
+ /**
+  * @author HypherionSA
+  */
+-@SuppressWarnings("deprecation")
+ @Deprecated(forRemoval = true, since = "2.1.3")
+ public class CraterConfigScreen extends Screen {
+     public static final float SCROLLBAR_BOTTOM_COLOR = .5f;
+@@ -160,7 +159,7 @@
              return new TextConfigOption<>(Objects::toString, BigDecimal::new);
          }
          if (value instanceof ResourceLocation) {
@@ -9,7 +17,25 @@
          }
          if (isSubConfig) {
              return new SubConfigWidget<>(config, this, value);
-@@ -217,47 +217,49 @@
+@@ -180,7 +179,7 @@
+ 
+     @Override
+     public void render(@NotNull GuiGraphics matrices, int mouseX, int mouseY, float delta) {
+-        /*overlayBackground(matrices.pose(), TOP, height - BOTTOM, 32);
++        overlayBackground(matrices.pose(), TOP, height - BOTTOM, 32);
+         renderScrollBar();
+ 
+         matrices.pose().pushPose();
+@@ -199,7 +198,7 @@
+             option.render(minecraft, font, 40, y, width - 80, height1, matrices, mouseX, mouseY, delta);
+             renderConfigTooltip(matrices, font, mouseX, mouseY, 40, y, font.width(option.text), height1, option.text.getString(), option.getLangKeys().toArray(new String[0]));
+             y += height1;
+-        }*/
++        }
+     }
+ 
+     private void renderScrollBar() {
+@@ -218,47 +217,49 @@
              int maxY = this.height - BOTTOM;
              //RenderSystem.disableTexture();
              Tesselator tesselator = Tesselator.getInstance();
@@ -91,22 +117,23 @@
      }
  
      protected void overlayBackground(PoseStack matrices, int h1, int h2, int color) {
-@@ -266,15 +268,16 @@
+@@ -267,15 +268,16 @@
  
      protected void overlayBackground(Matrix4f matrix, int minX, int minY, int maxX, int maxY, int red, int green, int blue, int startAlpha, int endAlpha) {
          Tesselator tesselator = Tesselator.getInstance();
 -        BufferBuilder buffer = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
 -        //RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
 -        //RenderSystem.setShaderTexture(0, Screen.MENU_BACKGROUND);
-+        BufferBuilder buffer = tesselator.getBuilder();
-+        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
-+        RenderSystem.setShaderTexture(0, Screen.BACKGROUND_LOCATION);
-         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+-        //RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 -        buffer.addVertex(matrix, minX, maxY, 0.0F).setUv(minX / 32.0F, maxY / 32.0F).setColor(red, green, blue, endAlpha);
 -        buffer.addVertex(matrix, maxX, maxY, 0.0F).setUv(maxX / 32.0F, maxY / 32.0F).setColor(red, green, blue, endAlpha);
 -        buffer.addVertex(matrix, maxX, minY, 0.0F).setUv(maxX / 32.0F, minY / 32.0F).setColor(red, green, blue, startAlpha);
 -        buffer.addVertex(matrix, minX, minY, 0.0F).setUv(minX / 32.0F, minY / 32.0F).setColor(red, green, blue, startAlpha);
 -        //BufferUploader.drawWithShader(buffer.buildOrThrow());
++        BufferBuilder buffer = tesselator.getBuilder();
++        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
++        RenderSystem.setShaderTexture(0, Screen.BACKGROUND_LOCATION);
++        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
 +        buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
 +        buffer.vertex(matrix, minX, maxY, 0.0F).uv(minX / 32.0F, maxY / 32.0F).color(red, green, blue, endAlpha).endVertex();
 +        buffer.vertex(matrix, maxX, maxY, 0.0F).uv(maxX / 32.0F, maxY / 32.0F).color(red, green, blue, endAlpha).endVertex();
@@ -116,3 +143,12 @@
      }
  
      public int scrollHeight() {
+@@ -385,7 +387,7 @@
+                 for (String desc : description) {
+                     list.add(Component.translatable(desc));
+                 }
+-                //stack.renderComponentTooltip(font, list, mouseX, mouseY);
++                stack.renderComponentTooltip(font, list, mouseX, mouseY);
+             }
+         }
+     }

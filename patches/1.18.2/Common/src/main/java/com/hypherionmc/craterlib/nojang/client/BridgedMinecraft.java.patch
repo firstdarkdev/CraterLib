@@ -9,6 +9,15 @@
      }
  
      public boolean isSinglePlayer() {
+@@ -55,7 +55,7 @@
+     }
+ 
+     public String getGameVersion() {
+-        return SharedConstants.getCurrentVersion().name();
++        return SharedConstants.getCurrentVersion().getName();
+     }
+ 
+     public String getUserName() {
 @@ -63,7 +63,7 @@
      }
  

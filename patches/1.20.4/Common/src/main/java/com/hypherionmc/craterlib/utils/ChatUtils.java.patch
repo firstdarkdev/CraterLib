@@ -20,7 +20,15 @@
  import net.minecraft.network.chat.Component;
  import net.minecraft.network.chat.Style;
  
-@@ -32,24 +25,12 @@
+@@ -25,31 +18,19 @@
+ 
+     @Getter
+     private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
+-            JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().dataVersion().version())
++            JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().getDataVersion().getVersion())
+     ).build();
+ 
+     private static final MiniMessage miniMessage = MiniMessage.miniMessage();
  
      public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
          final String serialised = adventureSerializer.serialize(inComponent);
