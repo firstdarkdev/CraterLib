@@ -1,8 +1,11 @@
 package com.hypherionmc.craterlib.utils;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.hypherionmc.craterlib.core.platform.CommonPlatform;
 import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
+import com.mojang.serialization.JsonOps;
 import lombok.Getter;
 import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
 import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
@@ -19,7 +22,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.chat.Style;
+import net.minecraft.util.StrictJsonParser;
 
 public class ChatUtils {
 
@@ -31,14 +36,22 @@ public class ChatUtils {
     private static final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
-        final String serialised = adventureSerializer.serialize(inComponent);
-        return Component.Serializer.fromJson(serialised, getRegistryLookup());
+        final JsonElement serialised = adventureSerializer.serializeToTree(inComponent);
+
+        // FUCK YOU MOJANG. SERIOUSLY. FUCK OFF WITH THIS SHIT
+        return ComponentSerialization.CODEC
+                .parse(getRegistryLookup().createSerializationContext(JsonOps.INSTANCE), serialised)
+                .getOrThrow(JsonParseException::new);
     }
 
     public static net.kyori.adventure.text.Component mojangToAdventure(Component inComponent) {
         try {
-            final String serialised = Component.Serializer.toJson(inComponent, getRegistryLookup());
-            return adventureSerializer.deserialize(serialised);
+            // FUCK YOU MOJANG. SERIOUSLY. FUCK OFF WITH THIS SHIT
+            final JsonElement serialised = ComponentSerialization.CODEC
+                    .encodeStart(JsonOps.INSTANCE, inComponent)
+                    .getOrThrow(JsonParseException::new);
+
+            return adventureSerializer.deserializeFromTree(serialised);
         } catch (Exception e) {
             return net.kyori.adventure.text.Component.text(inComponent.getString());
         }

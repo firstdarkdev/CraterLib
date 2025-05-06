@@ -38,7 +38,7 @@ public class CraterFabricNetworkHandler extends PacketRegistry {
         }
 
         ServerPlayNetworking.registerGlobalReceiver(holder.getType(),
-                (ServerPlayNetworking.PlayPayloadHandler<CommonPacketWrapper<T>>) (payload, context) -> context.player().server.execute(() ->
+                (ServerPlayNetworking.PlayPayloadHandler<CommonPacketWrapper<T>>) (payload, context) -> context.player().getServer().execute(() ->
                         holder.handler().accept(
                                 new PacketContext<>(BridgedPlayer.of(context.player()), payload.packet(), side))));
     }
