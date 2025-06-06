@@ -3,6 +3,7 @@ package com.hypherionmc.craterlib.common;
 import com.hypherionmc.craterlib.core.platform.CompatUtils;
 import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+import net.kyori.adventure.text.Component;
 import redstonedubstep.mods.vanishmod.VanishUtil;
 import team.creative.playerrevive.api.IBleeding;
 import team.creative.playerrevive.server.PlayerReviveServer;
