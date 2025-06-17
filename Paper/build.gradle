@@ -1,5 +1,5 @@
 plugins {
-    id "io.papermc.paperweight.userdev" version "1.7.3"
+    id "io.papermc.paperweight.userdev" version "2.0.0-beta.17"
     id "xyz.jpenilla.run-paper" version "2.3.0"
 }
 
@@ -56,7 +56,7 @@ processResources {
 compileTestJava.enabled = false
 
 tasks.assemble {
-    dependsOn(tasks.reobfJar)
+    dependsOn(tasks.shadowJar)
 }
 
 publisher {
