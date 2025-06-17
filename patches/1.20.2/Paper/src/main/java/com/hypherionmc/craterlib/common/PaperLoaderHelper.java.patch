@@ -1,0 +1,11 @@
+--- a/Paper/src/main/java/com/hypherionmc/craterlib/common/PaperLoaderHelper.java
++++ b/Paper/src/main/java/com/hypherionmc/craterlib/common/PaperLoaderHelper.java
+@@ -30,7 +30,7 @@
+ 
+     @Override
+     public String getGameVersion() {
+-        return SharedConstants.getCurrentVersion().name();
++        return SharedConstants.getCurrentVersion().getName();
+     }
+ 
+     @Override

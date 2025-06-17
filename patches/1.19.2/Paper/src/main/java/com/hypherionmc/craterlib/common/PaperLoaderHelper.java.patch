@@ -33,7 +33,7 @@
 -
 -    @Override
 -    public String getGameVersion() {
--        return SharedConstants.getCurrentVersion().getName();
+-        return SharedConstants.getCurrentVersion().name();
 -    }
 -
 -    @Override

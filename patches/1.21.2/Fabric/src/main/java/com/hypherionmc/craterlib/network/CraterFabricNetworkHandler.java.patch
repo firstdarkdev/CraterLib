@@ -1,0 +1,11 @@
+--- a/Fabric/src/main/java/com/hypherionmc/craterlib/network/CraterFabricNetworkHandler.java
++++ b/Fabric/src/main/java/com/hypherionmc/craterlib/network/CraterFabricNetworkHandler.java
+@@ -38,7 +38,7 @@
+         }
+ 
+         ServerPlayNetworking.registerGlobalReceiver(holder.getType(),
+-                (ServerPlayNetworking.PlayPayloadHandler<CommonPacketWrapper<T>>) (payload, context) -> context.player().getServer().execute(() ->
++                (ServerPlayNetworking.PlayPayloadHandler<CommonPacketWrapper<T>>) (payload, context) -> context.player().server.execute(() ->
+                         holder.handler().accept(
+                                 new PacketContext<>(BridgedPlayer.of(context.player()), payload.packet(), side))));
+     }

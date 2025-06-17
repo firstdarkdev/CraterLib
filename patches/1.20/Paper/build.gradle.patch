@@ -1,5 +1,21 @@
 --- a/Paper/build.gradle
 +++ b/Paper/build.gradle
+@@ -1,5 +1,5 @@
+ plugins {
+-    id "io.papermc.paperweight.userdev" version "2.0.0-beta.17"
++    id "io.papermc.paperweight.userdev" version "1.7.3"
+     id "xyz.jpenilla.run-paper" version "2.3.0"
+ }
+ 
+@@ -56,7 +56,7 @@
+ compileTestJava.enabled = false
+ 
+ tasks.assemble {
+-    dependsOn(tasks.shadowJar)
++    dependsOn(tasks.reobfJar)
+ }
+ 
+ publisher {
 @@ -68,8 +68,8 @@
      setVersionType("alpha")
      setChangelog(rootProject.file("changelog.md"))
