@@ -1,0 +1,20 @@
+--- a/.jenkins/Jenkinsfile.snapshot
++++ b/.jenkins/Jenkinsfile.snapshot
+@@ -3,7 +3,7 @@
+ def JDK = "21";
+ def majorMc = "1.21.6";
+ def modLoaders = "neoforge|fabric|quilt|paper";
+-def supportedMc = "25w19a";
++def supportedMc = "1.21.6";
+ def reltype = "experimental";
+ 
+ pipeline {
+@@ -63,7 +63,7 @@
+                 projectIcon: "${projectIcon}",
+                 modLoaders: "${modLoaders}",
+                 minecraftVersions: "${supportedMc}",
+-                type: "experimental",
++                type: "snapshot",
+                 dependsOn: "",
+                 failWebhook: env.SSS_WEBHOOK,
+                 publishWebhooks: "${env.SSS_WEBHOOK}|${env.FDD_WH}"

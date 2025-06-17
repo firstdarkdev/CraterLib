@@ -1,0 +1,12 @@
+{
+  "t.clc.opensubconfig": "Открыть конфигурацию",
+  "t.clc.save": "Сохранить",
+  "t.clc.cancel_discard": "Отменить",
+  "t.clc.quit_config": "Несохранённые изменения",
+  "t.clc.quit_config_sure": "У вас есть несохранённые изменения конфигурации. Вы уверены, что хотите их отменить?",
+  "t.clc.quit_discard": "Закрыть и отменить",
+
+  "cl.buttons.edit": "Редактировать",
+  "cl.buttons.add_entry": "+ Добавить запись",
+  "cl.buttons.entry": "Запись %s"
+}
