@@ -62,7 +62,7 @@ public class BridgedGameRules {
     public static final WrappedBooleanKey RULE_DO_VINES_SPREAD = WrappedBooleanKey.wrap(GameRules.RULE_DO_VINES_SPREAD);
     public static final WrappedBooleanKey RULE_ENDER_PEARLS_VANISH_ON_DEATH = WrappedBooleanKey.wrap(GameRules.RULE_ENDER_PEARLS_VANISH_ON_DEATH);
     public static final WrappedIntegerKey RULE_MINECART_MAX_SPEED = WrappedIntegerKey.wrap(GameRules.RULE_MINECART_MAX_SPEED);
-    public static final WrappedIntegerKey RULE_SPAWN_CHUNK_RADIUS = WrappedIntegerKey.wrap(GameRules.RULE_SPAWN_CHUNK_RADIUS);
+    public static final WrappedIntegerKey RULE_SPAWN_CHUNK_RADIUS = WrappedIntegerKey.wrap(null);
     public static final WrappedBooleanKey RULE_TNT_EXPLODES = WrappedBooleanKey.wrap(GameRules.RULE_TNT_EXPLODES);
 
     public boolean getBoolean(WrappedBooleanKey key) {

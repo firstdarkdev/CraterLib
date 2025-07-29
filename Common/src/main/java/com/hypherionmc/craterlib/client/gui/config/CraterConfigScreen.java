@@ -342,9 +342,9 @@ public class CraterConfigScreen extends Screen {
     }
 
     @Override
-    public boolean mouseClicked(double d, double e, int i) {
+    public boolean mouseClicked(double d, double e, int i, boolean bl) {
         this.dragging = i == 0 && d >= width - 6 && d < width;
-        return super.mouseClicked(d, e, i) || dragging;
+        return super.mouseClicked(d, e, i, bl);
     }
 
     @Override

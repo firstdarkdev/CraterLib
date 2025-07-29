@@ -12,6 +12,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.CommonListenerCookie;
+import net.minecraft.server.players.NameAndId;
 import net.minecraft.server.players.PlayerList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -43,8 +44,8 @@ public class PlayerListMixin {
     }
 
     @Inject(method = "canPlayerLogin", at = @At("HEAD"), cancellable = true)
-    private void injectPreLoginEvent(SocketAddress address, GameProfile gameProfile, CallbackInfoReturnable<Component> cir) {
-        PlayerPreLoginEvent event = new PlayerPreLoginEvent(address, BridgedGameProfile.of(gameProfile));
+    private void injectPreLoginEvent(SocketAddress socketAddress, NameAndId arg, CallbackInfoReturnable<Component> cir) {
+        PlayerPreLoginEvent event = new PlayerPreLoginEvent(socketAddress, BridgedGameProfile.of(arg));
         CraterEventBus.INSTANCE.postEvent(event);
         if (event.getMessage() != null) {
             cir.setReturnValue(ChatUtils.adventureToMojang(event.getMessage()));

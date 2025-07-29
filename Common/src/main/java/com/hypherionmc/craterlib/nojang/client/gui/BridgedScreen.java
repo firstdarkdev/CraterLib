@@ -23,7 +23,7 @@ public class BridgedScreen {
     }
 
     public boolean isLoadingScreen() {
-        return internal instanceof LevelLoadingScreen || internal instanceof ReceivingLevelScreen;
+        return internal instanceof LevelLoadingScreen || internal instanceof ConnectScreen;
     }
 
     public boolean isPauseScreen() {

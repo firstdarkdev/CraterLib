@@ -27,7 +27,7 @@ public class FabricLoaderHelper implements ModloaderEnvironment {
 
     @Override
     public String getGameVersion() {
-        return SharedConstants.VERSION_STRING;
+        return SharedConstants.getCurrentVersion().name();
     }
 
     @Override

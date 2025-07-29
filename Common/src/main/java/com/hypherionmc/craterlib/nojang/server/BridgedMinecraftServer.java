@@ -50,21 +50,21 @@ public class BridgedMinecraftServer {
     }
 
     public boolean isPlayerBanned(BridgedGameProfile profile) {
-        return internal.getPlayerList().getBans().isBanned(profile.toMojang());
+        return internal.getPlayerList().getBans().isBanned(profile.toNameAndId());
     }
 
     public void whitelistPlayer(BridgedGameProfile gameProfile) {
         if (!internal.getPlayerList().isUsingWhitelist())
             return;
 
-        internal.getPlayerList().getWhiteList().add(new UserWhiteListEntry(gameProfile.toMojang()));
+        internal.getPlayerList().getWhiteList().add(new UserWhiteListEntry(gameProfile.toNameAndId()));
     }
 
     public void unWhitelistPlayer(BridgedGameProfile gameProfile) {
         if (!internal.getPlayerList().isUsingWhitelist())
             return;
 
-        internal.getPlayerList().getWhiteList().remove(new UserWhiteListEntry(gameProfile.toMojang()));
+        internal.getPlayerList().getWhiteList().remove(new UserWhiteListEntry(gameProfile.toNameAndId()));
     }
 
     public List<BridgedPlayer> getPlayers() {
@@ -83,7 +83,7 @@ public class BridgedMinecraftServer {
     }
 
     public void banPlayer(BridgedGameProfile profile) {
-        internal.getPlayerList().getBans().add(new UserBanListEntry(profile.toMojang()));
+        internal.getPlayerList().getBans().add(new UserBanListEntry(profile.toNameAndId()));
     }
 
     public void executeCommand(BridgedMinecraftServer server, BridgedFakePlayer player, String command) {

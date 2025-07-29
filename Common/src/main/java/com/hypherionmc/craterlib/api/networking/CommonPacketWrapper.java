@@ -4,8 +4,7 @@ import com.hypherionmc.craterlib.core.networking.data.PacketHolder;
 import com.hypherionmc.craterlib.nojang.network.BridgedFriendlyByteBuf;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
-public record CommonPacketWrapper<T>(PacketHolder<T> container, T packet) implements CustomPacketPayload
-{
+public record CommonPacketWrapper<T>(PacketHolder<T> container, T packet) implements CustomPacketPayload {
     public void encode(BridgedFriendlyByteBuf buf)
     {
         container().encoder().accept(packet(), buf);
