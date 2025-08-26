@@ -20,11 +20,11 @@ public class BridgedGameProfile {
     }
 
     public String getName() {
-        return internal.getName();
+        return internal.name();
     }
 
     public UUID getId() {
-        return internal.getId();
+        return internal.id();
     }
 
     public GameProfile toMojang() {
