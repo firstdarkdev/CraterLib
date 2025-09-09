@@ -14,6 +14,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -342,17 +343,17 @@ public class CraterConfigScreen extends Screen {
     }
 
     @Override
-    public boolean mouseClicked(double d, double e, int i, boolean bl) {
-        this.dragging = i == 0 && d >= width - 6 && d < width;
-        return super.mouseClicked(d, e, i, bl);
+    public boolean mouseClicked(MouseButtonEvent arg, boolean bl) {
+        this.dragging = arg.input() == 0 && arg.x() >= width - 6 && arg.y() < width;
+        return super.mouseClicked(arg, bl);
     }
 
     @Override
-    public boolean mouseDragged(double d, double e, int i, double f, double g) {
-        if (super.mouseDragged(d, e, i, f, g)) {
+    public boolean mouseDragged(MouseButtonEvent arg, double d, double e) {
+        if (super.mouseDragged(arg, d, e)) {
             return true;
         }
-        if (i != 0 || !this.dragging) {
+        if (arg.input() != 0 || !this.dragging) {
             return false;
         }
         if (e < TOP) {
@@ -364,7 +365,7 @@ public class CraterConfigScreen extends Screen {
             int j = height - BOTTOM - TOP;
             int k = Mth.clamp((int) ((float) (j * j) / (float) this.scrollHeight()), 32, j - 8);
             double l = Math.max(1.0, h / (double) (j - k));
-            scrollerAmount = Mth.clamp(scrollerAmount + g * l, 0, scrollHeight());
+            //scrollerAmount = Mth.clamp(scrollerAmount + arg.scr * l, 0, scrollHeight());
         }
         return true;
     }
