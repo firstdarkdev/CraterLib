@@ -1,13 +1,12 @@
 --- a/Paper/build.gradle
 +++ b/Paper/build.gradle
-@@ -1,5 +1,5 @@
+@@ -1,3 +1,5 @@
++import io.papermc.paperweight.userdev.ReobfArtifactConfiguration
++
  plugins {
--    id "io.papermc.paperweight.userdev" version "2.0.0-beta.17"
-+    id "io.papermc.paperweight.userdev" version "1.7.7"
+     id "io.papermc.paperweight.userdev" version "2.0.0-beta.17"
      id "xyz.jpenilla.run-paper" version "2.3.0"
- }
- 
-@@ -56,7 +56,7 @@
+@@ -56,7 +58,7 @@
  compileTestJava.enabled = false
  
  tasks.assemble {
@@ -16,7 +15,7 @@
  }
  
  publisher {
-@@ -68,8 +68,8 @@
+@@ -68,8 +70,8 @@
      setVersionType("alpha")
      setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")

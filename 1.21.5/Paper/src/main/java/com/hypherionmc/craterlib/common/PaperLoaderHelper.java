@@ -30,7 +30,7 @@ public class PaperLoaderHelper implements ModloaderEnvironment {
 
     @Override
     public String getGameVersion() {
-        return SharedConstants.getCurrentVersion().getName();
+        return SharedConstants.VERSION_STRING;
     }
 
     @Override
