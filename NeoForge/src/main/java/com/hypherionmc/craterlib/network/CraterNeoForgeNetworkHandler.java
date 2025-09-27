@@ -9,6 +9,7 @@ import com.hypherionmc.craterlib.core.networking.data.PacketSide;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.LogicalSide;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadHandler;
@@ -44,7 +45,7 @@ public class CraterNeoForgeNetworkHandler extends PacketRegistry {
     public <T> void sendToServer(T packet, boolean ignoreCheck) {
         PacketHolder<T> container = (PacketHolder<T>) PACKET_MAP.get(packet.getClass());
         if (container != null) {
-            PacketDistributor.sendToServer(new CommonPacketWrapper<>(container, packet));
+            ClientPacketDistributor.sendToServer(new CommonPacketWrapper<>(container, packet));
         }
     }
 
