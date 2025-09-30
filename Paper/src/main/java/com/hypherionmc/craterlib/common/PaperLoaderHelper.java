@@ -4,19 +4,18 @@ import com.hypherionmc.craterlib.core.platform.Environment;
 import com.hypherionmc.craterlib.core.platform.LoaderType;
 import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import net.minecraft.SharedConstants;
-import net.minecraft.client.Minecraft;
-import net.neoforged.fml.ModList;
-import net.neoforged.fml.loading.FMLLoader;
-import net.neoforged.fml.loading.FMLPaths;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 
 import java.io.File;
+import java.util.Arrays;
 
 /**
  * @author HypherionSA
  */
-public class NeoForgeLoaderHelper implements ModloaderEnvironment {
+public class PaperLoaderHelper implements ModloaderEnvironment {
 
-    public NeoForgeLoaderHelper() {
+    public PaperLoaderHelper() {
     }
 
     @Override
@@ -26,7 +25,7 @@ public class NeoForgeLoaderHelper implements ModloaderEnvironment {
 
     @Override
     public LoaderType getLoaderType() {
-        return LoaderType.NEOFORGE;
+        return LoaderType.PAPER;
     }
 
     @Override
@@ -36,44 +35,36 @@ public class NeoForgeLoaderHelper implements ModloaderEnvironment {
 
     @Override
     public File getGameFolder() {
-        return Minecraft.getInstance().gameDirectory;
+        return new File(".");
     }
 
     @Override
     public File getConfigFolder() {
-        return FMLPaths.CONFIGDIR.get().toFile();
+        return new File("config");
     }
 
     @Override
     public File getModsFolder() {
-        return FMLPaths.MODSDIR.get().toFile();
+        return Bukkit.getPluginsFolder();
     }
 
     @Override
     public Environment getEnvironment() {
-        switch (FMLLoader.getCurrent().getDist()) {
-            case CLIENT -> {
-                return Environment.CLIENT;
-            }
-            case DEDICATED_SERVER -> {
-                return Environment.SERVER;
-            }
-        }
-        return Environment.UNKNOWN;
+        return Environment.SERVER;
     }
 
     @Override
     public boolean isModLoaded(String modid) {
-        return ModList.get().isLoaded(modid);
+        return Bukkit.getPluginManager().isPluginEnabled(modid);
     }
 
     @Override
     public boolean isDevEnv() {
-        return !FMLLoader.getCurrent().isProduction();
+        return false;
     }
 
     @Override
     public int getModCount() {
-        return ModList.get().size();
+        return (int) Arrays.stream(Bukkit.getPluginManager().getPlugins()).filter(Plugin::isEnabled).count();
     }
 }
