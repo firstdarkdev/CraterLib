@@ -1,0 +1,30 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/mixin/events/WhitelistMixin.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/mixin/events/WhitelistMixin.java
+@@ -12,7 +12,6 @@
+ import org.spongepowered.asm.mixin.injection.At;
+ import org.spongepowered.asm.mixin.injection.Inject;
+ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+ 
+ @SuppressWarnings({"unchecked", "rawtypes"})
+ @Mixin(StoredUserList.class)
+@@ -21,7 +20,7 @@
+     @Shadow protected abstract boolean contains(K k0);
+ 
+     @Inject(method = "add", at = @At("HEAD"))
+-    private void injectAddEvent(V arg, CallbackInfoReturnable<Boolean> cir) {
++    private void injectAddEvent(V arg, CallbackInfo ci) {
+         try {
+             if (arg instanceof UserWhiteListEntry entry) {
+                 StoredUserEntryAccessor entryAccessor = (StoredUserEntryAccessor) entry;
+@@ -32,8 +31,8 @@
+         } catch (Exception ignored) {}
+     }
+ 
+-    @Inject(method = "remove(Lnet/minecraft/server/players/StoredUserEntry;)Z", at = @At("HEAD"))
+-    private void injectRemoveEvent(StoredUserEntry<K> arg, CallbackInfoReturnable<Boolean> cir) {
++    @Inject(method = "remove(Lnet/minecraft/server/players/StoredUserEntry;)V", at = @At("HEAD"))
++    private void injectRemoveEvent(V arg, CallbackInfo ci) {
+         try {
+             if (arg instanceof UserWhiteListEntry entry) {
+                 StoredUserEntryAccessor entryAccessor = (StoredUserEntryAccessor) entry;

@@ -18,7 +18,7 @@
      }
  
      public boolean usesAuthentication() {
-@@ -46,7 +48,7 @@
+@@ -46,25 +48,25 @@
      }
  
      public void broadcastSystemMessage(Component text, boolean bl) {
@@ -27,7 +27,33 @@
      }
  
      public boolean isPlayerBanned(BridgedGameProfile profile) {
-@@ -87,7 +89,7 @@
+-        return internal.getPlayerList().getBans().isBanned(profile.toNameAndId());
++        return internal.getPlayerList().getBans().isBanned(profile.toMojang());
+     }
+ 
+     public void whitelistPlayer(BridgedGameProfile gameProfile) {
+         if (!internal.getPlayerList().isUsingWhitelist())
+             return;
+ 
+-        internal.getPlayerList().getWhiteList().add(new UserWhiteListEntry(gameProfile.toNameAndId()));
++        internal.getPlayerList().getWhiteList().add(new UserWhiteListEntry(gameProfile.toMojang()));
+     }
+ 
+     public void unWhitelistPlayer(BridgedGameProfile gameProfile) {
+         if (!internal.getPlayerList().isUsingWhitelist())
+             return;
+ 
+-        internal.getPlayerList().getWhiteList().remove(new UserWhiteListEntry(gameProfile.toNameAndId()));
++        internal.getPlayerList().getWhiteList().remove(new UserWhiteListEntry(gameProfile.toMojang()));
+     }
+ 
+     public List<BridgedPlayer> getPlayers() {
+@@ -83,11 +85,11 @@
+     }
+ 
+     public void banPlayer(BridgedGameProfile profile) {
+-        internal.getPlayerList().getBans().add(new UserBanListEntry(profile.toNameAndId()));
++        internal.getPlayerList().getBans().add(new UserBanListEntry(profile.toMojang()));
      }
  
      public void executeCommand(BridgedMinecraftServer server, BridgedFakePlayer player, String command) {

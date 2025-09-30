@@ -1,0 +1,37 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/authlib/BridgedGameProfile.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/authlib/BridgedGameProfile.java
+@@ -2,7 +2,6 @@
+ 
+ import com.mojang.authlib.GameProfile;
+ import lombok.RequiredArgsConstructor;
+-import net.minecraft.server.players.NameAndId;
+ 
+ import java.util.UUID;
+ 
+@@ -15,24 +14,16 @@
+         return new BridgedGameProfile(new GameProfile(id, name));
+     }
+ 
+-    public static BridgedGameProfile of(NameAndId nameAndId) {
+-        return BridgedGameProfile.of(new GameProfile(nameAndId.id(), nameAndId.name()));
+-    }
+-
+     public String getName() {
+-        return internal.name();
++        return internal.getName();
+     }
+ 
+     public UUID getId() {
+-        return internal.id();
++        return internal.getId();
+     }
+ 
+     public GameProfile toMojang() {
+         return internal;
+-    }
+-
+-    public NameAndId toNameAndId() {
+-        return new NameAndId(internal);
+     }
+ 
+ }

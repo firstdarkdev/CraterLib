@@ -1,6 +1,6 @@
 --- a/NeoForge/src/main/java/com/hypherionmc/craterlib/network/CraterNeoForgeNetworkHandler.java
 +++ b/NeoForge/src/main/java/com/hypherionmc/craterlib/network/CraterNeoForgeNetworkHandler.java
-@@ -1,40 +1,70 @@
+@@ -1,41 +1,70 @@
  package com.hypherionmc.craterlib.network;
  
  import com.hypherionmc.craterlib.CraterConstants;
@@ -15,6 +15,7 @@
 +import net.minecraft.world.entity.player.Player;
  import net.neoforged.bus.api.SubscribeEvent;
  import net.neoforged.fml.LogicalSide;
+-import net.neoforged.neoforge.client.network.ClientPacketDistributor;
  import net.neoforged.neoforge.network.PacketDistributor;
 -import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 +import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
@@ -79,13 +80,13 @@
      }
  
      public <T> void sendToServer(T packet) {
-@@ -42,36 +72,45 @@
+@@ -43,36 +72,45 @@
      }
  
      public <T> void sendToServer(T packet, boolean ignoreCheck) {
 -        PacketHolder<T> container = (PacketHolder<T>) PACKET_MAP.get(packet.getClass());
 -        if (container != null) {
--            PacketDistributor.sendToServer(new CommonPacketWrapper<>(container, packet));
+-            ClientPacketDistributor.sendToServer(new CommonPacketWrapper<>(container, packet));
 +        NeoForgePacketContainer<T> container = PACKETS.get(packet.getClass());
 +        try {
 +            PacketDistributor.SERVER.noArg().send(new NeoForgePacket<>(container, packet));

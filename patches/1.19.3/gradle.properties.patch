@@ -4,13 +4,13 @@
  mod_name=CraterLib
  
  # Shared
--minecraft_version=1.21.6
+-minecraft_version=1.21.9
 +minecraft_version=1.19.4
  project_group=com.hypherionmc.craterlib
  
  # Fabric
 -fabric_loader=0.16.13
--fabric_api=0.126.0+1.21.6
+-fabric_api=0.133.14+1.21.9
 +fabric_loader=0.15.11
 +fabric_api=0.87.2+1.19.4
  
@@ -38,7 +38,7 @@
 -vanishmod_neo=puxrKAMr
 -ftb_essentials=2101.1.0
 -ftb_ranks=2101.1.1
--player_revive=6119534
+-player_revive=6889401
 -creative_core=6113754
 -advanced_chat=SNA4dye5
 +advanced_chat=RN7kRIrY

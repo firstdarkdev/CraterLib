@@ -1,6 +1,6 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
-@@ -8,19 +8,20 @@
+@@ -8,20 +8,20 @@
  import com.hypherionmc.craterlib.core.config.annotations.Tooltip;
  import com.mojang.blaze3d.systems.RenderSystem;
  import com.mojang.blaze3d.vertex.*;
@@ -11,6 +11,7 @@
 -import net.minecraft.client.gui.GuiGraphics;
  import net.minecraft.client.gui.screens.ConfirmScreen;
  import net.minecraft.client.gui.screens.Screen;
+-import net.minecraft.client.input.MouseButtonEvent;
  import net.minecraft.client.renderer.GameRenderer;
  import net.minecraft.network.chat.Component;
 +import net.minecraft.network.chat.TextComponent;
@@ -23,7 +24,7 @@
  
  import java.lang.reflect.Field;
  import java.lang.reflect.Modifier;
-@@ -37,7 +38,6 @@
+@@ -38,7 +38,6 @@
  /**
   * @author HypherionSA
   */
@@ -31,7 +32,7 @@
  @Deprecated(forRemoval = true, since = "2.1.3")
  public class CraterConfigScreen extends Screen {
      public static final float SCROLLBAR_BOTTOM_COLOR = .5f;
-@@ -51,7 +51,7 @@
+@@ -52,7 +51,7 @@
      private boolean dragging;
  
      public CraterConfigScreen(AbstractConfig config, Screen parent, Object subConfig) {
@@ -40,7 +41,7 @@
          this.parent = parent;
          this.config = config;
          if (subConfig != null) {
-@@ -66,11 +66,11 @@
+@@ -67,11 +66,11 @@
      }
  
      private static Component toText(Enum<?> val) {
@@ -54,7 +55,7 @@
      }
  
      private void setupScreenFromConfig(Object object, Class<?> clazz) {
-@@ -96,7 +96,7 @@
+@@ -97,7 +96,7 @@
                          tooltipLang = field.getAnnotation(Tooltip.class).value();
                      }
  
@@ -63,7 +64,7 @@
                              val,
                              () -> val,
                              (ret) -> {
-@@ -160,7 +160,7 @@
+@@ -161,7 +160,7 @@
              return new TextConfigOption<>(Objects::toString, BigDecimal::new);
          }
          if (value instanceof ResourceLocation) {
@@ -72,7 +73,7 @@
          }
          if (isSubConfig) {
              return new SubConfigWidget<>(config, this, value);
-@@ -174,24 +174,24 @@
+@@ -175,24 +174,24 @@
          ((List) children()).addAll(options);
  
          int buttonWidths = Math.min(200, (width - 50 - 12) / 3);
@@ -109,7 +110,7 @@
  
          int y = (int) (TOP + 4 - Math.round(scrollerAmount));
          for (Option<?> option : options) {
-@@ -199,7 +199,7 @@
+@@ -200,7 +199,7 @@
              option.render(minecraft, font, 40, y, width - 80, height1, matrices, mouseX, mouseY, delta);
              renderConfigTooltip(matrices, font, mouseX, mouseY, 40, y, font.width(option.text), height1, option.text.getString(), option.getLangKeys().toArray(new String[0]));
              y += height1;
@@ -118,7 +119,7 @@
      }
  
      private void renderScrollBar() {
-@@ -218,47 +218,49 @@
+@@ -219,47 +218,49 @@
              int maxY = this.height - BOTTOM;
              //RenderSystem.disableTexture();
              Tesselator tesselator = Tesselator.getInstance();
@@ -200,7 +201,7 @@
      }
  
      protected void overlayBackground(PoseStack matrices, int h1, int h2, int color) {
-@@ -267,15 +269,16 @@
+@@ -268,15 +269,16 @@
  
      protected void overlayBackground(Matrix4f matrix, int minX, int minY, int maxX, int maxY, int red, int green, int blue, int startAlpha, int endAlpha) {
          Tesselator tesselator = Tesselator.getInstance();
@@ -226,7 +227,7 @@
      }
  
      public int scrollHeight() {
-@@ -323,22 +326,22 @@
+@@ -324,36 +326,36 @@
      @Override
      public void onClose() {
          if (isEdited()) {
@@ -251,11 +252,46 @@
              return true;
          }
 -        return super.mouseScrolled(d, e, f, g);
+-    }
+-
+-    @Override
+-    public boolean mouseClicked(MouseButtonEvent arg, boolean bl) {
+-        this.dragging = arg.input() == 0 && arg.x() >= width - 6 && arg.y() < width;
+-        return super.mouseClicked(arg, bl);
+-    }
+-
+-    @Override
+-    public boolean mouseDragged(MouseButtonEvent arg, double d, double e) {
+-        if (super.mouseDragged(arg, d, e)) {
 +        return super.mouseScrolled(d, e, f);
++    }
++
++    @Override
++    public boolean mouseClicked(double d, double e, int i) {
++        this.dragging = i == 0 && d >= width - 6 && d < width;
++        return super.mouseClicked(d, e, i) || dragging;
++    }
++
++    @Override
++    public boolean mouseDragged(double d, double e, int i, double f, double g) {
++        if (super.mouseDragged(d, e, i, f, g)) {
+             return true;
+         }
+-        if (arg.input() != 0 || !this.dragging) {
++        if (i != 0 || !this.dragging) {
+             return false;
+         }
+         if (e < TOP) {
+@@ -365,7 +367,7 @@
+             int j = height - BOTTOM - TOP;
+             int k = Mth.clamp((int) ((float) (j * j) / (float) this.scrollHeight()), 32, j - 8);
+             double l = Math.max(1.0, h / (double) (j - k));
+-            //scrollerAmount = Mth.clamp(scrollerAmount + arg.scr * l, 0, scrollHeight());
++            scrollerAmount = Mth.clamp(scrollerAmount + g * l, 0, scrollHeight());
+         }
+         return true;
      }
- 
-     @Override
-@@ -377,15 +380,15 @@
+@@ -378,15 +380,15 @@
          }
      }
  

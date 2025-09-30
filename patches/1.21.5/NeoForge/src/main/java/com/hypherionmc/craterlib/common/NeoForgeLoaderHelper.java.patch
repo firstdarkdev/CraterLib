@@ -1,0 +1,29 @@
+--- a/NeoForge/src/main/java/com/hypherionmc/craterlib/common/NeoForgeLoaderHelper.java
++++ b/NeoForge/src/main/java/com/hypherionmc/craterlib/common/NeoForgeLoaderHelper.java
+@@ -31,7 +31,7 @@
+ 
+     @Override
+     public String getGameVersion() {
+-        return SharedConstants.getCurrentVersion().name();
++        return SharedConstants.VERSION_STRING;
+     }
+ 
+     @Override
+@@ -51,7 +51,7 @@
+ 
+     @Override
+     public Environment getEnvironment() {
+-        switch (FMLLoader.getCurrent().getDist()) {
++        switch (FMLLoader.getDist()) {
+             case CLIENT -> {
+                 return Environment.CLIENT;
+             }
+@@ -69,7 +69,7 @@
+ 
+     @Override
+     public boolean isDevEnv() {
+-        return !FMLLoader.getCurrent().isProduction();
++        return !FMLLoader.isProduction();
+     }
+ 
+     @Override

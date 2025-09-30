@@ -1,0 +1,11 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/client/gui/BridgedScreen.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/client/gui/BridgedScreen.java
+@@ -23,7 +23,7 @@
+     }
+ 
+     public boolean isLoadingScreen() {
+-        return internal instanceof LevelLoadingScreen || internal instanceof ConnectScreen;
++        return internal instanceof LevelLoadingScreen || internal instanceof ReceivingLevelScreen;
+     }
+ 
+     public boolean isPauseScreen() {

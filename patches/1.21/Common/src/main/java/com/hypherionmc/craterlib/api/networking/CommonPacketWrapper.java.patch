@@ -1,0 +1,12 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/api/networking/CommonPacketWrapper.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/api/networking/CommonPacketWrapper.java
+@@ -4,7 +4,8 @@
+ import com.hypherionmc.craterlib.nojang.network.BridgedFriendlyByteBuf;
+ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+ 
+-public record CommonPacketWrapper<T>(PacketHolder<T> container, T packet) implements CustomPacketPayload {
++public record CommonPacketWrapper<T>(PacketHolder<T> container, T packet) implements CustomPacketPayload
++{
+     public void encode(BridgedFriendlyByteBuf buf)
+     {
+         container().encoder().accept(packet(), buf);

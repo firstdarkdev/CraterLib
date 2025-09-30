@@ -1,14 +1,16 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/widgets/InternalConfigButton.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/widgets/InternalConfigButton.java
-@@ -6,6 +6,7 @@
+@@ -5,8 +5,8 @@
+ import net.minecraft.client.gui.components.AbstractButton;
  import net.minecraft.client.gui.narration.NarratedElementType;
  import net.minecraft.client.gui.narration.NarrationElementOutput;
+-import net.minecraft.client.input.InputWithModifiers;
  import net.minecraft.network.chat.Component;
 +import org.jetbrains.annotations.NotNull;
  
  /**
   * @author HypherionSA
-@@ -23,7 +24,7 @@
+@@ -24,7 +24,7 @@
      }
  
      @Override
@@ -17,7 +19,7 @@
          if (cancel) {
              setMessage(Component.translatable(screen.isEdited() ? "t.clc.cancel_discard" : "gui.cancel"));
          } else {
-@@ -31,7 +32,7 @@
+@@ -32,7 +32,7 @@
              active = screen.isEdited() && !hasErrors;
              setMessage(Component.translatable(hasErrors ? "t.clc.error" : "t.clc.save"));
          }
@@ -26,3 +28,18 @@
      }
  
      @Override
+@@ -41,12 +41,13 @@
+     }
+ 
+     @Override
+-    public void onPress(InputWithModifiers arg) {
++    public void onPress() {
+         if (cancel) {
+             screen.onClose();
+         } else {
+             screen.save();
+         }
+     }
++
+ 
+ }

@@ -1,0 +1,43 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
+@@ -14,7 +14,6 @@
+ import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.client.gui.screens.ConfirmScreen;
+ import net.minecraft.client.gui.screens.Screen;
+-import net.minecraft.client.input.MouseButtonEvent;
+ import net.minecraft.client.renderer.GameRenderer;
+ import net.minecraft.network.chat.Component;
+ import net.minecraft.resources.ResourceLocation;
+@@ -343,17 +342,17 @@
+     }
+ 
+     @Override
+-    public boolean mouseClicked(MouseButtonEvent arg, boolean bl) {
+-        this.dragging = arg.input() == 0 && arg.x() >= width - 6 && arg.y() < width;
+-        return super.mouseClicked(arg, bl);
++    public boolean mouseClicked(double d, double e, int i) {
++        this.dragging = i == 0 && d >= width - 6 && d < width;
++        return super.mouseClicked(d, e, i) || dragging;
+     }
+ 
+     @Override
+-    public boolean mouseDragged(MouseButtonEvent arg, double d, double e) {
+-        if (super.mouseDragged(arg, d, e)) {
++    public boolean mouseDragged(double d, double e, int i, double f, double g) {
++        if (super.mouseDragged(d, e, i, f, g)) {
+             return true;
+         }
+-        if (arg.input() != 0 || !this.dragging) {
++        if (i != 0 || !this.dragging) {
+             return false;
+         }
+         if (e < TOP) {
+@@ -365,7 +364,7 @@
+             int j = height - BOTTOM - TOP;
+             int k = Mth.clamp((int) ((float) (j * j) / (float) this.scrollHeight()), 32, j - 8);
+             double l = Math.max(1.0, h / (double) (j - k));
+-            //scrollerAmount = Mth.clamp(scrollerAmount + arg.scr * l, 0, scrollHeight());
++            scrollerAmount = Mth.clamp(scrollerAmount + g * l, 0, scrollHeight());
+         }
+         return true;
+     }

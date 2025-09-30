@@ -1,0 +1,11 @@
+--- a/Fabric/src/main/java/com/hypherionmc/craterlib/common/FabricLoaderHelper.java
++++ b/Fabric/src/main/java/com/hypherionmc/craterlib/common/FabricLoaderHelper.java
+@@ -27,7 +27,7 @@
+ 
+     @Override
+     public String getGameVersion() {
+-        return SharedConstants.getCurrentVersion().name();
++        return SharedConstants.VERSION_STRING;
+     }
+ 
+     @Override

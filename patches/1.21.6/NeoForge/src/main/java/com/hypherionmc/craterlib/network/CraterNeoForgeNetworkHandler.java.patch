@@ -1,0 +1,19 @@
+--- a/NeoForge/src/main/java/com/hypherionmc/craterlib/network/CraterNeoForgeNetworkHandler.java
++++ b/NeoForge/src/main/java/com/hypherionmc/craterlib/network/CraterNeoForgeNetworkHandler.java
+@@ -9,7 +9,6 @@
+ import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+ import net.neoforged.bus.api.SubscribeEvent;
+ import net.neoforged.fml.LogicalSide;
+-import net.neoforged.neoforge.client.network.ClientPacketDistributor;
+ import net.neoforged.neoforge.network.PacketDistributor;
+ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+ import net.neoforged.neoforge.network.handling.IPayloadHandler;
+@@ -45,7 +44,7 @@
+     public <T> void sendToServer(T packet, boolean ignoreCheck) {
+         PacketHolder<T> container = (PacketHolder<T>) PACKET_MAP.get(packet.getClass());
+         if (container != null) {
+-            ClientPacketDistributor.sendToServer(new CommonPacketWrapper<>(container, packet));
++            PacketDistributor.sendToServer(new CommonPacketWrapper<>(container, packet));
+         }
+     }
+ 

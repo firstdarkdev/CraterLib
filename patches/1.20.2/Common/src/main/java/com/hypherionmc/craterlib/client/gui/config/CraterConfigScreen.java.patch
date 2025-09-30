@@ -1,6 +1,14 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/client/gui/config/CraterConfigScreen.java
-@@ -37,7 +37,6 @@
+@@ -14,7 +14,6 @@
+ import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.client.gui.screens.ConfirmScreen;
+ import net.minecraft.client.gui.screens.Screen;
+-import net.minecraft.client.input.MouseButtonEvent;
+ import net.minecraft.client.renderer.GameRenderer;
+ import net.minecraft.network.chat.Component;
+ import net.minecraft.resources.ResourceLocation;
+@@ -38,7 +37,6 @@
  /**
   * @author HypherionSA
   */
@@ -8,7 +16,7 @@
  @Deprecated(forRemoval = true, since = "2.1.3")
  public class CraterConfigScreen extends Screen {
      public static final float SCROLLBAR_BOTTOM_COLOR = .5f;
-@@ -160,7 +159,7 @@
+@@ -161,7 +159,7 @@
              return new TextConfigOption<>(Objects::toString, BigDecimal::new);
          }
          if (value instanceof ResourceLocation) {
@@ -17,7 +25,7 @@
          }
          if (isSubConfig) {
              return new SubConfigWidget<>(config, this, value);
-@@ -180,7 +179,7 @@
+@@ -181,7 +179,7 @@
  
      @Override
      public void render(@NotNull GuiGraphics matrices, int mouseX, int mouseY, float delta) {
@@ -26,7 +34,7 @@
          renderScrollBar();
  
          matrices.pose().pushPose();
-@@ -199,7 +198,7 @@
+@@ -200,7 +198,7 @@
              option.render(minecraft, font, 40, y, width - 80, height1, matrices, mouseX, mouseY, delta);
              renderConfigTooltip(matrices, font, mouseX, mouseY, 40, y, font.width(option.text), height1, option.text.getString(), option.getLangKeys().toArray(new String[0]));
              y += height1;
@@ -35,7 +43,7 @@
      }
  
      private void renderScrollBar() {
-@@ -218,47 +217,49 @@
+@@ -219,47 +217,49 @@
              int maxY = this.height - BOTTOM;
              //RenderSystem.disableTexture();
              Tesselator tesselator = Tesselator.getInstance();
@@ -117,7 +125,7 @@
      }
  
      protected void overlayBackground(PoseStack matrices, int h1, int h2, int color) {
-@@ -267,15 +268,16 @@
+@@ -268,15 +268,16 @@
  
      protected void overlayBackground(Matrix4f matrix, int minX, int minY, int maxX, int maxY, int red, int green, int blue, int startAlpha, int endAlpha) {
          Tesselator tesselator = Tesselator.getInstance();
@@ -143,7 +151,40 @@
      }
  
      public int scrollHeight() {
-@@ -385,7 +387,7 @@
+@@ -343,17 +344,17 @@
+     }
+ 
+     @Override
+-    public boolean mouseClicked(MouseButtonEvent arg, boolean bl) {
+-        this.dragging = arg.input() == 0 && arg.x() >= width - 6 && arg.y() < width;
+-        return super.mouseClicked(arg, bl);
++    public boolean mouseClicked(double d, double e, int i) {
++        this.dragging = i == 0 && d >= width - 6 && d < width;
++        return super.mouseClicked(d, e, i) || dragging;
+     }
+ 
+     @Override
+-    public boolean mouseDragged(MouseButtonEvent arg, double d, double e) {
+-        if (super.mouseDragged(arg, d, e)) {
++    public boolean mouseDragged(double d, double e, int i, double f, double g) {
++        if (super.mouseDragged(d, e, i, f, g)) {
+             return true;
+         }
+-        if (arg.input() != 0 || !this.dragging) {
++        if (i != 0 || !this.dragging) {
+             return false;
+         }
+         if (e < TOP) {
+@@ -365,7 +366,7 @@
+             int j = height - BOTTOM - TOP;
+             int k = Mth.clamp((int) ((float) (j * j) / (float) this.scrollHeight()), 32, j - 8);
+             double l = Math.max(1.0, h / (double) (j - k));
+-            //scrollerAmount = Mth.clamp(scrollerAmount + arg.scr * l, 0, scrollHeight());
++            scrollerAmount = Mth.clamp(scrollerAmount + g * l, 0, scrollHeight());
+         }
+         return true;
+     }
+@@ -386,7 +387,7 @@
                  for (String desc : description) {
                      list.add(Component.translatable(desc));
                  }

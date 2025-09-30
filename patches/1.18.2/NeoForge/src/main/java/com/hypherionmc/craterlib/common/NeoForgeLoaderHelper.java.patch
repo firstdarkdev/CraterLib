@@ -34,7 +34,7 @@
 -
 -    @Override
 -    public String getGameVersion() {
--        return SharedConstants.VERSION_STRING;
+-        return SharedConstants.getCurrentVersion().name();
 -    }
 -
 -    @Override
@@ -54,7 +54,7 @@
 -
 -    @Override
 -    public Environment getEnvironment() {
--        switch (FMLLoader.getDist()) {
+-        switch (FMLLoader.getCurrent().getDist()) {
 -            case CLIENT -> {
 -                return Environment.CLIENT;
 -            }
@@ -72,7 +72,7 @@
 -
 -    @Override
 -    public boolean isDevEnv() {
--        return !FMLLoader.isProduction();
+-        return !FMLLoader.getCurrent().isProduction();
 -    }
 -
 -    @Override
