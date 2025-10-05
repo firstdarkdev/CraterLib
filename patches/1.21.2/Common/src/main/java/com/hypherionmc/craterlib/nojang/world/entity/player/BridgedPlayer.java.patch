@@ -1,0 +1,11 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/world/entity/player/BridgedPlayer.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/world/entity/player/BridgedPlayer.java
+@@ -80,7 +80,7 @@
+     }
+ 
+     public BridgedGameType getGameMode() {
+-        return BridgedGameType.fromMojang(internal.gameMode());
++        return BridgedGameType.fromMojang(toMojangServerPlayer().gameMode.getGameModeForPlayer());
+     }
+ 
+     @Nullable

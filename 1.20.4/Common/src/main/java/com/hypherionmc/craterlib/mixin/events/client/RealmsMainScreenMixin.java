@@ -16,8 +16,10 @@ public class RealmsMainScreenMixin {
 
     @Inject(at = @At("HEAD"), method = "play(Lcom/mojang/realmsclient/dto/RealmsServer;Lnet/minecraft/client/gui/screens/Screen;Z)V")
     private static void play(RealmsServer serverData, Screen arg2, boolean bl, CallbackInfo ci) {
-        PlayerJoinRealmEvent playerJoinRealm = new PlayerJoinRealmEvent(BridgedRealmsServer.of(serverData));
-        CraterEventBus.INSTANCE.postEvent(playerJoinRealm);
+        try {
+            PlayerJoinRealmEvent playerJoinRealm = new PlayerJoinRealmEvent(BridgedRealmsServer.of(serverData));
+            CraterEventBus.INSTANCE.postEvent(playerJoinRealm);
+        } catch (Exception ignored) { }
     }
 
 }

@@ -1,6 +1,6 @@
 --- a/Fabric/build.gradle
 +++ b/Fabric/build.gradle
-@@ -118,8 +118,8 @@
+@@ -126,8 +126,8 @@
      setVersionType("release")
      setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")

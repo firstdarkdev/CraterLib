@@ -15,7 +15,9 @@ public class ServerPlayerMixin {
 
     @Inject(method = "die", at = @At("HEAD"))
     private void injectPlayerDeathEvent(DamageSource damageSource, CallbackInfo ci) {
-        CraterEventBus.INSTANCE.postEvent(new CraterPlayerDeathEvent(BridgedPlayer.of(((ServerPlayer) (Object) this)), damageSource));
+        try {
+            CraterEventBus.INSTANCE.postEvent(new CraterPlayerDeathEvent(BridgedPlayer.of(((ServerPlayer) (Object) this)), damageSource));
+        } catch (Exception ignored) {}
     }
 
 }

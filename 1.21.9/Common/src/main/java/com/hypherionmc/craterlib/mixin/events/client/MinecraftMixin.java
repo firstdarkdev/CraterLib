@@ -21,11 +21,13 @@ public class MinecraftMixin {
 
     @Inject(method = "setScreen", at = @At(value = "TAIL"))
     private void injectScreenOpeningEvent(Screen screen, CallbackInfo ci) {
-        Screen old = this.screen;
-        if (screen != null) {
-            ScreenEvent.Opening opening = new ScreenEvent.Opening(BridgedScreen.of(old), BridgedScreen.of(screen));
-            CraterEventBus.INSTANCE.postEvent(opening);
-        }
+       try {
+           Screen old = this.screen;
+           if (screen != null) {
+               ScreenEvent.Opening opening = new ScreenEvent.Opening(BridgedScreen.of(old), BridgedScreen.of(screen));
+               CraterEventBus.INSTANCE.postEvent(opening);
+           }
+       } catch (Exception ignored) {}
     }
 
 }

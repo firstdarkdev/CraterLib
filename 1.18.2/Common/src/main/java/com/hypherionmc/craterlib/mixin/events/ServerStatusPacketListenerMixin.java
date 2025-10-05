@@ -31,16 +31,18 @@ public class ServerStatusPacketListenerMixin {
             cancellable = true
     )
     private void injectHandleStatusRequest(ServerboundStatusRequestPacket arg, CallbackInfo ci) {
-        ServerStatusEvent.StatusRequestEvent event = new ServerStatusEvent.StatusRequestEvent(ChatUtils.mojangToAdventure(server.getStatus().getDescription()));
-        CraterEventBus.INSTANCE.postEvent(event);
+        try {
+            ServerStatusEvent.StatusRequestEvent event = new ServerStatusEvent.StatusRequestEvent(ChatUtils.mojangToAdventure(server.getStatus().getDescription()));
+            CraterEventBus.INSTANCE.postEvent(event);
 
-        if (event.getNewStatus() != null) {
-            ci.cancel();
-            ServerStatus serverStatus = this.server.getStatus();
-            serverStatus.setDescription(ChatUtils.adventureToMojang(event.getNewStatus()));
+            if (event.getNewStatus() != null) {
+                ci.cancel();
+                ServerStatus serverStatus = this.server.getStatus();
+                serverStatus.setDescription(ChatUtils.adventureToMojang(event.getNewStatus()));
 
-            this.connection.send(new ClientboundStatusResponsePacket(serverStatus));
-        }
+                this.connection.send(new ClientboundStatusResponsePacket(serverStatus));
+            }
+        } catch (Exception ignored) { }
     }
 
 }

@@ -1,8 +1,8 @@
-**Bug Fixes**:
+**New Features**
 
-- Fix Adventure Serializer failing completely when serialization fails, causing game glitches
+- Added API for Player Roles (https://modrinth.com/mod/player-roles)
+- Added GameMode API to Player
 
-**New Features**:
+**Bug Fixes**
 
-- Allow commands to send feedback as chat messages, if command feedback is disabled
-- Added Compat API for Advanced Chat
+- Fixed Events fired from mixins that error out breaking the game

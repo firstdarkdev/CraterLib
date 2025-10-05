@@ -3,7 +3,9 @@
   "minVersion": "0.8",
   "package": "com.hypherionmc.craterlib.mixin",
   "compatibilityLevel": "JAVA_17",
+  "plugin": "com.hypherionmc.craterlib.mixin.FabricMixinPlugin",
   "mixins": [
+    "PlayerRoleSetEventMixin"
   ],
   "client": [
     "TutorialMixin"

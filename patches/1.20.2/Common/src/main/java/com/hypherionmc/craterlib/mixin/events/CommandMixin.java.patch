@@ -1,6 +1,6 @@
 --- a/Common/src/main/java/com/hypherionmc/craterlib/mixin/events/CommandMixin.java
 +++ b/Common/src/main/java/com/hypherionmc/craterlib/mixin/events/CommandMixin.java
-@@ -9,28 +9,28 @@
+@@ -9,29 +9,29 @@
  import org.spongepowered.asm.mixin.Mixin;
  import org.spongepowered.asm.mixin.injection.At;
  import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,18 +19,19 @@
      )
 -    private void injectCommandEvent(ParseResults<CommandSourceStack> stackParseResults, String command, CallbackInfo ci) {
 +    private void injectCommandEvent(ParseResults<CommandSourceStack> stackParseResults, String command, CallbackInfoReturnable<Integer> cir) {
-         CraterCommandEvent commandEvent = CraterCommandEvent.of(stackParseResults, command);
-         CraterEventBus.INSTANCE.postEvent(commandEvent);
-         if (commandEvent.wasCancelled()) {
--            ci.cancel();
+         try {
+             CraterCommandEvent commandEvent = CraterCommandEvent.of(stackParseResults, command);
+             CraterEventBus.INSTANCE.postEvent(commandEvent);
+             if (commandEvent.wasCancelled()) {
+-                ci.cancel();
 +            cir.setReturnValue(1);
-             return;
-         }
+                 return;
+             }
  
-         if (commandEvent.getException() != null) {
-             Throwables.throwIfUnchecked(commandEvent.getException());
--            ci.cancel();
+             if (commandEvent.getException() != null) {
+                 Throwables.throwIfUnchecked(commandEvent.getException());
+-                ci.cancel();
 +            cir.setReturnValue(1);
-         }
+             }
+         } catch (Exception ignored) {}
      }
- 

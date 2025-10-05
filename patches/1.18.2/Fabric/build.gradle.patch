@@ -1,6 +1,6 @@
 --- a/Fabric/build.gradle
 +++ b/Fabric/build.gradle
-@@ -9,13 +9,9 @@
+@@ -15,15 +15,11 @@
          exclude(group: "net.fabricmc.fabric-api")
      }
  
@@ -11,10 +11,14 @@
      modImplementation "maven.modrinth:fabrictailor:${fabrictailor}"
      modImplementation "maven.modrinth:vanish:${vanish}"
 -    modImplementation("unimaven.modrinth:advanced-chat:${advanced_chat}")
+-    modImplementation("unimaven.modrinth:player-roles:1.6.15+1.21.6")
+-    modImplementation("dev.gegy:player-roles-api:1.6.15")
++    modImplementation("dev.gegy:player-roles:1.5.2")
++    modImplementation("dev.gegy:player-roles-api:1.5.2")
  
      // Do not edit or remove
      implementation project(":Common")
-@@ -118,8 +114,8 @@
+@@ -126,8 +122,8 @@
      setVersionType("release")
      setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")

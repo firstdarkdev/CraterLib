@@ -27,27 +27,35 @@ public class PlayerListMixin {
 
     @Inject(method = "broadcastSystemMessage(Lnet/minecraft/network/chat/Component;Ljava/util/function/Function;Z)V", at = @At("HEAD"))
     private void injectBroadcastEvent(Component component, Function<ServerPlayer, Component> function, boolean bl, CallbackInfo ci) {
-        String thread = Thread.currentThread().getStackTrace()[3].getClassName();
-        MessageBroadcastEvent event = new MessageBroadcastEvent(ChatUtils.mojangToAdventure(component), (f) -> ChatUtils.mojangToAdventure(component), bl, thread);
-        CraterEventBus.INSTANCE.postEvent(event);
+        try {
+            String thread = Thread.currentThread().getStackTrace()[3].getClassName();
+            MessageBroadcastEvent event = new MessageBroadcastEvent(ChatUtils.mojangToAdventure(component), (f) -> ChatUtils.mojangToAdventure(component), bl, thread);
+            CraterEventBus.INSTANCE.postEvent(event);
+        } catch (Exception ignored) {}
     }
 
     @Inject(method = "placeNewPlayer", at = @At("TAIL"))
     private void injectPlayerLoginEvent(Connection connection, ServerPlayer serverPlayer, CommonListenerCookie commonListenerCookie, CallbackInfo ci) {
-        CraterEventBus.INSTANCE.postEvent(new CraterPlayerEvent.PlayerLoggedIn(BridgedPlayer.of(serverPlayer)));
+        try {
+            CraterEventBus.INSTANCE.postEvent(new CraterPlayerEvent.PlayerLoggedIn(BridgedPlayer.of(serverPlayer)));
+        } catch (Exception ignored) {}
     }
 
     @Inject(method = "remove", at = @At("HEAD"))
     private void injectPlayerLogoutEvent(ServerPlayer player, CallbackInfo ci) {
-        CraterEventBus.INSTANCE.postEvent(new CraterPlayerEvent.PlayerLoggedOut(BridgedPlayer.of(player)));
+        try {
+            CraterEventBus.INSTANCE.postEvent(new CraterPlayerEvent.PlayerLoggedOut(BridgedPlayer.of(player)));
+        } catch (Exception ignored) {}
     }
 
     @Inject(method = "canPlayerLogin", at = @At("HEAD"), cancellable = true)
     private void injectPreLoginEvent(SocketAddress address, GameProfile gameProfile, CallbackInfoReturnable<Component> cir) {
-        PlayerPreLoginEvent event = new PlayerPreLoginEvent(address, BridgedGameProfile.of(gameProfile));
-        CraterEventBus.INSTANCE.postEvent(event);
-        if (event.getMessage() != null) {
-            cir.setReturnValue(ChatUtils.adventureToMojang(event.getMessage()));
-        }
+        try{
+            PlayerPreLoginEvent event = new PlayerPreLoginEvent(address, BridgedGameProfile.of(gameProfile));
+            CraterEventBus.INSTANCE.postEvent(event);
+            if (event.getMessage() != null) {
+                cir.setReturnValue(ChatUtils.adventureToMojang(event.getMessage()));
+            }
+        } catch (Exception ignored) {}
     }
 }

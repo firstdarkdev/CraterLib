@@ -29,8 +29,7 @@ public class CommandMixin {
                     target = "Lnet/minecraft/util/profiling/ProfilerFiller;push(Ljava/lang/String;)V",
                     shift = At.Shift.AFTER
             ),
-            cancellable = true
-    )
+            cancellable = true)
     private void injectCommandEvent(CommandSourceStack stack, String command, CallbackInfoReturnable<Integer> cir) {
         StringReader stringreader = new StringReader(command);
         if (stringreader.canRead() && stringreader.peek() == '/') {

@@ -16,8 +16,10 @@ public class RealmsMainScreenMixin {
 
     @Inject(at = @At("HEAD"), method = "play")
     private void play(RealmsServer serverData, Screen arg2, CallbackInfo ci) {
-        PlayerJoinRealmEvent playerJoinRealm = new PlayerJoinRealmEvent(BridgedRealmsServer.of(serverData));
-        CraterEventBus.INSTANCE.postEvent(playerJoinRealm);
+        try {
+            PlayerJoinRealmEvent playerJoinRealm = new PlayerJoinRealmEvent(BridgedRealmsServer.of(serverData));
+            CraterEventBus.INSTANCE.postEvent(playerJoinRealm);
+        } catch (Exception ignored) { }
     }
 
 }

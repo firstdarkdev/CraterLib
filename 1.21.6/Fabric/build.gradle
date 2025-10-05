@@ -1,5 +1,11 @@
 archivesBaseName = "${mod_name.replace(" ", "")}-Fabric-${minecraft_version}"
 
+repositories {
+    maven {
+        url = "https://maven.gegy.dev/releases"
+    }
+}
+
 dependencies {
     // Core
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api}"
@@ -16,6 +22,8 @@ dependencies {
     modImplementation "maven.modrinth:fabrictailor:${fabrictailor}"
     modImplementation "maven.modrinth:vanish:${vanish}"
     modImplementation("unimaven.modrinth:advanced-chat:${advanced_chat}")
+    modImplementation("unimaven.modrinth:player-roles:1.6.15+1.21.6")
+    modImplementation("dev.gegy:player-roles-api:1.6.15")
 
     // Do not edit or remove
     implementation project(":Common")
@@ -118,8 +126,8 @@ publisher {
     setVersionType("release")
     setChangelog(rootProject.file("changelog.md"))
     setProjectVersion("${minecraft_version}-${project.version}")
-    setDisplayName("[FABRIC/QUILT 1.21.6] CraterLib - ${project.version}")
-    setGameVersions("1.21.6")
+    setDisplayName("[FABRIC/QUILT 1.21.6-8] CraterLib - ${project.version}")
+    setGameVersions("1.21.6", "1.21.7", "1.21.8")
     setLoaders("fabric", "quilt")
     setArtifact(remapJar)
     setCurseEnvironment("both")

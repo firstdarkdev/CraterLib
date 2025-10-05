@@ -1,6 +1,6 @@
 --- a/Fabric/build.gradle
 +++ b/Fabric/build.gradle
-@@ -11,11 +11,9 @@
+@@ -17,13 +17,11 @@
  
      stupidRemapArch("dev.ftb.mods:ftb-essentials:${ftb_essentials}")
      stupidRemapArch("dev.ftb.mods:ftb-ranks:${ftb_ranks}")
@@ -9,10 +9,14 @@
      modImplementation "maven.modrinth:fabrictailor:${fabrictailor}"
      modImplementation "maven.modrinth:vanish:${vanish}"
 -    modImplementation("unimaven.modrinth:advanced-chat:${advanced_chat}")
+-    modImplementation("unimaven.modrinth:player-roles:1.6.15+1.21.6")
+-    modImplementation("dev.gegy:player-roles-api:1.6.15")
++    modImplementation("unimaven.modrinth:player-roles:1.6.1")
++    modImplementation("dev.gegy:player-roles-api:1.6.1")
  
      // Do not edit or remove
      implementation project(":Common")
-@@ -118,8 +116,8 @@
+@@ -126,8 +124,8 @@
      setVersionType("release")
      setChangelog(rootProject.file("changelog.md"))
      setProjectVersion("${minecraft_version}-${project.version}")

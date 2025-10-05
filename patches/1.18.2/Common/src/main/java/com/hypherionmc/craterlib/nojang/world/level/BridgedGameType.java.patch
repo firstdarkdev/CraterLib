@@ -1,0 +1,11 @@
+--- a/Common/src/main/java/com/hypherionmc/craterlib/nojang/world/level/BridgedGameType.java
++++ b/Common/src/main/java/com/hypherionmc/craterlib/nojang/world/level/BridgedGameType.java
+@@ -28,7 +28,7 @@
+     }
+ 
+     public String getSerializedName() {
+-        return this.internal.getSerializedName();
++        return this.internal.getName();
+     }
+ 
+     public Component getLongDisplayName() {

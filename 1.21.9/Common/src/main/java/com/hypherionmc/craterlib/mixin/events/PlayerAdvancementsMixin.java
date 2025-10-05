@@ -22,10 +22,12 @@ public class PlayerAdvancementsMixin {
 
     @Inject(method = "award", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancements/AdvancementRewards;grant(Lnet/minecraft/server/level/ServerPlayer;)V", shift = At.Shift.AFTER))
     private void injectAdvancementEvent(AdvancementHolder advancementHolder, String string, CallbackInfoReturnable<Boolean> cir) {
-        Advancement advancement = advancementHolder.value();
+        try {
+            Advancement advancement = advancementHolder.value();
 
-        if (advancement.display().isPresent() && advancement.display().get().shouldAnnounceChat()) {
-            CraterEventBus.INSTANCE.postEvent(new CraterAdvancementEvent(BridgedPlayer.of(this.player), BridgedAdvancement.of(advancementHolder.value())));
-        }
+            if (advancement.display().isPresent() && advancement.display().get().shouldAnnounceChat()) {
+                CraterEventBus.INSTANCE.postEvent(new CraterAdvancementEvent(BridgedPlayer.of(this.player), BridgedAdvancement.of(advancementHolder.value())));
+            }
+        } catch (Exception ignored) {}
     }
 }

@@ -1,5 +1,11 @@
 archivesBaseName = "${mod_name.replace(" ", "")}-Fabric-${minecraft_version}"
 
+repositories {
+    maven {
+        url = "https://maven.gegy.dev/releases"
+    }
+}
+
 dependencies {
     // Core
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api}"
@@ -14,6 +20,8 @@ dependencies {
     modImplementation("me.shedaniel.cloth:cloth-config-fabric:${cloth_config}")
     modImplementation "maven.modrinth:fabrictailor:${fabrictailor}"
     modImplementation "maven.modrinth:vanish:${vanish}"
+    modImplementation("unimaven.modrinth:player-roles:1.6.1")
+    modImplementation("dev.gegy:player-roles-api:1.6.1")
 
     // Do not edit or remove
     implementation project(":Common")

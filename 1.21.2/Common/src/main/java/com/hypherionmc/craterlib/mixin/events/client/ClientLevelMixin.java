@@ -16,10 +16,12 @@ public class ClientLevelMixin {
 
     @Inject(method = "addEntity", at = @At("HEAD"))
     private void injectSinglePlayerJoinEvent(Entity entity, CallbackInfo ci) {
-        if (entity instanceof Player player) {
-            CraterSinglePlayerEvent.PlayerLogin playerLogin = new CraterSinglePlayerEvent.PlayerLogin(BridgedPlayer.of(player));
-            CraterEventBus.INSTANCE.postEvent(playerLogin);
-        }
+        try {
+            if (entity instanceof Player player) {
+                CraterSinglePlayerEvent.PlayerLogin playerLogin = new CraterSinglePlayerEvent.PlayerLogin(BridgedPlayer.of(player));
+                CraterEventBus.INSTANCE.postEvent(playerLogin);
+            }
+        } catch (Exception ignored) {}
     }
 
 }

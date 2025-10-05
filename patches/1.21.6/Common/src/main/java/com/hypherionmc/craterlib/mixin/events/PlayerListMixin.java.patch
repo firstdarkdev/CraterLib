@@ -8,14 +8,16 @@
  import net.minecraft.server.players.PlayerList;
  import org.spongepowered.asm.mixin.Mixin;
  import org.spongepowered.asm.mixin.injection.At;
-@@ -44,8 +43,8 @@
+@@ -50,9 +49,9 @@
      }
  
      @Inject(method = "canPlayerLogin", at = @At("HEAD"), cancellable = true)
 -    private void injectPreLoginEvent(SocketAddress socketAddress, NameAndId arg, CallbackInfoReturnable<Component> cir) {
--        PlayerPreLoginEvent event = new PlayerPreLoginEvent(socketAddress, BridgedGameProfile.of(arg));
+-        try {
+-            PlayerPreLoginEvent event = new PlayerPreLoginEvent(socketAddress, BridgedGameProfile.of(arg));
 +    private void injectPreLoginEvent(SocketAddress address, GameProfile gameProfile, CallbackInfoReturnable<Component> cir) {
-+        PlayerPreLoginEvent event = new PlayerPreLoginEvent(address, BridgedGameProfile.of(gameProfile));
-         CraterEventBus.INSTANCE.postEvent(event);
-         if (event.getMessage() != null) {
-             cir.setReturnValue(ChatUtils.adventureToMojang(event.getMessage()));
++        try{
++            PlayerPreLoginEvent event = new PlayerPreLoginEvent(address, BridgedGameProfile.of(gameProfile));
+             CraterEventBus.INSTANCE.postEvent(event);
+             if (event.getMessage() != null) {
+                 cir.setReturnValue(ChatUtils.adventureToMojang(event.getMessage()));

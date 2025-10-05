@@ -16,12 +16,14 @@ public class ServerStatusMixin {
 
     @Inject(method = "favicon", at = @At("RETURN"), cancellable = true)
     private void injectIconEvent(CallbackInfoReturnable<Optional<ServerStatus.Favicon>> cir) {
-        ServerStatusEvent.FaviconRequestEvent event = new ServerStatusEvent.FaviconRequestEvent(cir.getReturnValue().isEmpty() ? Optional.empty() : Optional.of(new WrappedServerStatus.WrappedFavicon(cir.getReturnValue().get())));
-        CraterEventBus.INSTANCE.postEvent(event);
+        try {
+            ServerStatusEvent.FaviconRequestEvent event = new ServerStatusEvent.FaviconRequestEvent(cir.getReturnValue().isEmpty() ? Optional.empty() : Optional.of(new WrappedServerStatus.WrappedFavicon(cir.getReturnValue().get())));
+            CraterEventBus.INSTANCE.postEvent(event);
 
-        if (event.getNewIcon().isPresent()) {
-            cir.setReturnValue(Optional.of(event.getNewIcon().get().toMojang()));
-        }
+            if (event.getNewIcon().isPresent()) {
+                cir.setReturnValue(Optional.of(event.getNewIcon().get().toMojang()));
+            }
+        } catch (Exception ignored) { }
     }
 
 }

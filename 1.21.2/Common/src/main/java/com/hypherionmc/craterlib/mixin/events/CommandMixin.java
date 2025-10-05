@@ -21,17 +21,19 @@ public class CommandMixin {
             ), cancellable = true
     )
     private void injectCommandEvent(ParseResults<CommandSourceStack> stackParseResults, String command, CallbackInfo ci) {
-        CraterCommandEvent commandEvent = CraterCommandEvent.of(stackParseResults, command);
-        CraterEventBus.INSTANCE.postEvent(commandEvent);
-        if (commandEvent.wasCancelled()) {
-            ci.cancel();
-            return;
-        }
+        try {
+            CraterCommandEvent commandEvent = CraterCommandEvent.of(stackParseResults, command);
+            CraterEventBus.INSTANCE.postEvent(commandEvent);
+            if (commandEvent.wasCancelled()) {
+                ci.cancel();
+                return;
+            }
 
-        if (commandEvent.getException() != null) {
-            Throwables.throwIfUnchecked(commandEvent.getException());
-            ci.cancel();
-        }
+            if (commandEvent.getException() != null) {
+                Throwables.throwIfUnchecked(commandEvent.getException());
+                ci.cancel();
+            }
+        } catch (Exception ignored) {}
     }
 
 }
