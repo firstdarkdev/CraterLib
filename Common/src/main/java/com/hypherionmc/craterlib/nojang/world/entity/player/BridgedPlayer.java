@@ -2,6 +2,7 @@ package com.hypherionmc.craterlib.nojang.world.entity.player;
 
 import com.hypherionmc.craterlib.nojang.authlib.BridgedGameProfile;
 import com.hypherionmc.craterlib.nojang.core.BridgedBlockPos;
+import com.hypherionmc.craterlib.nojang.world.level.BridgedGameType;
 import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
@@ -76,6 +77,10 @@ public class BridgedPlayer {
         }
 
         return value;
+    }
+
+    public BridgedGameType getGameMode() {
+        return BridgedGameType.fromMojang(internal.gameMode());
     }
 
     @Nullable
