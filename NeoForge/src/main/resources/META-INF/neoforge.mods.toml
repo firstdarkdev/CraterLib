@@ -16,6 +16,12 @@ issueTrackerURL = "https://github.com/firstdarkdev/craterLib/issues"
     '''
     displayTest = "NONE"
 
+    [[mixins]]
+        config="${mod_id}.neoforge.mixins.json"
+
+    [[mixins]]
+        config="${mod_id}.mixins.json"
+
 [[dependencies.${ mod_id }]]
     modId = "neoforge"
     type="required"
