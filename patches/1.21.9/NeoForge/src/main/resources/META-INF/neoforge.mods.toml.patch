@@ -1,6 +1,6 @@
 --- a/NeoForge/src/main/resources/META-INF/neoforge.mods.toml
 +++ b/NeoForge/src/main/resources/META-INF/neoforge.mods.toml
-@@ -19,13 +19,13 @@
+@@ -25,13 +25,13 @@
  [[dependencies.${ mod_id }]]
      modId = "neoforge"
      type="required"

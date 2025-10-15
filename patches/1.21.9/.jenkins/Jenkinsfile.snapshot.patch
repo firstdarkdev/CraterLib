@@ -10,7 +10,7 @@
 -def reltype = "experimental";
 +def majorMc = "1.21.9";
 +def modLoaders = "neoforge|fabric|quilt|paper";
-+def supportedMc = "1.21.9";
++def supportedMc = "1.21.9|1.21.10";
 +def reltype = "snapshot";
  
  pipeline {
