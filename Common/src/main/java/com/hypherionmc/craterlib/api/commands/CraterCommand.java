@@ -16,6 +16,8 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.GameProfileArgument;
+import net.minecraft.server.permissions.Permission;
+import net.minecraft.server.permissions.PermissionLevel;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.ApiStatus;
 
@@ -141,12 +143,12 @@ public class CraterCommand {
     private boolean checkPermission(CommandSourceStack stack) {
         try {
             if (!ModloaderEnvironment.INSTANCE.isModLoaded("luckperms") || ModloaderEnvironment.INSTANCE.getLoaderType() == LoaderType.PAPER || !stack.isPlayer() || luckPermNode.isEmpty())
-                return stack.hasPermission(this.permLevel);
+                return stack.permissions().hasPermission(new Permission.HasCommandLevel(PermissionLevel.byId(this.permLevel)));
 
-            return LuckPermsCompat.INSTANCE.hasPermission(stack.getPlayer(), this.luckPermNode) || stack.hasPermission(this.permLevel);
+            return LuckPermsCompat.INSTANCE.hasPermission(stack.getPlayer(), this.luckPermNode) || stack.permissions().hasPermission(new Permission.HasCommandLevel(PermissionLevel.byId(this.permLevel)));
         } catch (Exception e) {
             CraterConstants.LOG.error("Failed to check luckperms permissions", e);
-            return stack.hasPermission(this.permLevel);
+            return stack.permissions().hasPermission(new Permission.HasCommandLevel(PermissionLevel.byId(this.permLevel)));
         }
     }
 

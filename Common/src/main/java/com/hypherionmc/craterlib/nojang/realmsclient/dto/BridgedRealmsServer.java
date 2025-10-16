@@ -30,7 +30,7 @@ public class BridgedRealmsServer {
     }
 
     public long getPlayerCount() {
-        return internal.players.stream().filter(PlayerInfo::getOnline).count();
+        return internal.players.stream().filter(p -> p.online).count();
     }
 
     public RealmsServer toMojang() {

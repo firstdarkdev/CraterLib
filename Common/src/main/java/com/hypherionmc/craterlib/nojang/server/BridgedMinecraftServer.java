@@ -79,7 +79,7 @@ public class BridgedMinecraftServer {
     }
 
     public BridgedGameRules getGameRules() {
-        return BridgedGameRules.bridge(internal.getGameRules());
+        return BridgedGameRules.bridge(internal.getWorldData().getGameRules());
     }
 
     public void banPlayer(BridgedGameProfile profile) {

@@ -6,6 +6,9 @@ import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.permissions.Permission;
+import net.minecraft.server.permissions.PermissionLevel;
+import net.minecraft.server.permissions.PermissionSet;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
@@ -37,7 +40,7 @@ public abstract class BridgedFakePlayer {
         public final Consumer<net.kyori.adventure.text.Component> errorCallback;
 
         MojangBridge(MinecraftServer server, int perm, String name, BiConsumer<Supplier<net.kyori.adventure.text.Component>, Boolean> successCallback, Consumer<net.kyori.adventure.text.Component> errorCallback) {
-            super(CommandSource.NULL, Vec3.ZERO, Vec2.ZERO, server.overworld(), perm, name, Component.literal(name), server, null);
+            super(CommandSource.NULL, Vec3.ZERO, Vec2.ZERO, server.overworld(), new LevelPermSet(perm), name, Component.literal(name), server, null);
             this.successCallback = successCallback;
             this.errorCallback = errorCallback;
         }
@@ -50,6 +53,17 @@ public abstract class BridgedFakePlayer {
         @Override
         public void sendFailure(Component arg) {
             errorCallback.accept(ChatUtils.mojangToAdventure(arg));
+        }
+    }
+
+    record LevelPermSet(int perm) implements PermissionSet {
+        @Override
+        public boolean hasPermission(Permission arg) {
+            if (arg instanceof Permission.HasCommandLevel(PermissionLevel level)) {
+                return level.isEqualOrHigherThan(PermissionLevel.byId(perm));
+            }
+
+            return false;
         }
     }
 }

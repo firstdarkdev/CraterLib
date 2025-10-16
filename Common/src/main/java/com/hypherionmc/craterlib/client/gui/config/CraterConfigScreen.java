@@ -38,7 +38,6 @@ import java.util.function.Supplier;
 /**
  * @author HypherionSA
  */
-@SuppressWarnings("deprecation")
 @Deprecated(forRemoval = true, since = "2.1.3")
 public class CraterConfigScreen extends Screen {
     public static final float SCROLLBAR_BOTTOM_COLOR = .5f;

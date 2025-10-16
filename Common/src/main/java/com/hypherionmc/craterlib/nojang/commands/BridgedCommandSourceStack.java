@@ -16,7 +16,7 @@ public class BridgedCommandSourceStack {
     private final CommandSourceStack internal;
 
     public void sendSuccess(Supplier<Component> supplier, boolean bl) {
-        if (!internal.getServer().getGameRules().getBoolean(RULE_SENDCOMMANDFEEDBACK)) {
+        if (!internal.getLevel().getGameRules().getBoolean(RULE_SENDCOMMANDFEEDBACK)) {
             internal.sendSystemMessage(ChatUtils.adventureToMojang(supplier.get()));
         } else {
             internal.sendSuccess(() -> ChatUtils.adventureToMojang(supplier.get()), bl);
