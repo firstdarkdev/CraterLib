@@ -1,17 +1,17 @@
 package com.hypherionmc.craterlib.nojang.resources;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class ResourceIdentifier {
 
-    private final ResourceLocation internal;
+    private final Identifier internal;
 
     public ResourceIdentifier(String namespace, String path) {
-        this.internal = ResourceLocation.fromNamespaceAndPath(namespace, path);
+        this.internal = Identifier.fromNamespaceAndPath(namespace, path);
     }
 
     public ResourceIdentifier(String path) {
-        this.internal = ResourceLocation.parse(path);
+        this.internal = Identifier.parse(path);
     }
 
     public String getNamespace() {
@@ -26,11 +26,11 @@ public class ResourceIdentifier {
         return internal.toString();
     }
 
-    public static ResourceIdentifier fromMojang(ResourceLocation location) {
+    public static ResourceIdentifier fromMojang(Identifier location) {
         return new ResourceIdentifier(location.getNamespace(), location.getPath());
     }
 
-    public ResourceLocation toMojang() {
+    public Identifier toMojang() {
         return internal;
     }
 }

@@ -28,7 +28,7 @@ public class BridgedClientLevel {
     }
 
     public long dayTime() {
-        return internal.dayTime();
+        return internal.getDayTime();
     }
 
     public boolean isRaining() {
@@ -41,13 +41,13 @@ public class BridgedClientLevel {
 
     @Nullable
     public ResourceIdentifier getDimensionKey() {
-        return ResourceIdentifier.fromMojang(internal.dimension().location());
+        return ResourceIdentifier.fromMojang(internal.dimension().identifier());
     }
 
     @Nullable
     public ResourceIdentifier getBiomeIdentifier(BridgedBlockPos onPos) {
         AtomicReference<ResourceIdentifier> identifier = new AtomicReference<>(null);
-        internal.getBiome(onPos.toMojang()).unwrap().ifLeft(b -> identifier.set(ResourceIdentifier.fromMojang(b.location())));
+        internal.getBiome(onPos.toMojang()).unwrap().ifLeft(b -> identifier.set(ResourceIdentifier.fromMojang(b.identifier())));
         return identifier.get();
     }
 

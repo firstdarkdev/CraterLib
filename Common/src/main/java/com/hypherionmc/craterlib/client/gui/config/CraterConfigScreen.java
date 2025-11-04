@@ -17,7 +17,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -159,8 +159,8 @@ public class CraterConfigScreen extends Screen {
         if (value instanceof BigDecimal) {
             return new TextConfigOption<>(Objects::toString, BigDecimal::new);
         }
-        if (value instanceof ResourceLocation) {
-            return new TextConfigOption<>(Objects::toString, ResourceLocation::parse);
+        if (value instanceof Identifier) {
+            return new TextConfigOption<>(Objects::toString, Identifier::parse);
         }
         if (isSubConfig) {
             return new SubConfigWidget<>(config, this, value);

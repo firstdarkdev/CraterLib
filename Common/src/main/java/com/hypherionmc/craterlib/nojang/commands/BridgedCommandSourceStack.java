@@ -5,10 +5,9 @@ import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.world.level.gamerules.GameRules;
 
 import java.util.function.Supplier;
-
-import static net.minecraft.world.level.GameRules.RULE_SENDCOMMANDFEEDBACK;
 
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedCommandSourceStack {
@@ -16,7 +15,7 @@ public class BridgedCommandSourceStack {
     private final CommandSourceStack internal;
 
     public void sendSuccess(Supplier<Component> supplier, boolean bl) {
-        if (!internal.getLevel().getGameRules().getBoolean(RULE_SENDCOMMANDFEEDBACK)) {
+        if (!internal.getLevel().getGameRules().get(GameRules.SEND_COMMAND_FEEDBACK)) {
             internal.sendSystemMessage(ChatUtils.adventureToMojang(supplier.get()));
         } else {
             internal.sendSuccess(() -> ChatUtils.adventureToMojang(supplier.get()), bl);
