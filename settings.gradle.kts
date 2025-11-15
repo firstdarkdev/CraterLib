@@ -8,4 +8,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "CraterLib"
+rootProject.name = "CraterLib-lts"
