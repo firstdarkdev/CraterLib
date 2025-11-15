@@ -1,7 +1,7 @@
 pluginManagement {
     repositories {
-        gradlePluginPortal()
         maven("https://mcentral.firstdark.dev/releases")
+        gradlePluginPortal()
         maven("https://maven.firstdark.dev/releases")
         maven("https://maven.firstdark.dev/snapshots")
     }
