@@ -51,6 +51,7 @@ multimined.setup {
 
         shadowJar {
             commonShadow()
+            exclude("META-INF/versions/**")
             relocate("net.kyori" to "shadow.kyori")
         }
 
@@ -72,6 +73,7 @@ multimined.setup {
 
         shadowJar {
             commonShadow()
+            exclude("META-INF/versions/**")
             relocate("net.kyori" to "shadow.kyori")
         }
 

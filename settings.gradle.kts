@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+        mavenLocal()
         maven("https://mcentral.firstdark.dev/releases")
         gradlePluginPortal()
         maven("https://maven.firstdark.dev/releases")
