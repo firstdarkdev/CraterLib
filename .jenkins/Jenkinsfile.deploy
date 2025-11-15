@@ -30,7 +30,7 @@ pipeline {
                 sh "./gradlew clean"
             }
         }
-        stage("Publish to Modrinth/Curseforge") {
+        stage("Publish to Mod to Mod Platforms") {
             steps {
                 sh "./gradlew publishMod -Prelease=true"
             }

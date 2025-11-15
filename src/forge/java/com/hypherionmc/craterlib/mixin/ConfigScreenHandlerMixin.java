@@ -3,10 +3,13 @@ package com.hypherionmc.craterlib.mixin;
 import com.hypherionmc.craterlib.client.gui.config.CraterConfigScreen;
 import com.hypherionmc.craterlib.core.config.ConfigController;
 import com.hypherionmc.craterlib.core.config.ModuleConfig;
+import com.hypherionmc.craterlib.core.config.annotations.ClothScreen;
 import com.hypherionmc.craterlib.core.config.annotations.NoConfigScreen;
+import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.forgespi.language.IModInfo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,7 +31,7 @@ public class ConfigScreenHandlerMixin {
      */
     @Inject(at = @At("RETURN"), method = "getScreenFactoryFor", cancellable = true, remap = false)
     private static void injectConfigScreen(IModInfo selectedMod, CallbackInfoReturnable<Optional<BiFunction<Minecraft, Screen, Screen>>> cir) {
-        ConfigController.getMonitoredConfigs().forEach((conf, config) -> {
+        /*ConfigController.getWatchedConfigs().forEach((conf, config) -> {
             if (config.getClass().isAnnotationPresent(NoConfigScreen.class))
                 return;
 
@@ -37,7 +40,7 @@ public class ConfigScreenHandlerMixin {
             } else {
                 //ModList.get().getModContainerById(config.getModId()).ifPresent(c -> c.registerExtensionPoint(IConfigScreenFactory.class, ((minecraft, screen) -> new CraterConfigScreen(config, screen))));
             }
-        });
+        });*/
     }
 
 }

@@ -63,7 +63,7 @@ pipeline {
                 projectIcon: "${projectIcon}",
                 modLoaders: "${modLoaders}",
                 minecraftVersions: "${supportedMc}",
-                type: "experimental",
+                type: "${reltype}",
                 dependsOn: "",
                 failWebhook: env.SSS_WEBHOOK,
                 publishWebhooks: "${env.SSS_WEBHOOK}|${env.FDD_WH}"

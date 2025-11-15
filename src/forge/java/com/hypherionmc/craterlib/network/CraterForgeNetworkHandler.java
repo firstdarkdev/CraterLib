@@ -87,11 +87,11 @@ public class CraterForgeNetworkHandler extends PacketRegistry {
 
     private <T> BiConsumer<T, CustomPayloadEvent.Context> buildHandler(Consumer<PacketContext<T>> handler) {
         return (message, ctx) -> {
-            ctx.enqueueWork(() -> {
+            /*ctx.enqueueWork(() -> {
                 PacketSide side = ctx.getDirection().getReceptionSide().isServer() ? PacketSide.SERVER : PacketSide.CLIENT;
                 ServerPlayer player = ctx.getSender();
                 handler.accept(new PacketContext<>(BridgedPlayer.of(player), message, side));
-            });
+            });*/
             ctx.setPacketHandled(true);
         };
     }

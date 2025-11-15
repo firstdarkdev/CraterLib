@@ -1,9 +1,9 @@
 package com.hypherionmc.craterlib.common;
 
 import com.hypherionmc.craterlib.core.platform.CompatUtils;
+import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
-import team.creative.playerrevive.api.IBleeding;
-import team.creative.playerrevive.server.PlayerReviveServer;
+import net.kyori.adventure.text.Component;
 
 public class ForgeCompatHelper implements CompatUtils {
 
@@ -19,28 +19,17 @@ public class ForgeCompatHelper implements CompatUtils {
 
     @Override
     public boolean isPlayerBleeding(BridgedPlayer player) {
-        if (!ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive"))
-            return false;
-
-        return PlayerReviveServer.isBleeding(player.toMojangServerPlayer());
+        return false;
     }
 
     @Override
     public boolean playerBledOut(BridgedPlayer player) {
-        if (!ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive"))
-            return false;
-
-        IBleeding bleeding = PlayerReviveServer.getBleeding(player.toMojangServerPlayer());
-        return bleeding != null && bleeding.bledOut();
+        return false;
     }
 
     @Override
     public boolean playerRevived(BridgedPlayer player) {
-        if (!ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive"))
-            return false;
-
-        IBleeding bleeding = PlayerReviveServer.getBleeding(player.toMojangServerPlayer());
-        return bleeding != null && bleeding.revived();
+        return false;
     }
 
     @Override

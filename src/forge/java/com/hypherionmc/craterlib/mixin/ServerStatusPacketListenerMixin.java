@@ -44,7 +44,7 @@ public class ServerStatusPacketListenerMixin {
                             status.version(),
                             status.favicon(),
                             status.enforcesSecureChat(),
-                            status.isModded()
+                            status.forgeData()
                     )
             ));
         }
