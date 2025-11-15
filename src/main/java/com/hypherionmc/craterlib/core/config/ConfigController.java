@@ -22,18 +22,7 @@ public final class ConfigController implements Serializable {
     @Getter
     private static final HashMap<String, AbstractConfig> watchedConfigs = new HashMap<>();
 
-    private static FileWatcher watcher = new FileWatcher(e -> CraterConstants.LOG.error("Config Watcher Error", e));
-
-    /**
-     * INTERNAL METHOD - Register and watch the config
-     *
-     * @param config - The config class to register and watch
-     */
-    @ApiStatus.Internal
-    @Deprecated
-    public static void register_config(ModuleConfig config) {
-        register_config((AbstractConfig) config);
-    }
+    private static final FileWatcher watcher = new FileWatcher(e -> CraterConstants.LOG.error("Config Watcher Error", e));
 
     /**
      * INTERNAL METHOD - Register and watch the config

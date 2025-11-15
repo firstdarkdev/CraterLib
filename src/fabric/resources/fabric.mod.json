@@ -3,10 +3,9 @@
   "id": "${mod_id}",
   "version": "${version}",
   "name": "${mod_name}",
-  "description": "A library mod used by First Dark Development and HypherionSA Mods",
+  "description": "A Modding API used by First Dark Development Mods",
   "authors": [
-    "${mod_author}",
-    "Misha"
+    "${mod_author}"
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/craterlib",

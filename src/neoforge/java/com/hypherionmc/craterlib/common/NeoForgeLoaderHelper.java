@@ -20,11 +20,6 @@ public class NeoForgeLoaderHelper implements ModloaderEnvironment {
     }
 
     @Override
-    public boolean isFabric() {
-        return false;
-    }
-
-    @Override
     public LoaderType getLoaderType() {
         return LoaderType.NEOFORGE;
     }

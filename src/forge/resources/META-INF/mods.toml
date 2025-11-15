@@ -19,13 +19,13 @@ issueTrackerURL = "https://github.com/firstdarkdev/craterLib/issues"
 [[dependencies.${ mod_id }]]
     modId = "forge"
     mandatory = true
-    versionRange = "[50,)"
+    versionRange = "[59,)"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.${ mod_id }]]
     modId = "minecraft"
     mandatory = true
-    versionRange = "[1.20.6,1.21)"
+    versionRange = "[1.21.9,1.21.11)"
     ordering = "NONE"
     side = "BOTH"

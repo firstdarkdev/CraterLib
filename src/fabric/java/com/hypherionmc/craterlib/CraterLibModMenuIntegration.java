@@ -3,7 +3,6 @@ package com.hypherionmc.craterlib;
 import com.hypherionmc.craterlib.client.gui.config.ClothConfigScreenBuilder;
 import com.hypherionmc.craterlib.core.config.ConfigController;
 import com.hypherionmc.craterlib.core.config.annotations.ClothScreen;
-import com.hypherionmc.craterlib.core.config.annotations.NoConfigScreen;
 import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.nojang.client.BridgedMinecraft;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
@@ -26,15 +25,15 @@ public class CraterLibModMenuIntegration implements ModMenuApi {
         Map<String, ConfigScreenFactory<?>> configScreens = new HashMap<>();
 
         ConfigController.getWatchedConfigs().forEach((conf, config) -> {
-            if (config.getClass().isAnnotationPresent(NoConfigScreen.class))
+            if (!config.getClass().isAnnotationPresent(ClothScreen.class))
                 return;
 
-            if (config.getClass().isAnnotationPresent(ClothScreen.class) && (ModloaderEnvironment.INSTANCE.isModLoaded("cloth_config") || ModloaderEnvironment.INSTANCE.isModLoaded("cloth-config") || ModloaderEnvironment.INSTANCE.isModLoaded("clothconfig"))) {
+            if ((ModloaderEnvironment.INSTANCE.isModLoaded("cloth_config") || ModloaderEnvironment.INSTANCE.isModLoaded("cloth-config") || ModloaderEnvironment.INSTANCE.isModLoaded("clothconfig"))) {
                 configScreens.put(config.getModId(), screen -> ClothConfigScreenBuilder.buildConfigScreen(config, screen));
             } else {
                 configScreens.put(config.getModId(), screen -> BridgedMinecraft.getInstance().buildWarningScreen(
                         Component.text("Notice").style(Style.style(NamedTextColor.YELLOW).decorate(TextDecoration.BOLD)),
-                        Component.text("This mod does not have a config screen, or Cloth Config is not installed"),
+                        Component.text("This mod does have a config screen, but requires Cloth Config to be installed."),
                         screen
                 ));
             }

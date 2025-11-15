@@ -35,8 +35,7 @@ public class ForgeServerEvents {
 
     @SubscribeEvent
     public void onCommandRegister(RegisterCommandsEvent event) {
-        /*CraterEventBus.INSTANCE.postEvent(new CraterRegisterCommandEvent());
-        CommandsRegistry.INSTANCE.registerCommands(event.getDispatcher());*/
+        CraterEventBus.INSTANCE.postEvent(new CraterRegisterCommandEvent(event.getDispatcher()));
     }
 
 }

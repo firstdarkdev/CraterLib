@@ -107,7 +107,6 @@ dependencies {
     multimined.shade("me.hypherionmc.moon-config:core:${orion.getProperty("moon_config")}")
     multimined.shade("me.hypherionmc.moon-config:toml:${orion.getProperty("moon_config")}")
     multimined.shade("me.hypherionmc.moon-config:json:${orion.getProperty("moon_config")}")
-    multimined.shade("com.hypherionmc:rpcsdk:${orion.getProperty("rpc_sdk")}")
     multimined.shade("me.hypherionmc.sdlink:mcdiscordformatter-1.20.3:${orion.getProperty("discord_formatter")}")
     multimined.shade("net.kyori:adventure-api:${orion.getProperty("adventure")}")
     multimined.shade("net.kyori:adventure-text-serializer-gson:${orion.getProperty("adventure")}")

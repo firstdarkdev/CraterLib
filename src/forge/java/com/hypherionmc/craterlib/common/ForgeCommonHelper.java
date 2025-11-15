@@ -14,8 +14,6 @@ import java.util.Map;
  */
 public class ForgeCommonHelper implements CommonPlatform {
 
-    public static Map<ResourceLocation, CreativeModeTab> TABS = new HashMap<>();
-
     public ForgeCommonHelper() {
     }
 

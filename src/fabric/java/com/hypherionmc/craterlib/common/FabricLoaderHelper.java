@@ -16,11 +16,6 @@ import java.io.File;
 public class FabricLoaderHelper implements ModloaderEnvironment {
 
     @Override
-    public boolean isFabric() {
-        return true;
-    }
-
-    @Override
     public LoaderType getLoaderType() {
         return LoaderType.FABRIC;
     }
