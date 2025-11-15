@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.Mod;
 public class ForgeClientEvents {
 
     @SubscribeEvent
-    public static void clientTick(TickEvent.LevelTickEvent event) {
+    public static void clientTick(TickEvent.LevelTickEvent.Pre event) {
         if (Minecraft.getInstance().level == null)
             return;
 
