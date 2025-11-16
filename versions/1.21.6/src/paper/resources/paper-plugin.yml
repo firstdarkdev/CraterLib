@@ -1,0 +1,20 @@
+name: CraterLib
+version: ${version}
+description: "A Modding API used to create 'universal' mods"
+main: com.hypherionmc.craterlib.paper.CraterLibPlugin
+author: HypherionSA
+api-version: '1.21.6'
+bootstrapper: com.hypherionmc.craterlib.paper.CraterLibBootstrap
+load: STARTUP
+
+dependencies:
+  bootstrap:
+    LuckPerms:
+      load: BEFORE
+      required: false
+      join-classpath: true
+  server:
+    LuckPerms:
+      load: BEFORE
+      required: false
+      join-classpath: true

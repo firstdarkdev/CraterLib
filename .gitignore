@@ -25,5 +25,5 @@ artifacts
 src/test/**
 
 workspace
-upstream
+.orion
 rejects
