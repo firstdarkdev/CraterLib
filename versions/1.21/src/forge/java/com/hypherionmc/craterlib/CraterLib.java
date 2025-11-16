@@ -22,13 +22,10 @@ import com.hypherionmc.craterlib.nojang.client.BridgedOptions;
 public class CraterLib {
     private final PacketRegistry handler;
 
-    public CraterLib(FMLJavaModLoadingContext context) {
-        IEventBus modBusGroup = context.getModEventBus();
-
+    public CraterLib() {
         MinecraftForge.EVENT_BUS.register(new ForgeServerEvents());
-
-        modBusGroup.addListener(this::commonSetup);
-        modBusGroup.addListener(this::clientSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
 
         handler = new CraterForgeNetworkHandler(FMLLoader.getDist().isClient() ? PacketSide.CLIENT : PacketSide.SERVER);
     }

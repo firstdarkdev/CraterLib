@@ -1,5 +1,5 @@
 [versions]
-orion = "2.0.8"
+orion = "2.0.9"
 
 [plugins]
 orion = { id = "com.hypherionmc.modutils.orion.porting", version.ref = "orion" }
