@@ -228,6 +228,19 @@ if (multimined.platformEnabled("forge")) {
         loaders.set(listOf("forge"))
     }
 }
+
+// Paper Setup
+if (multimined.platformEnabled("paper")) {
+    (extensions.getByName("publisherPaper") as ModPublisherGradleExtension).apply {
+        projectName = "Paper"
+        displayName.set("[Paper ${orion.getProperty("displayed_versions")}] CraterLib - ${project.version}")
+        artifact.set(tasks.named("remapPaperJar").get())
+        loaders.set(listOf("paper"))
+    }
+}
+
+tasks.named("publishCurseforgePaper") { enabled = false }
+tasks.named("publishModrinthPaper") { enabled = false }
 // endregion
 
 // region Maven Publishing
