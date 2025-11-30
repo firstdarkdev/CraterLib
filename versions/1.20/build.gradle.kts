@@ -237,10 +237,10 @@ if (multimined.platformEnabled("paper")) {
         artifact.set(tasks.named("remapPaperJar").get())
         loaders.set(listOf("paper"))
     }
-}
 
-tasks.named("publishCurseforgePaper") { enabled = false }
-tasks.named("publishModrinthPaper") { enabled = false }
+    tasks.named("publishCurseforgePaper") { enabled = false }
+    tasks.named("publishModrinthPaper") { enabled = false }
+}
 // endregion
 
 // region Maven Publishing

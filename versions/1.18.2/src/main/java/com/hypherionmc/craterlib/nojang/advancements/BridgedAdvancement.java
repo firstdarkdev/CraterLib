@@ -18,4 +18,8 @@ public class BridgedAdvancement {
         return Optional.empty();
     }
 
+    public Advancement toMojang() {
+        return internal;
+    }
+
 }
