@@ -74,6 +74,7 @@ pipeline {
                 publishWebhooks: "${env.SSS_WEBHOOK}|${env.FDD_WH}"
 
             deleteDir()
+           }
         }
     }
 }
