@@ -30,11 +30,16 @@ multimined.setup {
     multiLoader = true
     version(orion.getProperty("minecraft_version"))
 
-    val commonShadow: MultiMinedExtension.LoaderConfiguration.ShadowJarConfig.() -> Unit = {
+    val commonShadow: MultiMinedExtension.ShadowJarConfig.() -> Unit = {
         exclude("com.google.code.gson:.*")
         relocate("me.hypherionmc.moonconfig" to "shadow.hypherionmc.moonconfig")
         relocate("me.hypherionmc.mcdiscordformatter" to "shadow.hypherionmc.mcdiscordformatter")
         mergeServiceFiles()
+    }
+
+    shadowJar {
+        commonShadow()
+        relocate("net.kyori" to "shadow.kyori")
     }
 
     fabric {
@@ -226,22 +231,12 @@ if (multimined.platformEnabled("forge")) {
 // endregion
 
 // region Maven Publishing
-/*publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            artifactId = project.base.archivesName.get()
-            from(components["java"])
-
-            artifact(tasks.named("remapFabricJar")) { builtBy(tasks.named("remapFabricJar")) }
-            artifact(tasks.named("remapNeoforgeJar")) { builtBy(tasks.named("remapNeoforgeJar")) }
-            artifact(tasks.named("remapForgeJar")) { builtBy(tasks.named("remapForgeJar")) }
-        }
-    }
-
+publishing {
+    // The rest of this is automatically configured by Orion
     repositories {
         maven {
             orion.getPublishingMaven()
         }
     }
-}*/
+}
 // endregion
