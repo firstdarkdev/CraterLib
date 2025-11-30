@@ -2,7 +2,7 @@
 unimined = "1.4.2-SNAPSHOT"
 shadow = "9.2.2"
 modpublisher = "2.1.8+snapshot.2"
-orion = "2.0.6"
+orion = "2.0.+"
 
 [plugins]
 unimined = { id = "xyz.wagyourtail.unimined", version.ref = "unimined" }
