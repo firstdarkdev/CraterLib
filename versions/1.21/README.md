@@ -11,12 +11,15 @@ A Library mod and modding api for easier multi-version minecraft and mod loader 
 ### Supported Minecraft Versions
 
 | Minecraft Version | Support Status |
-|-------------------| -------------- |
+|-------------------|----------------|
 | < 1.18.2          | ❌              |
-| 1.18.2-1.20.2     | ✳️             |
-| 1.20.4            | ✳️             |
-| 1.20.6            | ❌             |
-| 1.21.x            | ✳️             |
+| 1.18.2            | ✳️             |
+| 1.19.2            | ✳️             |
+| 1.19.4            | ❌              | 
+| 1.20/1.20.1       | ✳️             |
+| 1.20.4            | ❌              |
+| 1.20.6            | ❌              |
+| 1.21.x            | ✅            |
 
 - ❌ - Not Supported; no bug fixes or new features.
 - 🚧 - Work in Progress; not ready for release.
