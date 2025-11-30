@@ -173,7 +173,7 @@ publisher {
         nightbloom(System.getenv("PLATFORM_KEY"))
     }
 
-    debug.set(true)
+    //debug.set(true)
     curseID.set(orion.getProperty("curse_id"))
     modrinthID.set(orion.getProperty("modrinth_id"))
     nightbloomID.set("craterlib")
