@@ -1,5 +1,7 @@
 package com.hypherionmc.craterlib.nojang.server;
 
+import com.hypherionmc.craterlib.nojang.advancements.BridgedAdvancementHolder;
+import com.hypherionmc.craterlib.nojang.advancements.BridgedPlayerAdvancements;
 import com.hypherionmc.craterlib.nojang.authlib.BridgedGameProfile;
 import com.hypherionmc.craterlib.nojang.client.multiplayer.BridgedClientLevel;
 import com.hypherionmc.craterlib.nojang.commands.BridgedFakePlayer;
@@ -9,12 +11,12 @@ import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
 import net.minecraft.SharedConstants;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.players.UserBanListEntry;
 import net.minecraft.server.players.UserWhiteListEntry;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedMinecraftServer {
@@ -79,7 +81,7 @@ public class BridgedMinecraftServer {
     }
 
     public BridgedGameRules getGameRules() {
-        return BridgedGameRules.bridge(internal.getGameRules());
+        return BridgedGameRules.bridge(internal.getWorldData().getGameRules());
     }
 
     public void banPlayer(BridgedGameProfile profile) {
@@ -94,4 +96,21 @@ public class BridgedMinecraftServer {
         return internal;
     }
 
+    public BridgedPlayerAdvancements getPlayerAdvancements(UUID uuid) {
+        return BridgedPlayerAdvancements.of(internal.getPlayerList().getPlayer(uuid).getAdvancements());
+    }
+
+    public Collection<BridgedAdvancementHolder> getAdvancements() {
+        Collection<AdvancementHolder> ah = internal.getAdvancements().getAllAdvancements();
+        LinkedList<BridgedAdvancementHolder> ret = new LinkedList<>();
+        for(AdvancementHolder a: ah) {
+            BridgedAdvancementHolder bah = BridgedAdvancementHolder.of(a);
+            ret.add(bah);
+        }
+        return ret;
+    }
+
+    public boolean isHardcore() {
+        return internal.isHardcore();
+    }
 }
