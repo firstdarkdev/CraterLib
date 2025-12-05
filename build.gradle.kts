@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.shadow)
     alias(libs.plugins.modpublisher)
     alias(libs.plugins.orion)
-    alias(libs.plugins.origami)
+    //alias(libs.plugins.origami)
     alias(libs.plugins.multimined)
 }
 
@@ -51,58 +51,58 @@ multimined.setup {
         }
     }
 
-    neoforge {
-        version(orion.getProperty("neoforge_version"))
-
-        shadowJar {
-            commonShadow()
-            exclude("META-INF/versions/**")
-            relocate("net.kyori" to "shadow.kyori")
-        }
-
-        mixinConfig("${orion.getProperty("mod_id")}.mixins.json", "${orion.getProperty("mod_id")}.neoforge.mixins.json")
-    }
-
-    paper {
-        version(orion.getProperty("paper_loader"))
-
-        shadowJar {
-            commonShadow()
-            exclude("net.kyori:.*", "linux-x86-64/**", "win32-x86/**", "win32-x86-64/**", "darwin/**")
-            mergeServiceFiles()
-        }
-    }
-
-    forge {
-        version(orion.getProperty("forge_version"))
-
-        shadowJar {
-            commonShadow()
-            exclude("META-INF/versions/**")
-            relocate("net.kyori" to "shadow.kyori")
-        }
-
-        mixinConfig("${orion.getProperty("mod_id")}.mixins.json", "${orion.getProperty("mod_id")}.forge.mixins.json")
-    }
+//    neoforge {
+//        version(orion.getProperty("neoforge_version"))
+//
+//        shadowJar {
+//            commonShadow()
+//            exclude("META-INF/versions/**")
+//            relocate("net.kyori" to "shadow.kyori")
+//        }
+//
+//        mixinConfig("${orion.getProperty("mod_id")}.mixins.json", "${orion.getProperty("mod_id")}.neoforge.mixins.json")
+//    }
+//
+//    paper {
+//        version(orion.getProperty("paper_loader"))
+//
+//        shadowJar {
+//            commonShadow()
+//            exclude("net.kyori:.*", "linux-x86-64/**", "win32-x86/**", "win32-x86-64/**", "darwin/**")
+//            mergeServiceFiles()
+//        }
+//    }
+//
+//    forge {
+//        version(orion.getProperty("forge_version"))
+//
+//        shadowJar {
+//            commonShadow()
+//            exclude("META-INF/versions/**")
+//            relocate("net.kyori" to "shadow.kyori")
+//        }
+//
+//        mixinConfig("${orion.getProperty("mod_id")}.mixins.json", "${orion.getProperty("mod_id")}.forge.mixins.json")
+//    }
 }
 
-origami {
-    sourceSet.set("paper")
-
-    // These classes cannot, and will not work on paper and will cause errors, so we exclude them
-    excludedPackages = listOf(
-        "com.hypherionmc.craterlib.client",
-        "com.hypherionmc.craterlib.mixin",
-        "com.hypherionmc.craterlib.nojang.client",
-        "com.hypherionmc.craterlib.core.rpcsdk",
-        "com.hypherionmc.craterlib.nojang.realmsclient"
-    )
-
-    // These resources cannot, and will not work on paper, so we exclude them
-    excludedResources = listOf(
-        "pack.mcmeta", "craterlib.mixins.json"
-    )
-}
+//origami {
+//    sourceSet.set("paper")
+//
+//    // These classes cannot, and will not work on paper and will cause errors, so we exclude them
+//    excludedPackages = listOf(
+//        "com.hypherionmc.craterlib.client",
+//        "com.hypherionmc.craterlib.mixin",
+//        "com.hypherionmc.craterlib.nojang.client",
+//        "com.hypherionmc.craterlib.core.rpcsdk",
+//        "com.hypherionmc.craterlib.nojang.realmsclient"
+//    )
+//
+//    // These resources cannot, and will not work on paper, so we exclude them
+//    excludedResources = listOf(
+//        "pack.mcmeta", "craterlib.mixins.json"
+//    )
+//}
 // endregion
 
 repositories {

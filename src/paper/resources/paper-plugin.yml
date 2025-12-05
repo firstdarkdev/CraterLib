@@ -3,7 +3,7 @@ version: ${version}
 description: "A Modding API used to create 'universal' mods"
 main: com.hypherionmc.craterlib.paper.CraterLibPlugin
 author: HypherionSA
-api-version: '1.21.9'
+api-version: '1.21.11'
 bootstrapper: com.hypherionmc.craterlib.paper.CraterLibBootstrap
 load: STARTUP
 
