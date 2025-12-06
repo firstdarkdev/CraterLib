@@ -9,29 +9,27 @@ import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.FilteredText;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraftforge.common.ForgeHooks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = ServerGamePacketListenerImpl.class, priority = Integer.MIN_VALUE)
+@Mixin(value = ForgeHooks.class, priority = Integer.MIN_VALUE)
 public class ServerGamePacketListenerImplMixin {
 
-    @Shadow
-    public ServerPlayer player;
-
     @Inject(
-            method = "lambda$handleChat$6",
+            method = "onServerChatSubmittedEvent",
             at = @At("HEAD"),
             cancellable = true
     )
-    private void injectChatEvent(Component component, PlayerChatMessage arg, FilteredText p_296589_, CallbackInfo ci) {
-        Component finalcomp = component == null ? arg.decoratedContent() : component;
-        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), finalcomp.getString(), ChatUtils.mojangToAdventure(finalcomp));
+    private static void injectChatEvent(ServerPlayer player, Component message, CallbackInfoReturnable<Component> cir) {
+        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(player), message.getString(), ChatUtils.mojangToAdventure(message));
         CraterEventBus.INSTANCE.postEvent(event);
         if (event.wasCancelled())
-            ci.cancel();
+            cir.cancel();
     }
 
 }

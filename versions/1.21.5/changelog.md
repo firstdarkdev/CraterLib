@@ -4,6 +4,11 @@
 - Added GameMode API to Player - HypherionSA
 - Added API for Advancement Progress - KarmaAlex
 
+**This is a re-release of 3.0.0 with the following fixes**:
+
+- Fixed Startup Crash on Forge Pre 1.21
+- Fixed Mixin Crash on Fabric 1.21.1
+
 **Bug Fixes**
 
 - Fixed Events fired from mixins that error out breaking the game - HypherionSA
