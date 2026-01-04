@@ -9,6 +9,7 @@ orionporting {
     patchMode = PatchMode.FUZZY
     porting(
         // 1.21.x
+        "1.21.11",
         "1.21.9",
         "1.21.6",
         "1.21.5",
