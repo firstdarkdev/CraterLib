@@ -73,17 +73,17 @@ multimined.setup {
         }
     }
 
-//    forge {
-//        version(orion.getProperty("forge_version"))
-//
-//        shadowJar {
-//            commonShadow()
-//            exclude("META-INF/versions/**")
-//            relocate("net.kyori" to "shadow.kyori")
-//        }
-//
-//        mixinConfig("${orion.getProperty("mod_id")}.mixins.json", "${orion.getProperty("mod_id")}.forge.mixins.json")
-//    }
+    forge {
+        version(orion.getProperty("forge_version"))
+
+        shadowJar {
+            commonShadow()
+            exclude("META-INF/versions/**")
+            relocate("net.kyori" to "shadow.kyori")
+        }
+
+        mixinConfig("${orion.getProperty("mod_id")}.mixins.json", "${orion.getProperty("mod_id")}.forge.mixins.json")
+    }
 }
 
 origami {

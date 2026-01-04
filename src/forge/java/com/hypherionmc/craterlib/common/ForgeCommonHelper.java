@@ -2,7 +2,7 @@ package com.hypherionmc.craterlib.common;
 
 import com.hypherionmc.craterlib.core.platform.CommonPlatform;
 import com.hypherionmc.craterlib.nojang.server.BridgedMinecraftServer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.server.ServerLifecycleHooks;
 
