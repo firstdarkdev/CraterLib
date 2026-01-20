@@ -1,116 +1,123 @@
 package com.hypherionmc.craterlib.nojang.server;
 
+import com.hypherionmc.craterlib.hytale.CraterHytalePlugin;
 import com.hypherionmc.craterlib.nojang.advancements.BridgedAdvancementHolder;
 import com.hypherionmc.craterlib.nojang.advancements.BridgedPlayerAdvancements;
 import com.hypherionmc.craterlib.nojang.authlib.BridgedGameProfile;
-import com.hypherionmc.craterlib.nojang.client.multiplayer.BridgedClientLevel;
 import com.hypherionmc.craterlib.nojang.commands.BridgedFakePlayer;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import com.hypherionmc.craterlib.nojang.world.level.BridgedGameRules;
 import com.hypherionmc.craterlib.utils.ChatUtils;
+import com.hypixel.hytale.server.core.HytaleServer;
+import com.hypixel.hytale.server.core.auth.ServerAuthManager;
+import com.hypixel.hytale.server.core.command.system.CommandManager;
+import com.hypixel.hytale.server.core.console.ConsoleSender;
+import com.hypixel.hytale.server.core.universe.Universe;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
-import net.minecraft.SharedConstants;
-import net.minecraft.advancements.AdvancementHolder;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.players.UserBanListEntry;
-import net.minecraft.server.players.UserWhiteListEntry;
 
 import java.util.*;
 
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedMinecraftServer {
 
-    private final MinecraftServer internal;
+    private final HytaleServer internal;
 
     public boolean isUsingWhitelist() {
-        return internal.getPlayerList().isUsingWhitelist();
+        return CraterHytalePlugin.whitelistProvider.isEnabled();
     }
 
     public int getPlayerCount() {
-        return internal.getPlayerList().getPlayerCount();
+        return Universe.get().getPlayerCount();
     }
 
     public int getMaxPlayers() {
-        return internal.getPlayerList().getMaxPlayers();
+        return internal.getConfig().getMaxPlayers();
     }
 
     public String getServerModName() {
-        return internal.getServerModName();
+        return internal.getServerName();
     }
 
     public String getName() {
-        return SharedConstants.getCurrentVersion().name();
+        return internal.getConfig().getServerName();
     }
 
     public boolean usesAuthentication() {
-        return internal.usesAuthentication();
+        return ServerAuthManager.getInstance().getAuthMode() != ServerAuthManager.AuthMode.NONE;
     }
 
     public void broadcastSystemMessage(Component text, boolean bl) {
-        internal.getPlayerList().broadcastSystemMessage(ChatUtils.adventureToMojang(text), bl);
+        Universe.get()
+                .getWorlds()
+                .values()
+                .stream()
+                .flatMap((world) -> world.getPlayerRefs().stream())
+                .forEach((playerRef) -> playerRef.sendMessage(ChatUtils.adventureToMojang(text)));
+
+        ConsoleSender.INSTANCE.sendMessage(ChatUtils.adventureToMojang(text));
     }
 
     public boolean isPlayerBanned(BridgedGameProfile profile) {
-        return internal.getPlayerList().getBans().isBanned(profile.toNameAndId());
+        return CraterHytalePlugin.banProvider.hasBan(profile.getId());
     }
 
     public void whitelistPlayer(BridgedGameProfile gameProfile) {
-        if (!internal.getPlayerList().isUsingWhitelist())
+        if (!isUsingWhitelist())
             return;
 
-        internal.getPlayerList().getWhiteList().add(new UserWhiteListEntry(gameProfile.toNameAndId()));
+        CraterHytalePlugin.whitelistProvider.modify((list) -> list.add(gameProfile.getId()));
+        CraterHytalePlugin.whitelistProvider.syncSave();
     }
 
     public void unWhitelistPlayer(BridgedGameProfile gameProfile) {
-        if (!internal.getPlayerList().isUsingWhitelist())
+        if (!isUsingWhitelist())
             return;
 
-        internal.getPlayerList().getWhiteList().remove(new UserWhiteListEntry(gameProfile.toNameAndId()));
+        CraterHytalePlugin.whitelistProvider.modify((list) -> list.remove(gameProfile.getId()));
+        CraterHytalePlugin.whitelistProvider.syncSave();
     }
 
     public List<BridgedPlayer> getPlayers() {
-        List<BridgedPlayer> profiles = new ArrayList<>();
-
-        if (internal.getPlayerList() == null)
-            return profiles;
-
-        internal.getPlayerList().getPlayers().forEach(p -> profiles.add(BridgedPlayer.of(p)));
-
-        return profiles;
+        return Universe.get().getPlayers()
+                .stream()
+                .map(p -> Universe.get().getPlayer(p.getUuid()))
+                .map(BridgedPlayer::of)
+                .toList();
     }
 
     public BridgedGameRules getGameRules() {
-        return BridgedGameRules.bridge(internal.getWorldData().getGameRules());
+        return BridgedGameRules.bridge();
     }
 
     public void banPlayer(BridgedGameProfile profile) {
-        internal.getPlayerList().getBans().add(new UserBanListEntry(profile.toNameAndId()));
+        if (isPlayerBanned(profile)) return;
+
+        // TODO: Implement banning
     }
 
     public void executeCommand(BridgedMinecraftServer server, BridgedFakePlayer player, String command) {
-        internal.getCommands().performPrefixedCommand(player.toMojang(), command);
+        CommandManager.get().handleCommand(player.toHytale(), command).exceptionally((throwable -> {
+            player.onError(
+                    Component.translatable("Failed to execute command: %s".formatted(throwable.getMessage()), command)
+            );
+            return null;
+        }));
     }
 
-    public MinecraftServer toMojang() {
+    public HytaleServer toHytale() {
         return internal;
     }
 
     public BridgedPlayerAdvancements getPlayerAdvancements(UUID uuid) {
-        return BridgedPlayerAdvancements.of(internal.getPlayerList().getPlayer(uuid).getAdvancements());
+        return BridgedPlayerAdvancements.of();
     }
 
     public Collection<BridgedAdvancementHolder> getAdvancements() {
-        Collection<AdvancementHolder> ah = internal.getAdvancements().getAllAdvancements();
-        LinkedList<BridgedAdvancementHolder> ret = new LinkedList<>();
-        for(AdvancementHolder a: ah) {
-            BridgedAdvancementHolder bah = BridgedAdvancementHolder.of(a);
-            ret.add(bah);
-        }
-        return ret;
+        return new LinkedList<>();
     }
 
     public boolean isHardcore() {
-        return internal.isHardcore();
+        return false;
     }
 }

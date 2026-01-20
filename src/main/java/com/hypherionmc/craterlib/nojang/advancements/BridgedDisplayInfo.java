@@ -1,29 +1,28 @@
 package com.hypherionmc.craterlib.nojang.advancements;
 
-import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
-import net.minecraft.advancements.DisplayInfo;
 
+// TODO: Implement
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedDisplayInfo {
 
-    private final DisplayInfo internal;
+    //private final DisplayInfo internal;
 
     public boolean shouldDisplay() {
-        return internal.shouldAnnounceChat();
+        return false;
     }
 
     public boolean isHidden() {
-        return internal.isHidden();
+        return false;
     }
 
     public Component displayName() {
-        return ChatUtils.mojangToAdventure(internal.getTitle());
+        return Component.empty();
     }
 
     public Component description() {
-        return ChatUtils.mojangToAdventure(internal.getDescription());
+        return Component.empty();
     }
 
 }

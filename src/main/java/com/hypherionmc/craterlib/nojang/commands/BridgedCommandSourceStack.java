@@ -2,32 +2,27 @@ package com.hypherionmc.craterlib.nojang.commands;
 
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import com.hypherionmc.craterlib.utils.ChatUtils;
+import com.hypixel.hytale.server.core.command.system.CommandContext;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.world.level.gamerules.GameRules;
 
 import java.util.function.Supplier;
 
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedCommandSourceStack {
 
-    private final CommandSourceStack internal;
+    private final CommandContext internal;
 
     public void sendSuccess(Supplier<Component> supplier, boolean bl) {
-        if (!internal.getLevel().getGameRules().get(GameRules.SEND_COMMAND_FEEDBACK)) {
-            internal.sendSystemMessage(ChatUtils.adventureToMojang(supplier.get()));
-        } else {
-            internal.sendSuccess(() -> ChatUtils.adventureToMojang(supplier.get()), bl);
-        }
+        internal.sendMessage(ChatUtils.adventureToMojang(supplier.get()));
     }
 
     public void sendMessage(Component text) {
-        internal.sendSystemMessage(ChatUtils.adventureToMojang(text));
+        internal.sendMessage(ChatUtils.adventureToMojang(text));
     }
 
     public void sendFailure(Component text) {
-        internal.sendFailure(ChatUtils.adventureToMojang(text));
+        internal.sendMessage(ChatUtils.adventureToMojang(text));
     }
 
     public boolean isPlayer() {
@@ -35,10 +30,11 @@ public class BridgedCommandSourceStack {
     }
 
     public BridgedPlayer getPlayer() {
-        return BridgedPlayer.of(internal.getPlayer());
+        return null;
+        //return BridgedPlayer.of(internal);
     }
 
-    public CommandSourceStack toMojang() {
+    public CommandContext toHytale() {
         return internal;
     }
 }

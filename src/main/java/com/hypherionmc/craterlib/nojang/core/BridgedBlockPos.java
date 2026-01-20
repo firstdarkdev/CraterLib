@@ -1,26 +1,26 @@
 package com.hypherionmc.craterlib.nojang.core;
 
+import com.hypixel.hytale.protocol.Position;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.core.BlockPos;
 
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedBlockPos {
 
-    private final BlockPos internal;
+    private final Position internal;
 
     public int getX() {
-        return internal.getX();
+        return (int) internal.x;
     }
 
     public int getY() {
-        return internal.getY();
+        return (int) internal.y;
     }
 
     public int getZ() {
-        return internal.getZ();
+        return (int) internal.z;
     }
 
-    public BlockPos toMojang() {
+    public Position toHytale() {
         return internal;
     }
 

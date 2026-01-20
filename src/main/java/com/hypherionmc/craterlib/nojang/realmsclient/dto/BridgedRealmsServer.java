@@ -1,40 +1,33 @@
 package com.hypherionmc.craterlib.nojang.realmsclient.dto;
 
-import com.mojang.realmsclient.dto.PlayerInfo;
-import com.mojang.realmsclient.dto.RealmsServer;
 import lombok.RequiredArgsConstructor;
 
+// NO-OP
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedRealmsServer {
 
-    private final RealmsServer internal;
-
     public String getName() {
-        return internal.getName();
+        return "Not Implemented";
     }
 
     public String getDescription() {
-        return internal.getDescription();
+        return "Not Implemented";
     }
 
     public String getWorldType() {
-        return internal.worldType.name();
+        return "Not Implemented";
     }
 
     public String getMinigameName() {
-        return internal.getMinigameName();
+        return "Not Implemented";
     }
 
     public String getMinigameImage() {
-        return internal.minigameImage;
+        return "Not Implemented";
     }
 
     public long getPlayerCount() {
-        return internal.players.stream().filter(p -> p.online).count();
-    }
-
-    public RealmsServer toMojang() {
-        return internal;
+        return 0;
     }
 
 }

@@ -4,67 +4,69 @@ import com.hypherionmc.craterlib.nojang.authlib.BridgedGameProfile;
 import com.hypherionmc.craterlib.nojang.core.BridgedBlockPos;
 import com.hypherionmc.craterlib.nojang.world.level.BridgedGameType;
 import com.hypherionmc.craterlib.utils.ChatUtils;
+import com.hypixel.hytale.protocol.Position;
+import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedPlayer {
 
-    private final Player internal;
+    private final PlayerRef internal;
 
     public Component getDisplayName() {
-        return ChatUtils.mojangToAdventure(internal.getDisplayName());
+        return Component.text(internal.getUsername());
     }
 
     public Component getName() {
-        return ChatUtils.mojangToAdventure(internal.getName());
+        return getDisplayName();
     }
 
     public UUID getUUID() {
-        return internal.getUUID();
+        return internal.getUuid();
     }
 
     public String getStringUUID() {
-        return internal.getStringUUID();
+        return getUUID().toString();
     }
 
     public BridgedGameProfile getGameProfile() {
-        return BridgedGameProfile.of(internal.getGameProfile());
+        return BridgedGameProfile.of(internal.getPacketHandler().getAuth());
     }
 
     public boolean isServerPlayer() {
-        return internal instanceof ServerPlayer;
+        return true;
     }
 
-    public Player toMojang() {
+    public PlayerRef toHytale() {
         return internal;
     }
 
     public BridgedBlockPos getOnPos() {
-        return BridgedBlockPos.of(internal.getOnPos());
+        // TODO: Fix implementation
+        return BridgedBlockPos.of(new Position());
     }
 
     public float getHealth() {
-        return internal.getHealth();
+        // TODO: Implement
+        return 0;
     }
 
     public float getMaxHealth() {
-        return internal.getMaxHealth();
+        // TODO: Implement
+        return 0;
     }
 
     public String getHeldItemMainHand() {
         String value = "Nothing";
 
-        if (!internal.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
-            value = internal.getItemInHand(InteractionHand.MAIN_HAND).getDisplayName().getString();
-        }
+        // TODO: Implement
+//        if (!internal.getItemInHand(InteractionHand.MAIN_HAND).isEmpty()) {
+//            value = internal.getItemInHand(InteractionHand.MAIN_HAND).getDisplayName().getString();
+//        }
 
         return value;
     }
@@ -72,31 +74,25 @@ public class BridgedPlayer {
     public String getHeldItemOffHand() {
         String value = "Nothing";
 
-        if (!internal.getItemInHand(InteractionHand.OFF_HAND).isEmpty()) {
-            value = internal.getItemInHand(InteractionHand.OFF_HAND).getDisplayName().getString();
-        }
+        // TODO: Implement
+//        if (!internal.getItemInHand(InteractionHand.OFF_HAND).isEmpty()) {
+//            value = internal.getItemInHand(InteractionHand.OFF_HAND).getDisplayName().getString();
+//        }
 
         return value;
     }
 
     public BridgedGameType getGameMode() {
-        return BridgedGameType.fromMojang(internal.gameMode());
+        return BridgedGameType.fromHytale(asPlayer().getGameMode());
     }
 
-    @Nullable
-    public ServerGamePacketListenerImpl getConnection() {
-        if (isServerPlayer()) {
-            return ((ServerPlayer) internal).connection;
-        }
-        return null;
+    private Player asPlayer() {
+        Player p = new Player();
+        p.init(internal.getUuid(), internal);
+        return p;
     }
 
     public void disconnect(Component message) {
-        if (isServerPlayer())
-            toMojangServerPlayer().connection.disconnect(ChatUtils.adventureToMojang(message));
-    }
-
-    public ServerPlayer toMojangServerPlayer() {
-        return (ServerPlayer) internal;
+        internal.getPacketHandler().disconnect(ChatUtils.getString(message));
     }
 }

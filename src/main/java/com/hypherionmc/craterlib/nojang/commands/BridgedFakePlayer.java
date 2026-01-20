@@ -2,26 +2,22 @@ package com.hypherionmc.craterlib.nojang.commands;
 
 import com.hypherionmc.craterlib.nojang.server.BridgedMinecraftServer;
 import com.hypherionmc.craterlib.utils.ChatUtils;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.permissions.Permission;
-import net.minecraft.server.permissions.PermissionLevel;
-import net.minecraft.server.permissions.PermissionSet;
-import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.Vec3;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.command.system.CommandSender;
+import com.hypixel.hytale.server.core.console.ConsoleSender;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public abstract class BridgedFakePlayer {
 
-    final MojangBridge internal;
+    final HytaleBridge internal;
 
     public BridgedFakePlayer(BridgedMinecraftServer server, int perm, String name) {
-        internal = new MojangBridge(server.toMojang(), perm, name, this::onSuccess, this::onError);
+        internal = new HytaleBridge(name, this::onSuccess, this::onError);
     }
 
     public abstract void onSuccess(Supplier<net.kyori.adventure.text.Component> supplier, Boolean aBoolean);
@@ -30,40 +26,50 @@ public abstract class BridgedFakePlayer {
         this.onSuccess(() -> component, false);
     }
 
-    public CommandSourceStack toMojang() {
+    public CommandSender toHytale() {
         return internal;
     }
 
-    static class MojangBridge extends CommandSourceStack {
+    static class HytaleBridge implements CommandSender {
 
         private final BiConsumer<Supplier<net.kyori.adventure.text.Component>, Boolean> successCallback;
         public final Consumer<net.kyori.adventure.text.Component> errorCallback;
 
-        MojangBridge(MinecraftServer server, int perm, String name, BiConsumer<Supplier<net.kyori.adventure.text.Component>, Boolean> successCallback, Consumer<net.kyori.adventure.text.Component> errorCallback) {
-            super(CommandSource.NULL, Vec3.ZERO, Vec2.ZERO, server.overworld(), new LevelPermSet(perm), name, Component.literal(name), server, null);
+        private final CommandSender delegate = ConsoleSender.INSTANCE;
+        private final String name;
+
+        public HytaleBridge(String name, BiConsumer<Supplier<net.kyori.adventure.text.Component>, Boolean> successCallback, Consumer<net.kyori.adventure.text.Component> errorCallback) {
+            this.name = name;
             this.successCallback = successCallback;
             this.errorCallback = errorCallback;
         }
 
         @Override
-        public void sendSuccess(Supplier<Component> supplier, boolean bl) {
-            successCallback.accept(() -> ChatUtils.mojangToAdventure(supplier.get()), bl);
+        public String getDisplayName() {
+            return name;
         }
 
         @Override
-        public void sendFailure(Component arg) {
-            errorCallback.accept(ChatUtils.mojangToAdventure(arg));
+        public UUID getUuid() {
+            return delegate.getUuid();
         }
-    }
 
-    record LevelPermSet(int perm) implements PermissionSet {
         @Override
-        public boolean hasPermission(Permission arg) {
-            if (arg instanceof Permission.HasCommandLevel(PermissionLevel level)) {
-                return level.isEqualOrHigherThan(PermissionLevel.byId(perm));
-            }
+        public boolean hasPermission(@NotNull String s) {
+            // TODO: Implement Proper Command Permissions
+            return delegate.hasPermission(s);
+        }
 
-            return false;
+        @Override
+        public boolean hasPermission(@NotNull String s, boolean b) {
+            // TODO: Implement Proper Command Permissions
+            return delegate.hasPermission(s, b);
+        }
+
+        @Override
+        public void sendMessage(@NotNull Message message) {
+            this.delegate.sendMessage(message);
+            successCallback.accept(() -> ChatUtils.mojangToAdventure(message), false);
         }
     }
 }

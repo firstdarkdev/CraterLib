@@ -1,41 +1,38 @@
 package com.hypherionmc.craterlib.nojang.client.gui;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.gui.screens.*;
-import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
-import net.minecraft.realms.RealmsScreen;
 
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedScreen {
 
-    private final Screen internal;
+    //private final Screen internal;
 
     public boolean isTitleScreen() {
-        return internal instanceof TitleScreen;
+        return false;
     }
 
     public boolean isRealmsScreen() {
-        return internal instanceof RealmsScreen;
+        return false;
     }
 
     public boolean isServerBrowserScreen() {
-        return internal instanceof JoinMultiplayerScreen;
+        return false;
     }
 
     public boolean isLoadingScreen() {
-        return internal instanceof LevelLoadingScreen || internal instanceof ConnectScreen;
+        return false;
     }
 
     public boolean isPauseScreen() {
-        return internal instanceof PauseScreen;
+        return false;
     }
 
     public boolean isDisconnetedScreen() {
-        return internal instanceof DisconnectedScreen;
+        return false;
     }
 
-    public Screen toMojang() {
-        return internal;
-    }
+//    public Screen toMojang() {
+//        return internal;
+//    }
 
 }

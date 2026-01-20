@@ -3,41 +3,34 @@ package com.hypherionmc.craterlib.nojang.client.server;
 import com.hypherionmc.craterlib.nojang.advancements.BridgedAdvancementHolder;
 import com.hypherionmc.craterlib.nojang.advancements.BridgedPlayerAdvancements;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.advancements.AdvancementHolder;
-import net.minecraft.client.server.IntegratedServer;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.UUID;
 
+// TODO: Implement if Possible
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedIntegratedServer {
 
-    private final IntegratedServer internal;
+    //private final IntegratedServer internal;
 
     public String getLevelName() {
-        return internal.getWorldData().getLevelName();
+        return "Not Implemented";
     }
 
-    public IntegratedServer toMojang() {
-        return internal;
-    }
+//    public IntegratedServer toMojang() {
+//        return internal;
+//    }
 
     public BridgedPlayerAdvancements getPlayerAdvancements(UUID uuid) {
-        return BridgedPlayerAdvancements.of(internal.getPlayerList().getPlayer(uuid).getAdvancements());
+        return BridgedPlayerAdvancements.of();
     }
 
     public Collection<BridgedAdvancementHolder> getAdvancements() {
-        Collection<AdvancementHolder> ah = internal.getAdvancements().getAllAdvancements();
-        LinkedList<BridgedAdvancementHolder> ret = new LinkedList<>();
-        for(AdvancementHolder a: ah) {
-            BridgedAdvancementHolder bah = BridgedAdvancementHolder.of(a);
-            ret.add(bah);
-        }
-        return ret;
+        return new LinkedList<>();
     }
 
     public boolean isHardcore() {
-        return internal.isHardcore();
+        return false;
     }
 }

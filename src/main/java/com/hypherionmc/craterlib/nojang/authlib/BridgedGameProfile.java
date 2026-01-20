@@ -1,38 +1,29 @@
 package com.hypherionmc.craterlib.nojang.authlib;
 
-import com.mojang.authlib.GameProfile;
+import com.hypixel.hytale.server.core.auth.PlayerAuthentication;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.server.players.NameAndId;
 
 import java.util.UUID;
 
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedGameProfile {
 
-    private final GameProfile internal;
+    private final PlayerAuthentication internal;
 
     public static BridgedGameProfile mojang(UUID id, String name) {
-        return new BridgedGameProfile(new GameProfile(id, name));
-    }
-
-    public static BridgedGameProfile of(NameAndId nameAndId) {
-        return BridgedGameProfile.of(new GameProfile(nameAndId.id(), nameAndId.name()));
+        return new BridgedGameProfile(new PlayerAuthentication(id, name));
     }
 
     public String getName() {
-        return internal.name();
+        return internal.getUsername();
     }
 
     public UUID getId() {
-        return internal.id();
+        return internal.getUuid();
     }
 
-    public GameProfile toMojang() {
+    public PlayerAuthentication toHytale() {
         return internal;
-    }
-
-    public NameAndId toNameAndId() {
-        return new NameAndId(internal);
     }
 
 }

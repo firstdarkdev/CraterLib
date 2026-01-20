@@ -22,7 +22,7 @@ public class InternalServiceUtil {
         final T loadedService = ServiceLoader.load(clazz, loader)
                 .findFirst()
                 .orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
-        CraterConstants.LOG.debug("Loaded {} for service {}", loadedService, clazz);
+        //CraterConstants.LOG.debug("Loaded {} for service {}", loadedService, clazz);
         return loadedService;
     }
 

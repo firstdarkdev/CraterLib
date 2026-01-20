@@ -1,19 +1,18 @@
 package com.hypherionmc.craterlib.nojang.world.level;
 
-import com.hypherionmc.craterlib.utils.ChatUtils;
+import com.hypixel.hytale.protocol.GameMode;
 import net.kyori.adventure.text.Component;
-import net.minecraft.world.level.GameType;
 
 public enum BridgedGameType {
-    SURVIVAL("survival", GameType.SURVIVAL),
-    CREATIVE("creative", GameType.CREATIVE),
-    ADVENTURE("adventure", GameType.ADVENTURE),
-    SPECTATOR("spectator", GameType.SPECTATOR);
+    SURVIVAL("survival", GameMode.Adventure),  // TODO: Fix
+    CREATIVE("creative", GameMode.Creative),
+    ADVENTURE("adventure", GameMode.Adventure),
+    SPECTATOR("spectator", GameMode.Adventure); // TODO: Fix
 
     private final String name;
-    private final GameType internal;
+    private final GameMode internal;
 
-    BridgedGameType(String name, GameType internal) {
+    BridgedGameType(String name, GameMode internal) {
         this.name = name;
         this.internal = internal;
     }
@@ -24,40 +23,43 @@ public enum BridgedGameType {
     }
 
     public String getName() {
-        return this.internal.getName();
+        if (internal == GameMode.Creative) {
+            return "Creative";
+        }
+        return "Adventure";
     }
 
     public String getSerializedName() {
-        return this.internal.getSerializedName();
+        return internal.name();
     }
 
     public Component getLongDisplayName() {
-        return ChatUtils.mojangToAdventure(this.internal.getLongDisplayName());
+        return Component.text(internal.name());
     }
 
     public Component getShortDisplayName() {
-        return ChatUtils.mojangToAdventure(this.internal.getShortDisplayName());
+        return Component.text(getName());
     }
 
-    public GameType toMojang() {
+    public GameMode toHytale() {
         return this.internal;
     }
 
     public boolean isBlockPlacingRestricted() {
-        return this.internal.isBlockPlacingRestricted();
+        return false;
     }
 
     public boolean isCreative() {
-        return this.internal.isCreative();
+        return internal == GameMode.Creative;
     }
 
     public boolean isSurvival() {
-        return this.internal.isSurvival();
+        return internal == GameMode.Adventure;
     }
 
-    public static BridgedGameType fromMojang(GameType type) {
+    public static BridgedGameType fromHytale(GameMode type) {
         for (BridgedGameType gameType : values()) {
-            if (gameType.toMojang() == type)
+            if (gameType.toHytale() == type)
                 return gameType;
         }
         return BridgedGameType.SURVIVAL;

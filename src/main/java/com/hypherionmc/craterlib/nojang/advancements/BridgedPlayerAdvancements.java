@@ -1,19 +1,19 @@
 package com.hypherionmc.craterlib.nojang.advancements;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.server.PlayerAdvancements;
 
+// TODO: Implement
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedPlayerAdvancements {
 
-    private final PlayerAdvancements internal;
+    //private final PlayerAdvancements internal;
 
     public BridgedAdvancementProgress getOrStartProgress(BridgedAdvancementHolder advancement) {
-        return BridgedAdvancementProgress.of(internal.getOrStartProgress(advancement.toMojang()));
+        return BridgedAdvancementProgress.of();
     }
 
-    public PlayerAdvancements toMojang() {
-        return internal;
-    }
+//    public PlayerAdvancements toMojang() {
+//        return internal;
+//    }
 
 }

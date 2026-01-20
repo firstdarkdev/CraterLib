@@ -3,12 +3,10 @@ package com.hypherionmc.craterlib.core.config;
 import com.hypherionmc.craterlib.CraterConstants;
 import lombok.Getter;
 import me.hypherionmc.moonconfig.core.file.FileWatcher;
-import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * @author HypherionSA

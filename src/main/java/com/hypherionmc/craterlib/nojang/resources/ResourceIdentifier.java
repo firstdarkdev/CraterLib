@@ -1,36 +1,29 @@
 package com.hypherionmc.craterlib.nojang.resources;
 
-import net.minecraft.resources.Identifier;
-
+// TODO: Implement this properly
 public class ResourceIdentifier {
 
-    private final Identifier internal;
+    private final String namespace, path;
 
     public ResourceIdentifier(String namespace, String path) {
-        this.internal = Identifier.fromNamespaceAndPath(namespace, path);
+        this.path = path;
+        this.namespace = namespace;
     }
 
     public ResourceIdentifier(String path) {
-        this.internal = Identifier.parse(path);
+        this.path = path;
+        this.namespace = "hytale";
     }
 
     public String getNamespace() {
-        return internal.getNamespace();
+        return namespace;
     }
 
     public String getPath() {
-        return internal.getPath();
+        return path;
     }
 
     public String getString() {
-        return internal.toString();
-    }
-
-    public static ResourceIdentifier fromMojang(Identifier location) {
-        return new ResourceIdentifier(location.getNamespace(), location.getPath());
-    }
-
-    public Identifier toMojang() {
-        return internal;
+        return namespace + ":" + path;
     }
 }

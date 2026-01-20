@@ -3,8 +3,10 @@ unimined = "1.0.0+1.4.2-SNAPSHOT"
 shadow = "9.2.2"
 modpublisher = "2.1.8+snapshot.2"
 orion = "2.0.16"
+hyloom = "0.0.1+snapshot.0"
 
 [plugins]
+hyloom = { id = "com.hypherionmc.hyloom", version.ref = "hyloom" }
 unimined = { id = "dev.firstdark.unimined", version.ref = "unimined" }
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
 modpublisher = { id = "com.hypherionmc.modutils.modpublisher", version.ref = "modpublisher" }

@@ -4,7 +4,6 @@ import com.hypherionmc.craterlib.nojang.client.BridgedMinecraft;
 import com.hypherionmc.craterlib.nojang.client.multiplayer.BridgedClientLevel;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
 import com.hypherionmc.craterlib.utils.InternalServiceUtil;
-import net.minecraft.network.Connection;
 
 /**
  * @author HypherionSA
@@ -19,5 +18,5 @@ public interface ClientPlatform {
 
     BridgedClientLevel getClientLevel();
 
-    Connection getClientConnection();
+    //Connection getClientConnection();
 }

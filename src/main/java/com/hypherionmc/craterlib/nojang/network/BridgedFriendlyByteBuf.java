@@ -2,32 +2,33 @@ package com.hypherionmc.craterlib.nojang.network;
 
 import com.hypherionmc.craterlib.nojang.nbt.BridgedCompoundTag;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
+import io.netty.buffer.ByteBuf;
 
+// TODO: Implement if Possible
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedFriendlyByteBuf {
 
-    private final FriendlyByteBuf internal;
+    private final ByteBuf internal;
 
     public BridgedCompoundTag readNbt() {
-        return BridgedCompoundTag.of(internal.readNbt());
+        return BridgedCompoundTag.of();
     }
 
     public BridgedFriendlyByteBuf writeNbt(BridgedCompoundTag tag) {
-        internal.writeNbt(tag.toMojang());
+        //internal.writeNbt(tag.toMojang());
         return BridgedFriendlyByteBuf.of(internal);
     }
 
     public BridgedFriendlyByteBuf writeUtf(String value) {
-        internal.writeUtf(value);
+        //internal.writeUtf(value);
         return BridgedFriendlyByteBuf.of(internal);
     }
 
     public String readUtf() {
-        return internal.readUtf();
+        return "Not Implemented";
     }
 
-    public FriendlyByteBuf toMojang() {
+    public ByteBuf toMojang() {
         return internal;
     }
 

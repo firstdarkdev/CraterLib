@@ -2,7 +2,7 @@ package com.hypherionmc.craterlib.core.event;
 
 import com.hypherionmc.craterlib.CraterConstants;
 import com.hypherionmc.craterlib.core.event.annot.CraterEventListener;
-import org.slf4j.Logger;
+import com.hypherionmc.craterlib.utils.CraterLibLogger;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 public final class CraterEventBus {
 
     public static final CraterEventBus INSTANCE = new CraterEventBus();
-    private static final Logger LOGGER = CraterConstants.LOG;
+    private static final CraterLibLogger LOGGER = CraterConstants.LOG;
     private final Map<Class<? extends CraterEvent>, List<ListenerContainer>> events = new HashMap<>();
 
     public void postEvent(CraterEvent event) {

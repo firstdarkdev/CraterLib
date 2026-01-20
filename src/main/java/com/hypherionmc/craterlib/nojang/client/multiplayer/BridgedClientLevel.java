@@ -2,58 +2,53 @@ package com.hypherionmc.craterlib.nojang.client.multiplayer;
 
 import com.hypherionmc.craterlib.nojang.core.BridgedBlockPos;
 import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
-import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
-import net.minecraft.client.multiplayer.ClientLevel;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.concurrent.atomic.AtomicReference;
-
+// TODO: Implement if Possible
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedClientLevel {
 
-    private final ClientLevel internal;
+    //private final ClientLevel internal;
 
     public boolean isClientSide() {
-        return internal.isClientSide();
+        return false;
     }
 
     public long getGameTime() {
-        return internal.getGameTime();
+        return 0;
     }
 
     public long getDayTime() {
-        return internal.getDayTime();
+        return 0;
     }
 
     public long dayTime() {
-        return internal.getDayTime();
+        return 0;
     }
 
     public boolean isRaining() {
-        return internal.isRaining();
+        return false;
     }
 
     public boolean isThundering() {
-        return internal.isThundering();
+        return false;
     }
 
     @Nullable
     public ResourceIdentifier getDimensionKey() {
-        return ResourceIdentifier.fromMojang(internal.dimension().identifier());
+        return null;
     }
 
     @Nullable
     public ResourceIdentifier getBiomeIdentifier(BridgedBlockPos onPos) {
-        AtomicReference<ResourceIdentifier> identifier = new AtomicReference<>(null);
-        internal.getBiome(onPos.toMojang()).unwrap().ifLeft(b -> identifier.set(ResourceIdentifier.fromMojang(b.identifier())));
-        return identifier.get();
+        return null;
     }
 
     @Nullable
     public Component getDifficulty() {
-        return ChatUtils.mojangToAdventure(internal.getDifficulty().getDisplayName());
+        return Component.text("Not Implemented");
     }
 
 }

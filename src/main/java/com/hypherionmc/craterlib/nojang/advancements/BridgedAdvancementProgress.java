@@ -1,52 +1,54 @@
 package com.hypherionmc.craterlib.nojang.advancements;
 
-import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
-import net.minecraft.advancements.AdvancementProgress;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.Instant;
 
+// TODO: Implement
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedAdvancementProgress {
 
-    private final AdvancementProgress internal;
+    //private final AdvancementProgress internal;
 
     public boolean isDone() {
-        return internal.isDone();
+        return false;
     }
 
     public boolean hasProgress() {
-        return internal.hasProgress();
+        return false;
     }
 
     public float getPercent() {
-        return internal.getPercent();
+        return 0f;
     }
 
     public Component getProgressText() {
-        return ChatUtils.mojangToAdventure(internal.getProgressText());
+        return Component.empty();
     }
 
     public Iterable<String> getRemainingCriteria() {
-        return internal.getRemainingCriteria();
+        //return internal.getRemainingCriteria();
+        return null;
     }
 
     public Iterable<String> getCompletedCriteria() {
-        return internal.getCompletedCriteria();
+        return null;
     }
 
     @Nullable
     public Instant getFirstProgressDate() {
-        return internal.getFirstProgressDate();
+        return Instant.now();
+        //return internal.getFirstProgressDate();
     }
 
     public int compareTo(BridgedAdvancementProgress other) {
-        return internal.compareTo(other.internal);
+        return 0;
+        //return internal.compareTo(other.internal);
     }
 
-    public AdvancementProgress toMojang() {
-        return internal;
-    }
+//    public AdvancementProgress toMojang() {
+//        return internal;
+//    }
 }

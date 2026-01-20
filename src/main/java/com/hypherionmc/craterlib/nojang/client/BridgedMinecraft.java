@@ -4,107 +4,88 @@ import com.hypherionmc.craterlib.nojang.client.multiplayer.BridgedClientLevel;
 import com.hypherionmc.craterlib.nojang.client.multiplayer.BridgedServerData;
 import com.hypherionmc.craterlib.nojang.client.server.BridgedIntegratedServer;
 import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
-import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
-import net.minecraft.SharedConstants;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.AlertScreen;
-import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.UUID;
 
+// TODO: Implement if Possible
 public class BridgedMinecraft {
 
     @Getter
     private static final BridgedMinecraft instance = new BridgedMinecraft();
-    private final Minecraft internal = Minecraft.getInstance();
+    //private final Minecraft internal = Minecraft.getInstance();
 
     public File getGameDirectory() {
-        return internal.gameDirectory;
+        return new File(".");
     }
 
     public BridgedOptions getOptions() {
-        return BridgedOptions.of(internal.options);
+        return BridgedOptions.of();
     }
 
     @Nullable
     public BridgedClientLevel getLevel() {
-        if (internal.level == null)
-            return null;
-
-        return BridgedClientLevel.of(internal.level);
+        return null;
     }
 
     public boolean isRealmServer() {
-        return internal.getCurrentServer() != null && internal.getCurrentServer().isRealm();
+        return false;
     }
 
     public boolean isSinglePlayer() {
-        return internal.hasSingleplayerServer();
+        return false;
     }
 
     @Nullable
     public BridgedPlayer getPlayer() {
-        if (internal.player == null)
-            return null;
-
-        return BridgedPlayer.of(internal.player);
+        return null;
     }
 
     public String getGameVersion() {
-        return SharedConstants.getCurrentVersion().name();
+        return "Not Implemented";
     }
 
     public String getUserName() {
-        return internal.getUser().getName();
+        return "Not Implemented";
     }
 
     public UUID getPlayerId() {
-        return internal.getUser().getProfileId();
+        return UUID.fromString("Not Implemented");
     }
 
     @Nullable
     public BridgedServerData getCurrentServer() {
-        if (internal.getCurrentServer() == null)
-            return null;
-
-        return BridgedServerData.of(internal.getCurrentServer());
+        return null;
     }
 
     @Nullable
     public BridgedIntegratedServer getSinglePlayerServer() {
-        if (internal.getSingleplayerServer() == null)
-            return null;
-
-        return BridgedIntegratedServer.of(internal.getSingleplayerServer());
+        return null;
     }
 
     public void showWarningScreen(Component title, Component message) {
-        Screen currentScreen = internal.screen;
-        internal.setScreen(
-                new AlertScreen(
-                        () -> internal.setScreen(currentScreen),
-                        ChatUtils.adventureToMojang(title),
-                        ChatUtils.adventureToMojang(message)
-                )
-        );
+//        Screen currentScreen = internal.screen;
+//        internal.setScreen(
+//                new AlertScreen(
+//                        () -> internal.setScreen(currentScreen),
+//                        ChatUtils.adventureToMojang(title),
+//                        ChatUtils.adventureToMojang(message)
+//                )
+//        );
     }
 
-    public Screen buildWarningScreen(Component title, Component message, Screen parent) {
-        return new AlertScreen(
-                () -> internal.setScreen(parent),
-                ChatUtils.adventureToMojang(title),
-                ChatUtils.adventureToMojang(message)
-        );
-    }
+//    public Screen buildWarningScreen(Component title, Component message, Screen parent) {
+//        return new AlertScreen(
+//                () -> internal.setScreen(parent),
+//                ChatUtils.adventureToMojang(title),
+//                ChatUtils.adventureToMojang(message)
+//        );
+//    }
 
     public int getServerPlayerCount () {
-        if (internal.getConnection() == null)
-            return 0;
-
-        return internal.getConnection().getOnlinePlayers().size();
+        return 0;
     }
 }

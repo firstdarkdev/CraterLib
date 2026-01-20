@@ -1,79 +1,49 @@
 package com.hypherionmc.craterlib.utils;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.hypherionmc.craterlib.core.platform.CommonPlatform;
-import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
 import com.hypherionmc.craterlib.nojang.resources.ResourceIdentifier;
-import com.mojang.serialization.JsonOps;
+import com.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
+import com.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
+import com.hypixel.hytale.protocol.FormattedMessage;
+import com.hypixel.hytale.server.core.Message;
 import lombok.Getter;
-import me.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
-import me.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.kyori.adventure.text.serializer.json.JSONOptions;
-import net.minecraft.ChatFormatting;
-import net.minecraft.SharedConstants;
-import net.minecraft.util.Util;
-// @noplugin
-import net.minecraft.client.Minecraft;
-// #noplugin
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.ComponentSerialization;
-import net.minecraft.network.chat.Style;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
 public class ChatUtils {
 
     @Getter
     private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(
-            JSONOptions.byDataVersion().at(SharedConstants.getCurrentVersion().dataVersion().version())
+            JSONOptions.compatibility()
     ).build();
 
     private static final MiniMessage miniMessage = MiniMessage.miniMessage();
 
-    public static Component adventureToMojang(net.kyori.adventure.text.Component inComponent) {
-        final JsonElement serialised = adventureSerializer.serializeToTree(inComponent);
-
-        // FUCK YOU MOJANG. SERIOUSLY. FUCK OFF WITH THIS SHIT
-        return ComponentSerialization.CODEC
-                .parse(getRegistryLookup().createSerializationContext(JsonOps.INSTANCE), serialised)
-                .getOrThrow(JsonParseException::new);
+    public static Message adventureToMojang(Component inComponent) {
+        return HytaleAdventureAdapter.deserialize(inComponent);
     }
 
-    public static net.kyori.adventure.text.Component mojangToAdventure(Component inComponent) {
+    public static Component mojangToAdventure(Message inComponent) {
         try {
-            // FUCK YOU MOJANG. SERIOUSLY. FUCK OFF WITH THIS SHIT
-            final JsonElement serialised = ComponentSerialization.CODEC
-                    .encodeStart(JsonOps.INSTANCE, inComponent)
-                    .getOrThrow(JsonParseException::new);
-
+            final JsonElement serialised = HytaleAdventureAdapter.serialize(inComponent);
             return adventureSerializer.deserializeFromTree(serialised);
         } catch (Exception e) {
-            return net.kyori.adventure.text.Component.text(inComponent.getString());
+            e.printStackTrace();
+            return Component.text("");
         }
-    }
-
-    private static HolderLookup.Provider getRegistryLookup() {
-        // @noplugin
-        if (ModloaderEnvironment.INSTANCE.getEnvironment().isClient() && Minecraft.getInstance().level != null)
-            return Minecraft.getInstance().level.registryAccess();
-        // #noplugin
-
-        if (ModloaderEnvironment.INSTANCE.getEnvironment().isServer() && CommonPlatform.INSTANCE.getMCServer() != null)
-            return CommonPlatform.INSTANCE.getMCServer().toMojang().registryAccess();
-
-        return RegistryAccess.EMPTY;
     }
 
     // Some text components contain duplicate text, resulting in duplicate messages
     // sent back to discord. This should help fix those issues
     public static Component safeCopy(Component inComponent) {
-        String value = inComponent.getString();
-        Style style = inComponent.getStyle();
-        return Component.literal(value).withStyle(style);
+        String value = getString(inComponent);
+        Style style = inComponent.style();
+        return Component.text(value).style(style);
     }
 
     public static String strip(String inString, String... toStrip) {
@@ -90,60 +60,64 @@ public class ChatUtils {
         return finalString;
     }
 
-    public static String resolve(net.kyori.adventure.text.Component component, boolean formatted) {
-        Component c = adventureToMojang(component);
-        String returnVal = ChatFormatting.stripFormatting(DiscordMarkdownStripper.stripMarkdown(c.getString()));
+    public static String resolve(Component component, boolean formatted) {
+        String returnVal = getString(component);
 
         if (formatted) {
-            returnVal = DiscordSerializer.INSTANCE.serialize(safeCopy(c).copy());
+            returnVal = DiscordSerializer.INSTANCE.serialize(safeCopy(component));
         }
 
         return returnVal;
     }
 
-    public static net.kyori.adventure.text.Component resolve(String component, boolean formatted) {
-        Component returnVal = Component.literal(component);
+    public static Component resolve(String component, boolean formatted) {
+        Component returnVal = Component.text(component);
+
         if (formatted) {
             returnVal = MinecraftSerializer.INSTANCE.serialize(component);
         }
 
-        return mojangToAdventure(returnVal);
+        return returnVal;
     }
 
-    public static net.kyori.adventure.text.Component getTooltipTitle(String key) {
-        return net.kyori.adventure.text.Component.text(NamedTextColor.YELLOW + net.kyori.adventure.text.Component.translatable(key).key());
+    public static Component getTooltipTitle(String key) {
+        return Component.text(NamedTextColor.YELLOW + Component.translatable(key).key());
     }
 
     public static String resolveTranslation(String key) {
-        return net.kyori.adventure.text.Component.translatable(key).key();
+        return Component.translatable(key).key();
     }
 
-    public static net.kyori.adventure.text.Component getTranslation(String key) {
-        return net.kyori.adventure.text.Component.translatable(key);
+    public static Component getTranslation(String key) {
+        return Component.translatable(key);
     }
 
-    public static net.kyori.adventure.text.Component makeComponent(String text) {
-        return net.kyori.adventure.text.Component.translatable(text);
+    public static Component makeComponent(String text) {
+        return Component.translatable(text);
     }
 
-    public static net.kyori.adventure.text.Component getBiomeName(ResourceIdentifier identifier) {
+    public static Component getBiomeName(ResourceIdentifier identifier) {
         if (identifier == null)
-            return net.kyori.adventure.text.Component.text("Unknown");
+            return Component.text("Unknown");
 
-        return mojangToAdventure(Component.translatable(Util.makeDescriptionId("biome", identifier.toMojang())));
+        return Component.text(identifier.getPath());
     }
 
-    public static net.kyori.adventure.text.Component format(String value) {
+    public static Component format(String value) {
         value = convertFormattingCodes(value);
 
         try {
-            return miniMessage.deserializeOr(value, net.kyori.adventure.text.Component.translatable(value));
+            return miniMessage.deserializeOr(value, Component.text(value));
         } catch (Exception ignored) {
             // Mini message fails to format text that contain legacy formatting. Since we support both, that's bad.
             // We just ignore the exception here so that the whole format doesn't fail
         }
 
-        return net.kyori.adventure.text.Component.translatable(value);
+        return Component.text(value);
+    }
+
+    public static String getString(Component in) {
+        return PlainTextComponentSerializer.plainText().serialize(in);
     }
 
     private static String convertFormattingCodes(String input) {

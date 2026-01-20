@@ -1,37 +1,32 @@
 package com.hypherionmc.craterlib.nojang.client.multiplayer;
 
-import com.hypherionmc.craterlib.utils.ChatUtils;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.Component;
-import net.minecraft.client.multiplayer.ServerData;
 
+// TODO: Implement if Possible
 @RequiredArgsConstructor(staticName = "of")
 public class BridgedServerData {
 
-    private final ServerData internal;
+    //private final ServerData internal;
 
     public String name() {
-        return internal.name;
+        return "Not Implemented";
     }
 
     public String ip() {
-        return internal.ip;
+        return "Not Implemented";
     }
 
     public Component motd() {
-        return ChatUtils.mojangToAdventure(internal.motd);
+        return Component.text("Not Implemented");
     }
 
     public int getMaxPlayers() {
-        if (internal.players == null) {
-            return internal.playerList.size() + 1;
-        }
-
-        return internal.players.max();
+        return 0;
     }
 
-    public ServerData toMojang() {
-        return internal;
-    }
+//    public ServerData toMojang() {
+//        return internal;
+//    }
 
 }

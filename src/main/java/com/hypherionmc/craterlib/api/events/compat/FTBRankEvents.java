@@ -4,8 +4,6 @@ package com.hypherionmc.craterlib.api.events.compat;
 import com.hypherionmc.craterlib.compat.ftbranks.BridgedRank;
 import com.hypherionmc.craterlib.core.event.CraterEvent;
 import com.hypherionmc.craterlib.nojang.authlib.BridgedGameProfile;
-import com.mojang.authlib.GameProfile;
-import dev.ftb.mods.ftbranks.api.Rank;
 import lombok.Getter;
 
 public class FTBRankEvents {
@@ -20,9 +18,10 @@ public class FTBRankEvents {
             this.rank = rank;
         }
 
-        public static RankAddedEvent of(GameProfile profile, Rank rank) {
-            return new RankAddedEvent(BridgedGameProfile.of(profile), BridgedRank.of(rank));
-        }
+        // TODO: Cleanup
+//        public static RankAddedEvent of(GameProfile profile, Rank rank) {
+//            return new RankAddedEvent(BridgedGameProfile.of(profile), BridgedRank.of(rank));
+//        }
     }
 
     @Getter
@@ -35,9 +34,10 @@ public class FTBRankEvents {
             this.rank = rank;
         }
 
-        public static RankRemovedEvent of(GameProfile profile, Rank rank) {
-            return new RankRemovedEvent(BridgedGameProfile.of(profile), BridgedRank.of(rank));
-        }
+        // TODO: Cleanup
+//        public static RankRemovedEvent of(GameProfile profile, Rank rank) {
+//            return new RankRemovedEvent(BridgedGameProfile.of(profile), BridgedRank.of(rank));
+//        }
     }
 
     @Getter
@@ -48,9 +48,10 @@ public class FTBRankEvents {
             this.rank = rank;
         }
 
-        public static RankDeletedEvent of(Rank rank) {
-            return new RankDeletedEvent(BridgedRank.of(rank));
-        }
+        // TODO: Cleanup
+//        public static RankDeletedEvent of(Rank rank) {
+//            return new RankDeletedEvent(BridgedRank.of(rank));
+//        }
     }
 
 }
