@@ -1,13 +1,13 @@
 package com.hypherionmc.craterlib;
 
+import com.hypherionmc.craterlib.api.game.text.Text;
+import com.hypherionmc.craterlib.api.loader.CraterLoader;
 import com.hypherionmc.craterlib.client.gui.config.ClothConfigScreenBuilder;
 import com.hypherionmc.craterlib.core.config.ConfigController;
 import com.hypherionmc.craterlib.core.config.annotations.ClothScreen;
-import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
-import com.hypherionmc.craterlib.nojang.client.BridgedMinecraft;
+import com.hypherionmc.craterlib.impl.api.client.BridgedMinecraft;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -28,12 +28,12 @@ public class CraterLibModMenuIntegration implements ModMenuApi {
             if (!config.getClass().isAnnotationPresent(ClothScreen.class))
                 return;
 
-            if ((ModloaderEnvironment.INSTANCE.isModLoaded("cloth_config") || ModloaderEnvironment.INSTANCE.isModLoaded("cloth-config") || ModloaderEnvironment.INSTANCE.isModLoaded("clothconfig"))) {
+            if ((CraterLoader.isModLoaded("cloth_config") || CraterLoader.isModLoaded("cloth-config") || CraterLoader.isModLoaded("clothconfig"))) {
                 configScreens.put(config.getModId(), screen -> ClothConfigScreenBuilder.buildConfigScreen(config, screen));
             } else {
-                configScreens.put(config.getModId(), screen -> BridgedMinecraft.getInstance().buildWarningScreen(
-                        Component.text("Notice").style(Style.style(NamedTextColor.YELLOW).decorate(TextDecoration.BOLD)),
-                        Component.text("This mod does have a config screen, but requires Cloth Config to be installed."),
+                configScreens.put(config.getModId(), screen -> ((BridgedMinecraft) CraterLoader.getClient()).buildWarningScreen(
+                        Text.literal("Notice").style(Style.style(NamedTextColor.YELLOW).decorate(TextDecoration.BOLD)),
+                        Text.literal("This mod does have a config screen, but requires Cloth Config to be installed."),
                         screen
                 ));
             }

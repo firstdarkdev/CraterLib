@@ -1,43 +1,68 @@
 package com.hypherionmc.craterlib.common;
 
-import com.hypherionmc.craterlib.core.platform.CompatUtils;
-import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
-import net.kyori.adventure.text.Component;
+import com.google.auto.service.AutoService;
+import com.hypherionmc.craterlib.api.compat.LuckPermsCompat;
+import com.hypherionmc.craterlib.api.compat.ftbranks.FTBRanks;
+import com.hypherionmc.craterlib.api.game.text.Text;
+import com.hypherionmc.craterlib.api.game.world.entity.player.CraterPlayer;
+import com.hypherionmc.craterlib.api.loader.CraterLoader;
+import com.hypherionmc.craterlib.core.services.CraterCompatUtils;
+import com.hypherionmc.craterlib.impl.compat.LuckPermsCompatImpl;
+import com.hypherionmc.craterlib.impl.compat.ftb.FTBRanksImpl;
 
-public class ForgeCompatHelper implements CompatUtils {
+@AutoService(CraterCompatUtils.class)
+public class ForgeCompatHelper implements CraterCompatUtils {
 
     @Override
-    public boolean isPlayerActive(BridgedPlayer player) {
+    public boolean isPlayerActive(CraterPlayer player) {
         return true;
     }
 
     @Override
-    public String getSkinUUID(BridgedPlayer player) {
+    public String getSkinUUID(CraterPlayer player) {
         return player.getStringUUID();
     }
 
     @Override
-    public boolean isPlayerBleeding(BridgedPlayer player) {
+    public boolean isPlayerBleeding(CraterPlayer player) {
         return false;
     }
 
     @Override
-    public boolean playerBledOut(BridgedPlayer player) {
+    public boolean playerBledOut(CraterPlayer player) {
         return false;
     }
 
     @Override
-    public boolean playerRevived(BridgedPlayer player) {
+    public boolean playerRevived(CraterPlayer player) {
         return false;
     }
 
     @Override
-    public boolean isPrivateMessage(BridgedPlayer player) {
+    public boolean isPrivateMessage(CraterPlayer player) {
         return false;
     }
 
     @Override
-    public Component getChannelPrefix(BridgedPlayer player) {
-        return Component.empty();
+    public Text getChannelPrefix(CraterPlayer player) {
+        return Text.empty();
+    }
+
+    @Override
+    public boolean isPlayerMuted(CraterPlayer player) {
+        if (!CraterLoader.isModLoaded("ftbessentials"))
+            return false;
+
+        return false;
+    }
+
+    @Override
+    public FTBRanks getFTBRanks() {
+        return FTBRanksImpl.INSTANCE;
+    }
+
+    @Override
+    public LuckPermsCompat getLuckperms() {
+        return LuckPermsCompatImpl.INSTANCE;
     }
 }
