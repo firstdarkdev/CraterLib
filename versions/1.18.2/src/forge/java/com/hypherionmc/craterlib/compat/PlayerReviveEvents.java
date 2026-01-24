@@ -1,7 +1,7 @@
 package com.hypherionmc.craterlib.compat;
 
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
-import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+import com.hypherionmc.craterlib.impl.api.world.entity.player.BridgedPlayer;
 import lombok.NoArgsConstructor;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import team.creative.playerrevive.api.event.PlayerBleedOutEvent;
@@ -12,12 +12,12 @@ public class PlayerReviveEvents {
 
     @SubscribeEvent
     public void playerRevived(PlayerRevivedEvent event) {
-        CraterEventBus.INSTANCE.postEvent(com.hypherionmc.craterlib.api.events.compat.PlayerRevivedEvent.of(BridgedPlayer.of(event.getPlayer())));
+        CraterEventBus.INSTANCE.postEvent(com.hypherionmc.craterlib.api.events.compat.PlayerRevivedEvent.of(BridgedPlayer.wrap(event.getPlayer())));
     }
 
     @SubscribeEvent
     public void playerBledOutEvent(PlayerBleedOutEvent event) {
-        CraterEventBus.INSTANCE.postEvent(com.hypherionmc.craterlib.api.events.compat.PlayerRevivedEvent.of(BridgedPlayer.of(event.getPlayer())));
+        CraterEventBus.INSTANCE.postEvent(com.hypherionmc.craterlib.api.events.compat.PlayerRevivedEvent.of(BridgedPlayer.wrap(event.getPlayer())));
     }
 
 }

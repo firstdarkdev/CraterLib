@@ -2,7 +2,7 @@ package com.hypherionmc.craterlib.mixin.events.client;
 
 import com.hypherionmc.craterlib.api.events.client.ScreenEvent;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
-import com.hypherionmc.craterlib.nojang.client.gui.BridgedScreen;
+import com.hypherionmc.craterlib.impl.api.client.gui.BridgedScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.Nullable;
@@ -24,7 +24,7 @@ public class MinecraftMixin {
        try {
            Screen old = this.screen;
            if (screen != null) {
-               ScreenEvent.Opening opening = new ScreenEvent.Opening(BridgedScreen.of(old), BridgedScreen.of(screen));
+               ScreenEvent.Opening opening = new ScreenEvent.Opening(BridgedScreen.wrap(old), BridgedScreen.wrap(screen));
                CraterEventBus.INSTANCE.postEvent(opening);
            }
        } catch (Exception ignored) {}

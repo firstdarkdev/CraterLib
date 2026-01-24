@@ -38,19 +38,15 @@ pipeline {
 
         stage("Prepare") {
             steps {
-                dir("${WORKSPACE}/versions/${majorMc}") {
-                    sh "chmod +x ./gradlew"
-                    sh "./gradlew build -PreleaseType=${reltype}"
-                }
+                sh "chmod +x ./gradlew"
+                sh "./gradlew build -PreleaseType=${reltype}"
             }
         }
 
         stage("Publish to Maven") {
             steps {
-                dir ("${WORKSPACE}/versions/${majorMc}") {
-                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                        sh "./gradlew publish -PreleaseType=${reltype}"
-                    }
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh "./gradlew publish -PreleaseType=${reltype}"
                 }
             }
         }
@@ -58,9 +54,8 @@ pipeline {
 
     post {
         always {
-            dir("${WORKSPACE}/versions/${majorMc}") {
-                sh "./gradlew --stop"
-                archiveArtifacts artifacts: 'artifacts/*.jar'
+            sh "./gradlew --stop"
+            archiveArtifacts artifacts: 'artifacts/*.jar'
 
             fddsnapshotter apiKey: env.PLATFORM_KEY,
                 projectSlug: "craterlib",
@@ -74,7 +69,6 @@ pipeline {
                 publishWebhooks: "${env.SSS_WEBHOOK}|${env.FDD_WH}"
 
             deleteDir()
-           }
         }
     }
 }

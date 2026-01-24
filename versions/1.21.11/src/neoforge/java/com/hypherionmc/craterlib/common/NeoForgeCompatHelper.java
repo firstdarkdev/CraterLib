@@ -1,61 +1,88 @@
 package com.hypherionmc.craterlib.common;
 
-import com.hypherionmc.craterlib.core.platform.CompatUtils;
-import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
-import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
-import net.kyori.adventure.text.Component;
+import com.google.auto.service.AutoService;
+import com.hypherionmc.craterlib.api.compat.LuckPermsCompat;
+import com.hypherionmc.craterlib.api.compat.ftbranks.FTBRanks;
+import com.hypherionmc.craterlib.api.game.text.Text;
+import com.hypherionmc.craterlib.api.game.world.entity.player.CraterPlayer;
+import com.hypherionmc.craterlib.api.loader.CraterLoader;
+import com.hypherionmc.craterlib.core.services.CraterCompatUtils;
+import com.hypherionmc.craterlib.impl.compat.LuckPermsCompatImpl;
+import dev.ftb.mods.ftbessentials.util.FTBEPlayerData;
 import redstonedubstep.mods.vanishmod.VanishUtil;
 import team.creative.playerrevive.api.IBleeding;
 import team.creative.playerrevive.server.PlayerReviveServer;
 
-public class NeoForgeCompatHelper implements CompatUtils {
+import java.util.Optional;
+
+@AutoService(CraterCompatUtils.class)
+public class NeoForgeCompatHelper implements CraterCompatUtils {
 
     @Override
-    public boolean isPlayerActive(BridgedPlayer player) {
-        if (!ModloaderEnvironment.INSTANCE.isModLoaded("vmod"))
+    public boolean isPlayerActive(CraterPlayer player) {
+        if (!CraterLoader.isModLoaded("vmod"))
             return true;
 
-        return !VanishUtil.isVanished(player.toMojangServerPlayer());
+        return !VanishUtil.isVanished(player.unwrap());
     }
 
     @Override
-    public String getSkinUUID(BridgedPlayer player) {
+    public String getSkinUUID(CraterPlayer player) {
         return player.getStringUUID();
     }
 
     @Override
-    public boolean isPlayerBleeding(BridgedPlayer player) {
-        if (!ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive"))
+    public boolean isPlayerBleeding(CraterPlayer player) {
+        if (!CraterLoader.isModLoaded("playerrevive"))
             return false;
 
-        return PlayerReviveServer.isBleeding(player.toMojangServerPlayer());
+        return PlayerReviveServer.isBleeding(player.unwrap());
     }
 
     @Override
-    public boolean playerBledOut(BridgedPlayer player) {
-        if (!ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive"))
+    public boolean playerBledOut(CraterPlayer player) {
+        if (!CraterLoader.isModLoaded("playerrevive"))
             return false;
 
-        IBleeding bleeding = PlayerReviveServer.getBleeding(player.toMojangServerPlayer());
+        IBleeding bleeding = PlayerReviveServer.getBleeding(player.unwrap());
         return bleeding != null && bleeding.bledOut();
     }
 
     @Override
-    public boolean playerRevived(BridgedPlayer player) {
-        if (!ModloaderEnvironment.INSTANCE.isModLoaded("playerrevive"))
+    public boolean playerRevived(CraterPlayer player) {
+        if (!CraterLoader.isModLoaded("playerrevive"))
             return false;
 
-        IBleeding bleeding = PlayerReviveServer.getBleeding(player.toMojangServerPlayer());
+        IBleeding bleeding = PlayerReviveServer.getBleeding(player.unwrap());
         return bleeding != null && bleeding.revived();
     }
 
     @Override
-    public boolean isPrivateMessage(BridgedPlayer player) {
+    public boolean isPrivateMessage(CraterPlayer player) {
         return false;
     }
 
     @Override
-    public Component getChannelPrefix(BridgedPlayer player) {
-        return Component.empty();
+    public Text getChannelPrefix(CraterPlayer player) {
+        return Text.empty();
+    }
+
+    @Override
+    public boolean isPlayerMuted(CraterPlayer player) {
+        if (!CraterLoader.isModLoaded("ftbessentials"))
+            return false;
+
+        Optional<FTBEPlayerData> data = FTBEPlayerData.getOrCreate(player.unwrap());
+        return data.map(FTBEPlayerData::isMuted).orElse(false);
+    }
+
+    @Override
+    public FTBRanks getFTBRanks() {
+        return FTBRanks.getInstance();
+    }
+
+    @Override
+    public LuckPermsCompat getLuckperms() {
+        return LuckPermsCompatImpl.INSTANCE;
     }
 }

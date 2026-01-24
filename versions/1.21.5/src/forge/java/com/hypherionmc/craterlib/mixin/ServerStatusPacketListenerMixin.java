@@ -1,8 +1,8 @@
 package com.hypherionmc.craterlib.mixin;
 
 import com.hypherionmc.craterlib.api.events.server.ServerStatusEvent;
+import com.hypherionmc.craterlib.api.game.text.Text;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
-import com.hypherionmc.craterlib.utils.ChatUtils;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.status.ClientboundStatusResponsePacket;
 import net.minecraft.network.protocol.status.ServerStatus;
@@ -32,14 +32,14 @@ public class ServerStatusPacketListenerMixin {
             cancellable = true
     )
     private void injectHandleStatusRequest(ServerboundStatusRequestPacket arg, CallbackInfo ci) {
-        ServerStatusEvent.StatusRequestEvent event = new ServerStatusEvent.StatusRequestEvent(ChatUtils.mojangToAdventure(status.description()));
+        ServerStatusEvent.StatusRequestEvent event = new ServerStatusEvent.StatusRequestEvent(Text.fromGame(status.description()));
         CraterEventBus.INSTANCE.postEvent(event);
 
         if (event.getNewStatus() != null) {
             ci.cancel();
             this.connection.send(new ClientboundStatusResponsePacket(
-                    new ServerStatus(ChatUtils.adventureToMojang(
-                            event.getNewStatus()),
+                    new ServerStatus(
+                            event.getNewStatus().toGame(),
                             status.players(),
                             status.version(),
                             status.favicon(),

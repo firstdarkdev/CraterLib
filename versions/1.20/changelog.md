@@ -6,11 +6,8 @@
 
 **This is a re-release of 3.0.0 with the following fixes**:
 
-- Fixes various startup crashes and mixin crashes across all versions and loader
-- Thou shalt not release to prod on a Friday night.........
-
-My apologies to everyone for this very disastrous release.
-
+- Fixed Startup Crash on Forge Pre 1.21
+- Fixed Mixin Crash on Fabric 1.21.1
 
 **Bug Fixes**
 

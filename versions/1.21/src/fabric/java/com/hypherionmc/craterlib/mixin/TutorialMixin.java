@@ -2,8 +2,9 @@ package com.hypherionmc.craterlib.mixin;
 
 import com.hypherionmc.craterlib.api.events.client.LateInitEvent;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
-import com.hypherionmc.craterlib.nojang.client.BridgedMinecraft;
-import com.hypherionmc.craterlib.nojang.client.BridgedOptions;
+import com.hypherionmc.craterlib.core.loader.plugins.CraterPluginLoader;
+import com.hypherionmc.craterlib.impl.api.client.BridgedMinecraft;
+import com.hypherionmc.craterlib.impl.api.client.BridgedOptions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.tutorial.Tutorial;
@@ -17,7 +18,10 @@ public class TutorialMixin {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void injectEarlyInitEvent(Minecraft minecraft, Options options, CallbackInfo ci) {
-        LateInitEvent event = new LateInitEvent(new BridgedMinecraft(), BridgedOptions.of(options));
+        CraterPluginLoader.loadIfNotLoaded();
+        CraterPluginLoader.initializeEarly();
+
+        LateInitEvent event = new LateInitEvent(new BridgedMinecraft(), BridgedOptions.wrap(options));
         CraterEventBus.INSTANCE.postEvent(event);
     }
 

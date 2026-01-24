@@ -1,9 +1,9 @@
 package com.hypherionmc.craterlib.mixin;
 
 import com.hypherionmc.craterlib.api.events.server.CraterServerChatEvent;
+import com.hypherionmc.craterlib.api.game.text.Text;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
-import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
-import com.hypherionmc.craterlib.utils.ChatUtils;
+import com.hypherionmc.craterlib.impl.api.world.entity.player.BridgedPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.PlayerChatMessage;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,7 +28,7 @@ public class ServerGamePacketListenerImplMixin {
     )
     private void injectChatEvent(PlayerChatMessage arg, Component arg2, FilteredText arg3, CallbackInfo ci) {
         Component finalcomp = arg2 == null ? arg.decoratedContent() : arg2;
-        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.of(this.player), finalcomp.getString(), ChatUtils.mojangToAdventure(finalcomp));
+        CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.wrap(this.player), finalcomp.getString(), Text.fromGame(finalcomp));
         CraterEventBus.INSTANCE.postEvent(event);
         if (event.wasCancelled())
             ci.cancel();

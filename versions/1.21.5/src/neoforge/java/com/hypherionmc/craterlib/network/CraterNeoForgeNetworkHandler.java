@@ -1,12 +1,14 @@
 package com.hypherionmc.craterlib.network;
 
-import com.hypherionmc.craterlib.CraterConstants;
-import com.hypherionmc.craterlib.api.networking.CommonPacketWrapper;
+import com.hypherionmc.craterlib.api.game.world.entity.player.CraterPlayer;
+import com.hypherionmc.craterlib.api.loader.CraterLoader;
 import com.hypherionmc.craterlib.core.networking.PacketRegistry;
 import com.hypherionmc.craterlib.core.networking.data.PacketContext;
 import com.hypherionmc.craterlib.core.networking.data.PacketHolder;
 import com.hypherionmc.craterlib.core.networking.data.PacketSide;
-import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+import com.hypherionmc.craterlib.impl.api.world.entity.player.BridgedPlayer;
+import com.hypherionmc.craterlib.impl.networking.CommonPacketHolder;
+import com.hypherionmc.craterlib.impl.networking.CommonPacketWrapper;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.LogicalSide;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -27,8 +29,8 @@ public class CraterNeoForgeNetworkHandler extends PacketRegistry {
     @SubscribeEvent
     public void register(final RegisterPayloadHandlersEvent event) {
         if (!PACKET_MAP.isEmpty()) {
-            PACKET_MAP.forEach((type, container) -> event.registrar(container.getType().id().getNamespace())
-                    .optional().commonBidirectional(container.getType(), container.getCodec(), buildHandler(container.handler())));
+            PACKET_MAP.values().stream().map(CommonPacketHolder::wrap).forEach(container -> event.registrar(container.getType().id().getNamespace())
+                    .optional().commonBidirectional(container.getType(), container.getCodec(), buildHandler(container.getHandler())));
         }
     }
 
@@ -42,17 +44,21 @@ public class CraterNeoForgeNetworkHandler extends PacketRegistry {
     }
 
     public <T> void sendToServer(T packet, boolean ignoreCheck) {
-        PacketHolder<T> container = (PacketHolder<T>) PACKET_MAP.get(packet.getClass());
+        PacketHolder<T> c = (PacketHolder<T>) PACKET_MAP.get(packet.getClass());
+        CommonPacketHolder<T> container = CommonPacketHolder.wrap(c);
+
         if (container != null) {
             PacketDistributor.sendToServer(new CommonPacketWrapper<>(container, packet));
         }
     }
 
-    public <T> void sendToClient(T packet, BridgedPlayer player) {
-        PacketHolder<T> container = (PacketHolder<T>) PACKET_MAP.get(packet.getClass());
+    public <T> void sendToClient(T packet, CraterPlayer player) {
+        PacketHolder<T> c = (PacketHolder<T>) PACKET_MAP.get(packet.getClass());
+        CommonPacketHolder<T> container = CommonPacketHolder.wrap(c);
+
         if (container != null) {
-            if (player.getConnection().hasChannel(container.type())) {
-                PacketDistributor.sendToPlayer(player.toMojangServerPlayer(), new CommonPacketWrapper<>(container, packet));
+            if (((BridgedPlayer) player).getConnection().hasChannel(container.getType())) {
+                PacketDistributor.sendToPlayer(player.unwrap(), new CommonPacketWrapper<>(container, packet));
             }
         }
     }
@@ -63,14 +69,14 @@ public class CraterNeoForgeNetworkHandler extends PacketRegistry {
             {
                 PacketSide side = ctx.flow().getReceptionSide().equals(LogicalSide.SERVER) ? PacketSide.SERVER : PacketSide.CLIENT;
                 if (PacketSide.SERVER.equals(side)) {
-                    handler.accept(new PacketContext<>(BridgedPlayer.of(ctx.player()), payload.packet(), side));
+                    handler.accept(new PacketContext<>(BridgedPlayer.wrap(ctx.player()), payload.packet(), side));
                 } else {
                     handler.accept(new PacketContext<>(payload.packet(), side));
                 }
 
             }
             catch (Throwable t) {
-                CraterConstants.LOG.error("Error handling packet: {} -> ", payload.packet().getClass(), t);
+                CraterLoader.LOGGER.error("Error handling packet: {} -> ", payload.packet().getClass(), t);
             }
         };
     }

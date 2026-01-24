@@ -2,7 +2,7 @@ package com.hypherionmc.craterlib.mixin.events.client;
 
 import com.hypherionmc.craterlib.api.events.client.PlayerJoinRealmEvent;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
-import com.hypherionmc.craterlib.nojang.realmsclient.dto.BridgedRealmsServer;
+import com.hypherionmc.craterlib.impl.api.realmsclient.dto.BridgedRealmsServer;
 import com.mojang.realmsclient.RealmsMainScreen;
 import com.mojang.realmsclient.dto.RealmsServer;
 import net.minecraft.client.gui.screens.Screen;
@@ -17,7 +17,7 @@ public class RealmsMainScreenMixin {
     @Inject(at = @At("HEAD"), method = "play(Lcom/mojang/realmsclient/dto/RealmsServer;Lnet/minecraft/client/gui/screens/Screen;Z)V")
     private static void play(RealmsServer serverData, Screen arg2, boolean bl, CallbackInfo ci) {
         try {
-            PlayerJoinRealmEvent playerJoinRealm = new PlayerJoinRealmEvent(BridgedRealmsServer.of(serverData));
+            PlayerJoinRealmEvent playerJoinRealm = new PlayerJoinRealmEvent(BridgedRealmsServer.wrap(serverData));
             CraterEventBus.INSTANCE.postEvent(playerJoinRealm);
         } catch (Exception ignored) { }
     }

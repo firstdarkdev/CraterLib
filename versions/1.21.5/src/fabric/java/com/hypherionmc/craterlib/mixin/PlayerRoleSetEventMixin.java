@@ -1,9 +1,9 @@
 package com.hypherionmc.craterlib.mixin;
 
+import com.hypherionmc.craterlib.api.compat.playerroles.BridgedPlayerRoles;
 import com.hypherionmc.craterlib.api.events.compat.PlayerRolesEvents;
-import com.hypherionmc.craterlib.compat.playerroles.BridgedPlayerRoles;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
-import com.hypherionmc.craterlib.nojang.authlib.BridgedGameProfile;
+import com.hypherionmc.craterlib.impl.api.authlib.BridgedGameProfile;
 import dev.gegy.roles.api.Role;
 import dev.gegy.roles.store.PlayerRoleSet;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,7 +27,12 @@ public class PlayerRoleSetEventMixin {
         try {
             var success = cir.getReturnValue();
             if (success) {
-                CraterEventBus.INSTANCE.postEvent(PlayerRolesEvents.RoleAddedEvent.of(BridgedPlayerRoles.of(role.getId(), role.getIndex()), BridgedGameProfile.of(player.getGameProfile())));
+                CraterEventBus.INSTANCE.postEvent(
+                        PlayerRolesEvents.RoleAddedEvent.of(
+                                BridgedPlayerRoles.wrap(role.getId(), role.getIndex()),
+                                BridgedGameProfile.wrap(player.getGameProfile())
+                        )
+                );
             }
         } catch (Exception ignored) {}
     }
@@ -37,7 +42,12 @@ public class PlayerRoleSetEventMixin {
         try {
             var success = cir.getReturnValue();
             if (success) {
-                CraterEventBus.INSTANCE.postEvent(PlayerRolesEvents.RoleRemovedEvent.of(BridgedPlayerRoles.of(role.getId(), role.getIndex()), BridgedGameProfile.of(player.getGameProfile())));
+                CraterEventBus.INSTANCE.postEvent(
+                        PlayerRolesEvents.RoleRemovedEvent.of(
+                                BridgedPlayerRoles.wrap(role.getId(), role.getIndex()),
+                                BridgedGameProfile.wrap(player.getGameProfile())
+                        )
+                );
             }
         } catch (Exception ignored) {}
     }

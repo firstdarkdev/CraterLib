@@ -24,6 +24,11 @@ orion.setup {
     multiProject.set(true)
     enableMirrorMaven.set(true)
     enableReleasesMaven.set(true)
+
+    tools {
+        autoService()
+        lombok()
+    }
 }
 
 multimined.setup {
@@ -32,14 +37,21 @@ multimined.setup {
 
     val commonShadow: MultiMinedExtension.ShadowJarConfig.() -> Unit = {
         exclude("com.google.code.gson:.*")
-        relocate("me.hypherionmc.moonconfig" to "shadow.hypherionmc.moonconfig")
-        relocate("me.hypherionmc.mcdiscordformatter" to "shadow.hypherionmc.mcdiscordformatter")
+        relocate("me.hypherionmc.moonconfig" to "com.hypherionmc.craterlib.libs.moonconfig")
+        relocate("com.hypherionmc.mcdiscordformatter" to "com.hypherionmc.craterlib.libs.mcdiscordformatter")
         mergeServiceFiles()
     }
 
     shadowJar {
         commonShadow()
-        relocate("net.kyori" to "shadow.kyori")
+    }
+
+    jarJarExclude(listOf("com.google.code.gson"))
+
+    api {
+        shadowJar {
+            commonShadow()
+        }
     }
 
     fabric {
@@ -47,7 +59,6 @@ multimined.setup {
 
         shadowJar {
             commonShadow()
-            relocate("net.kyori" to "shadow.kyori")
         }
     }
 
@@ -57,7 +68,6 @@ multimined.setup {
         shadowJar {
             commonShadow()
             exclude("META-INF/versions/**")
-            relocate("net.kyori" to "shadow.kyori")
         }
 
         mixinConfig("${orion.getProperty("mod_id")}.mixins.json", "${orion.getProperty("mod_id")}.neoforge.mixins.json")
@@ -79,7 +89,6 @@ multimined.setup {
         shadowJar {
             commonShadow()
             exclude("META-INF/versions/**")
-            relocate("net.kyori" to "shadow.kyori")
         }
 
         mixinConfig("${orion.getProperty("mod_id")}.mixins.json", "${orion.getProperty("mod_id")}.forge.mixins.json")
@@ -93,9 +102,8 @@ origami {
     excludedPackages = listOf(
         "com.hypherionmc.craterlib.client",
         "com.hypherionmc.craterlib.mixin",
-        "com.hypherionmc.craterlib.nojang.client",
-        "com.hypherionmc.craterlib.core.rpcsdk",
-        "com.hypherionmc.craterlib.nojang.realmsclient"
+        "com.hypherionmc.craterlib.api.game.client",
+        "com.hypherionmc.craterlib.api.game.realmsclient"
     )
 
     // These resources cannot, and will not work on paper, so we exclude them
@@ -114,14 +122,13 @@ dependencies {
     multimined.shade("me.hypherionmc.moon-config:core:${orion.getProperty("moon_config")}")
     multimined.shade("me.hypherionmc.moon-config:toml:${orion.getProperty("moon_config")}")
     multimined.shade("me.hypherionmc.moon-config:json:${orion.getProperty("moon_config")}")
-    multimined.shade("me.hypherionmc.sdlink:mcdiscordformatter-1.20.3:${orion.getProperty("discord_formatter")}")
-    multimined.shade("net.kyori:adventure-api:${orion.getProperty("adventure")}")
-    multimined.shade("net.kyori:adventure-text-serializer-gson:${orion.getProperty("adventure")}")
-    multimined.shade("net.kyori:adventure-text-minimessage:${orion.getProperty("adventure")}")
+    multimined.shade("com.hypherionmc.modutils:mcdiscordformatter:${orion.getProperty("discord_formatter")}")
+    multimined.commonInclude("net.kyori:adventure-api:${orion.getProperty("adventure")}")
+    multimined.commonInclude("net.kyori:adventure-text-serializer-gson:${orion.getProperty("adventure")}")
+    multimined.commonInclude("net.kyori:adventure-text-serializer-plain:${orion.getProperty("adventure")}")
+    multimined.commonInclude("net.kyori:adventure-text-minimessage:${orion.getProperty("adventure")}")
 
     compileOnly("net.luckperms:api:5.4")
-    compileOnly("org.projectlombok:lombok:${orion.getProperty("lombok")}")
-    annotationProcessor("org.projectlombok:lombok:${orion.getProperty("lombok")}")
     // endregion
 
     // region Common

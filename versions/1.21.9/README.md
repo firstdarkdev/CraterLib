@@ -32,13 +32,11 @@ A Library mod and modding api for easier multi-version minecraft and mod loader 
 
 * Universal Config System (TOML Based)
 * Built in Helper Classes for Various minecraft features
-* Built in Optifine-Compat utilities
-* Various utilities for Blockstates, LANG, Math and Rendering
 * Cross Mod-Loader Events - Based on [Acara](https://github.com/Keksuccino/acara)
 * Cross Mod-Loader Config Screens (Based on [Cloth Config Lite](https://github.com/shedaniel/cloth-config-lite))
-* Automatic ModMenu and Forge Config screen registration
+* Automatic ModMenu and (Neo)Forge Config screen registration
 * Built in Cross Mod-Loader Network system
-* Nojang Modding API
+* Cross Platform Mod-Loader and Modding API to create version and game independent mods
 
 ***
 

@@ -2,8 +2,8 @@ package com.hypherionmc.craterlib.mixin.events;
 
 import com.hypherionmc.craterlib.api.events.server.CraterAdvancementEvent;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
-import com.hypherionmc.craterlib.nojang.advancements.BridgedAdvancement;
-import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+import com.hypherionmc.craterlib.impl.api.advancements.BridgedAdvancement;
+import com.hypherionmc.craterlib.impl.api.world.entity.player.BridgedPlayer;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.server.PlayerAdvancements;
@@ -26,7 +26,7 @@ public class PlayerAdvancementsMixin {
             Advancement advancement = advancementHolder.value();
 
             if (advancement.display().isPresent() && advancement.display().get().shouldAnnounceChat()) {
-                CraterEventBus.INSTANCE.postEvent(new CraterAdvancementEvent(BridgedPlayer.of(this.player), BridgedAdvancement.of(advancementHolder.value())));
+                CraterEventBus.INSTANCE.postEvent(new CraterAdvancementEvent(BridgedPlayer.wrap(this.player), BridgedAdvancement.wrap(advancementHolder.value())));
             }
         } catch (Exception ignored) {}
     }

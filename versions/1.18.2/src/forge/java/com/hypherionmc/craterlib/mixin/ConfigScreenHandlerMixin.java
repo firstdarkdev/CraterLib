@@ -1,18 +1,15 @@
 package com.hypherionmc.craterlib.mixin;
 
+import com.hypherionmc.craterlib.api.game.text.Text;
+import com.hypherionmc.craterlib.api.loader.CraterLoader;
 import com.hypherionmc.craterlib.client.gui.config.ClothConfigScreenBuilder;
-import com.hypherionmc.craterlib.core.config.AbstractConfig;
 import com.hypherionmc.craterlib.core.config.ConfigController;
 import com.hypherionmc.craterlib.core.config.annotations.ClothScreen;
-import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
-import com.hypherionmc.craterlib.nojang.client.BridgedMinecraft;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.Style;
-import net.kyori.adventure.text.format.TextDecoration;
+import com.hypherionmc.craterlib.impl.api.client.BridgedMinecraft;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.client.ConfigGuiHandler;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.forgespi.language.IModInfo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,20 +35,19 @@ public class ConfigScreenHandlerMixin {
             if (!config.getClass().isAnnotationPresent(ClothScreen.class))
                 return;
 
-            if (config.getModId().equals(selectedMod.getModId())) {
-                if (config.getClass().isAnnotationPresent(ClothScreen.class) && ModloaderEnvironment.INSTANCE.isModLoaded("cloth_config")) {
-                    cir.setReturnValue(
-                            Optional.of((minecraft, screen) -> ClothConfigScreenBuilder.buildConfigScreen(config, screen))
-                    );
-                } else {
-                    cir.setReturnValue(
-                            Optional.of((minecraft, screen) -> BridgedMinecraft.getInstance().buildWarningScreen(
-                                    Component.text("Notice").style(Style.style(NamedTextColor.YELLOW).decorate(TextDecoration.BOLD)),
-                                    Component.text("This mod does have a config screen, but requires Cloth Config to be installed."),
-                                    screen
-                            ))
-                    );
-                }
+            if ((CraterLoader.isModLoaded("cloth_config") || CraterLoader.isModLoaded("cloth-config") || CraterLoader.isModLoaded("clothconfig"))) {
+                ModList.get()
+                        .getModContainerById(config.getModId())
+                        .ifPresent(c -> c.registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () -> new ConfigGuiHandler.ConfigGuiFactory((minecraft, screen) -> ClothConfigScreenBuilder.buildConfigScreen(config, screen))));
+            } else {
+                ModList.get().getModContainerById(config.getModId()).ifPresent(c -> c.registerExtensionPoint(
+                       ConfigGuiHandler.ConfigGuiFactory.class,
+                        (() -> new ConfigGuiHandler.ConfigGuiFactory((minecraft, screen) -> ((BridgedMinecraft) CraterLoader.getClient()).buildWarningScreen(
+                                Text.literal("Missing Cloth Config"),
+                                Text.literal("This config screen requires Cloth Config to be installed"),
+                                screen
+                        )))
+                ));
             }
         });
     }

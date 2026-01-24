@@ -1,6 +1,6 @@
 package com.hypherionmc.craterlib.client.gui.config;
 
-import com.hypherionmc.craterlib.CraterConstants;
+import com.hypherionmc.craterlib.api.loader.CraterLoader;
 import com.hypherionmc.craterlib.client.gui.config.widgets.ClothConfigButtonEntry;
 import com.hypherionmc.craterlib.core.config.AbstractConfig;
 import com.hypherionmc.craterlib.core.config.annotations.HideFromScreen;
@@ -121,7 +121,7 @@ public class ClothConfigScreenBuilder {
 
             category.addEntry(
                     new ClothConfigButtonEntry(
-                            Component.literal(""),
+                            Component.empty(),
                             Component.translatable("cl.buttons.add_entry"),
                             button -> {
                                 try {
@@ -130,7 +130,7 @@ public class ClothConfigScreenBuilder {
                                     saveFieldValue(list, field, invoker);
                                     Minecraft.getInstance().setScreen(buildListScreen(config, list, field, invoker, parent, true));
                                 } catch (Exception e) {
-                                    CraterConstants.LOG.error("Failed to create new list entry", e);
+                                    CraterLoader.LOGGER.error("Failed to create new list entry", e);
                                 }
                             }
                     )
@@ -296,7 +296,7 @@ public class ClothConfigScreenBuilder {
                 }
 
             } catch (Exception e) {
-                CraterConstants.LOG.error("Failed to process config file {}", baseConfig.getConfigName(), e);
+                CraterLoader.LOGGER.error("Failed to process config file {}", baseConfig.getConfigName(), e);
             }
         }
     }
@@ -310,7 +310,7 @@ public class ClothConfigScreenBuilder {
      * @return A {@link Component} that can be used for the tooltip
      */
     private static Component getToolTip(Field field) {
-        Component component = Component.empty();
+        Component component = Component.literal("");
 
         if (field.isAnnotationPresent(SpecComment.class)) {
             SpecComment comment = field.getAnnotation(SpecComment.class);
@@ -319,7 +319,7 @@ public class ClothConfigScreenBuilder {
 
         if (field.isAnnotationPresent(Tooltip.class)) {
             Tooltip tooltip = field.getAnnotation(Tooltip.class);
-            Component c = Component.empty();
+            Component c = Component.literal("");
 
             for (String comment : tooltip.value()) {
                 c.getSiblings().add(Component.literal(comment));
@@ -370,7 +370,7 @@ public class ClothConfigScreenBuilder {
                 field.set(config, value);
             }
         } catch (Exception e) {
-            CraterConstants.LOG.error("Failed to write config field {}", field.getName(), e);
+            CraterLoader.LOGGER.error("Failed to write config field {}", field.getName(), e);
         }
     }
 
@@ -396,12 +396,12 @@ public class ClothConfigScreenBuilder {
                             Component.literal("Failed To Save Config"),
                             Component.literal("Restoring Backup Copy. Check log for details"))
             );
-            CraterConstants.LOG.error("Failed to save config, restoring backup", e);
+            CraterLoader.LOGGER.error("Failed to save config, restoring backup", e);
             try {
                 Files.copy(backupPath, configPath.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 config.configReloaded();
             } catch (Exception restoreError) {
-                CraterConstants.LOG.error("Failed to restore config backup", restoreError);
+                CraterLoader.LOGGER.error("Failed to restore config backup", restoreError);
             }
         }
     }

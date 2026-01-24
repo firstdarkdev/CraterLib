@@ -1,0 +1,147 @@
+package com.hypherionmc.craterlib.impl.api.server;
+
+import com.hypherionmc.craterlib.api.game.authlib.CraterGameProfile;
+import com.hypherionmc.craterlib.api.game.commands.CraterFakePlayer;
+import com.hypherionmc.craterlib.api.game.server.CraterGameServer;
+import com.hypherionmc.craterlib.api.game.text.Text;
+import com.hypherionmc.craterlib.impl.api.advancements.BridgedAdvancementHolder;
+import com.hypherionmc.craterlib.impl.api.advancements.BridgedPlayerAdvancements;
+import com.hypherionmc.craterlib.impl.api.world.entity.player.BridgedPlayer;
+import com.hypherionmc.craterlib.impl.api.world.level.BridgedGameRules;
+import com.mojang.authlib.GameProfile;
+import net.minecraft.SharedConstants;
+import net.minecraft.Util;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.network.chat.ChatType;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.players.UserBanListEntry;
+import net.minecraft.server.players.UserWhiteListEntry;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+
+public class BridgedMinecraftServer implements CraterGameServer {
+
+    private final MinecraftServer internal;
+
+    protected BridgedMinecraftServer(MinecraftServer server) {
+        internal = server;
+    }
+
+    public static BridgedMinecraftServer wrap(MinecraftServer server) {
+        return new BridgedMinecraftServer(server);
+    }
+
+    @Override
+    public boolean isUsingWhitelist() {
+        return internal.getPlayerList().isUsingWhitelist();
+    }
+
+    @Override
+    public int getPlayerCount() {
+        return internal.getPlayerList().getPlayerCount();
+    }
+
+    @Override
+    public int getMaxPlayers() {
+        return internal.getPlayerList().getMaxPlayers();
+    }
+
+    @Override
+    public String getServerModName() {
+        return internal.getServerModName();
+    }
+
+    @Override
+    public String getName() {
+        return SharedConstants.getCurrentVersion().getName();
+    }
+
+    @Override
+    public boolean usesAuthentication() {
+        return internal.usesAuthentication();
+    }
+
+    @Override
+    public void broadcastSystemMessage(Text text, boolean bl) {
+        internal.getPlayerList().broadcastSystemMessage(text.toGame(), bl);
+    }
+
+    @Override
+    public boolean isPlayerBanned(CraterGameProfile profile) {
+        return internal.getPlayerList().getBans().isBanned(profile.unwrap());
+    }
+
+    @Override
+    public void whitelistPlayer(CraterGameProfile gameProfile) {
+        if (!internal.getPlayerList().isUsingWhitelist())
+            return;
+
+        internal.getPlayerList().getWhiteList().add(new UserWhiteListEntry((GameProfile) gameProfile.unwrap()));
+    }
+
+    @Override
+    public void unWhitelistPlayer(CraterGameProfile gameProfile) {
+        if (!internal.getPlayerList().isUsingWhitelist())
+            return;
+
+        internal.getPlayerList().getWhiteList().remove(new UserWhiteListEntry((GameProfile) gameProfile.unwrap()));
+    }
+
+    @Override
+    public List<BridgedPlayer> getPlayers() {
+        if (internal.getPlayerList() == null)
+            return Collections.emptyList();
+
+        return internal.getPlayerList().getPlayers().stream().map(BridgedPlayer::wrap).toList();
+    }
+
+    @Override
+    public BridgedGameRules getGameRules() {
+        return BridgedGameRules.bridge(internal.getWorldData().getGameRules());
+    }
+
+    @Override
+    public void banPlayer(CraterGameProfile profile) {
+        internal.getPlayerList().getBans().add(new UserBanListEntry((GameProfile) profile.unwrap()));
+    }
+
+    @Override
+    public void executeCommand(CraterGameServer server, CraterFakePlayer player, String command) {
+        internal.getCommands().performCommand(player.unwrap(), command);
+    }
+
+    @Override
+    public MinecraftServer unwrapInternal() {
+        return internal;
+    }
+
+    @Override
+    public BridgedPlayerAdvancements getPlayerAdvancements(UUID uuid) {
+        return BridgedPlayerAdvancements.wrap(internal.getPlayerList().getPlayer(uuid).getAdvancements());
+    }
+
+    @Override
+    public Collection<BridgedAdvancementHolder> getAdvancements() {
+        Collection<Advancement> ah = internal.getAdvancements().getAllAdvancements();
+        return ah.stream().map(BridgedAdvancementHolder::wrap).toList();
+    }
+
+    @Override
+    public boolean isHardcore() {
+        return internal.isHardcore();
+    }
+
+    @Override
+    public boolean isPaused() {
+        return false;
+    }
+
+    @Override
+    public boolean isDedicatedServer() {
+        return internal.isDedicatedServer();
+    }
+
+}

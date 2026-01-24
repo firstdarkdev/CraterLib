@@ -2,7 +2,7 @@ package com.hypherionmc.craterlib.mixin.events;
 
 import com.hypherionmc.craterlib.api.events.server.ServerStatusEvent;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
-import com.hypherionmc.craterlib.nojang.network.protocol.status.WrappedServerStatus;
+import com.hypherionmc.craterlib.impl.api.network.protocol.status.WrappedServerStatus;
 import net.minecraft.network.protocol.status.ServerStatus;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,7 +21,7 @@ public class ServerStatusMixin {
             CraterEventBus.INSTANCE.postEvent(event);
 
             if (event.getNewIcon().isPresent()) {
-                cir.setReturnValue(Optional.of(event.getNewIcon().get().toMojang()));
+                cir.setReturnValue(Optional.of(event.getNewIcon().get().unwrap()));
             }
         } catch (Exception ignored) { }
     }

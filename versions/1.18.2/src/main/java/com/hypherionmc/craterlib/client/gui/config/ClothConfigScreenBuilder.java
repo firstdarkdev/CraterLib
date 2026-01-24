@@ -1,6 +1,6 @@
 package com.hypherionmc.craterlib.client.gui.config;
 
-import com.hypherionmc.craterlib.CraterConstants;
+import com.hypherionmc.craterlib.api.loader.CraterLoader;
 import com.hypherionmc.craterlib.client.gui.config.widgets.ClothConfigButtonEntry;
 import com.hypherionmc.craterlib.core.config.AbstractConfig;
 import com.hypherionmc.craterlib.core.config.annotations.HideFromScreen;
@@ -132,7 +132,7 @@ public class ClothConfigScreenBuilder {
                                     saveFieldValue(list, field, invoker);
                                     Minecraft.getInstance().setScreen(buildListScreen(config, list, field, invoker, parent, true));
                                 } catch (Exception e) {
-                                    CraterConstants.LOG.error("Failed to create new list entry", e);
+                                    CraterLoader.LOGGER.error("Failed to create new list entry", e);
                                 }
                             }
                     )
@@ -298,7 +298,7 @@ public class ClothConfigScreenBuilder {
                 }
 
             } catch (Exception e) {
-                CraterConstants.LOG.error("Failed to process config file {}", baseConfig.getConfigName(), e);
+                CraterLoader.LOGGER.error("Failed to process config file {}", baseConfig.getConfigName(), e);
             }
         }
     }
@@ -372,7 +372,7 @@ public class ClothConfigScreenBuilder {
                 field.set(config, value);
             }
         } catch (Exception e) {
-            CraterConstants.LOG.error("Failed to write config field {}", field.getName(), e);
+            CraterLoader.LOGGER.error("Failed to write config field {}", field.getName(), e);
         }
     }
 
@@ -398,12 +398,12 @@ public class ClothConfigScreenBuilder {
                             new TextComponent("Failed To Save Config"),
                             new TextComponent("Restoring Backup Copy. Check log for details"))
             );
-            CraterConstants.LOG.error("Failed to save config, restoring backup", e);
+            CraterLoader.LOGGER.error("Failed to save config, restoring backup", e);
             try {
                 Files.copy(backupPath, configPath.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 config.configReloaded();
             } catch (Exception restoreError) {
-                CraterConstants.LOG.error("Failed to restore config backup", restoreError);
+                CraterLoader.LOGGER.error("Failed to restore config backup", restoreError);
             }
         }
     }

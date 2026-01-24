@@ -1,10 +1,14 @@
 package com.hypherionmc.craterlib;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.hypherionmc.craterlib.api.game.text.Text;
+import com.hypherionmc.craterlib.impl.MojangTextAdapter;
 
 public class CraterConstants {
     public static final String MOD_ID = "craterlib";
-    public static final String MOD_NAME = "CraterLib";
-    public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
+
+    public static void setupLibrary() {
+        Text.setTextAdapter(new MojangTextAdapter());
+    }
+
 }

@@ -1,12 +1,14 @@
 package com.hypherionmc.craterlib.network;
 
-import com.hypherionmc.craterlib.CraterConstants;
+import com.hypherionmc.craterlib.api.game.network.CraterFriendlyByteBuf;
+import com.hypherionmc.craterlib.api.game.world.entity.player.CraterPlayer;
+import com.hypherionmc.craterlib.api.loader.CraterLoader;
 import com.hypherionmc.craterlib.core.networking.PacketRegistry;
 import com.hypherionmc.craterlib.core.networking.data.PacketContext;
 import com.hypherionmc.craterlib.core.networking.data.PacketHolder;
 import com.hypherionmc.craterlib.core.networking.data.PacketSide;
-import com.hypherionmc.craterlib.nojang.network.BridgedFriendlyByteBuf;
-import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+import com.hypherionmc.craterlib.impl.api.network.BridgedFriendlyByteBuf;
+import com.hypherionmc.craterlib.impl.api.world.entity.player.BridgedPlayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.Connection;
 import net.minecraft.network.FriendlyByteBuf;
@@ -35,9 +37,9 @@ public class CraterForgeNetworkHandler extends PacketRegistry {
     }
 
     protected <T> void registerPacket(PacketHolder<T> holder) {
-        if (CHANNELS.get(holder.messageType()) == null) {
+        if (CHANNELS.get(holder.getMessageType()) == null) {
             SimpleChannel channel = NetworkRegistry.ChannelBuilder
-                    .named(holder.type().toMojang())
+                    .named(holder.getIdentifier().unwrap())
                     .clientAcceptedVersions((a) -> true)
                     .serverAcceptedVersions((a) -> true)
                     .networkProtocolVersion(() -> "1")
@@ -45,14 +47,14 @@ public class CraterForgeNetworkHandler extends PacketRegistry {
 
             channel.registerMessage(
                     0,
-                    holder.messageType(),
-                    mojangEncoder(holder.encoder()),
-                    mojangDecoder(holder.decoder()),
-                    buildHandler(holder.handler()));
+                    holder.getMessageType(),
+                    mojangEncoder(holder.getEncoder()),
+                    mojangDecoder(holder.getDecoder()),
+                    buildHandler(holder.getHandler()));
 
-            CHANNELS.put(holder.messageType(), channel);
+            CHANNELS.put(holder.getMessageType(), channel);
         } else {
-            CraterConstants.LOG.error("Trying to register duplicate packet for type {}", holder.messageType());
+            CraterLoader.LOGGER.error("Trying to register duplicate packet for type {}", holder.getMessageType());
         }
     }
 
@@ -68,23 +70,23 @@ public class CraterForgeNetworkHandler extends PacketRegistry {
         }
     }
 
-    public <T> void sendToClient(T packet, BridgedPlayer player) {
+    public <T> void sendToClient(T packet, CraterPlayer player) {
         SimpleChannel channel = CHANNELS.get(packet.getClass());
-        ServerGamePacketListenerImpl connection = player.getConnection();
+        ServerGamePacketListenerImpl connection = ((ServerPlayer) player.unwrap()).connection;
         if (connection == null)
             return;
 
         if (channel.isRemotePresent(connection.connection)) {
-            channel.sendTo(packet, player.getConnection().connection, NetworkDirection.PLAY_TO_CLIENT);
+            channel.sendTo(packet, ((ServerPlayer) player.unwrap()).connection.connection, NetworkDirection.PLAY_TO_CLIENT);
         }
     }
 
-    private <T> Function<FriendlyByteBuf, T> mojangDecoder(Function<BridgedFriendlyByteBuf, T> handler) {
-        return byteBuf -> handler.apply(BridgedFriendlyByteBuf.of(byteBuf));
+    private <T> Function<FriendlyByteBuf, T> mojangDecoder(Function<CraterFriendlyByteBuf, T> handler) {
+        return byteBuf -> handler.apply(BridgedFriendlyByteBuf.wrap(byteBuf));
     }
 
-    private <T> BiConsumer<T, FriendlyByteBuf> mojangEncoder(BiConsumer<T, BridgedFriendlyByteBuf> handler) {
-        return ((t, byteBuf) -> handler.accept(t, BridgedFriendlyByteBuf.of(byteBuf)));
+    private <T> BiConsumer<T, FriendlyByteBuf> mojangEncoder(BiConsumer<T, CraterFriendlyByteBuf> handler) {
+        return ((t, byteBuf) -> handler.accept(t, BridgedFriendlyByteBuf.wrap(byteBuf)));
     }
 
     private <T> BiConsumer<T, Supplier<NetworkEvent.Context>> buildHandler(Consumer<PacketContext<T>> handler) {
@@ -92,7 +94,7 @@ public class CraterForgeNetworkHandler extends PacketRegistry {
             ctx.get().enqueueWork(() -> {
                 PacketSide side = ctx.get().getDirection().getReceptionSide().isServer() ? PacketSide.SERVER : PacketSide.CLIENT;
                 ServerPlayer player = ctx.get().getSender();
-                handler.accept(new PacketContext<>(BridgedPlayer.of(player), message, side));
+                handler.accept(new PacketContext<>(BridgedPlayer.wrap(player), message, side));
             });
             ctx.get().setPacketHandled(true);
         };

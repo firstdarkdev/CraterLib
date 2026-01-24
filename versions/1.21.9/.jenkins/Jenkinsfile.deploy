@@ -26,33 +26,25 @@ pipeline {
         }
         stage("Prepare") {
             steps {
-                dir("${WORKSPACE}/versions/${majorMc}") {
-                    sh "chmod +x ./gradlew"
-                    sh "./gradlew clean"
-                }
+                sh "chmod +x ./gradlew"
+                sh "./gradlew clean"
             }
         }
         stage("Publish to Mod to Mod Platforms") {
             steps {
-                dir("${WORKSPACE}/versions/${majorMc}") {
-                    sh "./gradlew publishMod -Prelease=true"
-                }
+                sh "./gradlew publishMod -Prelease=true"
             }
         }
         stage("Publish to Maven") {
             steps {
-                dir("${WORKSPACE}/versions/${majorMc}") {
-                    sh "./gradlew publish -Prelease=true"
-                }
+                sh "./gradlew publish -Prelease=true"
             }
         }
     }
     post {
         always {
-            dir("${WORKSPACE}/versions/${majorMc}") {
-                sh "./gradlew --stop"
-                deleteDir()
-            }
+            sh "./gradlew --stop"
+            deleteDir()
 
             discordSend webhookURL: env.FDD_WH_ADMIN,
                     title: "CraterLib Port Deploy #${BUILD_NUMBER}",

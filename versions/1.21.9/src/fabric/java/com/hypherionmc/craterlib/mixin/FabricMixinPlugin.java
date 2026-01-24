@@ -1,6 +1,6 @@
 package com.hypherionmc.craterlib.mixin;
 
-import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
+import com.hypherionmc.craterlib.api.loader.CraterLoader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -23,7 +23,7 @@ public class FabricMixinPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if (mixinClassName.contains("PlayerRoleSet")) {
-            return ModloaderEnvironment.INSTANCE.isModLoaded("player_roles");
+            return CraterLoader.isModLoaded("player_roles");
         }
 
         return true;

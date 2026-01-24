@@ -1,8 +1,9 @@
 package com.hypherionmc.craterlib.common;
 
-import com.hypherionmc.craterlib.core.platform.Environment;
-import com.hypherionmc.craterlib.core.platform.LoaderType;
-import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
+import com.google.auto.service.AutoService;
+import com.hypherionmc.craterlib.api.loader.Environment;
+import com.hypherionmc.craterlib.api.loader.LoaderType;
+import com.hypherionmc.craterlib.core.services.CraterLoaderEnvironment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
@@ -11,9 +12,9 @@ import java.io.File;
 
 /**
  * @author HypherionSA
- * @date 07/08/2022
  */
-public class FabricLoaderHelper implements ModloaderEnvironment {
+@AutoService(CraterLoaderEnvironment.class)
+public class FabricLoaderHelper implements CraterLoaderEnvironment {
 
     @Override
     public LoaderType getLoaderType() {
@@ -66,5 +67,10 @@ public class FabricLoaderHelper implements ModloaderEnvironment {
     @Override
     public int getModCount() {
         return FabricLoader.getInstance().getAllMods().size();
+    }
+
+    @Override
+    public int getDataVersion() {
+        return SharedConstants.getCurrentVersion().getDataVersion().getVersion();
     }
 }

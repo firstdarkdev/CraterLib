@@ -1,14 +1,17 @@
 package com.hypherionmc.craterlib.network;
 
-import com.hypherionmc.craterlib.api.networking.CommonPacketWrapper;
+import com.hypherionmc.craterlib.api.game.world.entity.player.CraterPlayer;
 import com.hypherionmc.craterlib.core.networking.PacketRegistry;
 import com.hypherionmc.craterlib.core.networking.data.PacketContext;
 import com.hypherionmc.craterlib.core.networking.data.PacketHolder;
 import com.hypherionmc.craterlib.core.networking.data.PacketSide;
-import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
+import com.hypherionmc.craterlib.impl.api.world.entity.player.BridgedPlayer;
+import com.hypherionmc.craterlib.impl.networking.CommonPacketHolder;
+import com.hypherionmc.craterlib.impl.networking.CommonPacketWrapper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.server.level.ServerPlayer;
 
 /**
  * Based on https://github.com/mysticdrew/common-networking/tree/1.20.4
@@ -19,28 +22,27 @@ public class CraterFabricNetworkHandler extends PacketRegistry {
         super(side);
     }
 
-    protected <T> void registerPacket(PacketHolder<T> holder) {
-        try
-        {
+    protected <T> void registerPacket(PacketHolder<T> h) {
+        CommonPacketHolder<T> holder = CommonPacketHolder.wrap(h);
+
+        try {
             PayloadTypeRegistry.playC2S().register(holder.getType(), holder.getCodec());
             PayloadTypeRegistry.playS2C().register(holder.getType(), holder.getCodec());
-        }
-        catch (IllegalArgumentException e)
-        {
+        } catch (IllegalArgumentException e) {
             // do nothing
         }
 
         if (PacketSide.CLIENT.equals(this.side)) {
             ClientPlayNetworking.registerGlobalReceiver(holder.getType(),
                     (ClientPlayNetworking.PlayPayloadHandler<CommonPacketWrapper<T>>) (payload, context) -> context.client().execute(() ->
-                            holder.handler().accept(
+                            holder.getHandler().accept(
                                     new PacketContext<>(payload.packet(), side))));
         }
 
         ServerPlayNetworking.registerGlobalReceiver(holder.getType(),
                 (ServerPlayNetworking.PlayPayloadHandler<CommonPacketWrapper<T>>) (payload, context) -> context.player().server.execute(() ->
-                        holder.handler().accept(
-                                new PacketContext<>(BridgedPlayer.of(context.player()), payload.packet(), side))));
+                        holder.getHandler().accept(
+                                new PacketContext<>(BridgedPlayer.wrap(context.player()), payload.packet(), side))));
     }
 
     public <T> void sendToServer(T packet) {
@@ -48,20 +50,23 @@ public class CraterFabricNetworkHandler extends PacketRegistry {
     }
 
     public <T> void sendToServer(T packet, boolean ignoreCheck) {
-        PacketHolder<T> container = (PacketHolder<T>) PACKET_MAP.get(packet.getClass());
+        PacketHolder<T> c = (PacketHolder<T>) PACKET_MAP.get(packet.getClass());
+        CommonPacketHolder<T> container = CommonPacketHolder.wrap(c);
 
         if (container != null) {
-            if (ignoreCheck || ClientPlayNetworking.canSend(container.type().id())) {
+            if (ignoreCheck || ClientPlayNetworking.canSend(container.getType().id())) {
                 ClientPlayNetworking.send(new CommonPacketWrapper<>(container, packet));
             }
         }
     }
 
-    public <T> void sendToClient(T packet, BridgedPlayer player) {
-        PacketHolder<T> container = (PacketHolder<T>) PACKET_MAP.get(packet.getClass());
+    public <T> void sendToClient(T packet, CraterPlayer player) {
+        PacketHolder<T> c = (PacketHolder<T>) PACKET_MAP.get(packet.getClass());
+        CommonPacketHolder<T> container = CommonPacketHolder.wrap(c);
+
         if (container != null) {
-            if (ServerPlayNetworking.canSend(player.toMojangServerPlayer(), container.type().id())) {
-                ServerPlayNetworking.send(player.toMojangServerPlayer(), new CommonPacketWrapper<>(container, packet));
+            if (ServerPlayNetworking.canSend((ServerPlayer) player.unwrap(), container.getType().id())) {
+                ServerPlayNetworking.send(player.unwrap(), new CommonPacketWrapper<>(container, packet));
             }
         }
     }

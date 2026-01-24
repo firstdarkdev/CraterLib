@@ -1,10 +1,13 @@
 package com.hypherionmc.craterlib.common;
 
-import com.hypherionmc.craterlib.core.platform.CompatUtils;
-import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
-import com.hypherionmc.craterlib.nojang.world.entity.player.BridgedPlayer;
-import com.hypherionmc.craterlib.utils.ChatUtils;
-import net.kyori.adventure.text.Component;
+import com.google.auto.service.AutoService;
+import com.hypherionmc.craterlib.api.compat.LuckPermsCompat;
+import com.hypherionmc.craterlib.api.compat.ftbranks.FTBRanks;
+import com.hypherionmc.craterlib.api.game.text.Text;
+import com.hypherionmc.craterlib.api.game.world.entity.player.CraterPlayer;
+import com.hypherionmc.craterlib.api.loader.CraterLoader;
+import com.hypherionmc.craterlib.core.services.CraterCompatUtils;
+import com.hypherionmc.craterlib.impl.compat.ftb.FTBRanksImpl;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
@@ -12,22 +15,23 @@ import org.bukkit.plugin.Plugin;
 
 import java.lang.reflect.Method;
 
-public class PaperCompatHelper implements CompatUtils {
+@AutoService(CraterCompatUtils.class)
+public class PaperCompatHelper implements CraterCompatUtils {
 
     @Override
-    public boolean isPlayerActive(BridgedPlayer player) {
+    public boolean isPlayerActive(CraterPlayer player) {
         // Essentials Vanish
-        if (ModloaderEnvironment.INSTANCE.isModLoaded("Essentials")) {
+        if (CraterLoader.isModLoaded("Essentials")) {
             return !isEssentialsVanished(player);
         }
 
         // PhantomAdmin Vanish
-        if (ModloaderEnvironment.INSTANCE.isModLoaded("PhantomAdmin"))
+        if (CraterLoader.isModLoaded("PhantomAdmin"))
             return !isPhantomVanished(player);
 
         // Other vanish mods
         try {
-            Player p = (Player) player.toMojangServerPlayer();
+            Player p = player.unwrap();
             for (MetadataValue meta : p.getMetadata("vanished")) {
                 if (meta.asBoolean()) return true;
             }
@@ -37,18 +41,18 @@ public class PaperCompatHelper implements CompatUtils {
     }
 
     @Override
-    public String getSkinUUID(BridgedPlayer player) {
+    public String getSkinUUID(CraterPlayer player) {
         return player.getStringUUID();
     }
 
-    private boolean isEssentialsVanished(BridgedPlayer player) {
+    private boolean isEssentialsVanished(CraterPlayer player) {
         try {
             Plugin p = Bukkit.getPluginManager().getPlugin("Essentials");
             if (p == null)
                 return false;
 
             Method getUser = p.getClass().getMethod("getUser", String.class);
-            Object essentialsPlayer = getUser.invoke(p, ChatUtils.resolve(player.getName(), false));
+            Object essentialsPlayer = getUser.invoke(p, player.getName().asString());
 
             if (essentialsPlayer != null) {
                 Method isVanished = essentialsPlayer.getClass().getMethod("isVanished");
@@ -59,7 +63,7 @@ public class PaperCompatHelper implements CompatUtils {
         return false;
     }
 
-    private boolean isPhantomVanished(BridgedPlayer player) {
+    private boolean isPhantomVanished(CraterPlayer player) {
         try {
             Plugin p = Bukkit.getPluginManager().getPlugin("PhantomAdmin");
             if (p == null)
@@ -68,7 +72,7 @@ public class PaperCompatHelper implements CompatUtils {
             Method isInvisible = p.getClass().getDeclaredMethod("isInvisible", Player.class);
             isInvisible.setAccessible(true);
 
-            return (boolean) isInvisible.invoke(p, (Player) player.toMojangServerPlayer());
+            return (boolean) isInvisible.invoke(p, (Player) player.unwrap());
         } catch (Exception ignored) {
             ignored.printStackTrace();
         }
@@ -77,27 +81,42 @@ public class PaperCompatHelper implements CompatUtils {
     }
 
     @Override
-    public boolean isPlayerBleeding(BridgedPlayer player) {
+    public boolean isPlayerBleeding(CraterPlayer player) {
         return false;
     }
 
     @Override
-    public boolean playerBledOut(BridgedPlayer player) {
+    public boolean playerBledOut(CraterPlayer player) {
         return false;
     }
 
     @Override
-    public boolean playerRevived(BridgedPlayer player) {
+    public boolean playerRevived(CraterPlayer player) {
         return false;
     }
 
     @Override
-    public boolean isPrivateMessage(BridgedPlayer player) {
+    public boolean isPrivateMessage(CraterPlayer player) {
         return false;
     }
 
     @Override
-    public Component getChannelPrefix(BridgedPlayer player) {
-        return Component.empty();
+    public Text getChannelPrefix(CraterPlayer player) {
+        return Text.empty();
+    }
+
+    @Override
+    public boolean isPlayerMuted(CraterPlayer player) {
+        return false;
+    }
+
+    @Override
+    public FTBRanks getFTBRanks() {
+        return FTBRanksImpl.INSTANCE;
+    }
+
+    @Override
+    public LuckPermsCompat getLuckperms() {
+        return LuckPermsCompat.getInstance();
     }
 }

@@ -1,8 +1,9 @@
 package com.hypherionmc.craterlib.common;
 
-import com.hypherionmc.craterlib.core.platform.Environment;
-import com.hypherionmc.craterlib.core.platform.LoaderType;
-import com.hypherionmc.craterlib.core.platform.ModloaderEnvironment;
+import com.google.auto.service.AutoService;
+import com.hypherionmc.craterlib.api.loader.Environment;
+import com.hypherionmc.craterlib.api.loader.LoaderType;
+import com.hypherionmc.craterlib.core.services.CraterLoaderEnvironment;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.ModList;
@@ -14,10 +15,9 @@ import java.io.File;
 /**
  * @author HypherionSA
  */
-public class ForgeLoaderHelper implements ModloaderEnvironment {
+@AutoService(CraterLoaderEnvironment.class)
+public class ForgeLoaderHelper implements CraterLoaderEnvironment {
 
-    public ForgeLoaderHelper() {
-    }
 
     @Override
     public LoaderType getLoaderType() {
@@ -70,5 +70,10 @@ public class ForgeLoaderHelper implements ModloaderEnvironment {
     @Override
     public int getModCount() {
         return ModList.get().size();
+    }
+
+    @Override
+    public int getDataVersion() {
+        return SharedConstants.getCurrentVersion().getDataVersion().getVersion();
     }
 }

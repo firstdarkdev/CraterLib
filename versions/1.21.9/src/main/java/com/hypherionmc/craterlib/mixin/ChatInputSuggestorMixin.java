@@ -1,6 +1,6 @@
 package com.hypherionmc.craterlib.mixin;
 
-import com.hypherionmc.craterlib.client.mentions.MentionsController;
+import com.hypherionmc.craterlib.api.client.mentions.MentionsController;
 import net.minecraft.client.gui.components.CommandSuggestions;
 import net.minecraft.client.gui.components.EditBox;
 import org.objectweb.asm.Opcodes;
