@@ -24,7 +24,7 @@ orion.setup {
     multiProject.set(true)
     enableMirrorMaven.set(true)
     enableReleasesMaven.set(true)
-    publishApiJar.set(true)
+    publishApiJar.set(false)
 
     tools {
         autoService()
