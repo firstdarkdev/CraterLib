@@ -24,6 +24,7 @@ orion.setup {
     multiProject.set(true)
     enableMirrorMaven.set(true)
     enableReleasesMaven.set(true)
+    publishApiJar.set(true)
 
     tools {
         autoService()
@@ -253,10 +254,5 @@ if (multimined.platformEnabled("paper")) {
 // region Maven Publishing
 publishing {
     // The rest of this is automatically configured by Orion
-    repositories {
-        maven {
-            orion.getPublishingMaven()
-        }
-    }
 }
 // endregion
