@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class RealmsMainScreenMixin {
 
     @Inject(at = @At("HEAD"), method = "play")
-    private static void play(RealmsServer realmsServer, Screen screen, CallbackInfo ci) {
+    private void play(RealmsServer realmsServer, Screen screen, CallbackInfo ci) {
         try {
             PlayerJoinRealmEvent playerJoinRealm = new PlayerJoinRealmEvent(BridgedRealmsServer.wrap(realmsServer));
             CraterEventBus.INSTANCE.postEvent(playerJoinRealm);
