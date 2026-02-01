@@ -68,13 +68,19 @@ public class CommandMixin {
     }
 
     public String getTarget(ParseResults<CommandSourceStack> stackParseResults) {
-        CommandContext<CommandSourceStack> context = stackParseResults.getContext().build(stackParseResults.getReader().getString());
-        StringRange selector_range = stackParseResults.getContext().getArguments().get("targets").getRange();
-        return context.getInput().substring(selector_range.getStart(), selector_range.getEnd());
+        try {
+            CommandContext<CommandSourceStack> context = stackParseResults.getContext().build(stackParseResults.getReader().getString());
+            StringRange selector_range = stackParseResults.getContext().getArguments().get("targets").getRange();
+            return context.getInput().substring(selector_range.getStart(), selector_range.getEnd());
+        } catch (Exception ignored) {}
+        return "";
     }
 
     public Text getMessage(ParseResults<CommandSourceStack> stackParseResults) {
-        return Text.fromGame(ComponentArgument.getComponent(stackParseResults.getContext().build(stackParseResults.getReader().getString()), "message"));
+        try {
+            return Text.fromGame(ComponentArgument.getComponent(stackParseResults.getContext().build(stackParseResults.getReader().getString()), "message"));
+        } catch (Exception ignored) {}
+        return Text.empty();
     }
 
 }

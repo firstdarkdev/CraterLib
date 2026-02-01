@@ -34,6 +34,10 @@ public class CraterCommandImpl implements CraterCommand {
         this.mojangCommand = cmd;
     }
 
+    public static CraterCommand create(String name) {
+        return new CraterCommandImpl(Commands.literal(name));
+    }
+
     @Override
     public CraterCommandImpl requiresPermission(int perm) {
         this.permLevel = perm;

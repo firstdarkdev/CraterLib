@@ -1,104 +1,98 @@
 package com.hypherionmc.craterlib.impl.api.world.level;
 
+import com.hypherionmc.craterlib.api.game.world.level.CraterCommonGameRules;
 import com.hypherionmc.craterlib.api.game.world.level.CraterGameRules;
 import lombok.RequiredArgsConstructor;
+import java.util.HashMap;
 import net.minecraft.world.level.GameRules;
 
+@SuppressWarnings("unchecked")
 @RequiredArgsConstructor(staticName = "bridge")
 public class BridgedGameRules implements CraterGameRules {
 
     private final GameRules internal;
+    private static final HashMap<CraterCommonGameRules.GameRuleKey<?>, GameRules.Key<?>> KEYS = new HashMap<>();
 
     // Wrapped Mojang Rules for convenience
-    public static final WrappedBooleanKey RULE_DOFIRETICK = WrappedBooleanKey.wrap(GameRules.RULE_DOFIRETICK);
-    public static final WrappedBooleanKey RULE_ALLOWFIRETICKAWAYFROMPLAYERS = WrappedBooleanKey.wrap(null);
-    public static final WrappedBooleanKey RULE_MOBGRIEFING = WrappedBooleanKey.wrap(GameRules.RULE_MOBGRIEFING);
-    public static final WrappedBooleanKey RULE_KEEPINVENTORY = WrappedBooleanKey.wrap(GameRules.RULE_KEEPINVENTORY);
-    public static final WrappedBooleanKey RULE_DOMOBSPAWNING = WrappedBooleanKey.wrap(GameRules.RULE_DOMOBSPAWNING);
-    public static final WrappedBooleanKey RULE_DOMOBLOOT = WrappedBooleanKey.wrap(GameRules.RULE_DOMOBLOOT);
-    public static final WrappedBooleanKey RULE_PROJECTILESCANBREAKBLOCKS = WrappedBooleanKey.wrap(GameRules.RULE_PROJECTILESCANBREAKBLOCKS);
-    public static final WrappedBooleanKey RULE_DOBLOCKDROPS = WrappedBooleanKey.wrap(GameRules.RULE_DOBLOCKDROPS);
-    public static final WrappedBooleanKey RULE_DOENTITYDROPS = WrappedBooleanKey.wrap(GameRules.RULE_DOENTITYDROPS);
-    public static final WrappedBooleanKey RULE_COMMANDBLOCKOUTPUT = WrappedBooleanKey.wrap(GameRules.RULE_COMMANDBLOCKOUTPUT);
-    public static final WrappedBooleanKey RULE_NATURAL_REGENERATION = WrappedBooleanKey.wrap(GameRules.RULE_NATURAL_REGENERATION);
-    public static final WrappedBooleanKey RULE_DAYLIGHT = WrappedBooleanKey.wrap(GameRules.RULE_DAYLIGHT);
-    public static final WrappedBooleanKey RULE_LOGADMINCOMMANDS = WrappedBooleanKey.wrap(GameRules.RULE_LOGADMINCOMMANDS);
-    public static final WrappedBooleanKey RULE_SHOWDEATHMESSAGES = WrappedBooleanKey.wrap(GameRules.RULE_SHOWDEATHMESSAGES);
-    public static final WrappedIntegerKey RULE_RANDOMTICKING = WrappedIntegerKey.wrap(GameRules.RULE_RANDOMTICKING);
-    public static final WrappedBooleanKey RULE_SENDCOMMANDFEEDBACK = WrappedBooleanKey.wrap(GameRules.RULE_SENDCOMMANDFEEDBACK);
-    public static final WrappedBooleanKey RULE_REDUCEDDEBUGINFO = WrappedBooleanKey.wrap(GameRules.RULE_REDUCEDDEBUGINFO);
-    public static final WrappedBooleanKey RULE_SPECTATORSGENERATECHUNKS = WrappedBooleanKey.wrap(GameRules.RULE_SPECTATORSGENERATECHUNKS);
-    public static final WrappedIntegerKey RULE_SPAWN_RADIUS = WrappedIntegerKey.wrap(GameRules.RULE_SPAWN_RADIUS);
-    public static final WrappedBooleanKey RULE_DISABLE_PLAYER_MOVEMENT_CHECK = WrappedBooleanKey.wrap(GameRules.RULE_DISABLE_PLAYER_MOVEMENT_CHECK);
-    public static final WrappedBooleanKey RULE_DISABLE_ELYTRA_MOVEMENT_CHECK = WrappedBooleanKey.wrap(GameRules.RULE_DISABLE_ELYTRA_MOVEMENT_CHECK);
-    public static final WrappedIntegerKey RULE_MAX_ENTITY_CRAMMING = WrappedIntegerKey.wrap(GameRules.RULE_MAX_ENTITY_CRAMMING);
-    public static final WrappedBooleanKey RULE_WEATHER_CYCLE = WrappedBooleanKey.wrap(GameRules.RULE_WEATHER_CYCLE);
-    public static final WrappedBooleanKey RULE_LIMITED_CRAFTING = WrappedBooleanKey.wrap(GameRules.RULE_LIMITED_CRAFTING);
-    public static final WrappedIntegerKey RULE_MAX_COMMAND_CHAIN_LENGTH = WrappedIntegerKey.wrap(GameRules.RULE_MAX_COMMAND_CHAIN_LENGTH);
-    public static final WrappedIntegerKey RULE_MAX_COMMAND_FORK_COUNT = WrappedIntegerKey.wrap(GameRules.RULE_MAX_COMMAND_FORK_COUNT);
-    public static final WrappedIntegerKey RULE_COMMAND_MODIFICATION_BLOCK_LIMIT = WrappedIntegerKey.wrap(GameRules.RULE_COMMAND_MODIFICATION_BLOCK_LIMIT);
-    public static final WrappedBooleanKey RULE_ANNOUNCE_ADVANCEMENTS = WrappedBooleanKey.wrap(GameRules.RULE_ANNOUNCE_ADVANCEMENTS);
-    public static final WrappedBooleanKey RULE_DISABLE_RAIDS = WrappedBooleanKey.wrap(GameRules.RULE_DISABLE_RAIDS);
-    public static final WrappedBooleanKey RULE_DOINSOMNIA = WrappedBooleanKey.wrap(GameRules.RULE_DOINSOMNIA);
-    public static final WrappedBooleanKey RULE_DO_IMMEDIATE_RESPAWN = WrappedBooleanKey.wrap(GameRules.RULE_DO_IMMEDIATE_RESPAWN);
-    public static final WrappedIntegerKey RULE_PLAYERS_NETHER_PORTAL_DEFAULT_DELAY = WrappedIntegerKey.wrap(GameRules.RULE_PLAYERS_NETHER_PORTAL_DEFAULT_DELAY);
-    public static final WrappedIntegerKey RULE_PLAYERS_NETHER_PORTAL_CREATIVE_DELAY = WrappedIntegerKey.wrap(GameRules.RULE_PLAYERS_NETHER_PORTAL_CREATIVE_DELAY);
-    public static final WrappedBooleanKey RULE_DROWNING_DAMAGE = WrappedBooleanKey.wrap(GameRules.RULE_DROWNING_DAMAGE);
-    public static final WrappedBooleanKey RULE_FALL_DAMAGE = WrappedBooleanKey.wrap(GameRules.RULE_FALL_DAMAGE);
-    public static final WrappedBooleanKey RULE_FIRE_DAMAGE = WrappedBooleanKey.wrap(GameRules.RULE_FIRE_DAMAGE);
-    public static final WrappedBooleanKey RULE_FREEZE_DAMAGE = WrappedBooleanKey.wrap(GameRules.RULE_FREEZE_DAMAGE);
-    public static final WrappedBooleanKey RULE_DO_PATROL_SPAWNING = WrappedBooleanKey.wrap(GameRules.RULE_DO_PATROL_SPAWNING);
-    public static final WrappedBooleanKey RULE_DO_TRADER_SPAWNING = WrappedBooleanKey.wrap(GameRules.RULE_DO_TRADER_SPAWNING);
-    public static final WrappedBooleanKey RULE_DO_WARDEN_SPAWNING = WrappedBooleanKey.wrap(GameRules.RULE_DO_WARDEN_SPAWNING);
-    public static final WrappedBooleanKey RULE_FORGIVE_DEAD_PLAYERS = WrappedBooleanKey.wrap(GameRules.RULE_FORGIVE_DEAD_PLAYERS);
-    public static final WrappedBooleanKey RULE_UNIVERSAL_ANGER = WrappedBooleanKey.wrap(GameRules.RULE_UNIVERSAL_ANGER);
-    public static final WrappedIntegerKey RULE_PLAYERS_SLEEPING_PERCENTAGE = WrappedIntegerKey.wrap(GameRules.RULE_PLAYERS_SLEEPING_PERCENTAGE);
-    public static final WrappedBooleanKey RULE_BLOCK_EXPLOSION_DROP_DECAY = WrappedBooleanKey.wrap(GameRules.RULE_BLOCK_EXPLOSION_DROP_DECAY);
-    public static final WrappedBooleanKey RULE_MOB_EXPLOSION_DROP_DECAY = WrappedBooleanKey.wrap(GameRules.RULE_MOB_EXPLOSION_DROP_DECAY);
-    public static final WrappedBooleanKey RULE_TNT_EXPLOSION_DROP_DECAY = WrappedBooleanKey.wrap(GameRules.RULE_TNT_EXPLOSION_DROP_DECAY);
-    public static final WrappedIntegerKey RULE_SNOW_ACCUMULATION_HEIGHT = WrappedIntegerKey.wrap(GameRules.RULE_SNOW_ACCUMULATION_HEIGHT);
-    public static final WrappedBooleanKey RULE_WATER_SOURCE_CONVERSION = WrappedBooleanKey.wrap(GameRules.RULE_WATER_SOURCE_CONVERSION);
-    public static final WrappedBooleanKey RULE_LAVA_SOURCE_CONVERSION = WrappedBooleanKey.wrap(GameRules.RULE_LAVA_SOURCE_CONVERSION);
-    public static final WrappedBooleanKey RULE_GLOBAL_SOUND_EVENTS = WrappedBooleanKey.wrap(GameRules.RULE_GLOBAL_SOUND_EVENTS);
-    public static final WrappedBooleanKey RULE_DO_VINES_SPREAD = WrappedBooleanKey.wrap(GameRules.RULE_DO_VINES_SPREAD);
-    public static final WrappedBooleanKey RULE_ENDER_PEARLS_VANISH_ON_DEATH = WrappedBooleanKey.wrap(GameRules.RULE_ENDER_PEARLS_VANISH_ON_DEATH);
-    public static final WrappedIntegerKey RULE_MINECART_MAX_SPEED = WrappedIntegerKey.wrap(GameRules.RULE_MINECART_MAX_SPEED);
-    public static final WrappedIntegerKey RULE_SPAWN_CHUNK_RADIUS = WrappedIntegerKey.wrap(GameRules.RULE_SPAWN_CHUNK_RADIUS);
-    public static final WrappedBooleanKey RULE_TNT_EXPLODES = WrappedBooleanKey.wrap(null);
-
-    @Override
-    public boolean getBoolean(WrappedKey key) {
-        return (boolean) key.unwrap(internal);
+    static {
+        register(CraterCommonGameRules.RULE_DOFIRETICK, GameRules.RULE_DOFIRETICK);
+        register(CraterCommonGameRules.RULE_ALLOWFIRETICKAWAYFROMPLAYERS, null);
+        register(CraterCommonGameRules.RULE_MOBGRIEFING, GameRules.RULE_MOBGRIEFING);
+        register(CraterCommonGameRules.RULE_KEEPINVENTORY, GameRules.RULE_KEEPINVENTORY);
+        register(CraterCommonGameRules.RULE_DOMOBSPAWNING, GameRules.RULE_DOMOBSPAWNING);
+        register(CraterCommonGameRules.RULE_DOMOBLOOT, GameRules.RULE_DOMOBLOOT);
+        register(CraterCommonGameRules.RULE_PROJECTILESCANBREAKBLOCKS, GameRules.RULE_PROJECTILESCANBREAKBLOCKS);
+        register(CraterCommonGameRules.RULE_DOBLOCKDROPS, GameRules.RULE_DOBLOCKDROPS);
+        register(CraterCommonGameRules.RULE_DOENTITYDROPS, GameRules.RULE_DOENTITYDROPS);
+        register(CraterCommonGameRules.RULE_COMMANDBLOCKOUTPUT, GameRules.RULE_COMMANDBLOCKOUTPUT);
+        register(CraterCommonGameRules.RULE_NATURAL_REGENERATION, GameRules.RULE_NATURAL_REGENERATION);
+        register(CraterCommonGameRules.RULE_DAYLIGHT, GameRules.RULE_DAYLIGHT);
+        register(CraterCommonGameRules.RULE_LOGADMINCOMMANDS, GameRules.RULE_LOGADMINCOMMANDS);
+        register(CraterCommonGameRules.RULE_SHOWDEATHMESSAGES, GameRules.RULE_SHOWDEATHMESSAGES);
+        register(CraterCommonGameRules.RULE_RANDOMTICKING, GameRules.RULE_RANDOMTICKING);
+        register(CraterCommonGameRules.RULE_SENDCOMMANDFEEDBACK, GameRules.RULE_SENDCOMMANDFEEDBACK);
+        register(CraterCommonGameRules.RULE_REDUCEDDEBUGINFO, GameRules.RULE_REDUCEDDEBUGINFO);
+        register(CraterCommonGameRules.RULE_SPECTATORSGENERATECHUNKS, GameRules.RULE_SPECTATORSGENERATECHUNKS);
+        register(CraterCommonGameRules.RULE_SPAWN_RADIUS, GameRules.RULE_SPAWN_RADIUS);
+        register(CraterCommonGameRules.RULE_DISABLE_PLAYER_MOVEMENT_CHECK, GameRules.RULE_DISABLE_PLAYER_MOVEMENT_CHECK);
+        register(CraterCommonGameRules.RULE_DISABLE_ELYTRA_MOVEMENT_CHECK, GameRules.RULE_DISABLE_ELYTRA_MOVEMENT_CHECK);
+        register(CraterCommonGameRules.RULE_MAX_ENTITY_CRAMMING, GameRules.RULE_MAX_ENTITY_CRAMMING);
+        register(CraterCommonGameRules.RULE_WEATHER_CYCLE, GameRules.RULE_WEATHER_CYCLE);
+        register(CraterCommonGameRules.RULE_LIMITED_CRAFTING, GameRules.RULE_LIMITED_CRAFTING);
+        register(CraterCommonGameRules.RULE_MAX_COMMAND_CHAIN_LENGTH, GameRules.RULE_MAX_COMMAND_CHAIN_LENGTH);
+        register(CraterCommonGameRules.RULE_MAX_COMMAND_FORK_COUNT, GameRules.RULE_MAX_COMMAND_FORK_COUNT);
+        register(CraterCommonGameRules.RULE_COMMAND_MODIFICATION_BLOCK_LIMIT, GameRules.RULE_COMMAND_MODIFICATION_BLOCK_LIMIT);
+        register(CraterCommonGameRules.RULE_ANNOUNCE_ADVANCEMENTS, GameRules.RULE_ANNOUNCE_ADVANCEMENTS);
+        register(CraterCommonGameRules.RULE_DISABLE_RAIDS, GameRules.RULE_DISABLE_RAIDS);
+        register(CraterCommonGameRules.RULE_DOINSOMNIA, GameRules.RULE_DOINSOMNIA);
+        register(CraterCommonGameRules.RULE_DO_IMMEDIATE_RESPAWN, GameRules.RULE_DO_IMMEDIATE_RESPAWN);
+        register(CraterCommonGameRules.RULE_PLAYERS_NETHER_PORTAL_DEFAULT_DELAY, GameRules.RULE_PLAYERS_NETHER_PORTAL_DEFAULT_DELAY);
+        register(CraterCommonGameRules.RULE_PLAYERS_NETHER_PORTAL_CREATIVE_DELAY, GameRules.RULE_PLAYERS_NETHER_PORTAL_CREATIVE_DELAY);
+        register(CraterCommonGameRules.RULE_DROWNING_DAMAGE, GameRules.RULE_DROWNING_DAMAGE);
+        register(CraterCommonGameRules.RULE_FALL_DAMAGE, GameRules.RULE_FALL_DAMAGE);
+        register(CraterCommonGameRules.RULE_FIRE_DAMAGE, GameRules.RULE_FIRE_DAMAGE);
+        register(CraterCommonGameRules.RULE_FREEZE_DAMAGE, GameRules.RULE_FREEZE_DAMAGE);
+        register(CraterCommonGameRules.RULE_DO_PATROL_SPAWNING, GameRules.RULE_DO_PATROL_SPAWNING);
+        register(CraterCommonGameRules.RULE_DO_TRADER_SPAWNING, GameRules.RULE_DO_TRADER_SPAWNING);
+        register(CraterCommonGameRules.RULE_DO_WARDEN_SPAWNING, GameRules.RULE_DO_WARDEN_SPAWNING);
+        register(CraterCommonGameRules.RULE_FORGIVE_DEAD_PLAYERS, GameRules.RULE_FORGIVE_DEAD_PLAYERS);
+        register(CraterCommonGameRules.RULE_UNIVERSAL_ANGER, GameRules.RULE_UNIVERSAL_ANGER);
+        register(CraterCommonGameRules.RULE_PLAYERS_SLEEPING_PERCENTAGE, GameRules.RULE_PLAYERS_SLEEPING_PERCENTAGE);
+        register(CraterCommonGameRules.RULE_BLOCK_EXPLOSION_DROP_DECAY, GameRules.RULE_BLOCK_EXPLOSION_DROP_DECAY);
+        register(CraterCommonGameRules.RULE_MOB_EXPLOSION_DROP_DECAY, GameRules.RULE_MOB_EXPLOSION_DROP_DECAY);
+        register(CraterCommonGameRules.RULE_TNT_EXPLOSION_DROP_DECAY, GameRules.RULE_TNT_EXPLOSION_DROP_DECAY);
+        register(CraterCommonGameRules.RULE_SNOW_ACCUMULATION_HEIGHT, GameRules.RULE_SNOW_ACCUMULATION_HEIGHT);
+        register(CraterCommonGameRules.RULE_WATER_SOURCE_CONVERSION, GameRules.RULE_WATER_SOURCE_CONVERSION);
+        register(CraterCommonGameRules.RULE_LAVA_SOURCE_CONVERSION, GameRules.RULE_LAVA_SOURCE_CONVERSION);
+        register(CraterCommonGameRules.RULE_GLOBAL_SOUND_EVENTS, GameRules.RULE_GLOBAL_SOUND_EVENTS);
+        register(CraterCommonGameRules.RULE_DO_VINES_SPREAD, GameRules.RULE_DO_VINES_SPREAD);
+        register(CraterCommonGameRules.RULE_ENDER_PEARLS_VANISH_ON_DEATH, GameRules.RULE_ENDER_PEARLS_VANISH_ON_DEATH);
+        register(CraterCommonGameRules.RULE_MINECART_MAX_SPEED, GameRules.RULE_MINECART_MAX_SPEED);
+        register(CraterCommonGameRules.RULE_SPAWN_CHUNK_RADIUS, GameRules.RULE_SPAWN_CHUNK_RADIUS);
+        register(CraterCommonGameRules.RULE_TNT_EXPLODES, null);
     }
 
     @Override
-    public int getInt(WrappedKey key) {
-        return (int) key.unwrap(internal);
+    public boolean getBoolean(CraterCommonGameRules.GameRuleKey<Boolean> key) {
+        var kk = KEYS.get(key);
+
+        if (kk == null)
+            return false;
+
+        return internal.getBoolean(((GameRules.Key<GameRules.BooleanValue>) kk));
     }
 
-    @RequiredArgsConstructor(staticName = "wrap")
-    public static final class WrappedBooleanKey implements CraterGameRules.WrappedKey<Boolean> {
-        private final GameRules.Key<GameRules.BooleanValue> internal;
+    @Override
+    public int getInt(CraterCommonGameRules.GameRuleKey<Integer> key) {
+        var kk = KEYS.get(key);
 
-        @Override
-        public Boolean unwrap(Object resolver) {
-            if (internal == null)
-                return false;
+        if (kk == null)
+            return 0;
 
-            return ((GameRules) resolver).getBoolean(internal);
-        }
+        return internal.getInt(((GameRules.Key<GameRules.IntegerValue>) kk));
     }
 
-    @RequiredArgsConstructor(staticName = "wrap")
-    public static final class WrappedIntegerKey implements WrappedKey<Integer> {
-        private final GameRules.Key<GameRules.IntegerValue> internal;
-
-        @Override
-        public Integer unwrap(Object resolver) {
-            if (internal == null)
-                return 0;
-
-            return ((GameRules) resolver).getInt(internal);
-        }
+    private static void register(CraterCommonGameRules.GameRuleKey<?> key, GameRules.Key<?> resolver) {
+        KEYS.put(key, resolver);
     }
 }

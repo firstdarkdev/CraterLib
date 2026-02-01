@@ -5,6 +5,7 @@ import com.hypherionmc.craterlib.api.game.text.Text;
 import com.hypherionmc.craterlib.api.game.text.TextAdapter;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 
 public class MojangTextAdapter implements TextAdapter {
@@ -32,4 +33,11 @@ public class MojangTextAdapter implements TextAdapter {
         return serialize(Component.translatable(Util.makeDescriptionId("biome", (ResourceLocation) name.unwrapInternal())));
     }
 
+
+    static Component safeCopy(Component inComponent) {
+        String value = inComponent.getString();
+        Style style = inComponent.getStyle();
+
+        return Component.literal(value).withStyle(style);
+    }
 }

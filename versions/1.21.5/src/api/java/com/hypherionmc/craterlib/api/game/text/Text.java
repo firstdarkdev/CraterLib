@@ -3,6 +3,7 @@ package com.hypherionmc.craterlib.api.game.text;
 import com.google.gson.JsonElement;
 import com.hypherionmc.craterlib.api.game.resources.CraterIdentifier;
 import com.hypherionmc.craterlib.api.loader.CraterLoader;
+import com.hypherionmc.craterlib.api.util.DiscordMarkdownStripper;
 import com.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
 import com.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
 import lombok.Getter;
@@ -18,6 +19,7 @@ import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import net.kyori.adventure.text.serializer.json.JSONOptions;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
+import java.util.Arrays;
 import java.util.List;
 
 public final class Text {
@@ -40,6 +42,14 @@ public final class Text {
 
     public static Text literal(String text) {
         return new Text(Component.text(text));
+    }
+
+    public static Text translatable(String key) {
+        return new Text(Component.translatable(key));
+    }
+
+    public static Text translatable(String key, Text... value) {
+        return new Text(Component.translatable(key, Arrays.stream(value).map(Text::getComponent).toList()));
     }
 
     @Getter
@@ -118,13 +128,31 @@ public final class Text {
         return this;
     }
 
+    public Text applyFallbackStyle(Style style) {
+        component = component.applyFallbackStyle(style);
+        return this;
+    }
+
+    public Text appendNewline() {
+        component = component.appendNewline();
+        return this;
+    }
+
     // Utilities
     public static Text fromJson(JsonElement element) {
         return new Text(adventureSerializer.deserializeFromTree(element));
     }
 
+    public static Text fromJson(String json) {
+        return new Text(adventureSerializer.deserialize(json));
+    }
+
     public JsonElement toJson() {
         return adventureSerializer.serializeToTree(component);
+    }
+
+    public String toJsonString() {
+        return adventureSerializer.serialize(component);
     }
 
     public static <T> Text fromGame(T gameText) {
@@ -160,7 +188,7 @@ public final class Text {
     }
 
     public String asString(boolean formatted) {
-        String value = getString(component);
+        String value = DiscordMarkdownStripper.stripMarkdown(getString(component));
 
         if (formatted) {
             value = DiscordSerializer.INSTANCE.serialize(component);
@@ -203,13 +231,13 @@ public final class Text {
         value = convertFormattingCodes(value);
 
         try {
-            return new Text(miniMessage.deserializeOr(value, Component.translatable(value)));
+            return new Text(miniMessage.deserializeOr(value, Component.text(value)));
         } catch (Exception ignored) {
             // Mini message fails to format text that contain legacy formatting. Since we support both, that's bad.
             // We just ignore the exception here so that the whole format doesn't fail
         }
 
-        return new Text(Component.translatable(value));
+        return new Text(Component.text(value));
     }
 
     private static String convertFormattingCodes(String input) {

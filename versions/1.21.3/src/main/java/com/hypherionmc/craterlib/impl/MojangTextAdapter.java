@@ -13,6 +13,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentSerialization;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 
@@ -22,7 +24,7 @@ public class MojangTextAdapter implements TextAdapter {
     public <T> Text serialize(T message) {
         try {
             final JsonElement serialised = ComponentSerialization.CODEC
-                    .encodeStart(JsonOps.INSTANCE, (Component) message)
+                    .encodeStart(JsonOps.INSTANCE, safeCopy((Component) message))
                     .getOrThrow(JsonParseException::new);
 
             return Text.fromJson(serialised);
@@ -57,5 +59,12 @@ public class MojangTextAdapter implements TextAdapter {
             return ((MinecraftServer) CraterLoader.getServer().unwrapInternal()).registryAccess();
 
         return RegistryAccess.EMPTY;
+    }
+
+    static Component safeCopy(Component inComponent) {
+        String value = inComponent.getString();
+        Style style = inComponent.getStyle();
+
+        return Component.literal(value).withStyle(style);
     }
 }

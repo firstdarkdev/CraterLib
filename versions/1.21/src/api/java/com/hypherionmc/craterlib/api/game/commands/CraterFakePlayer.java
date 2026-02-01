@@ -1,7 +1,9 @@
 package com.hypherionmc.craterlib.api.game.commands;
 
 import com.hypherionmc.craterlib.api.game.CraterWrappedAPI;
+import com.hypherionmc.craterlib.api.game.server.CraterGameServer;
 import com.hypherionmc.craterlib.api.game.text.Text;
+import com.hypherionmc.craterlib.core.services.CraterServices;
 
 import java.util.function.Supplier;
 
@@ -13,4 +15,7 @@ public interface CraterFakePlayer extends CraterWrappedAPI {
         onSuccess(() -> message, false);
     }
 
+    static CraterFakePlayer create(CraterGameServer server, int permLevel, String name, CraterFakePlayer handler) {
+        return CraterServices.UTILS.createFakePlayer(server, permLevel, name, handler);
+    }
 }
