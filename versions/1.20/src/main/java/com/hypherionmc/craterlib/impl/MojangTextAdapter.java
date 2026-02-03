@@ -13,7 +13,7 @@ public class MojangTextAdapter implements TextAdapter {
     @Override
     public <T> Text serialize(T message) {
         try {
-            return Text.fromJson(Component.Serializer.toJsonTree((Component) message));
+            return Text.fromJson(Component.Serializer.toJsonTree(safeCopy((Component) message)));
         } catch (Exception e) {
             return Text.literal(((Component)message).getString());
         }

@@ -23,7 +23,7 @@ public class BridgedCommandSourceStack implements CraterCommandSourceStack {
                 internal.getPlayerOrException().displayClientMessage(supplier.get().toGame(), bl);
             } catch (Exception ignored) {}
         } else {
-            internal.sendSuccess(supplier.get().toGame(), bl);
+            internal.sendSuccess(() -> supplier.get().toGame(), bl);
         }
     }
 

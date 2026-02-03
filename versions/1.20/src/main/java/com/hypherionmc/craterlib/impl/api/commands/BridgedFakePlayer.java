@@ -47,7 +47,7 @@ public final class BridgedFakePlayer implements CraterFakePlayer {
 
         @Override
         public void sendSuccess(@NonNull Supplier<Component> supplier, boolean bl) {
-            delegate.onSuccess(() -> Text.fromGame(supplier), bl);
+            delegate.onSuccess(() -> Text.fromGame(supplier.get()), bl);
         }
 
         @Override

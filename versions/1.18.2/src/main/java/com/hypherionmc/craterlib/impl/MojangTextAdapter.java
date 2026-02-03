@@ -15,7 +15,7 @@ public class MojangTextAdapter implements TextAdapter {
     @Override
     public <T> Text serialize(T message) {
         try {
-            return Text.fromJson(Component.Serializer.toJsonTree((Component) message));
+            return Text.fromJson(Component.Serializer.toJsonTree(safeCopy((Component) message)));
         } catch (Exception e) {
             return Text.literal(((Component)message).getString());
         }
@@ -34,7 +34,6 @@ public class MojangTextAdapter implements TextAdapter {
 
         return serialize(new TranslatableComponent(Util.makeDescriptionId("biome", (ResourceLocation) name.unwrapInternal())));
     }
-
 
     static Component safeCopy(Component inComponent) {
         String value = inComponent.getString();

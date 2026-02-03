@@ -110,7 +110,7 @@ public class BridgedMinecraftServer implements CraterGameServer {
 
     @Override
     public void executeCommand(CraterGameServer server, CraterFakePlayer player, String command) {
-        internal.getCommands().performCommand(player.unwrap(), command);
+        internal.getCommands().performPrefixedCommand(player.unwrap(), command);
     }
 
     @Override

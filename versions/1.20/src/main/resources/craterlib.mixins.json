@@ -4,8 +4,6 @@
   "package": "com.hypherionmc.craterlib.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "events.StoredUserEntryAccessor",
-    "events.WhitelistMixin"
   ],
   "client": [
     "ChatInputSuggestorMixin",
@@ -15,6 +13,8 @@
     "events.client.RealmsMainScreenMixin"
   ],
   "server": [
+    "events.StoredUserEntryAccessor",
+    "events.WhitelistMixin",
     "events.CommandMixin",
     "events.PlayerAdvancementsMixin",
     "events.PlayerListMixin",
