@@ -1,26 +1,14 @@
-**New Features**
+**New Features**:
 
-- Added API for Player Roles (https://modrinth.com/mod/player-roles) - HypherionSA
-- Added GameMode API to Player - HypherionSA
-- Added API for Advancement Progress - KarmaAlex
+- Split "nojang" api into its own package and renamed it to "api" to prepare for Hytale porting
+- CraterLoader – A mod loader inside a mod. Allows mods depending on CraterLib to run completely independent of the game it's running on
 
-**This is a re-release of 3.0.0 with the following fixes**:
+**Bug Fixes**:
 
-- Fixed Startup Crash on Forge Pre 1.21
-- Fixed Mixin Crash on Fabric 1.21.1
+- Removed warning message when Luckperms perms fails to load, causing log spam
+- Fixed Maven Publishing for Snapshots and Releases
 
-**Bug Fixes**
+**Changes**:
 
-- Fixed Events fired from mixins that error out breaking the game - HypherionSA
-
-**Changes**
-
-- Forge is back (for now. If the amount of users aren't worth it, it's gone for good) - HypherionSA/Kaleidio
-- Removed all deprecated code - HypherionSA
-- Remove Legacy Embedded RPC SDK (Breaks Simple RPC 3. If you still need it, please open an issue) - HypherionSA
-- Removed 1.19.4, 1.20.2-1.20.4 from support - These versions hardly have any users left. We still provide tech support for it - HypherionSA
-
-**Technical Changes**
-
-- Switched to a new build system - HypherionSA
-- Moved from Groovy to Kotlin - HypherionSA
+- Cleaned up some API code
+- Updated Adventure to 4.26
