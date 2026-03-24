@@ -46,7 +46,7 @@ class EntryPointHolder {
         try {
             call.run();
         } catch (Exception e) {
-            CraterLoader.LOGGER.error("Failed to initialize plugin {}", plugin.getPluginId(), e);
+            CraterLoader.LOADER_LOGGER.error("Failed to initialize plugin {}", plugin.getPluginId(), e);
         }
     }
 
