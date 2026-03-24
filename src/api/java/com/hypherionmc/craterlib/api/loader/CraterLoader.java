@@ -12,7 +12,8 @@ import static com.hypherionmc.craterlib.core.services.CraterServices.ENVIRONMENT
 
 public final class CraterLoader {
 
-    public static CraterLogger LOGGER = CraterLogger.getLogger("CraterLoader");
+    public static CraterLogger LOADER_LOGGER = CraterLogger.getLogger("CraterLoader");
+    public static CraterLogger LOGGER = CraterLogger.getLogger("CraterLib");
     public static CraterGameServer SERVER;
 
     public static LoaderType getLoaderType() {

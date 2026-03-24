@@ -26,11 +26,11 @@ public final class CraterPluginLoader {
         if (hasLoaded)
             throw new RuntimeException("Cannot call discoverPlugins after plugins have already loaded");
 
-        CraterLoader.LOGGER.info("Discovering Plugins");
+        CraterLoader.LOADER_LOGGER.info("Discovering Plugins");
         pluginIds.clear();
         plugins.loadAll(pluginIds);
 
-        CraterLoader.LOGGER.info("Discovered {} plugins", pluginIds.size());
+        CraterLoader.LOADER_LOGGER.info("Discovered {} plugins", pluginIds.size());
         hasLoaded = true;
     }
 
@@ -38,7 +38,7 @@ public final class CraterPluginLoader {
         if (pluginIds.isEmpty())
             return;
 
-        CraterLoader.LOGGER.info("Loading Early Init Plugins");
+        CraterLoader.LOADER_LOGGER.info("Loading Early Init Plugins");
         plugins.invokeEarly();
     }
 
@@ -46,20 +46,20 @@ public final class CraterPluginLoader {
         if (pluginIds.isEmpty())
             return;
 
-        CraterLoader.LOGGER.info("Loading Client Plugins");
+        CraterLoader.LOADER_LOGGER.info("Loading Client Plugins");
         plugins.invokeClient();
 
-        CraterLoader.LOGGER.info("Loaded Client Plugins");
+        CraterLoader.LOADER_LOGGER.info("Loaded Client Plugins");
     }
 
     public static void initializeServerPlugins() {
         if (pluginIds.isEmpty())
             return;
 
-        CraterLoader.LOGGER.info("Loading Server Plugins");
+        CraterLoader.LOADER_LOGGER.info("Loading Server Plugins");
         plugins.invokeServer();
 
-        CraterLoader.LOGGER.info("Loaded Server Plugins");
+        CraterLoader.LOADER_LOGGER.info("Loaded Server Plugins");
     }
 
 }
