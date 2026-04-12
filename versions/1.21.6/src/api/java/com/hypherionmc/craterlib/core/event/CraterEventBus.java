@@ -126,13 +126,8 @@ public final class CraterEventBus {
             try {
                 this.listener.accept(event);
             } catch (Exception e) {
-                LOGGER.error("##################################");
-                LOGGER.error("Failed to notify event listener!");
-                LOGGER.error("Event Type: " + this.eventType.getName());
-                LOGGER.error("Listener Parent Class Name: " + this.listenerParentClassName);
-                LOGGER.error("Listener Method Name In Parent Class: " + this.listenerMethodName);
-                LOGGER.error("##################################");
-                e.printStackTrace();
+                LOGGER.error("Failed to notify event listener for event {} in class {}#{}!", this.eventType.getName(), this.listenerParentClassName, this.listenerMethodName);
+                LOGGER.error("Trace", e);
             }
         }
     }

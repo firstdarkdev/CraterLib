@@ -1,7 +1,7 @@
 [versions]
 unimined = "1.0.8+1.4.2-SNAPSHOT"
 shadow = "9.2.2"
-modpublisher = "2.1.8+snapshot.2"
+modpublisher = "2.2.+"
 orion = "2.0.20"
 
 [plugins]
