@@ -10,6 +10,7 @@ import com.hypherionmc.craterlib.compat.FabricTailor;
 import com.hypherionmc.craterlib.compat.Vanish;
 import com.hypherionmc.craterlib.core.services.CraterCompatUtils;
 import com.hypherionmc.craterlib.impl.compat.LuckPermsCompatImpl;
+import com.hypherionmc.craterlib.impl.compat.ftb.FTBRanksImpl;
 import dev.ftb.mods.ftbessentials.util.FTBEPlayerData;
 import me.wesley1808.advancedchat.api.AdvancedChatAPI;
 import net.minecraft.world.entity.player.Player;
@@ -69,7 +70,7 @@ public class FabricCompatHelper implements CraterCompatUtils {
 
     @Override
     public FTBRanks getFTBRanks() {
-        return FTBRanks.getInstance();
+        return FTBRanksImpl.INSTANCE;
     }
 
     @Override

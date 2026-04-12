@@ -8,6 +8,7 @@ import com.hypherionmc.craterlib.api.game.world.entity.player.CraterPlayer;
 import com.hypherionmc.craterlib.api.loader.CraterLoader;
 import com.hypherionmc.craterlib.core.services.CraterCompatUtils;
 import com.hypherionmc.craterlib.impl.compat.LuckPermsCompatImpl;
+import com.hypherionmc.craterlib.impl.compat.ftb.FTBRanksImpl;
 import dev.ftb.mods.ftbessentials.util.FTBEPlayerData;
 import redstonedubstep.mods.vanishmod.VanishUtil;
 import team.creative.playerrevive.api.IBleeding;
@@ -78,7 +79,7 @@ public class NeoForgeCompatHelper implements CraterCompatUtils {
 
     @Override
     public FTBRanks getFTBRanks() {
-        return FTBRanks.getInstance();
+        return FTBRanksImpl.INSTANCE;
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.hypherionmc.craterlib.api.game.resources.CraterIdentifier;
 import com.hypherionmc.craterlib.api.loader.CraterLoader;
 import com.hypherionmc.craterlib.api.util.DiscordMarkdownStripper;
 import com.hypherionmc.mcdiscordformatter.discord.DiscordSerializer;
+import com.hypherionmc.mcdiscordformatter.discord.DiscordSerializerOptions;
 import com.hypherionmc.mcdiscordformatter.minecraft.MinecraftSerializer;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
@@ -27,6 +28,7 @@ public final class Text {
     @Getter
     private Component component;
     private static TextAdapter textAdapter;
+    private static final DiscordSerializer DISCORD_SERIALIZER = new DiscordSerializer(DiscordSerializerOptions.defaults().withEscapeMarkdown(false));
 
     Text(Component c) {
         this.component = c;
@@ -191,7 +193,7 @@ public final class Text {
         String value = DiscordMarkdownStripper.stripMarkdown(getString(component));
 
         if (formatted) {
-            value = DiscordSerializer.INSTANCE.serialize(component);
+            value = DISCORD_SERIALIZER.serialize(component);
         }
 
         return value;
