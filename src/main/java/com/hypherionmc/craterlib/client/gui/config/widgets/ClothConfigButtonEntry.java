@@ -3,7 +3,7 @@ package com.hypherionmc.craterlib.client.gui.config.widgets;
 import com.mojang.blaze3d.platform.Window;
 import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
@@ -59,17 +59,17 @@ public class ClothConfigButtonEntry extends AbstractConfigListEntry<Void> {
     }
 
     @Override
-    public void render(GuiGraphics matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean isHovered, float delta) {
+    public void extractRenderState(GuiGraphicsExtractor matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean isHovered, float delta) {
         Window window = Minecraft.getInstance().getWindow();
         Component displayedFieldName = displayName;
         if (Minecraft.getInstance().font.isBidirectional()) {
-            matrices.drawString(Minecraft.getInstance().font, displayedFieldName.getVisualOrderText(), window.getGuiScaledWidth() - x - Minecraft.getInstance().font.width(displayedFieldName), y + 6, 16777215);
+            matrices.text(Minecraft.getInstance().font, displayedFieldName.getVisualOrderText(), window.getGuiScaledWidth() - x - Minecraft.getInstance().font.width(displayedFieldName), y + 6, 16777215);
             this.button.setX(x);
             if (hasDeleteButton) {
                 this.deleteButton.setX(x + this.button.getWidth() + 4);
             }
         } else {
-            matrices.drawString(Minecraft.getInstance().font, displayedFieldName.getVisualOrderText(), x, y + 6, this.getPreferredTextColor());
+            matrices.text(Minecraft.getInstance().font, displayedFieldName.getVisualOrderText(), x, y + 6, this.getPreferredTextColor());
             if (hasDeleteButton) {
                 this.button.setX(x + entryWidth - this.button.getWidth() - 24);
                 this.deleteButton.setX(x + entryWidth - 20);
@@ -79,11 +79,11 @@ public class ClothConfigButtonEntry extends AbstractConfigListEntry<Void> {
         }
 
         button.setY(y + (entryHeight - 20) / 2);
-        button.render(matrices, mouseX, mouseY, delta);
+        button.extractRenderState(matrices, mouseX, mouseY, delta);
 
         if (hasDeleteButton) {
             deleteButton.setY(y + (entryHeight - 20) / 2);
-            deleteButton.render(matrices, mouseX, mouseY, delta);
+            deleteButton.extractRenderState(matrices, mouseX, mouseY, delta);
         }
     }
 

@@ -27,12 +27,12 @@ public class BridgedClientLevel implements CraterClientLevel {
 
     @Override
     public long getDayTime() {
-        return internal.getDayTime();
+        return internal.getOverworldClockTime();
     }
 
     @Override
     public long dayTime() {
-        return internal.getDayTime();
+        return internal.getOverworldClockTime();
     }
 
     @Override

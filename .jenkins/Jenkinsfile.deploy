@@ -1,5 +1,5 @@
-def JDK = "21"
-def majorMc = "1.21.11";
+def JDK = "25"
+def majorMc = "26.1.2";
 
 pipeline {
     agent {

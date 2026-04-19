@@ -5,11 +5,11 @@ import com.hypherionmc.craterlib.api.events.compat.FTBRankEvents;
 import com.hypherionmc.craterlib.api.game.authlib.CraterGameProfile;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.hypherionmc.craterlib.impl.api.authlib.BridgedGameProfile;
+import dev.ftb.mods.ftblibrary.platform.event.NativeEventPosting;
 import dev.ftb.mods.ftbranks.api.FTBRanksAPI;
 import dev.ftb.mods.ftbranks.api.event.PlayerAddedToRankEvent;
 import dev.ftb.mods.ftbranks.api.event.PlayerRemovedFromRankEvent;
 import dev.ftb.mods.ftbranks.api.event.RankDeletedEvent;
-import dev.ftb.mods.ftbranks.api.event.RankEvent;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -18,9 +18,7 @@ public class FTBRanksImpl implements FTBRanks {
 
     public static final FTBRanksImpl INSTANCE = new FTBRanksImpl();
 
-    private FTBRanksImpl() {
-        registerEvents();
-    }
+    private FTBRanksImpl() {}
 
     public List<FTBRankImpl> getPlayerRanks(CraterGameProfile profile) {
         return FTBRanksAPI.manager().getAddedRanks(profile.unwrap()).stream().map(FTBRankImpl::wrap).toList();
@@ -60,22 +58,16 @@ public class FTBRanksImpl implements FTBRanks {
         return didRemoveRank.get();
     }
 
-    public void registerEvents() {
-        RankEvent.ADD_PLAYER.register(this::playerAddedToRank);
-        RankEvent.REMOVE_PLAYER.register(this::playerRemovedFromRank);
-        RankEvent.DELETED.register(this::rankDeleted);
+    public void rankDeleted(RankDeletedEvent.Data rankDeletedEvent) {
+        CraterEventBus.INSTANCE.postEvent(FTBRankEvents.RankDeletedEvent.wrap(FTBRankImpl.wrap(rankDeletedEvent.rank())));
     }
 
-    private void rankDeleted(RankDeletedEvent rankDeletedEvent) {
-        CraterEventBus.INSTANCE.postEvent(FTBRankEvents.RankDeletedEvent.wrap(FTBRankImpl.wrap(rankDeletedEvent.getRank())));
+    public void playerRemovedFromRank(PlayerRemovedFromRankEvent.Data playerRemovedFromRankEvent) {
+        CraterEventBus.INSTANCE.postEvent(FTBRankEvents.RankRemovedEvent.wrap(BridgedGameProfile.of(playerRemovedFromRankEvent.player()), FTBRankImpl.wrap(playerRemovedFromRankEvent.rank())));
     }
 
-    private void playerRemovedFromRank(PlayerRemovedFromRankEvent playerRemovedFromRankEvent) {
-        CraterEventBus.INSTANCE.postEvent(FTBRankEvents.RankRemovedEvent.wrap(BridgedGameProfile.wrap(playerRemovedFromRankEvent.getPlayer()), FTBRankImpl.wrap(playerRemovedFromRankEvent.getRank())));
-    }
-
-    private void playerAddedToRank(PlayerAddedToRankEvent playerAddedToRankEvent) {
-        CraterEventBus.INSTANCE.postEvent(FTBRankEvents.RankAddedEvent.wrap(BridgedGameProfile.wrap(playerAddedToRankEvent.getPlayer()), FTBRankImpl.wrap(playerAddedToRankEvent.getRank())));
+    public void playerAddedToRank(PlayerAddedToRankEvent.Data playerAddedToRankEvent) {
+        CraterEventBus.INSTANCE.postEvent(FTBRankEvents.RankAddedEvent.wrap(BridgedGameProfile.of(playerAddedToRankEvent.player()), FTBRankImpl.wrap(playerAddedToRankEvent.rank())));
     }
 
 }

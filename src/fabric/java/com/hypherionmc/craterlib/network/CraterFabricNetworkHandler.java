@@ -26,8 +26,8 @@ public class CraterFabricNetworkHandler extends PacketRegistry {
         CommonPacketHolder<T> holder = CommonPacketHolder.wrap(h);
 
         try {
-            PayloadTypeRegistry.playC2S().register(holder.getType(), holder.getCodec());
-            PayloadTypeRegistry.playS2C().register(holder.getType(), holder.getCodec());
+            PayloadTypeRegistry.serverboundPlay().register(holder.getType(), holder.getCodec());
+            PayloadTypeRegistry.clientboundPlay().register(holder.getType(), holder.getCodec());
         } catch (IllegalArgumentException e) {
             // do nothing
         }

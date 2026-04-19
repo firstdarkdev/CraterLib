@@ -98,7 +98,7 @@ public class BridgedMinecraftServer implements CraterGameServer {
 
     @Override
     public BridgedGameRules getGameRules() {
-        return BridgedGameRules.bridge(internal.getWorldData().getGameRules());
+        return BridgedGameRules.bridge(internal.getGameRules());
     }
 
     @Override

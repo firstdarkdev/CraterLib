@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.shadow)
     alias(libs.plugins.modpublisher)
     alias(libs.plugins.orion)
-    alias(libs.plugins.origami)
+    //alias(libs.plugins.origami)
     alias(libs.plugins.multimined)
 }
 
@@ -74,15 +74,15 @@ multimined.setup {
         mixinConfig("${orion.getProperty("mod_id")}.mixins.json", "${orion.getProperty("mod_id")}.neoforge.mixins.json")
     }
 
-    paper {
-        version(orion.getProperty("paper_loader"))
-
-        shadowJar {
-            commonShadow()
-            exclude("net.kyori:.*", "linux-x86-64/**", "win32-x86/**", "win32-x86-64/**", "darwin/**")
-            mergeServiceFiles()
-        }
-    }
+//    paper {
+//        version(orion.getProperty("paper_loader"))
+//
+//        shadowJar {
+//            commonShadow()
+//            exclude("net.kyori:.*", "linux-x86-64/**", "win32-x86/**", "win32-x86-64/**", "darwin/**")
+//            mergeServiceFiles()
+//        }
+//    }
 
     forge {
         version(orion.getProperty("forge_version"))
@@ -96,22 +96,22 @@ multimined.setup {
     }
 }
 
-origami {
-    sourceSet.set("paper")
-
-    // These classes cannot, and will not work on paper and will cause errors, so we exclude them
-    excludedPackages = listOf(
-        "com.hypherionmc.craterlib.client",
-        "com.hypherionmc.craterlib.mixin",
-        "com.hypherionmc.craterlib.api.game.client",
-        "com.hypherionmc.craterlib.api.game.realmsclient"
-    )
-
-    // These resources cannot, and will not work on paper, so we exclude them
-    excludedResources = listOf(
-        "pack.mcmeta", "craterlib.mixins.json"
-    )
-}
+//origami {
+//    sourceSet.set("paper")
+//
+//    // These classes cannot, and will not work on paper and will cause errors, so we exclude them
+//    excludedPackages = listOf(
+//        "com.hypherionmc.craterlib.client",
+//        "com.hypherionmc.craterlib.mixin",
+//        "com.hypherionmc.craterlib.api.game.client",
+//        "com.hypherionmc.craterlib.api.game.realmsclient"
+//    )
+//
+//    // These resources cannot, and will not work on paper, so we exclude them
+//    excludedResources = listOf(
+//        "pack.mcmeta", "craterlib.mixins.json"
+//    )
+//}
 // endregion
 
 repositories {
@@ -143,7 +143,7 @@ dependencies {
 
     multimined.fabric("com.terraformersmc:modmenu:${orion.getProperty("mod_menu_version")}")// { exclude(group = "net.fabricmc.fabric-api") }
     multimined.fabric("dev.ftb.mods:ftb-essentials:${orion.getProperty("ftb_essentials")}")
-    multimined.fabric("dev.ftb.mods:ftb-ranks:${orion.getProperty("ftb_ranks")}")
+    multimined.fabric("dev.ftb.mods:ftb-ranks-fabric:${orion.getProperty("ftb_ranks")}")
     multimined.fabric("me.shedaniel.cloth:cloth-config-fabric:${orion.getProperty("cloth_config")}")
     multimined.fabric("unimaven.modrinth:fabrictailor:${orion.getProperty("fabrictailor")}")
     multimined.fabric("unimaven.modrinth:vanish:${orion.getProperty("vanish")}")

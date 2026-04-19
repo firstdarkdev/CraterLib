@@ -36,11 +36,11 @@ public class ConfigScreenHandlerMixin {
                 return;
 
             if ((CraterLoader.isModLoaded("cloth_config") || CraterLoader.isModLoaded("cloth-config") || CraterLoader.isModLoaded("clothconfig"))) {
-                ModList.get()
+                ModList
                         .getModContainerById(config.getModId())
                         .ifPresent(c -> c.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory((minecraft, screen) -> ClothConfigScreenBuilder.buildConfigScreen(config, screen))));
             } else {
-                ModList.get().getModContainerById(config.getModId()).ifPresent(c -> c.registerExtensionPoint(
+                ModList.getModContainerById(config.getModId()).ifPresent(c -> c.registerExtensionPoint(
                         ConfigScreenHandler.ConfigScreenFactory.class,
                         (() -> new ConfigScreenHandler.ConfigScreenFactory((minecraft, screen) -> ((BridgedMinecraft) CraterLoader.getClient()).buildWarningScreen(
                                 Text.literal("Missing Cloth Config"),

@@ -59,7 +59,7 @@ public class ForgeLoaderHelper implements CraterLoaderEnvironment {
 
     @Override
     public boolean isModLoaded(String modid) {
-        return ModList.get().isLoaded(modid);
+        return ModList.isLoaded(modid);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ForgeLoaderHelper implements CraterLoaderEnvironment {
 
     @Override
     public int getModCount() {
-        return ModList.get().size();
+        return ModList.size();
     }
 
     @Override

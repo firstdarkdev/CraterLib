@@ -22,7 +22,7 @@ public class ServerGamePacketListenerImplMixin {
     public ServerPlayer player;
 
     @Inject(
-            method = "lambda$handleChat$6",
+            method = "lambda$handleChat$1",
             at = @At("HEAD"),
             cancellable = true
     )
