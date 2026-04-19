@@ -8,6 +8,9 @@ orionporting {
     upstreamBranch = "3.0.0/dev"
     patchMode = PatchMode.FUZZY
     porting(
+        // 26.x
+        "26.1",
+
         // 1.21.x
         "1.21.11",
         "1.21.9",

@@ -1,0 +1,37 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/firstdarkdev/craterLib/issues"
+
+[[mods]]
+    modId = "${mod_id}"
+    version = "${version}"
+    displayName = "${mod_name}"
+    displayURL = "https://modrinth.com/mod/craterlib"
+    logoFile = "craterlib_logo.png"
+    #credits="Thanks for this example mod goes to Java"
+    authors = "${mod_author}, Zenith"
+    description = '''
+    A library mod used by First Dark Development and HypherionSA Mods
+    '''
+    displayTest = "NONE"
+
+    [[mixins]]
+        config="${mod_id}.neoforge.mixins.json"
+
+    [[mixins]]
+        config="${mod_id}.mixins.json"
+
+[[dependencies.${ mod_id }]]
+    modId = "neoforge"
+    type="required"
+    versionRange = "[26.1.2.1-beta,)"
+    ordering = "NONE"
+    side = "BOTH"
+
+[[dependencies.${ mod_id }]]
+    modId = "minecraft"
+    type="required"
+    versionRange = "[26.1.2,)"
+    ordering = "NONE"
+    side = "BOTH"
