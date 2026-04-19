@@ -1,5 +1,5 @@
 [versions]
-unimined = "1.0.8+1.4.2-SNAPSHOT"
+unimined = "1.0.9+1.4.2-SNAPSHOT"
 shadow = "9.2.2"
 modpublisher = "2.2.+"
 orion = "2.0.20"
