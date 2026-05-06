@@ -26,23 +26,25 @@ public class CraterLib {
 
     public CraterLib(IEventBus eventBus) {
         CraterConstants.setupLibrary();
-        NeoForge.EVENT_BUS.register(new NeoForgeServerEvents());
+        IEventBus neoBus = NeoForge.EVENT_BUS;
+
+        neoBus.register(new NeoForgeServerEvents());
         eventBus.addListener(this::commonSetup);
         eventBus.addListener(this::clientSetup);
         handler = new CraterNeoForgeNetworkHandler(FMLLoader.getCurrent().getDist().isClient() ? PacketSide.CLIENT : PacketSide.SERVER);
 
         if (CraterLoader.isModLoaded("vmod")) {
-            NeoForge.EVENT_BUS.register(new Vanish());
+            neoBus.register(new Vanish());
         }
 
         if (CraterLoader.isModLoaded("playerrevive")) {
-            NeoForge.EVENT_BUS.register(new PlayerReviveEvents());
+            neoBus.register(new PlayerReviveEvents());
         }
 
         if (CraterLoader.isModLoaded("ftbranks")) {
-            eventBus.addListener(FTBRanksEvent.PlayerAdded.class, event -> FTBRanksImpl.INSTANCE.playerAddedToRank(event.getEventData()));
-            eventBus.addListener(FTBRanksEvent.PlayerRemoved.class, event -> FTBRanksImpl.INSTANCE.playerRemovedFromRank(event.getEventData()));
-            eventBus.addListener(FTBRanksEvent.Deleted.class, event -> FTBRanksImpl.INSTANCE.rankDeleted(event.getEventData()));
+            neoBus.addListener(FTBRanksEvent.PlayerAdded.class, event -> FTBRanksImpl.INSTANCE.playerAddedToRank(event.getEventData()));
+            neoBus.addListener(FTBRanksEvent.PlayerRemoved.class, event -> FTBRanksImpl.INSTANCE.playerRemovedFromRank(event.getEventData()));
+            neoBus.addListener(FTBRanksEvent.Deleted.class, event -> FTBRanksImpl.INSTANCE.rankDeleted(event.getEventData()));
         }
 
         CraterPluginLoader.loadIfNotLoaded();

@@ -158,7 +158,7 @@ dependencies {
     multimined.neoforge("dev.ftb.mods:ftb-ranks-neoforge:${orion.getProperty("ftb_ranks")}")
     multimined.neoforge("me.shedaniel.cloth:cloth-config-neoforge:${orion.getProperty("cloth_config")}")
     multimined.neoforge("unimaven.curseforge:playerrevive-266890:${orion.getProperty("player_revive")}")
-    multimined.neoforge("unimaven.curseforge:creativecore-257814:${orion.getProperty("creative_core")}")
+    //multimined.neoforge("unimaven.curseforge:creativecore-257814:${orion.getProperty("creative_core")}")
     // endregion
 
     // region Forge
