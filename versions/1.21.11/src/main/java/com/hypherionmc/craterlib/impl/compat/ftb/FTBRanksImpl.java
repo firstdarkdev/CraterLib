@@ -23,7 +23,7 @@ public class FTBRanksImpl implements FTBRanks {
     }
 
     public List<FTBRankImpl> getPlayerRanks(CraterGameProfile profile) {
-        return FTBRanksAPI.manager().getAddedRanks(profile.unwrap()).stream().map(FTBRankImpl::wrap).toList();
+        return FTBRanksAPI.manager().getAddedRanks(((BridgedGameProfile) profile).toNameAndId()).stream().map(FTBRankImpl::wrap).toList();
     }
 
     public List<FTBRankImpl> getAllRanks() {
@@ -41,7 +41,7 @@ public class FTBRanksImpl implements FTBRanks {
 
         AtomicBoolean didAddRank = new AtomicBoolean(false);
         FTBRanksAPI.manager().getRank(rank).ifPresent(r -> {
-            r.add(profile.unwrap());
+            r.add(((BridgedGameProfile) profile).toNameAndId());
             didAddRank.set(true);
         });
 
@@ -53,7 +53,7 @@ public class FTBRanksImpl implements FTBRanks {
 
         AtomicBoolean didRemoveRank = new AtomicBoolean(false);
         FTBRanksAPI.manager().getRank(rank).ifPresent(r -> {
-            r.remove(profile.unwrap());
+            r.remove(((BridgedGameProfile) profile).toNameAndId());
             didRemoveRank.set(true);
         });
 
