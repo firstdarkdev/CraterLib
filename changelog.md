@@ -1,4 +1,7 @@
-**Bug Fixes**:
+**New Features**:
 
-- Fix FTB Ranks crash
-- Fixed FTB Ranks not Syncing
+- Added `saveEverything` API for upcoming mod
+
+**Changes**:
+
+- Updated Moon-Config to fix some issues relating to Kotlin based config setups
