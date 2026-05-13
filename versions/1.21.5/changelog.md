@@ -1,9 +1,8 @@
-**Bug Fixes**:
+**New Features**:
 
-- Fixed bug with FTB Ranks causing Simple Discord Link messages to not be sent - [#29](https://github.com/firstdarkdev/CraterLib/issues/29)
-- Fixed bug with Discord Formatting being escaped and not showing up properly
-- Updated Vanishmod to fix api error issues with newer versions
+- Added `saveEverything` API for upcoming mod
 
 **Changes**:
 
-- Event error logging now takes up less log space. Hopefully that fixes the missing stacktraces on Forge and NeoForge
+- Updated Moon-Config to fix some issues relating to Kotlin based config setups
+- Changed chat hook point for Forge and NeoForge to get modified chat messages from other mods

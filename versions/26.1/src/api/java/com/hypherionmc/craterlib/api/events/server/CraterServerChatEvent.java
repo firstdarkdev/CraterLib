@@ -14,6 +14,7 @@ public class CraterServerChatEvent extends CraterEvent {
     public final String message, username;
     public final CraterPlayer player;
     @Setter private Text component;
+    @Setter private boolean upstreamCancelled = false;
 
     public CraterServerChatEvent(CraterPlayer player, String message, Text component) {
         this.message = message;

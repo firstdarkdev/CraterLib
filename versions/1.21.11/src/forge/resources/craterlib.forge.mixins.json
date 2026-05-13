@@ -9,7 +9,7 @@
     "ConfigScreenHandlerMixin"
   ],
   "server": [
-    "ServerGamePacketListenerImplMixin",
+    "CommonHooksMixin",
     "ServerStatusPacketListenerMixin"
   ],
   "injectors": {

@@ -144,4 +144,8 @@ public class BridgedMinecraftServer implements CraterGameServer {
         return internal.isDedicatedServer();
     }
 
+    @Override
+    public boolean saveEverything(boolean silent, boolean flush, boolean force) {
+        return internal.saveEverything(silent, flush, force);
+    }
 }
