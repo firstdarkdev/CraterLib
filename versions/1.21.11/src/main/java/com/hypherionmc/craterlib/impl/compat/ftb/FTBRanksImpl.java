@@ -23,7 +23,7 @@ public class FTBRanksImpl implements FTBRanks {
     }
 
     public List<FTBRankImpl> getPlayerRanks(CraterGameProfile profile) {
-        return FTBRanksAPI.manager().getAddedRanks(((BridgedGameProfile) profile).toNameAndId()).stream().map(FTBRankImpl::wrap).toList();
+        return FTBRanksAPI.manager().getAddedRanks(profile.unwrap()).stream().map(FTBRankImpl::wrap).toList();
     }
 
     public List<FTBRankImpl> getAllRanks() {
@@ -41,7 +41,7 @@ public class FTBRanksImpl implements FTBRanks {
 
         AtomicBoolean didAddRank = new AtomicBoolean(false);
         FTBRanksAPI.manager().getRank(rank).ifPresent(r -> {
-            r.add(((BridgedGameProfile) profile).toNameAndId());
+            r.add(profile.unwrap());
             didAddRank.set(true);
         });
 
@@ -53,7 +53,7 @@ public class FTBRanksImpl implements FTBRanks {
 
         AtomicBoolean didRemoveRank = new AtomicBoolean(false);
         FTBRanksAPI.manager().getRank(rank).ifPresent(r -> {
-            r.remove(((BridgedGameProfile) profile).toNameAndId());
+            r.remove(profile.unwrap());
             didRemoveRank.set(true);
         });
 
@@ -71,11 +71,11 @@ public class FTBRanksImpl implements FTBRanks {
     }
 
     private void playerRemovedFromRank(PlayerRemovedFromRankEvent playerRemovedFromRankEvent) {
-        CraterEventBus.INSTANCE.postEvent(FTBRankEvents.RankRemovedEvent.wrap(BridgedGameProfile.wrap(playerRemovedFromRankEvent.getPlayer()), FTBRankImpl.wrap(playerRemovedFromRankEvent.getRank())));
+        CraterEventBus.INSTANCE.postEvent(FTBRankEvents.RankRemovedEvent.wrap(BridgedGameProfile.of(playerRemovedFromRankEvent.getPlayer()), FTBRankImpl.wrap(playerRemovedFromRankEvent.getRank())));
     }
 
     private void playerAddedToRank(PlayerAddedToRankEvent playerAddedToRankEvent) {
-        CraterEventBus.INSTANCE.postEvent(FTBRankEvents.RankAddedEvent.wrap(BridgedGameProfile.wrap(playerAddedToRankEvent.getPlayer()), FTBRankImpl.wrap(playerAddedToRankEvent.getRank())));
+        CraterEventBus.INSTANCE.postEvent(FTBRankEvents.RankAddedEvent.wrap(BridgedGameProfile.of(playerAddedToRankEvent.getPlayer()), FTBRankImpl.wrap(playerAddedToRankEvent.getRank())));
     }
 
 }
