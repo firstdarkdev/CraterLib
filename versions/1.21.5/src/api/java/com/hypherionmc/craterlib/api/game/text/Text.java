@@ -30,6 +30,12 @@ public final class Text {
     private static TextAdapter textAdapter;
     private static final DiscordSerializer DISCORD_SERIALIZER = new DiscordSerializer(DiscordSerializerOptions.defaults().withEscapeMarkdown(false));
 
+    @Getter
+    private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder().options(JSONOptions.byDataVersion().at(CraterLoader.dataVersion())).build();
+
+    @Getter
+    private static final MiniMessage miniMessage = MiniMessage.miniMessage();
+
     Text(Component c) {
         this.component = c;
     }
@@ -53,14 +59,6 @@ public final class Text {
     public static Text translatable(String key, Text... value) {
         return new Text(Component.translatable(key, Arrays.stream(value).map(Text::getComponent).toList()));
     }
-
-    @Getter
-    private static final GsonComponentSerializer adventureSerializer = GsonComponentSerializer.builder()
-            .options(JSONOptions.byDataVersion().at(CraterLoader.dataVersion()))
-            .build();
-
-    @Getter
-    private static final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     public static Text from(Component message) {
         return new Text(message);

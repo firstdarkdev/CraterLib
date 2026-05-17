@@ -45,6 +45,7 @@ multimined.setup {
 
     shadowJar {
         commonShadow()
+        relocate("net.kyori" to "com.hypherionmc.craterlib.libs.kyori")
     }
 
     jarJarExclude(listOf("com.google.code.gson"))
@@ -52,6 +53,7 @@ multimined.setup {
     api {
         shadowJar {
             commonShadow()
+            relocate("net.kyori" to "com.hypherionmc.craterlib.libs.kyori")
         }
     }
 
@@ -60,6 +62,7 @@ multimined.setup {
 
         shadowJar {
             commonShadow()
+            relocate("net.kyori" to "com.hypherionmc.craterlib.libs.kyori")
         }
     }
 
@@ -68,6 +71,7 @@ multimined.setup {
 
         shadowJar {
             commonShadow()
+            relocate("net.kyori" to "com.hypherionmc.craterlib.libs.kyori")
             exclude("META-INF/versions/**")
         }
 
@@ -124,10 +128,10 @@ dependencies {
     multimined.shade("me.hypherionmc.moon-config:toml:${orion.getProperty("moon_config")}")
     multimined.shade("me.hypherionmc.moon-config:json:${orion.getProperty("moon_config")}")
     multimined.shade("com.hypherionmc.modutils:mcdiscordformatter:${orion.getProperty("discord_formatter")}")
-    multimined.commonInclude("net.kyori:adventure-api:${orion.getProperty("adventure")}")
-    multimined.commonInclude("net.kyori:adventure-text-serializer-gson:${orion.getProperty("adventure")}")
-    multimined.commonInclude("net.kyori:adventure-text-serializer-plain:${orion.getProperty("adventure")}")
-    multimined.commonInclude("net.kyori:adventure-text-minimessage:${orion.getProperty("adventure")}")
+    multimined.shade("net.kyori:adventure-api:${orion.getProperty("adventure")}")
+    multimined.shade("net.kyori:adventure-text-serializer-gson:${orion.getProperty("adventure")}")
+    multimined.shade("net.kyori:adventure-text-serializer-plain:${orion.getProperty("adventure")}")
+    multimined.shade("net.kyori:adventure-text-minimessage:${orion.getProperty("adventure")}")
 
     compileOnly("net.luckperms:api:5.4")
     // endregion
