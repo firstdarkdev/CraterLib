@@ -1,3 +1,7 @@
+**Bug Fixes**:
+
+- Fix Adventure Relocation on Forge
+
 **New Features**:
 
 - Added `saveEverything` API for upcoming mod
