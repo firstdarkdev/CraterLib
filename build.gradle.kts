@@ -94,6 +94,7 @@ multimined.setup {
 
         shadowJar {
             commonShadow()
+            relocate("net.kyori" to "com.hypherionmc.craterlib.libs.kyori")
             exclude("META-INF/versions/**")
         }
 
