@@ -8,15 +8,15 @@ plugins {
     alias(libs.plugins.shadow)
     alias(libs.plugins.modpublisher)
     alias(libs.plugins.orion)
-    //alias(libs.plugins.origami)
+    alias(libs.plugins.origami)
     alias(libs.plugins.multimined)
 }
 
 group = orion.getProperty("project_group")
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 // Region Tooling
@@ -78,16 +78,16 @@ multimined.setup {
         mixinConfig("${orion.getProperty("mod_id")}.mixins.json", "${orion.getProperty("mod_id")}.neoforge.mixins.json")
     }
 
-//    paper {
-//        version(orion.getProperty("paper_loader"))
-//
-//        shadowJar {
-//            commonShadow()
-//            relocate("com.hypherionmc.craterlib.libs.kyori" to "net.kyori")
-//            exclude("net.kyori:.*", "linux-x86-64/**", "win32-x86/**", "win32-x86-64/**", "darwin/**")
-//            mergeServiceFiles()
-//        }
-//    }
+    paper {
+        version(orion.getProperty("paper_loader"))
+
+        shadowJar {
+            commonShadow()
+            relocate("com.hypherionmc.craterlib.libs.kyori" to "net.kyori")
+            exclude("net.kyori:.*", "linux-x86-64/**", "win32-x86/**", "win32-x86-64/**", "darwin/**")
+            mergeServiceFiles()
+        }
+    }
 
     forge {
         version(orion.getProperty("forge_version"))
@@ -102,22 +102,22 @@ multimined.setup {
     }
 }
 
-//origami {
-//    sourceSet.set("paper")
-//
-//    // These classes cannot, and will not work on paper and will cause errors, so we exclude them
-//    excludedPackages = listOf(
-//        "com.hypherionmc.craterlib.client",
-//        "com.hypherionmc.craterlib.mixin",
-//        "com.hypherionmc.craterlib.api.game.client",
-//        "com.hypherionmc.craterlib.api.game.realmsclient"
-//    )
-//
-//    // These resources cannot, and will not work on paper, so we exclude them
-//    excludedResources = listOf(
-//        "pack.mcmeta", "craterlib.mixins.json"
-//    )
-//}
+origami {
+    sourceSet.set("paper")
+
+    // These classes cannot, and will not work on paper and will cause errors, so we exclude them
+    excludedPackages = listOf(
+        "com.hypherionmc.craterlib.client",
+        "com.hypherionmc.craterlib.mixin",
+        "com.hypherionmc.craterlib.api.game.client",
+        "com.hypherionmc.craterlib.api.game.realmsclient"
+    )
+
+    // These resources cannot, and will not work on paper, so we exclude them
+    excludedResources = listOf(
+        "pack.mcmeta", "craterlib.mixins.json"
+    )
+}
 // endregion
 
 repositories {
