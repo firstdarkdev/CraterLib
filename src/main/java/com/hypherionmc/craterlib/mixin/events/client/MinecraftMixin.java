@@ -4,6 +4,7 @@ import com.hypherionmc.craterlib.api.events.client.ScreenEvent;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.hypherionmc.craterlib.impl.api.client.gui.BridgedScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,12 +13,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(Minecraft.class)
+@Mixin(Gui.class)
 public class MinecraftMixin {
 
     @Shadow
     @Nullable
-    public Screen screen;
+    private Screen screen;
 
     @Inject(method = "setScreen", at = @At(value = "TAIL"))
     private void injectScreenOpeningEvent(Screen screen, CallbackInfo ci) {

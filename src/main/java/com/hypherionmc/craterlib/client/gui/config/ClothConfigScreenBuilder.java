@@ -12,6 +12,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.SystemToast;
+import net.minecraft.client.gui.components.toasts.ToastManager;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.ApiStatus;
@@ -101,13 +102,13 @@ public class ClothConfigScreenBuilder {
                     new ClothConfigButtonEntry(
                             Component.translatable("cl.buttons.entry", (i + 1)),
                             Component.translatable("cl.buttons.edit"),
-                            button -> Minecraft.getInstance().setScreen(
+                            button -> Minecraft.getInstance().setScreenAndShow(
                                     buildSubScreen(config, item, builder.build())
                             ),
                             button -> {
                                 list.remove(finalI);
                                 saveFieldValue(list, field, invoker);
-                                Minecraft.getInstance().setScreen(buildListScreen(config, list, field, invoker, parent, true));
+                                Minecraft.getInstance().setScreenAndShow(buildListScreen(config, list, field, invoker, parent, true));
                             },
                             edited
                     )
@@ -128,7 +129,7 @@ public class ClothConfigScreenBuilder {
                                     Object newItem = elementType.getDeclaredConstructor().newInstance();
                                     list.add(newItem);
                                     saveFieldValue(list, field, invoker);
-                                    Minecraft.getInstance().setScreen(buildListScreen(config, list, field, invoker, parent, true));
+                                    Minecraft.getInstance().setScreenAndShow(buildListScreen(config, list, field, invoker, parent, true));
                                 } catch (Exception e) {
                                     CraterLoader.LOGGER.error("Failed to create new list entry", e);
                                 }
@@ -170,7 +171,7 @@ public class ClothConfigScreenBuilder {
                                 new ClothConfigButtonEntry(
                                         Component.translatable("cl.config." + baseConfig.getClass().getSimpleName().toLowerCase() + "." + field.getName().toLowerCase()),
                                         Component.translatable("cl.buttons.edit"),
-                                        button -> Minecraft.getInstance().setScreen(
+                                        button -> Minecraft.getInstance().setScreenAndShow(
                                                 buildSubScreen(baseConfig, val, builder.build())
                                         )
                                 )
@@ -286,7 +287,7 @@ public class ClothConfigScreenBuilder {
                                     new ClothConfigButtonEntry(
                                             getTranslationKey(baseConfig, config, field.getName()),
                                             Component.translatable("cl.buttons.edit"),
-                                            button -> Minecraft.getInstance().setScreen(
+                                            button -> Minecraft.getInstance().setScreenAndShow(
                                                     buildListScreen(baseConfig, list, field, config, builder.build(), false)
                                             )
                                     )
@@ -390,7 +391,7 @@ public class ClothConfigScreenBuilder {
             config.saveConfig(config);
             Files.deleteIfExists(backupPath);
         } catch (Exception e) {
-            Minecraft.getInstance().getToastManager().addToast(
+            Minecraft.getInstance().gui.toastManager().addToast(
                     new SystemToast(
                             SystemToast.SystemToastId.PACK_LOAD_FAILURE,
                             Component.literal("Failed To Save Config"),

@@ -92,10 +92,10 @@ public class BridgedMinecraft implements CraterGame {
 
     @Override
     public void showWarningScreen(Text title, Text message) {
-        Screen currentScreen = internal.screen;
-        internal.setScreen(
+        Screen currentScreen = internal.gui.screen();
+        internal.setScreenAndShow(
                 new AlertScreen(
-                        () -> internal.setScreen(currentScreen),
+                        () -> internal.setScreenAndShow(currentScreen),
                         title.toGame(),
                         message.toGame()
                 )
@@ -104,7 +104,7 @@ public class BridgedMinecraft implements CraterGame {
 
     public Screen buildWarningScreen(Text title, Text message, Screen parent) {
         return new AlertScreen(
-                () -> internal.setScreen(parent),
+                () -> internal.setScreenAndShow(parent),
                 title.toGame(),
                 message.toGame()
         );

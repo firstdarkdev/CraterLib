@@ -58,7 +58,7 @@ public final class BridgedFakePlayer implements CraterFakePlayer {
     }
 
     static LevelBasedPermissionSet forLevel(int perm) {
-        perm = Math.max(0, Math.min(4, perm));
+        perm = Math.clamp(perm, 0, 4);
         PermissionLevel level = PermissionLevel.byId(perm);
         return LevelBasedPermissionSet.forLevel(level);
     }
