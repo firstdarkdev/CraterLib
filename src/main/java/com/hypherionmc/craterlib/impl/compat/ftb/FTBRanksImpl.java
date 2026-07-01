@@ -24,12 +24,14 @@ public class FTBRanksImpl implements FTBRanks {
     @Override
     public List<FTBRankImpl> getPlayerRanks(CraterGameProfile profile) {
         return FTBRanksAPI.manager().getAddedRanks(((BridgedGameProfile) profile).toNameAndId()).stream().map(FTBRankImpl::wrap).toList();
+        // Explicitly added ranks via "/ftbranks add player rank"
     }
 
     @Override
     public List<FTBRankImpl> getPlayerRanks(CraterPlayer player) {
         ServerPlayer serverPlayer = player.unwrap();
         return FTBRanksAPI.manager().getRanks(serverPlayer).stream().map(FTBRankImpl::wrap).toList();
+        // All ranks the player has. Includes explicitly added ranks and condition-added ranks.
     }
 
     public List<FTBRankImpl> getAllRanks() {
@@ -41,6 +43,7 @@ public class FTBRanksImpl implements FTBRanks {
         return getPlayerRanks(profile)
                 .stream()
                 .anyMatch(r -> r.unwrapInternal().getName().equalsIgnoreCase(rank) || r.unwrapInternal().getId().equalsIgnoreCase(rank));
+        //Original method for compatibility and for SDLink Discord2Minecraft
     }
     
     @Override
@@ -48,6 +51,7 @@ public class FTBRanksImpl implements FTBRanks {
         return getPlayerRanks(player)
                 .stream()
                 .anyMatch(r -> r.unwrapInternal().getName().equalsIgnoreCase(rank) || r.unwrapInternal().getId().equalsIgnoreCase(rank));
+        //Updated Method using ServerPlayer
     }
 
     public boolean addRank(CraterGameProfile profile, String rank) {
