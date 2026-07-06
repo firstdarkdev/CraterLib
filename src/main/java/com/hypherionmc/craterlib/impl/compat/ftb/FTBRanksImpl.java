@@ -6,7 +6,7 @@ import com.hypherionmc.craterlib.api.game.authlib.CraterGameProfile;
 import com.hypherionmc.craterlib.api.game.world.entity.player.CraterPlayer;
 import com.hypherionmc.craterlib.core.event.CraterEventBus;
 import com.hypherionmc.craterlib.impl.api.authlib.BridgedGameProfile;
-//import dev.ftb.mods.ftblibrary.platform.event.NativeEventPosting; Appears Unused
+import dev.ftb.mods.ftblibrary.platform.event.NativeEventPosting;
 import dev.ftb.mods.ftbranks.api.FTBRanksAPI;
 import dev.ftb.mods.ftbranks.api.event.PlayerAddedToRankEvent;
 import dev.ftb.mods.ftbranks.api.event.PlayerRemovedFromRankEvent;
