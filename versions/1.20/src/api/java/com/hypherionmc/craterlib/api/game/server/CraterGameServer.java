@@ -35,5 +35,6 @@ public interface CraterGameServer extends CraterWrappedAPI {
     boolean isPaused();
     boolean isDedicatedServer();
     boolean saveEverything(boolean silent, boolean flush, boolean force);
+    void noSave(boolean saved);
 
 }

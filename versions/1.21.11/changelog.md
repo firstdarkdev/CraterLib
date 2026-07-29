@@ -1,13 +1,5 @@
-**Bug Fixes**:
-
-- Fix Adventure Relocation on Forge
-
 **New Features**:
 
-- Added `saveEverything` API for upcoming mod
-
-**Changes**:
-
-- Updated Moon-Config to fix some issues relating to Kotlin based config setups
-- Changed chat hook point for Forge and NeoForge to get modified chat messages from other mods
-- Revert JarInJar'ing Adventure because it's causing too many issues with other mods
+- Added noSave() api to CraterServer for reasons that are none of your concern (possible new mod)
+- Added `getHunger`, `getArmor()` and `getSaturation()` api's to CraterPlayer
+- Added dual fired chat events, that mods like Simple Discord Link can use to determine if it needs to ignore a chat message

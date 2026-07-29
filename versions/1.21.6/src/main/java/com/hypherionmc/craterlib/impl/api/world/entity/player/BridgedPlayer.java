@@ -112,6 +112,21 @@ public class BridgedPlayer implements CraterPlayer {
             toMojangServerPlayer().connection.disconnect((Component) message.toGame());
     }
 
+    @Override
+    public int getArmor() {
+        return internal.getArmorValue();
+    }
+
+    @Override
+    public int getHunger() {
+        return internal.getFoodData().getFoodLevel();
+    }
+
+    @Override
+    public float getSaturation() {
+        return internal.getFoodData().getSaturationLevel();
+    }
+
     public ServerPlayer toMojangServerPlayer() {
         return (ServerPlayer) internal;
     }

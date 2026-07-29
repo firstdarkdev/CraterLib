@@ -15,12 +15,22 @@ public class CraterServerChatEvent extends CraterEvent {
     public final CraterPlayer player;
     @Setter private Text component;
     @Setter private boolean upstreamCancelled = false;
+    private final MessageSource source;
 
-    public CraterServerChatEvent(CraterPlayer player, String message, Text component) {
+    public CraterServerChatEvent(CraterPlayer sender, String message, Text component) {
+        this(sender, message, component, MessageSource.MAIN);
+    }
+
+    public CraterServerChatEvent(CraterPlayer player, String message, Text component, MessageSource source) {
         this.message = message;
         this.player = player;
         this.username = player.getGameProfile().getName();
         this.component = component;
+        this.source = source;
     }
 
+    public enum MessageSource {
+        MAIN,
+        BACKUP
+    }
 }

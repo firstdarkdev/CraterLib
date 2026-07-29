@@ -1,6 +1,7 @@
 package com.hypherionmc.craterlib.mixin.events;
 
 import com.hypherionmc.craterlib.api.events.server.CraterPlayerEvent;
+import com.hypherionmc.craterlib.api.events.server.CraterServerChatEvent;
 import com.hypherionmc.craterlib.api.events.server.MessageBroadcastEvent;
 import com.hypherionmc.craterlib.api.events.server.PlayerPreLoginEvent;
 import com.hypherionmc.craterlib.api.game.text.Text;
@@ -13,25 +14,40 @@ import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.net.SocketAddress;
+import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 
 @Mixin(PlayerList.class)
 public class PlayerListMixin {
 
-    @Inject(method = "broadcastMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/ChatType;Ljava/util/UUID;)V", at = @At("HEAD"))
-    private void injectBroadcast(Component component, ChatType chatType, UUID uUID, CallbackInfo ci) {
+    @Shadow
+    @Final
+    private List<ServerPlayer> players;
+
+    @Inject(method = "broadcastMessage(Lnet/minecraft/network/chat/Component;Ljava/util/function/Function;Lnet/minecraft/network/chat/ChatType;Ljava/util/UUID;)V", at = @At("HEAD"))
+    private void injectBroadcast(Component component, Function<ServerPlayer, Component> function, ChatType chatType, UUID uUID, CallbackInfo ci) {
         try {
             String thread = Thread.currentThread().getStackTrace()[3].getClassName();
             MessageBroadcastEvent event = new MessageBroadcastEvent(Text.fromGame(component), (f) -> Text.fromGame(component), false, thread);
             CraterEventBus.INSTANCE.postEvent(event);
         } catch (Exception ignored) {}
+
+        ServerPlayer player = players.stream().filter(p -> p.getUUID().equals(uUID)).findFirst().orElse(null);
+
+        if (player != null) {
+            CraterServerChatEvent event = new CraterServerChatEvent(BridgedPlayer.wrap(player), component.getContents(), Text.fromGame(component), CraterServerChatEvent.MessageSource.BACKUP);
+            CraterEventBus.INSTANCE.postEvent(event);
+        }
     }
 
     @Inject(method = "placeNewPlayer", at = @At("TAIL"))

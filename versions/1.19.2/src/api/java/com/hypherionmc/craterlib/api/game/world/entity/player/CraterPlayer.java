@@ -23,5 +23,8 @@ public interface CraterPlayer extends CraterWrappedAPI {
     String getHeldItemOffHand();
     CraterGameType getGameMode();
     void disconnect(Text message);
+    int getArmor();
+    int getHunger();
+    float getSaturation();
 
 }

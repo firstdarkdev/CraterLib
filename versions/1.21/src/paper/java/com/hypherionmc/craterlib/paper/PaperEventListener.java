@@ -66,11 +66,14 @@ public class PaperEventListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onServerChat(AsyncChatEvent event) {
-        CraterEventBus.INSTANCE.postEvent(
-                new CraterServerChatEvent(
-                        BridgedPlayer.wrap(((CraftPlayer) event.getPlayer()).getHandle()),
-                        PlainTextComponentSerializer.plainText().serialize(event.message()), Text.from(event.message()))
+        CraterServerChatEvent evt = new CraterServerChatEvent(
+                BridgedPlayer.wrap(((CraftPlayer) event.getPlayer()).getHandle()),
+                PlainTextComponentSerializer.plainText().serialize(event.message()), Text.from(event.message())
         );
+
+        evt.setUpstreamCancelled(event.isCancelled());
+
+        CraterEventBus.INSTANCE.postEvent(evt);
     }
 
     public void onServerStarting(MinecraftServer server) {

@@ -148,4 +148,11 @@ public class BridgedMinecraftServer implements CraterGameServer {
     public boolean saveEverything(boolean silent, boolean flush, boolean force) {
         return internal.saveEverything(silent, flush, force);
     }
+
+    @Override
+    public void noSave(boolean shouldSave) {
+        internal.getAllLevels().forEach(level -> {
+            level.noSave = shouldSave;
+        });
+    }
 }
