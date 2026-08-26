@@ -86,35 +86,39 @@ public class PaperEventListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onCommandEvent(PlayerCommandPreprocessEvent event) {
-        CommandSourceStack stack = null;
+        try {
+            CommandSourceStack stack = null;
 
-        if (event.getPlayer() instanceof CraftPlayer craftPlayer) {
-            stack = craftPlayer.getHandle().createCommandSourceStack();
-        } else if (event.getPlayer() instanceof ConsoleCommandSender) {
-            stack = MinecraftServer.getServer().createCommandSourceStack();
-        }
+            if (event.getPlayer() instanceof CraftPlayer craftPlayer) {
+                stack = craftPlayer.getHandle().createCommandSourceStack();
+            } else if (event.getPlayer() instanceof ConsoleCommandSender) {
+                stack = MinecraftServer.getServer().createCommandSourceStack();
+            }
 
-        if (stack == null)
-            return;
+            if (stack == null)
+                return;
 
-        String cmd = event.getMessage().substring(1);
+            String cmd = event.getMessage().substring(1);
 
-        CommandDispatcher<CommandSourceStack> dispatcher = MinecraftServer.getServer().getCommands().getDispatcher();
-        ParseResults<CommandSourceStack> parseResults = dispatcher.parse(cmd, stack);
-        CraterCommandEvent commandEvent = CraterCommandEvent.of(cmd, getCommandString(parseResults), getPlayer(parseResults), getTarget(parseResults), getMessage(parseResults));
-        CraterEventBus.INSTANCE.postEvent(commandEvent);
+            CommandDispatcher<CommandSourceStack> dispatcher = MinecraftServer.getServer().getCommands().getDispatcher();
+            ParseResults<CommandSourceStack> parseResults = dispatcher.parse(cmd, stack);
+            CraterCommandEvent commandEvent = CraterCommandEvent.of(cmd, getCommandString(parseResults), getPlayer(parseResults), getTarget(parseResults), getMessage(parseResults));
+            CraterEventBus.INSTANCE.postEvent(commandEvent);
+        } catch (Exception _) {}
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onServerCommandEvent(ServerCommandEvent event) {
-        CommandSourceStack stack = MinecraftServer.getServer().createCommandSourceStack();
+        try {
+            CommandSourceStack stack = MinecraftServer.getServer().createCommandSourceStack();
 
-        String cmd = event.getCommand();
+            String cmd = event.getCommand();
 
-        CommandDispatcher<CommandSourceStack> dispatcher = MinecraftServer.getServer().getCommands().getDispatcher();
-        ParseResults<CommandSourceStack> parseResults = dispatcher.parse(cmd, stack);
-        CraterCommandEvent commandEvent = CraterCommandEvent.of(cmd, getCommandString(parseResults), getPlayer(parseResults), getTarget(parseResults), getMessage(parseResults));
-        CraterEventBus.INSTANCE.postEvent(commandEvent);
+            CommandDispatcher<CommandSourceStack> dispatcher = MinecraftServer.getServer().getCommands().getDispatcher();
+            ParseResults<CommandSourceStack> parseResults = dispatcher.parse(cmd, stack);
+            CraterCommandEvent commandEvent = CraterCommandEvent.of(cmd, getCommandString(parseResults), getPlayer(parseResults), getTarget(parseResults), getMessage(parseResults));
+            CraterEventBus.INSTANCE.postEvent(commandEvent);
+        } catch (Exception _) {}
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
