@@ -46,7 +46,7 @@ public class PaperEventListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onAdvancement(PlayerAdvancementDoneEvent event) {
-        if (((CraftAdvancement) event.getAdvancement()).getHandle().value().display().isEmpty() || !((CraftAdvancement) event.getAdvancement()).getHandle().value().display().get().shouldAnnounceChat())
+        if (((CraftAdvancement) event.getAdvancement()).getHandle().value().display().isEmpty() || !((CraftAdvancement) event.getAdvancement()).getHandle().value().display().get().announceToChat())
             return;
 
         CraterEventBus.INSTANCE.postEvent(

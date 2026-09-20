@@ -25,7 +25,7 @@ public class PlayerAdvancementsMixin {
         try {
             Advancement advancement = advancementHolder.value();
 
-            if (advancement.display().isPresent() && advancement.display().get().shouldAnnounceChat()) {
+            if (advancement.display().isPresent() && advancement.display().get().announceToChat()) {
                 CraterEventBus.INSTANCE.postEvent(new CraterAdvancementEvent(BridgedPlayer.wrap(this.player), BridgedAdvancement.wrap(advancementHolder.value())));
             }
         } catch (Exception ignored) {}

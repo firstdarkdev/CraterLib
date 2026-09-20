@@ -42,7 +42,7 @@ public final class BridgedFakePlayer implements CraterFakePlayer {
         private final CraterFakePlayer delegate;
 
         MojangBridge(MinecraftServer server, int perm, String name, CraterFakePlayer delegate) {
-            super(CommandSource.NULL, Vec3.ZERO, Vec2.ZERO, server.overworld(), forLevel(perm), name, Component.literal(name), server, null);
+            super(CommandSource.NULL, Vec3.ZERO, Vec2.ZERO, server.overworld(), forLevel(perm), Component.literal(name), server);
             this.delegate = delegate;
         }
 

@@ -12,22 +12,22 @@ public class BridgedDisplayInfo implements CraterDisplayInfo {
 
     @Override
     public boolean shouldDisplay() {
-        return internal.shouldAnnounceChat();
+        return internal.announceToChat();
     }
 
     @Override
     public boolean isHidden() {
-        return internal.isHidden();
+        return internal.hidden();
     }
 
     @Override
     public Text displayName() {
-        return Text.fromGame(internal.getTitle());
+        return Text.fromGame(internal.title());
     }
 
     @Override
     public Text description() {
-        return Text.fromGame(internal.getDescription());
+        return Text.fromGame(internal.description());
     }
 
     @Override
