@@ -1,0 +1,12 @@
+{
+  "t.clc.opensubconfig": "Change Course",
+  "t.clc.save": "Plot Map",
+  "t.clc.cancel_discard": "Return to yer barnacle-covered map",
+  "t.clc.quit_config": "New course not given t' yer cap'n",
+  "t.clc.quit_config_sure": "Ye haven't given yer new course t' yer cap'n yet. Do ye want t' go back t' yer barnacle-covered map?",
+  "t.clc.quit_discard": "Aye, return t' barnacle-covered map",
+
+  "cl.buttons.edit": "Mark Path",
+  "cl.buttons.add_entry": "+ Add Belay",
+  "cl.buttons.entry": "Belay %s"
+}
