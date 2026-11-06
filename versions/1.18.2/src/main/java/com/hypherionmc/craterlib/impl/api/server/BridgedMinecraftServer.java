@@ -70,6 +70,11 @@ public class BridgedMinecraftServer implements CraterGameServer {
     }
 
     @Override
+    public void broadcastPrivateMessage(Text text, boolean bl) {
+        internal.getPlayerList().getPlayers().forEach(player -> player.sendMessage(text.toGame(), ChatType.SYSTEM, Util.NIL_UUID));
+    }
+
+    @Override
     public boolean isPlayerBanned(CraterGameProfile profile) {
         return internal.getPlayerList().getBans().isBanned(profile.unwrap());
     }

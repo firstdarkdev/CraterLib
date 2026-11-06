@@ -22,6 +22,7 @@ public interface CraterGameServer extends CraterWrappedAPI {
     String getName();
     boolean usesAuthentication();
     void broadcastSystemMessage(Text text, boolean bl);
+    void broadcastPrivateMessage(Text text, boolean bl);
     boolean isPlayerBanned(CraterGameProfile profile);
     void whitelistPlayer(CraterGameProfile profile);
     void unWhitelistPlayer(CraterGameProfile profile);
